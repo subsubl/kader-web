@@ -8,35 +8,39 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
         <div>
-          <h2 class="text-3xl font-bold mb-6">Klipsch La Scala Sound System</h2>
-          <p class="text-lg mb-6">Our state-of-the-art audio system delivers crystal-clear sound throughout the castle grounds. The Klipsch La Scala speakers provide an immersive sonic experience that perfectly complements the historic setting.</p>
+          <h2 class="text-3xl font-bold mb-6">Klipsch La Scala AL6 Sound System</h2>
+          <p class="text-lg mb-6">Our state-of-the-art audio system delivers crystal-clear sound throughout the castle grounds. The Klipsch La Scala AL6 — a premium, fully horn-loaded, three-way loudspeaker — provides an immersive sonic experience that perfectly complements the historic stone-vaulted setting.</p>
           
           <div class="bg-gray-800 rounded-xl p-6 mb-6">
             <h3 class="text-xl font-bold mb-4">Technical Specifications</h3>
             <ul class="space-y-2">
               <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Speaker Type:</span>
-                <span>La Scala Series</span>
+                <span>Product:</span>
+                <span>Klipsch La Scala AL6</span>
               </li>
               <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Power Output:</span>
-                <span>200W RMS</span>
+                <span>Type:</span>
+                <span>Three-way, fully horn-loaded floorstanding loudspeaker</span>
               </li>
               <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Frequency Response:</span>
-                <span>45Hz - 20kHz</span>
+                <span>Mid-Range Horn:</span>
+                <span>K-406M patented Tractrix® horn (2" throat)</span>
               </li>
               <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Sensitivity:</span>
-                <span>92dB SPL</span>
+                <span>Coverage Tech:</span>
+                <span>Mumps™ for flat response to the horn edge</span>
               </li>
               <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Impedance:</span>
-                <span>8 ohms</span>
+                <span>Bass:</span>
+                <span>Horn-loaded, vented cabinet</span>
+              </li>
+              <li class="flex justify-between border-b border-gray-700 pb-2">
+                <span>Optional DSP:</span>
+                <span>Heritage Active Crossover (time/phase aligned, EQ)</span>
               </li>
               <li class="flex justify-between">
                 <span>System Coverage:</span>
-                <span>150m²</span>
+                <span>Full dance-floor dispersion, 150m² club vault</span>
               </li>
             </ul>
           </div>
@@ -46,7 +50,11 @@
             <ul class="space-y-2">
               <li class="flex items-start">
                 <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Crystal clear highs with precise detail reproduction</span>
+                <span>Horn-loaded efficiency: more acoustic power per watt, minimal distortion</span>
+              </li>
+              <li class="flex items-start">
+                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+                <span>Crystal-clear highs with precise, present mid-range detail</span>
               </li>
               <li class="flex items-start">
                 <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
@@ -54,18 +62,14 @@
               </li>
               <li class="flex items-start">
                 <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Wide stereo imaging for immersive spatial experience</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Dynamic range suitable for both intimate acoustic sets and high-energy dance tracks</span>
+                <span>Dynamic range suited to both intimate acoustic sets and high-energy dance tracks</span>
               </li>
             </ul>
           </div>
         </div>
         
         <div>
-          <img src="/images/club-setup.jpg" alt="Club Setup" class="rounded-xl shadow-2xl w-full h-96 object-cover">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" alt="Club Setup" class="rounded-xl shadow-2xl w-full h-96 object-cover">
           <div class="mt-6 bg-gray-800 rounded-xl p-6">
             <h3 class="text-xl font-bold mb-4">Why Our Sound System?</h3>
             <p class="mb-4">The Klipsch La Scala system was specifically chosen to complement the acoustics of our historic castle. Its design ensures that every corner of the venue receives balanced sound without any dead zones, making it ideal for both intimate performances and large-scale events.</p>

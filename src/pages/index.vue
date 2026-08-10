@@ -1,9 +1,42 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+    <!-- JSON-LD Structured Data (SEO) -->
+    <Head>
+      <Title>Kader Grad Kodeljevo — Neapolitan Pizza & Underground Club, Ljubljana</Title>
+      <Meta name="description" content="Hybrid daytime pizzeria and nighttime underground club in the historic Grad Kodeljevo castle, Ljubljana." />
+      <Meta property="og:title" content="Kader Grad Kodeljevo" />
+      <Meta property="og:type" content="restaurant" />
+      <Meta property="og:url" content="https://www.kader.si/" />
+      <Meta property="og:image" content="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80" />
+      <Script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": ["Restaurant", "NightClub", "LocalBusiness"],
+          "name": "Kader Grad Kodeljevo",
+          "description": "Hybrid daytime Neapolitan pizzeria and nighttime underground club in the historic Grad Kodeljevo castle.",
+          "servesCuisine": "Neapolitan Pizza",
+          "url": "https://www.kader.si/",
+          "telephone": "+386 40 000 000",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Ulica Carla Benza 20",
+            "addressLocality": "Ljubljana",
+            "postalCode": "1000",
+            "addressCountry": "SI"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "46.05000",
+            "longitude": "14.53111"
+          },
+          "sameAs": ["https://www.facebook.com/kader.si", "https://www.instagram.com/kader.si", "https://soundcloud.com/kader"]
+        }
+      </Script>
+    </Head>
     <!-- Hero Section -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-black/70 z-10"></div>
-      <img src="/images/castle-hero.jpg" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0">
       
       <div class="relative z-20 text-center px-4 max-w-4xl">
         <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-down">KADER GRAD KODELJEVO</h1>
@@ -82,7 +115,7 @@ const featuredEvents = [
     time: '9:00 PM',
     description: 'Enjoy live jazz performances by local musicians in our historic castle.',
     slug: 'live-jazz-night',
-    image: '/images/jazz-event.jpg'
+    image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '2',
@@ -91,7 +124,7 @@ const featuredEvents = [
     time: '7:00 PM',
     description: 'Discover the finest Italian wines paired with our signature pizzas.',
     slug: 'italian-wine-tasting',
-    image: '/images/wine-event.jpg'
+    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '3',
@@ -100,7 +133,7 @@ const featuredEvents = [
     time: '10:00 PM',
     description: 'Our monthly dance party featuring top DJs from Slovenia and beyond.',
     slug: 'underground-dance-party',
-    image: '/images/dance-event.jpg'
+    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'
   }
 ]
 </script>

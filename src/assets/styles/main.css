@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html.dark { background-color: #0D0F12; }
+body { @apply antialiased; }

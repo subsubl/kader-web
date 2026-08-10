@@ -1,0 +1,28 @@
+{
+  "name": "kader-grad-kodeljevo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@nuxtjs/supabase": "^0.3.6",
+    "@vueuse/nuxt": "^11.3.0",
+    "dayjs": "^1.11.13",
+    "nuxt": "^3.15.4",
+    "pinia": "^2.3.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "nuxt-icon": "^0.6.10",
+    "typescript": "^5.7.3"
+  }
+}

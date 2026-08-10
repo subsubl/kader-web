@@ -116,7 +116,7 @@ const events: Event[] = [
     date: 'June 15, 2023',
     time: '9:00 PM',
     price: 15,
-    image: '/images/jazz-event.jpg',
+    image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=800&q=80',
     type: 'pizzeria',
     slug: 'live-jazz-night',
     tags: ['Music', 'Evening']
@@ -128,7 +128,7 @@ const events: Event[] = [
     date: 'June 22, 2023',
     time: '7:00 PM',
     price: 25,
-    image: '/images/wine-event.jpg',
+    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80',
     type: 'pizzeria',
     slug: 'italian-wine-tasting',
     tags: ['Food', 'Wine']
@@ -140,7 +140,7 @@ const events: Event[] = [
     date: 'June 29, 2023',
     time: '10:00 PM',
     price: 20,
-    image: '/images/dance-event.jpg',
+    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80',
     type: 'club',
     slug: 'underground-dance-party',
     tags: ['Dance', 'Nightlife']
@@ -152,7 +152,7 @@ const events: Event[] = [
     date: 'July 6, 2023',
     time: '8:00 PM',
     price: 10,
-    image: '/images/cultural-event.jpg',
+    image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80',
     type: 'pizzeria',
     slug: 'cultural-evening',
     tags: ['Culture', 'Art']

@@ -82,7 +82,7 @@ const menuItems: MenuItem[] = [
     name: 'Margherita',
     description: 'Classic tomato sauce, fresh mozzarella, basil',
     price: 12.5,
-    image: '/images/margherita.jpg',
+    image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80',
     dietaryTags: ['Vegetarian', 'Gluten-Free Option'],
     popular: true,
     soldOut: false
@@ -92,7 +92,7 @@ const menuItems: MenuItem[] = [
     name: 'Pepperoni',
     description: 'Tomato sauce, mozzarella, spicy pepperoni',
     price: 14.5,
-    image: '/images/pepperoni.jpg',
+    image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=800&q=80',
     dietaryTags: ['Vegetarian'],
     popular: true,
     soldOut: false
@@ -102,7 +102,7 @@ const menuItems: MenuItem[] = [
     name: 'Quattro Stagioni',
     description: 'Four seasonal toppings: mushrooms, artichokes, olives, ham',
     price: 16.5,
-    image: '/images/quattro-stagioni.jpg',
+    image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80',
     dietaryTags: ['Vegetarian'],
     popular: false,
     soldOut: false
@@ -112,7 +112,7 @@ const menuItems: MenuItem[] = [
     name: 'Diavola',
     description: 'Spicy salami, hot peppers, mozzarella',
     price: 15.5,
-    image: '/images/diavola.jpg',
+    image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80',
     dietaryTags: ['Vegetarian'],
     popular: true,
     soldOut: true
@@ -122,7 +122,7 @@ const menuItems: MenuItem[] = [
     name: 'Caprese',
     description: 'Fresh mozzarella, tomatoes, basil, balsamic glaze',
     price: 13.5,
-    image: '/images/caprese.jpg',
+    image: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?auto=format&fit=crop&w=800&q=80',
     dietaryTags: ['Vegetarian', 'Vegan Option'],
     popular: false,
     soldOut: false
@@ -132,7 +132,7 @@ const menuItems: MenuItem[] = [
     name: 'Seafood Special',
     description: 'Clams, mussels, shrimp, white wine sauce',
     price: 18.5,
-    image: '/images/seafood-special.jpg',
+    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80',
     dietaryTags: [],
     popular: true,
     soldOut: false

@@ -61,7 +61,7 @@
         </div>
         
         <div>
-          <img src="/images/buyout-venue.jpg" alt="Buyout Venue" class="rounded-xl shadow-2xl w-full h-96 object-cover">
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80" alt="Buyout Venue" class="rounded-xl shadow-2xl w-full h-96 object-cover">
           <div class="mt-6 bg-gray-800 rounded-xl p-6">
             <h3 class="text-xl font-bold mb-4">Booking Process</h3>
             <ol class="space-y-3">

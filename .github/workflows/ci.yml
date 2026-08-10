@@ -50,13 +50,6 @@ jobs:
           NUXT_SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           NUXT_PRETIX_WEBHOOK_SECRET: ${{ secrets.PRETIX_WEBHOOK_SECRET }}
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: kader-build-${{ matrix.node }}
-          path: .output
-          if-no-files-found: error
-
   supabase-schema:
     name: Validate Supabase migrations
     runs-on: ubuntu-latest

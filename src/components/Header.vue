@@ -48,9 +48,10 @@
 
 <script setup lang="ts">
 import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/vue/24/outline'
+import { useDark } from '@vueuse/core'
 
 const mobileMenuOpen = ref(false)
-const darkMode = useDarkMode()
+const darkMode = useDark()
 
 function toggleDarkMode() {
   darkMode.value = !darkMode.value

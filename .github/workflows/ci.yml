@@ -1,0 +1,93 @@
+# Kader — CI: typecheck, build, and validate the Supabase schema on every PR/push.
+# Best practices applied (researched via agent-reach):
+#  - Least-privilege GITHUB_TOKEN (contents: read).
+#  - concurrency group cancels superseded runs to save runner minutes.
+#  - Dependency caching via actions/setup-node.
+#  - Supabase CLI (supabase/setup-cli) validates migrations against a real local Postgres.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck-and-build:
+    name: Typecheck & Build (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
+        env:
+          NUXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321  # placeholder; overridden at deploy
+          NUXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          NUXT_SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          NUXT_PRETIX_WEBHOOK_SECRET: ${{ secrets.PRETIX_WEBHOOK_SECRET }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kader-build-${{ matrix.node }}
+          path: .output
+          if-no-files-found: error
+
+  supabase-schema:
+    name: Validate Supabase migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v3
+        with:
+          version: latest
+
+      - name: Start local Postgres & apply migrations
+        run: supabase db start
+
+      - name: Reset database (apply all migrations from scratch)
+        run: supabase db reset --db-url postgresql://postgres:postgres@localhost:54322/postgres
+
+      - name: Stop local stack
+        run: supabase stop
+
+  lint-pr-title:
+    name: Validate PR title
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      PR_TITLE: ${{ github.event.pull_request.title }}
+    steps:
+      - name: Check PR title format
+        run: |
+          if ! [[ "$PR_TITLE" =~ ^(feat|fix|chore|docs|refactor|ci|test|build)\s*[:：].+ ]]; then
+            echo "::error::PR title must match 'type: description' (e.g. 'feat: add door dashboard'). Got: $PR_TITLE"
+            exit 1
+          fi
+        shell: bash

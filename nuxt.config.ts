@@ -1,10 +1,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   ssr: true,
+  srcDir: 'src',
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/supabase',
     '@vueuse/nuxt',
     'nuxt-icon'
   ],
@@ -19,10 +19,10 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'sl', class: 'dark' }
     }
   },
-  supabase: { redirect: false },
   css: ['~/assets/styles/main.css'],
   runtimeConfig: {
     pretixWebhookSecret: process.env.NUXT_PRETIX_WEBHOOK_SECRET || '',
+    supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY || '',
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || '',
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || ''

@@ -36,7 +36,7 @@
           <h3 class="text-lg font-bold mb-4">Contact Info</h3>
           <ul class="space-y-2 text-gray-400">
             <li class="flex items-start">
-              <LocationMarkerIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
+              <MapPinIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
               <span>Grad Kodeljevo Castle, Ljubljana, Slovenia</span>
             </li>
             <li class="flex items-center">
@@ -44,7 +44,7 @@
               <span>+386 1 234 5678</span>
             </li>
             <li class="flex items-center">
-              <MailIcon class="w-5 h-5 mr-2 flex-shrink-0" />
+              <EnvelopeIcon class="w-5 h-5 mr-2 flex-shrink-0" />
               <span>info@kadergradkodeljevo.si</span>
             </li>
           </ul>
@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { LocationMarkerIcon, PhoneIcon, MailIcon } from '@heroicons/vue/24/outline'
+import { MapPinIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/vue/24/outline'
 
 // Social media icons would be imported here
 // For this example, we'll use placeholder icons

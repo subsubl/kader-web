@@ -1,3 +1,6 @@
+-- Kader init schema (moved into a Supabase migration so CI can validate it against real Postgres)
+create extension if not exists pgcrypto;
+
 -- Kader Grad Kodeljevo - Supabase Schema (paste into Supabase SQL Editor)
 create table if not exists events (
   id uuid primary key default gen_random_uuid(),

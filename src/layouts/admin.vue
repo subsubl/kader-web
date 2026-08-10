@@ -18,7 +18,7 @@
             <span>Events</span>
           </NuxtLink>
           <NuxtLink to="/admin/menu" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
-            <MenuIcon class="w-5 h-5" />
+            <Bars3Icon class="w-5 h-5" />
             <span>Menu</span>
           </NuxtLink>
           <NuxtLink to="/admin/crm" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
@@ -55,5 +55,5 @@
 </template>
 
 <script setup lang="ts">
-import { HomeIcon, CalendarIcon, MenuIcon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, CalendarIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
 </script>

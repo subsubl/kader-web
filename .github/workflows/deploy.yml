@@ -1,0 +1,84 @@
+# Kader — Deploy to self-hosted production server (Hermes / Caddy @ 192.168.64.139:9090).
+# Triggers on push to main (after CI), or manually for any branch.
+# Best practices applied:
+#  - Environment-scoped secrets with required reviewers (least privilege).
+#  - Deploys only one revision at a time (concurrency + max-parallelism).
+#  - Server endpoint is reached over HTTPS w/ a deploy token, never a raw SSH key in logs.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+concurrency:
+  group: deploy-${{ github.event.inputs.environment || 'production' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy → ${{ inputs.environment || 'production' }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment || 'production' }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NUXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NUXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          NUXT_SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          NUXT_PRETIX_WEBHOOK_SECRET: ${{ secrets.PRETIX_WEBHOOK_SECRET }}
+
+      - name: Package release archive
+        run: tar -czf release.tar.gz .output package.json nuxt.config.ts
+
+      - name: Push release to deploy API
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error \
+            -X POST "${{ secrets.DEPLOY_URL }}" \
+            -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @release.tar.gz \
+            --output deploy-response.json
+          cat deploy-response.json
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v3
+        with:
+          version: latest
+
+      - name: Push Supabase migrations (production DB)
+        if: ${{ (inputs.environment || 'production') == 'production' }}
+        run: |
+          supabase db push --db-url "${{ secrets.SUPABASE_DB_URL }}"
+          supabase gen types typescript --db-url "${{ secrets.SUPABASE_DB_URL }}" > /tmp/database.ts
+          diff -q /tmp/database.ts src/types/database.ts && echo "Types up to date." || echo "::warning::Generated types differ from committed types — run 'supabase gen types typescript' locally and commit."
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}

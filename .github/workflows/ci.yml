@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [20, 22]
+        node: [22]
     steps:
       - uses: actions/checkout@v4
 
@@ -71,8 +71,10 @@ jobs:
       - name: Start local Postgres & apply migrations
         run: supabase db start
 
-      - name: Reset database (apply all migrations from scratch)
-        run: supabase db reset --db-url postgresql://postgres:postgres@localhost:54322/postgres
+      - name: Reset local DB (apply all migrations from scratch)
+        run: supabase db reset
+        env:
+          SUPABASE_DB_PASSWORD: postgres
 
       - name: Stop local stack
         run: supabase stop

@@ -56,4 +56,6 @@
 
 <script setup lang="ts">
 import { HomeIcon, CalendarIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+
+definePageMeta({ middleware: 'admin' })
 </script>

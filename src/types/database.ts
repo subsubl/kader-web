@@ -13,24 +13,24 @@ export interface Database {
   public: {
     Tables: {
       events: DbTable<
-        { id: string; title: string; slug: string; date: string; description: string | null; image_url: string | null; ra_link: string | null; status: string | null },
-        { id?: string; title: string; slug: string; date: string; description?: string | null; image_url?: string | null; ra_link?: string | null; status?: string | null },
-        { title?: string; slug?: string; date?: string; description?: string | null; image_url?: string | null; ra_link?: string | null; status?: string | null }
+        { id: string; title: string; slug: string; date: string; type: string | null; description: string | null; image_url: string | null; ra_link: string | null; status: string | null; created_at: string | null; updated_at: string | null },
+        { id?: string; title: string; slug: string; date: string; type?: string | null; description?: string | null; image_url?: string | null; ra_link?: string | null; status?: string | null; created_at?: string | null; updated_at?: string | null },
+        { title?: string; slug?: string; date?: string; type?: string | null; description?: string | null; image_url?: string | null; ra_link?: string | null; status?: string | null; created_at?: string | null; updated_at?: string | null }
       >
       menu_items: DbTable<
-        { id: string; category: string; name: string; description: string | null; price: number; is_available: boolean | null },
-        { id?: string; category: string; name: string; description?: string | null; price: number; is_available?: boolean | null },
-        { category?: string; name?: string; description?: string | null; price?: number; is_available?: boolean | null }
+        { id: string; category: string; name: string; description: string | null; price: number; is_available: boolean | null; created_at: string | null },
+        { id?: string; category: string; name: string; description?: string | null; price: number; is_available?: boolean | null; created_at?: string | null },
+        { category?: string; name?: string; description?: string | null; price?: number; is_available?: boolean | null; created_at?: string | null }
       >
       guestlists: DbTable<
-        { id: string; event_id: string | null; guest_name: string; category: string | null; status: string | null; promoter_id: string | null },
-        { id?: string; event_id?: string | null; guest_name: string; category?: string | null; status?: string | null; promoter_id?: string | null },
-        { event_id?: string | null; guest_name?: string; category?: string | null; status?: string | null; promoter_id?: string | null }
+        { id: string; event_id: string | null; guest_name: string; category: string | null; status: string | null; promoter_id: string | null; created_at: string | null },
+        { id?: string; event_id?: string | null; guest_name: string; category?: string | null; status?: string | null; promoter_id?: string | null; created_at?: string | null },
+        { event_id?: string | null; guest_name?: string; category?: string | null; status?: string | null; promoter_id?: string | null; created_at?: string | null }
       >
       inquiries: DbTable<
-        { id: string; name: string; email: string; type: string | null; party_size: number | null; date: string | null; status: string | null; notes: string | null },
-        { id?: string; name: string; email: string; type?: string | null; party_size?: number | null; date?: string | null; status?: string | null; notes?: string | null },
-        { name?: string; email?: string; type?: string | null; party_size?: number | null; date?: string | null; status?: string | null; notes?: string | null }
+        { id: string; name: string; email: string; type: string | null; party_size: number | null; date: string | null; status: string | null; notes: string | null; created_at: string | null },
+        { id?: string; name: string; email: string; type?: string | null; party_size?: number | null; date?: string | null; status?: string | null; notes?: string | null; created_at?: string | null },
+        { name?: string; email?: string; type?: string | null; party_size?: number | null; date?: string | null; status?: string | null; notes?: string | null; created_at?: string | null }
       >
       pretix_orders: DbTable<
         { id: string; event_id: string | null; order_code: string; status: string | null; email: string | null; items: Json | null; total: number | null; paid_at: string | null; raw_payload: Json | null; created_at: string | null; updated_at: string | null },
@@ -46,6 +46,11 @@ export interface Database {
         { id: string; event_id: string | null; note_text: string | null; author_id: string | null; created_at: string | null },
         { id?: string; event_id?: string | null; note_text?: string | null; author_id?: string | null; created_at?: string | null },
         { event_id?: string | null; note_text?: string | null; author_id?: string | null; created_at?: string | null }
+      >
+      users_roles: DbTable<
+        { id: string; user_id: string; role: string },
+        { id?: string; user_id: string; role: string },
+        { role?: string }
       >
     }
     Views: Record<string, never>

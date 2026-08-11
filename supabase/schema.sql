@@ -4,10 +4,13 @@ create table if not exists events (
   title text not null,
   slug text unique not null,
   date timestamptz not null,
+  type text default 'club',
   description text,
   image_url text,
   ra_link text,
-  status text default 'published'
+  status text default 'published',
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
 
 create table if not exists menu_items (
@@ -16,7 +19,8 @@ create table if not exists menu_items (
   name text not null,
   description text,
   price numeric not null,
-  is_available boolean default true
+  is_available boolean default true,
+  created_at timestamptz default now()
 );
 
 create table if not exists guestlists (
@@ -25,7 +29,8 @@ create table if not exists guestlists (
   guest_name text not null,
   category text default 'standard',
   status text default 'pending',
-  promoter_id uuid
+  promoter_id uuid,
+  created_at timestamptz default now()
 );
 
 create table if not exists inquiries (
@@ -36,7 +41,8 @@ create table if not exists inquiries (
   party_size int,
   date timestamptz,
   status text default 'new',
-  notes text
+  notes text,
+  created_at timestamptz default now()
 );
 
 -- Pretix-synced orders (written only via service-role webhook)

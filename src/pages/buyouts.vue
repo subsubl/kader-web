@@ -146,24 +146,39 @@
       <div class="bg-gray-800 rounded-xl p-8">
         <h2 class="text-3xl font-bold mb-6 text-center">Request a Quote</h2>
         <div class="max-w-2xl mx-auto">
-          <form @submit.prevent="submitInquiry" class="space-y-6">
+          <div v-if="submitState === 'success'" class="bg-green-900/40 border border-green-700 text-green-300 rounded-lg p-6 text-center mb-6">
+            <h3 class="text-xl font-semibold mb-2">Inquiry received! 🎉</h3>
+            <p>Thank you, {{ inquiryForm.name.split(' ')[0] }}. Our team will contact you shortly to discuss your event.</p>
+            <button @click="resetForm" class="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">
+              Send another inquiry
+            </button>
+          </div>
+
+          <form v-else @submit.prevent="submitInquiry" novalidate class="space-y-6">
+            <div v-if="submitState === 'error'" class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-sm">
+              {{ submitError }}
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="name" class="block mb-2 font-medium">Full Name</label>
-                <input type="text" id="name" v-model="inquiryForm.name" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                <label for="name" class="block mb-2 font-medium">Full Name <span class="text-red-500">*</span></label>
+                <input type="text" id="name" v-model="inquiryForm.name" :class="inputClass('name')" placeholder="Janez Novak">
+                <p v-if="fieldErrors.name" class="mt-1 text-sm text-red-400">{{ fieldErrors.name }}</p>
               </div>
               <div>
-                <label for="email" class="block mb-2 font-medium">Email Address</label>
-                <input type="email" id="email" v-model="inquiryForm.email" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                <label for="email" class="block mb-2 font-medium">Email Address <span class="text-red-500">*</span></label>
+                <input type="email" id="email" v-model="inquiryForm.email" :class="inputClass('email')" placeholder="janez@example.com">
+                <p v-if="fieldErrors.email" class="mt-1 text-sm text-red-400">{{ fieldErrors.email }}</p>
               </div>
             </div>
             <div>
-              <label for="phone" class="block mb-2 font-medium">Phone Number</label>
-              <input type="tel" id="phone" v-model="inquiryForm.phone" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+              <label for="phone" class="block mb-2 font-medium">Phone Number <span class="text-red-500">*</span></label>
+              <input type="tel" id="phone" v-model="inquiryForm.phone" :class="inputClass('phone')" placeholder="+386 40 123 456">
+              <p v-if="fieldErrors.phone" class="mt-1 text-sm text-red-400">{{ fieldErrors.phone }}</p>
             </div>
             <div>
-              <label for="event-type" class="block mb-2 font-medium">Event Type</label>
-              <select id="event-type" v-model="inquiryForm.eventType" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+              <label for="event-type" class="block mb-2 font-medium">Event Type <span class="text-red-500">*</span></label>
+              <select id="event-type" v-model="inquiryForm.eventType" :class="inputClass('eventType')">
                 <option value="">Select event type</option>
                 <option value="wedding">Wedding</option>
                 <option value="corporate">Corporate Event</option>
@@ -171,21 +186,24 @@
                 <option value="cultural">Cultural Event</option>
                 <option value="other">Other</option>
               </select>
+              <p v-if="fieldErrors.eventType" class="mt-1 text-sm text-red-400">{{ fieldErrors.eventType }}</p>
             </div>
             <div>
-              <label for="guests" class="block mb-2 font-medium">Expected Number of Guests</label>
-              <input type="number" id="guests" v-model.number="inquiryForm.guests" min="1" max="500" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+              <label for="guests" class="block mb-2 font-medium">Expected Number of Guests <span class="text-red-500">*</span></label>
+              <input type="number" id="guests" v-model.number="inquiryForm.guests" min="1" max="500" :class="inputClass('guests')">
+              <p v-if="fieldErrors.guests" class="mt-1 text-sm text-red-400">{{ fieldErrors.guests }}</p>
             </div>
             <div>
-              <label for="date" class="block mb-2 font-medium">Preferred Date</label>
-              <input type="date" id="date" v-model="inquiryForm.date" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+              <label for="date" class="block mb-2 font-medium">Preferred Date <span class="text-red-500">*</span></label>
+              <input type="date" id="date" v-model="inquiryForm.date" :min="todayString" :class="inputClass('date')">
+              <p v-if="fieldErrors.date" class="mt-1 text-sm text-red-400">{{ fieldErrors.date }}</p>
             </div>
             <div>
               <label for="message" class="block mb-2 font-medium">Additional Information</label>
               <textarea id="message" v-model="inquiryForm.message" rows="4" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"></textarea>
             </div>
-            <button type="submit" class="w-full py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300">
-              Submit Inquiry
+            <button type="submit" :disabled="submitting" class="w-full py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:cursor-not-allowed rounded-lg font-semibold transition-colors duration-300">
+              {{ submitting ? 'Sending...' : 'Submit Inquiry' }}
             </button>
           </form>
         </div>
@@ -195,6 +213,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 
 const inquiryForm = reactive({
@@ -207,9 +226,78 @@ const inquiryForm = reactive({
   message: ''
 })
 
-const submitInquiry = () => {
-  console.log('Inquiry submitted:', inquiryForm)
-  alert('Inquiry submitted successfully! We will contact you shortly.')
+const fieldErrors = reactive<Record<string, string>>({})
+const submitState = ref<'idle' | 'success' | 'error'>('idle')
+const submitError = ref('')
+const submitting = ref(false)
+
+const todayString = new Date().toISOString().slice(0, 10)
+
+// Per-field client validation (mirrors the server route)
+const validate = () => {
+  const errors: Record<string, string> = {}
+
+  if (inquiryForm.name.trim().length < 2) errors.name = 'Please enter your full name.'
+  if (!inquiryForm.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiryForm.email.trim())) {
+    errors.email = 'Please enter a valid email address.'
+  }
+  if (!inquiryForm.phone.trim() || inquiryForm.phone.replace(/\D/g, '').length < 6) {
+    errors.phone = 'Please enter a valid phone number.'
+  }
+  if (!inquiryForm.eventType) errors.eventType = 'Please select an event type.'
+  if (!Number.isFinite(inquiryForm.guests) || inquiryForm.guests < 1 || inquiryForm.guests > 500) {
+    errors.guests = 'Please enter a guest count between 1 and 500.'
+  }
+  if (!inquiryForm.date) {
+    errors.date = 'Please choose a preferred date.'
+  } else if (new Date(inquiryForm.date).setHours(0,0,0,0) < new Date().setHours(0,0,0,0)) {
+    errors.date = 'The preferred date must be in the future.'
+  }
+
+  Object.keys(fieldErrors).forEach(k => delete fieldErrors[k])
+  Object.assign(fieldErrors, errors)
+  return Object.keys(errors).length === 0
+}
+
+const inputClass = (field: string) => {
+  const base = 'w-full px-4 py-2 bg-gray-700 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent'
+  return fieldErrors[field]
+    ? `${base} border-red-500`
+    : `${base} border-gray-600`
+}
+
+const submitInquiry = async () => {
+  submitState.value = 'idle'
+  if (!validate()) return
+
+  submitting.value = true
+  try {
+    const res = await $fetch<{ ok: boolean; id: string }>('/api/inquiries', {
+      method: 'POST',
+      body: { ...inquiryForm }
+    })
+    if (res?.ok) {
+      submitState.value = 'success'
+    } else {
+      submitError.value = 'Something went wrong. Please try again.'
+      submitState.value = 'error'
+    }
+  } catch (err: any) {
+    if (err?.statusCode === 422 && err?.data?.errors) {
+      Object.keys(fieldErrors).forEach(k => delete fieldErrors[k])
+      Object.assign(fieldErrors, err.data.errors)
+      submitError.value = 'Please fix the highlighted fields.'
+      submitState.value = 'error'
+    } else {
+      submitError.value = err?.data?.statusMessage || err?.statusMessage || 'Network error. Please try again.'
+      submitState.value = 'error'
+    }
+  } finally {
+    submitting.value = false
+  }
+}
+
+const resetForm = () => {
   inquiryForm.name = ''
   inquiryForm.email = ''
   inquiryForm.phone = ''
@@ -217,5 +305,8 @@ const submitInquiry = () => {
   inquiryForm.guests = 100
   inquiryForm.date = ''
   inquiryForm.message = ''
+  Object.keys(fieldErrors).forEach(k => delete fieldErrors[k])
+  submitError.value = ''
+  submitState.value = 'idle'
 }
 </script>

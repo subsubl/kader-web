@@ -1,172 +1,250 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white py-12">
-    <div class="max-w-6xl mx-auto px-4">
-      <header class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Underground Club Experience</h1>
-        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Immerse yourself in the sounds of modern music within the historic walls of Grad Kodeljevo castle.</p>
-      </header>
+  <div class="min-h-screen bg-kader-black text-kader-cream">
+    <!-- ===== Immersive Hero (distinct from rest of site) ===== -->
+    <section class="relative h-[88vh] min-h-[560px] flex items-end overflow-hidden">
+      <img
+        :src="'https://images.unsplash.com/photo-1571333250630-f0230c320b6d?auto=format&fit=crop&w=1600&q=80'"
+        alt="Kader club"
+        class="absolute inset-0 w-full h-full object-cover opacity-40"
+      >
+      <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-        <div>
-          <h2 class="text-3xl font-bold mb-6">Klipsch La Scala AL6 Sound System</h2>
-          <p class="text-lg mb-6">Our state-of-the-art audio system delivers crystal-clear sound throughout the castle grounds. The Klipsch La Scala AL6 — a premium, fully horn-loaded, three-way loudspeaker — provides an immersive sonic experience that perfectly complements the historic stone-vaulted setting.</p>
-          
-          <div class="bg-gray-800 rounded-xl p-6 mb-6">
-            <h3 class="text-xl font-bold mb-4">Technical Specifications</h3>
-            <ul class="space-y-2">
-              <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Product:</span>
-                <span>Klipsch La Scala AL6</span>
-              </li>
-              <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Type:</span>
-                <span>Three-way, fully horn-loaded floorstanding loudspeaker</span>
-              </li>
-              <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Mid-Range Horn:</span>
-                <span>K-406M patented Tractrix® horn (2" throat)</span>
-              </li>
-              <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Coverage Tech:</span>
-                <span>Mumps™ for flat response to the horn edge</span>
-              </li>
-              <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Bass:</span>
-                <span>Horn-loaded, vented cabinet</span>
-              </li>
-              <li class="flex justify-between border-b border-gray-700 pb-2">
-                <span>Optional DSP:</span>
-                <span>Heritage Active Crossover (time/phase aligned, EQ)</span>
-              </li>
-              <li class="flex justify-between">
-                <span>System Coverage:</span>
-                <span>Full dance-floor dispersion, 150m² club vault</span>
-              </li>
-            </ul>
+      <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 md:pb-20 w-full">
+        <p class="text-xs md:text-sm uppercase tracking-[0.35em] mb-4 text-kader-red font-semibold">
+          Grad Kodeljevo · Ljubljana
+        </p>
+        <h1 class="text-5xl md:text-8xl font-black leading-[0.92] mb-6 uppercase">
+          Club<br>Kader
+        </h1>
+        <p class="text-lg md:text-2xl max-w-2xl text-kader-cream/80">
+          Electronic music. Live acts.<br>Everyone's welcome.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Venue statement (editorial) ===== -->
+    <section class="py-20 md:py-28 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">The Venue</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight">A castle, minutes from Ljubljana's centre</h2>
           </div>
-          
-          <div class="bg-gray-800 rounded-xl p-6">
-            <h3 class="text-xl font-bold mb-4">Sound Quality Features</h3>
-            <ul class="space-y-2">
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Horn-loaded efficiency: more acoustic power per watt, minimal distortion</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Crystal-clear highs with precise, present mid-range detail</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Deep, punchy bass response perfect for club beats</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>Dynamic range suited to both intimate acoustic sets and high-energy dance tracks</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div>
-          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80" alt="Club Setup" class="rounded-xl shadow-2xl w-full h-96 object-cover">
-          <div class="mt-6 bg-gray-800 rounded-xl p-6">
-            <h3 class="text-xl font-bold mb-4">Why Our Sound System?</h3>
-            <p class="mb-4">The Klipsch La Scala system was specifically chosen to complement the acoustics of our historic castle. Its design ensures that every corner of the venue receives balanced sound without any dead zones, making it ideal for both intimate performances and large-scale events.</p>
-            <p>Our sound engineers work closely with artists to optimize the acoustic environment, ensuring that each performance delivers maximum impact while preserving the historical integrity of the space.</p>
+          <div class="lg:col-span-8">
+            <p class="text-xl md:text-3xl leading-relaxed mb-6">
+              Kader is a club set within a historic castle. We play
+              <span class="text-kader-red font-semibold">electronic music and host live acts</span>.
+            </p>
+            <p class="text-lg md:text-xl leading-relaxed text-kader-cream/70">
+              Inclusive, LGBT-friendly, and for everyone. Come as you are; the night is open.
+            </p>
+            <div class="grid grid-cols-3 gap-6 mt-12 border-t border-kader-cream/10 pt-8">
+              <div>
+                <p class="font-mono text-3xl font-black text-kader-red">01</p>
+                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">Basement club</p>
+              </div>
+              <div>
+                <p class="font-mono text-3xl font-black text-kader-red">02</p>
+                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">Dance floor &amp; bar</p>
+              </div>
+              <div>
+                <p class="font-mono text-3xl font-black text-kader-red">03</p>
+                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">Summer garden</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="bg-gray-800 rounded-xl p-8 mb-12">
-        <h2 class="text-3xl font-bold mb-6 text-center">Upcoming Club Nights</h2>
+    <!-- ===== The Spaces ===== -->
+    <section class="py-16 md:py-24 px-4 bg-gradient-to-b from-kader-black to-[#1a0506]">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">Explore the Spaces</p>
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-14 uppercase">Four worlds in one castle</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-kader-red/20 border border-kader-red/20">
+          <div v-for="space in spaces" :key="space.title" class="bg-[#120607] p-8 md:p-12 group hover:bg-[#1a0a0b] transition-colors duration-300">
+            <p class="font-mono text-sm text-kader-red mb-4">{{ space.index }}</p>
+            <h3 class="text-2xl md:text-3xl font-bold mb-3">{{ space.title }}</h3>
+            <p class="text-kader-cream/70 leading-relaxed">{{ space.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Sound systems ===== -->
+    <section class="py-20 md:py-28 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">The Sound</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight mb-6">Custom, high-fidelity systems in both indoor rooms</h2>
+            <div class="text-kader-cream/80 text-lg space-y-4 leading-relaxed max-w-xl">
+              <p>
+                Both indoor rooms are powered by dedicated, custom-engineered audio rigs built for clarity and
+                body — engineered to fill the castle's stone vaults without a hint of distortion.
+              </p>
+              <p>
+                The centrepiece is the <strong class="text-kader-cream">Klipsch La Scala AL6</strong>: a fully
+                horn-loaded, three-way loudspeaker chosen for its efficiency and punch in this historic space.
+              </p>
+            </div>
+
+            <button
+              @click="showSpecs = !showSpecs"
+              class="mt-8 px-6 py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-lg font-semibold transition-colors duration-300"
+            >
+              {{ showSpecs ? 'Hide specs' : 'View technical specs' }}
+            </button>
+          </div>
+
+          <div class="bg-white/[0.03] border border-kader-cream/10 rounded-2xl p-8">
+            <img
+              :src="'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80'"
+              alt="Klipsch La Scala systems"
+              class="w-full h-64 object-cover rounded-xl mb-6"
+            >
+            <div v-if="showSpecs" class="space-y-3 text-sm">
+              <div v-for="spec in specs" :key="spec.label" class="flex justify-between border-b border-kader-cream/10 pb-2">
+                <span class="text-kader-cream/50">{{ spec.label }}</span>
+                <span class="text-right font-medium">{{ spec.value }}</span>
+              </div>
+            </div>
+            <p v-else class="text-kader-cream/50 text-lg italic">Tap to reveal the engineering behind the sound.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Upcoming nights (RA-synced, restyled) ===== -->
+    <section class="py-20 md:py-28 px-4 bg-[#1a0506]">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2">Lineup</p>
+            <h2 class="text-3xl md:text-5xl font-black uppercase">Upcoming Nights</h2>
+          </div>
+          <a
+            href="https://ra.co/clubs/78778"
+            target="_blank"
+            rel="noopener"
+            class="text-sm text-kader-red hover:underline"
+          >View all on Resident Advisor →</a>
+        </div>
 
         <!-- Loading -->
-        <div v-if="loading" class="flex items-center justify-center py-16 text-gray-400">
+        <div v-if="loading" class="flex items-center justify-center py-16 text-kader-cream/40">
           <svg class="animate-spin h-10 w-10" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
         </div>
 
         <!-- Error -->
-        <div v-else-if="loadError" class="bg-gray-700 rounded-lg p-10 text-center">
-          <p class="text-gray-400 mb-4">{{ loadError }}</p>
-          <button @click="loadClubEvents" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">
+        <div v-else-if="loadError" class="bg-kader-red/10 border border-kader-red/40 rounded-2xl p-10 text-center">
+          <p class="text-kader-cream/80 mb-4">{{ loadError }}</p>
+          <button @click="loadClubEvents" class="px-6 py-2 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-lg font-semibold transition-colors">
             Retry
           </button>
         </div>
 
         <!-- Empty -->
-        <div v-else-if="clubEvents.length === 0" class="bg-gray-700 rounded-lg p-10 text-center text-gray-400">
+        <div v-else-if="clubEvents.length === 0" class="bg-kader-red/10 border border-kader-red/40 rounded-2xl p-10 text-center text-kader-cream/70">
           <p class="mb-2">No club nights scheduled right now.</p>
-          <p class="text-sm">Check back soon — new lineups are coming.</p>
+          <p class="text-sm">New lineups sync here automatically.</p>
         </div>
 
-        <!-- Club events -->
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div v-for="event in clubEvents" :key="event.ra_id" class="bg-gray-900 rounded-lg overflow-hidden">
-            <div class="relative">
-              <img :src="event.flyer_url || fallbackImage" :alt="event.title" class="w-full h-40 object-cover" @error="onImageError">
-              <div class="absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">{{ event.genres[0] || 'Club' }}</div>
+        <!-- Club events (editorial list, not cards) -->
+        <div v-else class="border-t border-kader-cream/10 divide-y divide-kader-cream/10">
+          <a
+            v-for="event in clubEvents"
+            :key="event.ra_id"
+            :href="event.ra_url || 'https://ra.co/clubs/78778'"
+            target="_blank"
+            rel="noopener"
+            class="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-8 items-center py-6 md:py-8 group"
+          >
+            <span class="font-mono text-sm text-kader-red shrink-0 md:w-32">{{ listDate(event) }}</span>
+            <div class="min-w-0">
+              <h3 class="text-xl md:text-2xl font-bold group-hover:text-kader-red transition-colors">{{ event.title }}</h3>
+              <p v-if="event.artists.length" class="text-kader-cream/60 mt-1">{{ event.artists.join(', ') }}</p>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
-              <p class="text-gray-300 mb-2">{{ formatDate(event.date) }}{{ event.start_time ? ' · ' + formatTime(event.start_time) : '' }}</p>
-              <p v-if="event.artists.length" class="text-sm text-gray-400 mb-4">{{ event.artists.join(', ') }}</p>
-              <a
-                :href="event.ra_url || 'https://ra.co/clubs/78778'"
-                target="_blank"
-                rel="noopener"
-                class="block w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-center transition-colors duration-300"
-              >
-                Get Tickets
-              </a>
-            </div>
-          </div>
+            <span class="text-kader-cream/40 group-hover:text-kader-red transition-colors text-sm shrink-0 md:text-right">
+              Tickets →
+            </span>
+          </a>
         </div>
       </div>
+    </section>
 
-      <div class="text-center bg-gray-800 rounded-xl p-8">
-        <h2 class="text-3xl font-bold mb-4">Book Your Private Event</h2>
-        <p class="text-xl mb-6 max-w-2xl mx-auto">Transform your special occasion into an unforgettable experience in our historic castle venue.</p>
-        <NuxtLink to="/buyouts" class="inline-block px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors duration-300">
-          View Private Hire Options
+    <!-- ===== Private events ===== -->
+    <section class="py-20 md:py-28 px-4 text-center">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">Private Hire</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6 uppercase">Take over the castle</h2>
+        <p class="text-lg text-kader-cream/70 mb-8">Transform your occasion into an unforgettable night in our historic venue.</p>
+        <NuxtLink
+          to="/buyouts"
+          class="inline-block px-8 py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-lg font-semibold transition-colors duration-300"
+        >
+          Book the venue
         </NuxtLink>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { CheckIcon } from '@heroicons/vue/24/outline'
 
 interface ClubEvent {
   ra_id: number
   title: string
   date: string
   start_time: string | null
-  end_time: string | null
-  cost: number | null
   flyer_url: string | null
   ra_url: string | null
-  lineup: string | null
   artists: string[]
   genres: string[]
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  club: 'Club',
-  pizzeria: 'Pizzeria',
-  live: 'Live Music',
-  private: 'Private'
-}
+const spaces = [
+  {
+    index: '01',
+    title: 'The Basement Club',
+    description: 'Descend into the vaulted basement — an intimate, immersive room for electronics and heavy-hitting sets.'
+  },
+  {
+    index: '02',
+    title: 'The Floor & Cocktail Bar',
+    description: 'A ground-level dance floor with a dedicated cocktail bar, engineered for music and conversation alike.'
+  },
+  {
+    index: '03',
+    title: 'The Summer Garden',
+    description: 'An expansive outdoor garden that opens up in the warm months — for daytime hangs and balmy night sets.'
+  },
+  {
+    index: '04',
+    title: 'The Pizzeria',
+    description: 'Our on-site pizzeria keeps the night fuelled with fire-baked pizzas from the castle kitchen.'
+  }
+]
+
+const specs = [
+  { label: 'Product', value: 'Klipsch La Scala AL6' },
+  { label: 'Type', value: 'Three-way, fully horn-loaded floorstanding loudspeaker' },
+  { label: 'Mid-Range Horn', value: 'K-406M patented Tractrix® horn (2" throat)' },
+  { label: 'Coverage', value: 'Mumps™ flat response to the horn edge' },
+  { label: 'Bass', value: 'Horn-loaded, vented cabinet' },
+  { label: 'Optional DSP', value: 'Heritage Active Crossover (time/phase aligned, EQ)' }
+]
 
 const fallbackImage = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'
 
+const showSpecs = ref(false)
 const loading = ref(true)
 const loadError = ref('')
 const events = ref<ClubEvent[]>([])
 
-// Only show club / live events for the club page
 const clubEvents = computed(() =>
   events.value.filter((e) => {
     const genre = (e.genres[0] || '').toLowerCase()
@@ -175,17 +253,8 @@ const clubEvents = computed(() =>
   })
 )
 
-const typeLabel = (type: string | null) => CATEGORY_LABELS[type || ''] || type || 'Event'
-
-const formatDate = (d: string) =>
-  new Date(d).toLocaleDateString('sl-SI', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' })
-
-const formatTime = (d: string) => new Date(d).toLocaleTimeString('sl-SI', { hour: '2-digit', minute: '2-digit' })
-
-const onImageError = (e: Event) => {
-  const img = e.currentTarget as HTMLImageElement | null
-  if (img) img.src = fallbackImage
-}
+const listDate = (e: ClubEvent) =>
+  new Date(e.date).toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' })
 
 const loadClubEvents = async () => {
   loading.value = true

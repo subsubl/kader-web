@@ -117,6 +117,38 @@
       </div>
     </section>
 
+    <!-- ===== Safer Spaces / Code of Conduct ===== -->
+    <section class="py-20 md:py-28 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div class="lg:col-span-2">
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">Our Promise</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight uppercase">Safer Spaces</h2>
+            <p class="text-kader-cream/70 mt-4 leading-relaxed">
+              A club is only as good as how safe everyone feels inside it. These are the ground rules we hold for every night, every dance floor, every room of the castle.
+            </p>
+          </div>
+          <div class="lg:col-span-3">
+            <div class="divide-y divide-kader-cream/10 border-y border-kader-cream/10">
+              <div v-for="rule in codeRules" :key="rule.title" class="py-5">
+                <div class="flex items-start gap-4">
+                  <span class="font-mono text-kader-red shrink-0 mt-0.5">{{ rule.index }}</span>
+                  <div>
+                    <h3 class="font-bold text-lg mb-1">{{ rule.title }}</h3>
+                    <p class="text-kader-cream/70 leading-relaxed">{{ rule.text }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="text-kader-cream/50 text-sm mt-6 leading-relaxed">
+              We'll always be learning, and hope you will too. If anything — or anyone — makes you feel unsafe,
+              tell our staff. We take it seriously.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== Upcoming nights (RA-synced, restyled) ===== -->
     <section class="py-20 md:py-28 px-4 bg-[#1a0506]">
       <div class="max-w-6xl mx-auto">
@@ -236,6 +268,34 @@ const specs = [
   { label: 'Coverage', value: 'Mumps™ flat response to the horn edge' },
   { label: 'Bass', value: 'Horn-loaded, vented cabinet' },
   { label: 'Optional DSP', value: 'Heritage Active Crossover (time/phase aligned, EQ)' }
+]
+
+const codeRules = [
+  {
+    index: '01',
+    title: 'Respect & consent',
+    text: "Ask before you touch. No means no. Space, consent and boundaries are non-negotiable — for everyone, every time."
+  },
+  {
+    index: '02',
+    title: 'Check your assumptions',
+    text: "Leave assumptions at the door. We're inclusive of every background, identity, and belief — including how you read yours and other people's."
+  },
+  {
+    index: '03',
+    title: 'Know your impact',
+    text: "Watch your space, your noise, and your energy. How you behave shapes the night for the people around you."
+  },
+  {
+    index: '04',
+    title: 'Honour privacy',
+    text: "What happens on the floor stays on the floor. Respect that everyone's presence here is their own business."
+  },
+  {
+    index: '05',
+    title: 'Respect the door',
+    text: "Our door policy balances safety and freedom for all. It exists to keep the space open and welcoming — and we hold it firmly."
+  }
 ]
 
 const fallbackImage = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'

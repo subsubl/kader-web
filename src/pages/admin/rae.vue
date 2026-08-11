@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between mb-8">
       <div>
         <h1 class="text-3xl font-bold">Resident Advisor Events</h1>
-        <p class="text-gray-400 mt-1">Synced from ra.co/clubs/78778 — new posts appear here automatically</p>
+        <p class="text-gray-400 mt-1">Synced from ra.co/clubs/78778 — map each event's on-page ticket widget (Pretix)</p>
       </div>
       <button
         @click="syncNow"
@@ -32,7 +32,7 @@
             <th class="px-6 py-3 font-medium">Event</th>
             <th class="px-6 py-3 font-medium">Date</th>
             <th class="px-6 py-3 font-medium">Artists</th>
-            <th class="px-6 py-3 font-medium">Genres</th>
+            <th class="px-6 py-3 font-medium">Pretix Widget URL</th>
             <th class="px-6 py-3 font-medium text-right">RA Link</th>
           </tr>
         </thead>
@@ -47,7 +47,23 @@
             </td>
             <td class="px-6 py-4 text-sm">{{ formatDate(event.date) }}</td>
             <td class="px-6 py-4 text-sm text-gray-400 max-w-xs truncate">{{ event.artists?.join(', ') || '—' }}</td>
-            <td class="px-6 py-4 text-sm text-gray-400">{{ event.genres?.join(', ') || '—' }}</td>
+            <td class="px-6 py-4">
+              <form @submit.prevent="savePretix(event)" class="flex gap-2">
+                <input
+                  v-model="event.pretix_event_url"
+                  type="text"
+                  :placeholder="pretixExample"
+                  class="w-56 px-2 py-1.5 text-sm bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+                <button
+                  type="submit"
+                  :disabled="savingPretixFor === event.ra_id"
+                  class="px-3 py-1.5 text-sm bg-red-600 hover:bg-red-700 disabled:bg-red-800 rounded font-medium transition-colors shrink-0"
+                >
+                  {{ savingPretixFor === event.ra_id ? '...' : 'Save' }}
+                </button>
+              </form>
+            </td>
             <td class="px-6 py-4 text-right">
               <a :href="event.ra_url || '#'" target="_blank" rel="noopener" class="text-red-400 hover:text-red-300 text-sm">Open →</a>
             </td>
@@ -75,6 +91,7 @@ interface RaEvent {
   genres: string[] | null
   flyer_url: string | null
   ra_url: string | null
+  pretix_event_url: string | null
 }
 
 const events = ref<RaEvent[]>([])
@@ -82,6 +99,9 @@ const loading = ref(false)
 const syncing = ref(false)
 const syncMessage = ref('')
 const syncError = ref(false)
+const savingPretixFor = ref<number | null>(null)
+
+const pretixExample = 'https://pretix.eu/<org>/<event>/'
 
 const formatDate = (d: string) => new Date(d).toLocaleDateString('sl-SI', { day: 'numeric', month: 'short', year: 'numeric' })
 
@@ -110,6 +130,27 @@ const syncNow = async () => {
     syncMessage.value = err?.data?.statusMessage || 'Sync failed.'
   } finally {
     syncing.value = false
+  }
+}
+
+const savePretix = async (event: RaEvent) => {
+  savingPretixFor.value = event.ra_id
+  syncError.value = false
+  syncMessage.value = ''
+  try {
+    const res = await $fetch<{ ok: boolean; pretix_event_url: string | null }>('/api/admin/ra-events', {
+      method: 'PUT',
+      body: { ra_id: event.ra_id, pretix_event_url: event.pretix_event_url || '' }
+    })
+    if (res.ok) {
+      event.pretix_event_url = res.pretix_event_url
+      syncMessage.value = 'Pretix widget URL saved.'
+    }
+  } catch (err: any) {
+    syncError.value = true
+    syncMessage.value = err?.data?.statusMessage || 'Failed to save.'
+  } finally {
+    savingPretixFor.value = null
   }
 }
 

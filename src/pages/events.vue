@@ -67,7 +67,11 @@
               <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
               <p class="text-gray-300 mb-2">{{ formatDate(event.date) }} {{ event.start_time ? '· ' + formatTime(event.start_time) : '' }}</p>
               <p v-if="event.artists.length" class="text-sm text-gray-400 mb-4">{{ event.artists.join(', ') }}</p>
+              <div v-if="event.pretix_event_url" class="mt-4">
+                <PretixWidget :event="event.pretix_event_url" />
+              </div>
               <a 
+                v-else
                 :href="event.ra_url || 'https://ra.co/clubs/78778'" 
                 target="_blank" 
                 rel="noopener"
@@ -104,15 +108,18 @@
 
       <div class="bg-gray-800 rounded-xl p-8 text-center">
         <h2 class="text-3xl font-bold mb-4">Tickets & Booking</h2>
-        <p class="text-xl mb-6 max-w-2xl mx-auto">Tickets and check-in run through our Resident Advisor page — grab yours there.</p>
-        <a
-          href="https://ra.co/clubs/78778"
-          target="_blank"
-          rel="noopener"
-          class="inline-block px-8 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300"
-        >
-          Visit our Resident Advisor page
-        </a>
+        <p class="text-xl mb-2 max-w-2xl mx-auto">Buy tickets right here on each event card — secure, with QR check-in at the door.</p>
+        <p class="text-gray-400 mb-6 max-w-2xl mx-auto">Also discover events and browse the full lineup on our Resident Advisor page.</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a
+            href="https://ra.co/clubs/78778"
+            target="_blank"
+            rel="noopener"
+            class="inline-block px-8 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300"
+          >
+            Resident Advisor page
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -133,6 +140,7 @@ interface RaEvent {
   lineup: string | null
   artists: string[]
   genres: string[]
+  pretix_event_url: string | null
 }
 
 const typeFilters = [

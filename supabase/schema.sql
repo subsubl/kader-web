@@ -87,6 +87,24 @@ create table if not exists site_settings (
   updated_at timestamptz default now()
 );
 
+-- Synced Resident Advisor events (local mirror of RA club 78778)
+create table if not exists ra_events (
+  ra_id bigint primary key,
+  title text not null,
+  date timestamptz not null,
+  start_time timestamptz,
+  end_time timestamptz,
+  cost numeric,
+  flyer_url text,
+  ra_url text,
+  lineup text,
+  artists jsonb default '[]'::jsonb,
+  genres jsonb default '[]'::jsonb,
+  pretix_event_url text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
 create table if not exists users_roles (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id),
@@ -100,12 +118,19 @@ alter table inquiries enable row level security;
 alter table pretix_orders enable row level security;
 alter table pretix_tickets enable row level security;
 alter table internal_notes enable row level security;
+alter table ra_events enable row level security;
 
 -- RLS: public can read published events + menu
 create policy "public read published events" on events
   for select using (status = 'published');
 create policy "public read menu" on menu_items
   for select using (is_available = true);
+
+-- RLS: public read synced RA events, service role writes
+create policy "public read ra_events" on ra_events
+  for select using (true);
+create policy "service role manages ra_events" on ra_events
+  for all using (auth.role() = 'service_role') with check (auth.role() = 'service_role');
 
 -- RLS: authenticated staff read/insert/update operations tables
 create policy "staff manage guestlists" on guestlists

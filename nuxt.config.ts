@@ -28,7 +28,8 @@ export default defineNuxtConfig({
     supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY || '',
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || '',
-      supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || ''
+      supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || '',
+      pretixUrl: process.env.NUXT_PUBLIC_PRETIX_URL || 'https://pretix.eu'
     }
   }
 })

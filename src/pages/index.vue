@@ -117,9 +117,9 @@
               <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
               <p class="text-gray-300 mb-4">{{ event.dateLabel }}</p>
               <p class="mb-4 line-clamp-3">{{ event.description }}</p>
-              <NuxtLink :to="`/events`" class="text-red-500 hover:text-red-400 font-semibold">
-                View Events →
-              </NuxtLink>
+              <a :href="event.ra_url" target="_blank" rel="noopener" class="text-red-500 hover:text-red-400 font-semibold">
+                View on RA →
+              </a>
             </div>
           </div>
         </div>
@@ -133,23 +133,27 @@ import { ref, computed, onMounted } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 
 interface PublicEvent {
-  id: string
+  ra_id: number
   title: string
-  slug: string
   date: string
-  type: string | null
-  description: string | null
-  image_url: string | null
-  ra_link: string | null
+  start_time: string | null
+  end_time: string | null
+  cost: number | null
+  flyer_url: string | null
+  ra_url: string | null
+  lineup: string | null
+  artists: string[]
+  genres: string[]
 }
 
 interface FeaturedEvent {
-  id: string
+  id: number
   title: string
   description: string
   image: string
   dateLabel: string
   typeLabel: string
+  ra_url: string
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -167,12 +171,13 @@ const events = ref<PublicEvent[]>([])
 
 const featuredEvents = computed<FeaturedEvent[]>(() =>
   events.value.slice(0, 3).map((e) => ({
-    id: e.id,
+    id: e.ra_id,
     title: e.title,
-    description: e.description || 'Join us for a special evening at Kader Grad Kodeljevo.',
-    image: e.image_url || fallbackImage,
+    description: e.artists?.length ? `Featuring ${e.artists.join(', ')}` : 'Join us for a night at Kader Grad Kodeljevo.',
+    image: e.flyer_url || fallbackImage,
     dateLabel: new Date(e.date).toLocaleDateString('sl-SI', { day: 'numeric', month: 'long', year: 'numeric' }),
-    typeLabel: CATEGORY_LABELS[e.type || ''] || e.type || 'Event'
+    typeLabel: (e.genres?.[0] || 'Club'),
+    ra_url: e.ra_url || 'https://ra.co/clubs/78778'
   }))
 )
 
@@ -185,8 +190,12 @@ const loadFeatured = async () => {
   loading.value = true
   loadError.value = ''
   try {
-    const data = await $fetch<PublicEvent[]>('/api/events')
-    events.value = data || []
+    const data = await $fetch<PublicEvent[]>('/api/ra-events?scope=upcoming')
+    events.value = (data || []).map((e: any) => ({
+      ...e,
+      artists: Array.isArray(e.artists) ? e.artists : [],
+      genres: Array.isArray(e.genres) ? e.genres : []
+    }))
   } catch (err: any) {
     console.error('Failed to load events:', err)
     loadError.value = 'We couldn\u2019t load upcoming events right now.'

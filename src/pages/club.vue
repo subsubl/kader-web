@@ -102,31 +102,23 @@
 
         <!-- Club events -->
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div v-for="event in clubEvents" :key="event.id" class="bg-gray-900 rounded-lg overflow-hidden">
+          <div v-for="event in clubEvents" :key="event.ra_id" class="bg-gray-900 rounded-lg overflow-hidden">
             <div class="relative">
-              <img :src="event.image_url || fallbackImage" :alt="event.title" class="w-full h-40 object-cover" @error="onImageError">
-              <div class="absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">{{ typeLabel(event.type) }}</div>
+              <img :src="event.flyer_url || fallbackImage" :alt="event.title" class="w-full h-40 object-cover" @error="onImageError">
+              <div class="absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">{{ event.genres[0] || 'Club' }}</div>
             </div>
             <div class="p-6">
               <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
-              <p class="text-gray-300 mb-4">{{ formatDate(event.date) }}</p>
-              <p class="mb-4 line-clamp-3">{{ event.description || 'Join us for a night at the Kader underground club.' }}</p>
+              <p class="text-gray-300 mb-2">{{ formatDate(event.date) }}{{ event.start_time ? ' · ' + formatTime(event.start_time) : '' }}</p>
+              <p v-if="event.artists.length" class="text-sm text-gray-400 mb-4">{{ event.artists.join(', ') }}</p>
               <a
-                v-if="event.ra_link"
-                :href="event.ra_link"
+                :href="event.ra_url || 'https://ra.co/clubs/78778'"
                 target="_blank"
                 rel="noopener"
                 class="block w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-center transition-colors duration-300"
               >
                 Get Tickets
               </a>
-              <NuxtLink
-                v-else
-                to="/events"
-                class="block w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-center transition-colors duration-300"
-              >
-                View Details
-              </NuxtLink>
             </div>
           </div>
         </div>
@@ -148,14 +140,17 @@ import { ref, computed, onMounted } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 
 interface ClubEvent {
-  id: string
+  ra_id: number
   title: string
-  slug: string
   date: string
-  type: string | null
-  description: string | null
-  image_url: string | null
-  ra_link: string | null
+  start_time: string | null
+  end_time: string | null
+  cost: number | null
+  flyer_url: string | null
+  ra_url: string | null
+  lineup: string | null
+  artists: string[]
+  genres: string[]
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -172,12 +167,20 @@ const loadError = ref('')
 const events = ref<ClubEvent[]>([])
 
 // Only show club / live events for the club page
-const clubEvents = computed(() => events.value.filter((e) => e.type === 'club' || e.type === 'live'))
+const clubEvents = computed(() =>
+  events.value.filter((e) => {
+    const genre = (e.genres[0] || '').toLowerCase()
+    const title = (e.title || '').toLowerCase()
+    return genre.includes('house') || genre.includes('techno') || genre.includes('electronica') || genre.includes('club') || title.includes('dj') || title.includes('night')
+  })
+)
 
 const typeLabel = (type: string | null) => CATEGORY_LABELS[type || ''] || type || 'Event'
 
 const formatDate = (d: string) =>
   new Date(d).toLocaleDateString('sl-SI', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' })
+
+const formatTime = (d: string) => new Date(d).toLocaleTimeString('sl-SI', { hour: '2-digit', minute: '2-digit' })
 
 const onImageError = (e: Event) => {
   const img = e.currentTarget as HTMLImageElement | null
@@ -188,8 +191,12 @@ const loadClubEvents = async () => {
   loading.value = true
   loadError.value = ''
   try {
-    const data = await $fetch<ClubEvent[]>('/api/events')
-    events.value = data || []
+    const data = await $fetch<ClubEvent[]>('/api/ra-events?scope=upcoming')
+    events.value = (data || []).map((e: any) => ({
+      ...e,
+      artists: Array.isArray(e.artists) ? e.artists : [],
+      genres: Array.isArray(e.genres) ? e.genres : []
+    }))
   } catch (err: any) {
     console.error('Failed to load club events:', err)
     loadError.value = 'We couldn\u2019t load the club lineup right now.'

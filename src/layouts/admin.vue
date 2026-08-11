@@ -17,6 +17,10 @@
             <CalendarIcon class="w-5 h-5" />
             <span>Events</span>
           </NuxtLink>
+          <NuxtLink to="/admin/rae" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+            <RadioIcon class="w-5 h-5" />
+            <span>RA Events</span>
+          </NuxtLink>
           <NuxtLink to="/admin/menu" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
             <Bars3Icon class="w-5 h-5" />
             <span>Menu</span>
@@ -59,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { HomeIcon, CalendarIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon, PhotoIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, CalendarIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon, PhotoIcon, RadioIcon } from '@heroicons/vue/24/outline'
 
 definePageMeta({ middleware: 'admin' })
 </script>

@@ -32,6 +32,11 @@ export interface Database {
         { key: string; value: Record<string, unknown>; updated_at?: string | null },
         { value?: Record<string, unknown>; updated_at?: string | null }
       >
+      ra_events: DbTable<
+        { ra_id: number; title: string; date: string; start_time: string | null; end_time: string | null; cost: number | null; flyer_url: string | null; ra_url: string | null; lineup: string | null; artists: unknown[] | null; genres: unknown[] | null; created_at: string | null; updated_at: string | null },
+        { ra_id?: number; title: string; date: string; start_time?: string | null; end_time?: string | null; cost?: number | null; flyer_url?: string | null; ra_url?: string | null; lineup?: string | null; artists?: unknown[] | null; genres?: unknown[] | null; created_at?: string | null; updated_at?: string | null },
+        { title?: string; date?: string; start_time?: string | null; end_time?: string | null; cost?: number | null; flyer_url?: string | null; ra_url?: string | null; lineup?: string | null; artists?: unknown[] | null; genres?: unknown[] | null; updated_at?: string | null }
+      >
       inquiries: DbTable<
         { id: string; name: string; email: string; type: string | null; party_size: number | null; date: string | null; status: string | null; notes: string | null; created_at: string | null },
         { id?: string; name: string; email: string; type?: string | null; party_size?: number | null; date?: string | null; status?: string | null; notes?: string | null; created_at?: string | null },

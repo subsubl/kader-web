@@ -9,11 +9,54 @@
       <!-- Menu image editor -->
       <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
         <h2 class="text-lg font-semibold mb-4">Menu Image</h2>
-        <p class="text-sm text-gray-400 mb-4">
-          The pizzeria menu is displayed as a single image (matching kader.si design). Set a URL below or use the default.
-        </p>
+        <div class="space-y-5">
+          <p class="text-sm text-gray-400 mb-4">
+            The pizzeria menu is displayed as a single image (matching kader.si design). Upload a new image or set a URL.
+          </p>
 
-        <form @submit.prevent="save" class="space-y-4">
+          <!-- Upload zone -->
+          <div
+            class="border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors"
+            :class="dragOver ? 'border-red-500 bg-red-500/10' : 'border-gray-600 hover:border-gray-500'"
+            @click="openFilePicker"
+            @dragover.prevent="dragOver = true"
+            @dragleave="dragOver = false"
+            @drop.prevent="onDrop"
+          >
+            <input ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" class="hidden" @change="onFileChange" />
+            <svg class="mx-auto w-10 h-10 text-gray-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+            </svg>
+            <p class="text-sm text-gray-300 mb-1">{{ selectedFile ? selectedFile.name : 'Click or drop a menu image' }}</p>
+            <p class="text-xs text-gray-500">JPEG, PNG or WebP · max 10 MB</p>
+          </div>
+
+          <div v-if="uploadError" class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-sm">
+            {{ uploadError }}
+          </div>
+
+          <div v-if="selectedFile" class="flex gap-3">
+            <button
+              @click="uploadAndSave"
+              :disabled="uploading"
+              class="px-6 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-green-900 disabled:cursor-wait rounded-lg font-semibold transition-colors"
+            >
+              {{ uploading ? 'Uploading...' : 'Upload & Use Image' }}
+            </button>
+            <button @click="clearFile" :disabled="uploading" class="px-6 py-2.5 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors">
+              Cancel
+            </button>
+          </div>
+
+          <!-- OR divider -->
+          <div class="flex items-center gap-3 text-xs text-gray-500">
+            <div class="flex-1 h-px bg-gray-700"></div>
+            OR set a URL
+            <div class="flex-1 h-px bg-gray-700"></div>
+          </div>
+        </div>
+
+        <form @submit.prevent="save" class="space-y-4 mt-5">
           <div v-if="saveError" class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-sm">
             {{ saveError }}
           </div>
@@ -108,6 +151,59 @@
 import { ref, computed, onMounted } from 'vue'
 
 definePageMeta({ layout: 'admin' })
+
+const fileInput = ref<HTMLInputElement | null>(null)
+const selectedFile = ref<File | null>(null)
+const dragOver = ref(false)
+const uploading = ref(false)
+const uploadError = ref('')
+
+const onFileChange = (e: Event) => {
+  const input = e.target as HTMLInputElement
+  const f = input.files?.[0]
+  if (f) selectedFile.value = f
+}
+
+const openFilePicker = () => {
+  fileInput.value?.click()
+}
+
+const onDrop = (e: DragEvent) => {
+  dragOver.value = false
+  const f = e.dataTransfer?.files?.[0]
+  if (f) selectedFile.value = f
+}
+
+const clearFile = () => {
+  selectedFile.value = null
+  uploadError.value = ''
+  if (fileInput.value) fileInput.value.value = ''
+}
+
+const uploadAndSave = async () => {
+  if (!selectedFile.value) return
+  uploading.value = true
+  uploadError.value = ''
+  try {
+    const fd = new FormData()
+    fd.append('file', selectedFile.value)
+    const res = await $fetch<{ ok: boolean; url: string }>('/api/admin/menu-upload', {
+      method: 'POST',
+      body: fd
+    })
+    if (res?.ok) {
+      form.value.menuImage = res.url
+      clearFile()
+      await save()
+      saved.value = true
+      setTimeout(() => (saved.value = false), 2500)
+    }
+  } catch (err: any) {
+    uploadError.value = err?.data?.statusMessage || 'Upload failed. Please try again.'
+  } finally {
+    uploading.value = false
+  }
+}
 
 const assets = {
   logoMain: '/kader/asset-6100.png',

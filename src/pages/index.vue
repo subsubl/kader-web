@@ -86,15 +86,39 @@
     <section class="py-20 px-4 bg-black">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-12">Upcoming Events</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Loading -->
+        <div v-if="loading" class="flex items-center justify-center py-16 text-gray-400">
+          <svg class="animate-spin h-10 w-10" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+        </div>
+
+        <!-- Error -->
+        <div v-else-if="loadError" class="bg-gray-800 rounded-lg p-10 text-center border border-gray-700">
+          <p class="text-gray-400 mb-4">{{ loadError }}</p>
+          <button @click="loadFeatured" class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors">
+            Retry
+          </button>
+        </div>
+
+        <!-- Empty -->
+        <div v-else-if="featuredEvents.length === 0" class="bg-gray-800 rounded-lg p-10 text-center border border-gray-700">
+          <p class="text-gray-400 mb-2">No upcoming events right now.</p>
+          <p class="text-sm text-gray-500">Check back soon — we're always adding new events.</p>
+        </div>
+
+        <!-- Events grid -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div v-for="event in featuredEvents" :key="event.id" class="bg-gray-800 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-            <img :src="event.image" :alt="event.title" class="w-full h-48 object-cover">
+            <div class="relative">
+              <img :src="event.image || fallbackImage" :alt="event.title" class="w-full h-48 object-cover" @error="onImageError">
+              <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">{{ event.typeLabel }}</div>
+            </div>
             <div class="p-6">
               <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
-              <p class="text-gray-300 mb-4">{{ event.date }} | {{ event.time }}</p>
-              <p class="mb-4">{{ event.description }}</p>
-              <NuxtLink :to="`/events/${event.slug}`" class="text-red-500 hover:text-red-400 font-semibold">
-                Learn More →
+              <p class="text-gray-300 mb-4">{{ event.dateLabel }}</p>
+              <p class="mb-4 line-clamp-3">{{ event.description }}</p>
+              <NuxtLink :to="`/events`" class="text-red-500 hover:text-red-400 font-semibold">
+                View Events →
               </NuxtLink>
             </div>
           </div>
@@ -105,35 +129,71 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 
-const featuredEvents = [
-  {
-    id: '1',
-    title: 'Live Jazz Night',
-    date: 'June 15, 2023',
-    time: '9:00 PM',
-    description: 'Enjoy live jazz performances by local musicians in our historic castle.',
-    slug: 'live-jazz-night',
-    image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: '2',
-    title: 'Italian Wine Tasting',
-    date: 'June 22, 2023',
-    time: '7:00 PM',
-    description: 'Discover the finest Italian wines paired with our signature pizzas.',
-    slug: 'italian-wine-tasting',
-    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: '3',
-    title: 'Underground Dance Party',
-    date: 'June 29, 2023',
-    time: '10:00 PM',
-    description: 'Our monthly dance party featuring top DJs from Slovenia and beyond.',
-    slug: 'underground-dance-party',
-    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'
+interface PublicEvent {
+  id: string
+  title: string
+  slug: string
+  date: string
+  type: string | null
+  description: string | null
+  image_url: string | null
+  ra_link: string | null
+}
+
+interface FeaturedEvent {
+  id: string
+  title: string
+  description: string
+  image: string
+  dateLabel: string
+  typeLabel: string
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  club: 'Club',
+  pizzeria: 'Pizzeria',
+  live: 'Live Music',
+  private: 'Private'
+}
+
+const fallbackImage = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80'
+
+const loading = ref(true)
+const loadError = ref('')
+const events = ref<PublicEvent[]>([])
+
+const featuredEvents = computed<FeaturedEvent[]>(() =>
+  events.value.slice(0, 3).map((e) => ({
+    id: e.id,
+    title: e.title,
+    description: e.description || 'Join us for a special evening at Kader Grad Kodeljevo.',
+    image: e.image_url || fallbackImage,
+    dateLabel: new Date(e.date).toLocaleDateString('sl-SI', { day: 'numeric', month: 'long', year: 'numeric' }),
+    typeLabel: CATEGORY_LABELS[e.type || ''] || e.type || 'Event'
+  }))
+)
+
+const onImageError = (e: Event) => {
+  const img = e.currentTarget as HTMLImageElement | null
+  if (img) img.src = fallbackImage
+}
+
+const loadFeatured = async () => {
+  loading.value = true
+  loadError.value = ''
+  try {
+    const data = await $fetch<PublicEvent[]>('/api/events')
+    events.value = data || []
+  } catch (err: any) {
+    console.error('Failed to load events:', err)
+    loadError.value = 'We couldn\u2019t load upcoming events right now.'
+  } finally {
+    loading.value = false
   }
-]
+}
+
+onMounted(loadFeatured)
 </script>

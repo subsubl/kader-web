@@ -10,11 +10,14 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-      title: 'Kader Grad Kodeljevo - Neapolitan Pizza & Underground Club Ljubljana',
+      title: 'Kader - Pizza bistro in plesni bar na gradu Kodeljevo',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Hybrid daytime pizzeria and nighttime underground club in the historic Grad Kodeljevo castle, Ljubljana.' }
+        { name: 'description', content: 'Doživite pristen okus italijanske pice v Gradu Kodeljevo! Sveže sestavine, ročno raztegnjeno testo in popolno pečena pica. Obiščite nas ali naročite za s seboj!' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ],
       htmlAttrs: { lang: 'sl', class: 'dark' }
     }

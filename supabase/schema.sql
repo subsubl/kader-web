@@ -80,6 +80,13 @@ create table if not exists internal_notes (
   created_at timestamptz default now()
 );
 
+-- Editable site content (e.g. pizzeria menu image — must be an image per design)
+create table if not exists site_settings (
+  key text primary key,
+  value jsonb not null default '{}'::jsonb,
+  updated_at timestamptz default now()
+);
+
 create table if not exists users_roles (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id),
@@ -107,6 +114,14 @@ create policy "staff manage inquiries" on inquiries
   for all using (auth.uid() is not null) with check (auth.uid() is not null);
 create policy "staff manage internal_notes" on internal_notes
   for all using (auth.uid() is not null) with check (auth.uid() is not null);
+
+-- RLS: site_settings — public read, staff write
+create policy "public read settings" on site_settings
+  for select using (true);
+create policy "staff insert settings" on site_settings
+  for insert with check (auth.uid() is not null);
+create policy "staff update settings" on site_settings
+  for update using (auth.uid() is not null) with check (auth.uid() is not null);
 
 -- RLS: pretix tables are service-role only (authenticated staff may read for door ops)
 create policy "staff read orders" on pretix_orders

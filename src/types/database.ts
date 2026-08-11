@@ -27,6 +27,11 @@ export interface Database {
         { id?: string; event_id?: string | null; guest_name: string; category?: string | null; status?: string | null; promoter_id?: string | null; created_at?: string | null },
         { event_id?: string | null; guest_name?: string; category?: string | null; status?: string | null; promoter_id?: string | null; created_at?: string | null }
       >
+      site_settings: DbTable<
+        { key: string; value: Record<string, unknown>; updated_at: string | null },
+        { key: string; value: Record<string, unknown>; updated_at?: string | null },
+        { value?: Record<string, unknown>; updated_at?: string | null }
+      >
       inquiries: DbTable<
         { id: string; name: string; email: string; type: string | null; party_size: number | null; date: string | null; status: string | null; notes: string | null; created_at: string | null },
         { id?: string; name: string; email: string; type?: string | null; party_size?: number | null; date?: string | null; status?: string | null; notes?: string | null; created_at?: string | null },

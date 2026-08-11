@@ -4,8 +4,7 @@
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
           <NuxtLink to="/" class="flex items-center space-x-2">
-            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-xl">K</div>
-            <span class="text-xl font-bold">KADER GRAD KODELJEVO</span>
+            <img :src="logoUrl" alt="Kader" class="h-9 w-auto" />
           </NuxtLink>
         </div>
         
@@ -49,6 +48,8 @@
 <script setup lang="ts">
 import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/vue/24/outline'
 import { useDark } from '@vueuse/core'
+
+const logoUrl = '/kader/asset-6100.png'
 
 const mobileMenuOpen = ref(false)
 const darkMode = useDark()

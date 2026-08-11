@@ -79,18 +79,55 @@
       </div>
 
       <div class="bg-gray-800 rounded-xl p-8 mb-12">
-        <h2 class="text-3xl font-bold mb-6 text-center">Upcoming DJ Sets</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div v-for="set in djSets" :key="set.id" class="bg-gray-900 rounded-lg p-6">
-            <div class="flex justify-between items-start mb-4">
-              <h3 class="text-xl font-bold">{{ set.artist }}</h3>
-              <span class="text-red-500 font-bold">€{{ set.price }}</span>
+        <h2 class="text-3xl font-bold mb-6 text-center">Upcoming Club Nights</h2>
+
+        <!-- Loading -->
+        <div v-if="loading" class="flex items-center justify-center py-16 text-gray-400">
+          <svg class="animate-spin h-10 w-10" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+        </div>
+
+        <!-- Error -->
+        <div v-else-if="loadError" class="bg-gray-700 rounded-lg p-10 text-center">
+          <p class="text-gray-400 mb-4">{{ loadError }}</p>
+          <button @click="loadClubEvents" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">
+            Retry
+          </button>
+        </div>
+
+        <!-- Empty -->
+        <div v-else-if="clubEvents.length === 0" class="bg-gray-700 rounded-lg p-10 text-center text-gray-400">
+          <p class="mb-2">No club nights scheduled right now.</p>
+          <p class="text-sm">Check back soon — new lineups are coming.</p>
+        </div>
+
+        <!-- Club events -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-for="event in clubEvents" :key="event.id" class="bg-gray-900 rounded-lg overflow-hidden">
+            <div class="relative">
+              <img :src="event.image_url || fallbackImage" :alt="event.title" class="w-full h-40 object-cover" @error="onImageError">
+              <div class="absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">{{ typeLabel(event.type) }}</div>
             </div>
-            <p class="text-gray-300 mb-2">{{ set.date }} • {{ set.time }}</p>
-            <p class="mb-4">{{ set.genre }}</p>
-            <button class="w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors duration-300">
-              Book Now
-            </button>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
+              <p class="text-gray-300 mb-4">{{ formatDate(event.date) }}</p>
+              <p class="mb-4 line-clamp-3">{{ event.description || 'Join us for a night at the Kader underground club.' }}</p>
+              <a
+                v-if="event.ra_link"
+                :href="event.ra_link"
+                target="_blank"
+                rel="noopener"
+                class="block w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-center transition-colors duration-300"
+              >
+                Get Tickets
+              </a>
+              <NuxtLink
+                v-else
+                to="/events"
+                class="block w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold text-center transition-colors duration-300"
+              >
+                View Details
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </div>
@@ -107,41 +144,59 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 
-interface DJSet {
-  id: string;
-  artist: string;
-  date: string;
-  time: string;
-  genre: string;
-  price: number;
+interface ClubEvent {
+  id: string
+  title: string
+  slug: string
+  date: string
+  type: string | null
+  description: string | null
+  image_url: string | null
+  ra_link: string | null
 }
 
-const djSets: DJSet[] = [
-  {
-    id: '1',
-    artist: 'DJ Luna',
-    date: 'June 15, 2023',
-    time: '10:00 PM',
-    genre: 'House & Techno',
-    price: 250
-  },
-  {
-    id: '2',
-    artist: 'Slovenian Beats',
-    date: 'June 22, 2023',
-    time: '11:00 PM',
-    genre: 'Electronic',
-    price: 300
-  },
-  {
-    id: '3',
-    artist: 'The Jazz Collective',
-    date: 'June 29, 2023',
-    time: '9:00 PM',
-    genre: 'Jazz Fusion',
-    price: 400
+const CATEGORY_LABELS: Record<string, string> = {
+  club: 'Club',
+  pizzeria: 'Pizzeria',
+  live: 'Live Music',
+  private: 'Private'
+}
+
+const fallbackImage = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'
+
+const loading = ref(true)
+const loadError = ref('')
+const events = ref<ClubEvent[]>([])
+
+// Only show club / live events for the club page
+const clubEvents = computed(() => events.value.filter((e) => e.type === 'club' || e.type === 'live'))
+
+const typeLabel = (type: string | null) => CATEGORY_LABELS[type || ''] || type || 'Event'
+
+const formatDate = (d: string) =>
+  new Date(d).toLocaleDateString('sl-SI', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' })
+
+const onImageError = (e: Event) => {
+  const img = e.currentTarget as HTMLImageElement | null
+  if (img) img.src = fallbackImage
+}
+
+const loadClubEvents = async () => {
+  loading.value = true
+  loadError.value = ''
+  try {
+    const data = await $fetch<ClubEvent[]>('/api/events')
+    events.value = data || []
+  } catch (err: any) {
+    console.error('Failed to load club events:', err)
+    loadError.value = 'We couldn\u2019t load the club lineup right now.'
+  } finally {
+    loading.value = false
   }
-]
+}
+
+onMounted(loadClubEvents)
 </script>

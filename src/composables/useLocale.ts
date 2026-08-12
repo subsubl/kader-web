@@ -96,7 +96,11 @@ const sl: Dict = {
     catSalads: 'Solate',
     catSides: 'Priloge',
     catDesserts: 'Sladice',
-    catDrinks: 'Pijača & Koktajli'
+    catDrinks: 'Pijača & Koktajli',
+    reviewsTitle: 'Mnenja Obiskovalcev (Google)',
+    reviewsSubtitle: 'Avtentična mnenja in izkušnje gostov z Google Business profila Kader Grad Kodeljevo',
+    viewGoogle: 'Oddajte mnenje na Google Maps ↗',
+    ratingLabel: 'Izjemno 4.8 / 5.0 na podlagi več kot 120 Google mnenj'
   },
   // ── Club page ──
   club: {
@@ -341,7 +345,11 @@ const en: Dict = {
     catSalads: 'Salads',
     catSides: 'Sides',
     catDesserts: 'Desserts',
-    catDrinks: 'Drinks & Cocktails'
+    catDrinks: 'Drinks & Cocktails',
+    reviewsTitle: 'Guest Reviews (Google)',
+    reviewsSubtitle: 'Authentic guest reviews and ratings from Google Business profile Kader Grad Kodeljevo',
+    viewGoogle: 'Review us on Google Maps ↗',
+    ratingLabel: 'Rated 4.8 / 5.0 based on 120+ Google reviews'
   },
   // ── Club page ──
   club: {

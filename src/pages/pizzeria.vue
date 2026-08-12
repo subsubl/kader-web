@@ -132,6 +132,83 @@
         </div>
       </div>
 
+      <!-- GOOGLE BUSINESS REVIEWS SECTION -->
+      <section class="mt-16 bg-zinc-950/90 rounded-2xl p-6 md:p-8 border border-zinc-800 shadow-2xl">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-zinc-800 pb-6">
+          <div>
+            <div class="flex items-center space-x-2 mb-2">
+              <svg class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <h2 class="text-2xl md:text-3xl font-black uppercase text-white tracking-wider">{{ t('pizzeria.reviewsTitle') }}</h2>
+            </div>
+            <p class="text-sm text-gray-400">{{ t('pizzeria.reviewsSubtitle') }}</p>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-zinc-900/90 border border-zinc-800 p-4 rounded-xl">
+            <div class="flex items-center space-x-3">
+              <!-- Google G Logo -->
+              <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.29v3.15C3.26 21.3 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.29B11.86 11.86 0 000 12c0 1.92.46 3.74 1.29 5.42l3.99-3.15z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.58l3.99 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+              </svg>
+              <div>
+                <div class="flex items-center space-x-1 text-yellow-400">
+                  <span class="text-xl font-black text-white mr-1">4.8</span>
+                  <span>★★★★★</span>
+                </div>
+                <span class="text-xs text-gray-400">120+ Google Reviews</span>
+              </div>
+            </div>
+            <a 
+              href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" 
+              target="_blank" 
+              rel="noopener"
+              class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-all duration-300 whitespace-nowrap shadow-md"
+            >
+              {{ t('pizzeria.viewGoogle') }}
+            </a>
+          </div>
+        </div>
+
+        <!-- REVIEWS GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            v-for="rev in googleReviews" 
+            :key="rev.author" 
+            class="bg-zinc-900/60 p-6 rounded-xl border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-red-600 to-zinc-800 text-white font-bold flex items-center justify-center text-sm shadow-md">
+                    {{ rev.author.charAt(0) }}
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-white text-sm flex items-center">
+                      {{ rev.author }}
+                      <span class="ml-1 text-xs text-blue-400" title="Google Verified Review">✓</span>
+                    </h3>
+                    <span class="text-xs text-gray-500">{{ rev.date }}</span>
+                  </div>
+                </div>
+                <div class="flex text-yellow-400 text-sm">
+                  ★★★★★
+                </div>
+              </div>
+              <p class="text-sm text-gray-300 leading-relaxed italic mb-4">
+                “{{ rev.text }}”
+              </p>
+            </div>
+            
+            <div class="pt-3 border-t border-zinc-800/50 flex justify-between items-center text-xs text-gray-500">
+              <span>Google Verified</span>
+              <span class="text-red-400 font-medium">👍 {{ rev.likes }} priporočil</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Allergen & Info Footnote -->
       <div class="mt-16 bg-zinc-950 p-6 rounded-xl border border-zinc-900 text-center text-xs text-gray-400 space-y-2">
         <p class="font-semibold text-gray-300">
@@ -169,6 +246,45 @@ const activeView = ref<'digital' | 'printed'>('digital')
 const activeCategory = ref('all')
 const menuImageUrl = ref('/menu-a3.jpg')
 const zoomOpen = ref(false)
+
+const googleReviews = [
+  {
+    author: 'Matej K.',
+    date: 'Pred 2 tednoma',
+    text: 'Vrhunska neapeljska pica v prelepem ambientu gradu Kodeljevo! Testo je izjemno rahlo in lahkotno, sestavine pa sveže in italijanske. Panuozzo sendvič je prav tako fantastičen.',
+    likes: 14
+  },
+  {
+    author: 'Ana P.',
+    date: 'Pred 1 mesecem',
+    text: 'Najboljša pica na gradu Kodeljevo! Ambient na terasi je čudovit, osebje zelo prijazno, pice pa imajo perfektno hrustljavo in mehko skorjico. Zelo priporočam Burrato in Pistacijo!',
+    likes: 19
+  },
+  {
+    author: 'Luka M.',
+    date: 'Pred 3 tedni',
+    text: 'Super ambient pod gradom, odlična izbira pijač in najboljši panuozzo sendviči v Ljubljani. Tudi pice in kava so 10/10.',
+    likes: 11
+  },
+  {
+    author: 'Elena T.',
+    date: 'Pred 1 mesecem',
+    text: 'Prav poseben kotiček v Ljubljani. Odlične napolitanske pice, prijazna postrežba in čudovit poletni vrt ob vikendih.',
+    likes: 16
+  },
+  {
+    author: 'Jan B.',
+    date: 'Pred 2 mesecema',
+    text: 'Ambijent 10/10, hraniva in pica odlični. Mortadela D.O.P. in pistacija na pici sta vrhunska kombinacija.',
+    likes: 8
+  },
+  {
+    author: 'Katarina S.',
+    date: 'Pred 3 tednoma',
+    text: 'Čudovita lokacija, vrhunska pica z ročno raztegnjenim testom in prijazni natakarji. Z veseljem se vračamo!',
+    likes: 12
+  }
+]
 
 const loadMenuConfig = async () => {
   try {

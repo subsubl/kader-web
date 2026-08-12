@@ -45,12 +45,13 @@
             >
               {{ t('pizzeria.digitalMenu') }}
             </button>
-          <button 
-            @click="activeView = 'printed'"
-            :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'printed' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"
-          >
-            {{ t('pizzeria.printedMenu') }}
-          </button>
+            <button 
+              @click="activeView = 'printed'"
+              :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'printed' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"
+            >
+              {{ t('pizzeria.printedMenu') }}
+            </button>
+          </div>
         </div>
       </header>
 

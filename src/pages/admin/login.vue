@@ -85,12 +85,12 @@ const handleLogin = async () => {
     })
 
     if (authError) {
-      error.value = 'Invalid credentials. Please try again.'
+      error.value = authError.message || 'Invalid credentials. Please try again.'
       return
     }
 
     if (!data.user) {
-      error.value = 'Login failed. Please try again.'
+      error.value = 'Login failed. User object not returned.'
       return
     }
 
@@ -101,16 +101,29 @@ const handleLogin = async () => {
       .eq('user_id', data.user.id)
       .maybeSingle()
 
-    if (roleError || !userRole || userRole.role !== 'admin') {
+    if (roleError) {
+      console.error('Role check database error:', roleError)
       await $supabase.auth.signOut()
-      error.value = 'Access denied. Admin role required.'
+      error.value = `Role check failed: ${roleError.message}`
+      return
+    }
+
+    if (!userRole) {
+      await $supabase.auth.signOut()
+      error.value = `Access denied. No role entry found in 'users_roles' table for user (${data.user.email}).`
+      return
+    }
+
+    if (userRole.role !== 'admin') {
+      await $supabase.auth.signOut()
+      error.value = `Access denied. Role '${userRole.role}' is not 'admin'.`
       return
     }
 
     // Redirect to admin dashboard
     await router.push('/admin/dashboard')
-  } catch (err) {
-    error.value = 'An unexpected error occurred. Please try again.'
+  } catch (err: any) {
+    error.value = err.message || 'An unexpected error occurred. Please try again.'
     console.error('Login error:', err)
   } finally {
     loading.value = false

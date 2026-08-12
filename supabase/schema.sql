@@ -153,7 +153,10 @@ create policy "staff read orders" on pretix_orders
   for select using (auth.uid() is not null);
 create policy "staff read tickets" on pretix_tickets
   for select using (auth.uid() is not null);
-create policy "service role manages orders" on pretix_orders
+-- RLS: users_roles — users read own role, service role manages
+alter table users_roles enable row level security;
+create policy "users read own role" on users_roles
+  for select using (auth.uid() = user_id);
+create policy "service role manages roles" on users_roles
   for all using (auth.role() = 'service_role') with check (auth.role() = 'service_role');
-create policy "service role manages tickets" on pretix_tickets
-  for all using (auth.role() = 'service_role') with check (auth.role() = 'service_role');
+

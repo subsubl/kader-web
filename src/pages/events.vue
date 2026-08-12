@@ -6,7 +6,7 @@
         <p class="text-xl text-gray-300 max-w-2xl mx-auto">{{ t('events.pageDesc') }}</p>
       </header>
 
-      <!-- Upcoming events -->
+      <!-- Upcoming & Featured Events -->
       <div class="mb-12">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
@@ -19,8 +19,8 @@
               :key="f.value"
               @click="activeFilter = f.value"
               :class="activeFilter === f.value
-                ? 'px-4 py-2 bg-red-600 text-white rounded-lg transition-colors duration-300'
-                : 'px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-300'"
+                ? 'px-4 py-2 bg-red-600 text-white rounded-lg transition-colors duration-300 font-semibold'
+                : 'px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-300 text-gray-300'"
             >
               {{ f.label }}
             </button>
@@ -49,36 +49,58 @@
           </button>
         </div>
 
-        <!-- Events grid -->
+        <!-- Events grid (Clickable Cards) -->
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="event in filteredEvents" :key="event.ra_id" class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-            <div class="relative">
-              <img 
-                :src="event.flyer_url || fallbackImage" 
-                :alt="event.title" 
-                class="w-full h-48 object-cover"
-                @error="onImageError"
-              >
-              <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                {{ event.genres[0] || 'Club' }}
+          <div 
+            v-for="event in filteredEvents" 
+            :key="event.ra_id" 
+            @click="openModal(event)"
+            class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-800 hover:border-red-600/60 transform hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+          >
+            <div>
+              <div class="relative overflow-hidden aspect-[16/10]">
+                <img 
+                  :src="event.flyer_url || fallbackImage" 
+                  :alt="event.title" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  @error="onImageError"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
+                <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                  {{ event.genres[0] || 'Club' }}
+                </div>
+                <div class="absolute bottom-3 left-4 right-4 flex justify-between items-end">
+                  <span class="text-xs font-bold bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-gray-200">
+                    {{ formatDate(event.date) }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6">
+                <h3 class="text-xl font-extrabold mb-2 text-white group-hover:text-red-400 transition-colors leading-snug">
+                  {{ event.title }}
+                </h3>
+                <p class="text-xs text-gray-400 mb-3 flex items-center">
+                  <span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-2"></span>
+                  {{ event.start_time ? formatTime(event.start_time) : 'Kader Grad Kodeljevo' }}
+                  {{ event.end_time ? ' – ' + formatTime(event.end_time) : '' }}
+                </p>
+                <p v-if="event.artists.length" class="text-sm text-gray-300 line-clamp-2 mb-4">
+                  <span class="text-gray-400 font-semibold">{{ t('events.featuringBy') }}</span> {{ event.artists.join(', ') }}
+                </p>
               </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
-              <p class="text-gray-300 mb-2">{{ formatDate(event.date) }} {{ event.start_time ? '· ' + formatTime(event.start_time) : '' }}</p>
-              <p v-if="event.artists.length" class="text-sm text-gray-400 mb-4">{{ t('events.featuringBy') }}{{ event.artists.join(', ') }}</p>
-              <div v-if="event.pretix_event_url" class="mt-4">
-                <PretixWidget :event="event.pretix_event_url" />
+
+            <div class="px-6 pb-6 pt-0">
+              <div class="flex items-center justify-between pt-4 border-t border-gray-700/60 text-xs font-bold">
+                <span class="text-red-400 flex items-center group-hover:translate-x-1 transition-transform">
+                  Podrobnosti & Vstopnice 
+                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </span>
+                <span v-if="event.cost" class="text-gray-300 bg-gray-700/60 px-2.5 py-1 rounded-md">
+                  {{ event.cost }} €
+                </span>
               </div>
-              <a 
-                v-else
-                :href="event.ra_url || 'https://ra.co/clubs/78778'" 
-                target="_blank" 
-                rel="noopener"
-                class="inline-block w-full py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold text-center transition-colors duration-300"
-              >
-                {{ t('events.viewOnRA') }}
-              </a>
             </div>
           </div>
         </div>
@@ -90,23 +112,35 @@
         <div v-if="pastLoading" class="flex items-center justify-center py-10 text-gray-400">
           <svg class="animate-spin h-8 w-8" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
         </div>
-        <div v-else class="bg-gray-800/60 rounded-xl border border-gray-700 divide-y divide-gray-700">
+        <div v-else class="bg-gray-800/60 rounded-xl border border-gray-700 divide-y divide-gray-700 overflow-hidden">
           <button 
             v-for="event in pastEvents" 
             :key="event.ra_id"
-            @click="openRa(event.ra_url)"
-            class="w-full flex items-center justify-between gap-4 px-5 py-4 hover:bg-gray-700/50 transition-colors text-left"
+            @click="openModal(event)"
+            class="w-full flex items-center justify-between gap-4 px-5 py-4 hover:bg-gray-700/60 transition-colors text-left group"
           >
-            <div class="min-w-0">
-              <p class="font-medium truncate">{{ event.title }}</p>
-              <p v-if="event.artists.length" class="text-sm text-gray-400 truncate">{{ event.artists.join(', ') }}</p>
+            <div class="min-w-0 flex items-center space-x-4">
+              <img 
+                :src="event.flyer_url || fallbackImage" 
+                :alt="event.title"
+                class="w-12 h-12 rounded-lg object-cover flex-shrink-0 border border-gray-700"
+                @error="onImageError"
+              />
+              <div class="min-w-0">
+                <p class="font-bold truncate group-hover:text-red-400 transition-colors">{{ event.title }}</p>
+                <p v-if="event.artists.length" class="text-xs text-gray-400 truncate">{{ event.artists.join(', ') }}</p>
+              </div>
             </div>
-            <span class="text-sm text-gray-400 shrink-0">{{ pastDateLabel(event.date) }}</span>
+            <div class="flex items-center space-x-3 shrink-0 text-sm text-gray-400">
+              <span>{{ pastDateLabel(event.date) }}</span>
+              <svg class="w-4 h-4 text-gray-500 group-hover:text-red-400 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
           </button>
         </div>
       </div>
 
-      <div class="bg-gray-800 rounded-xl p-8 text-center">
+      <!-- Tickets & RA CTA Footer Banner -->
+      <div class="bg-gray-800/80 border border-gray-700 rounded-xl p-8 text-center">
         <h2 class="text-3xl font-bold mb-4">{{ t('events.ticketsTitle') }}</h2>
         <p class="text-xl mb-2 max-w-2xl mx-auto">{{ t('events.buyHere') }}</p>
         <p class="text-gray-400 mb-6 max-w-2xl mx-auto">{{ t('events.alsoRA') }}</p>
@@ -115,18 +149,125 @@
             href="https://ra.co/clubs/78778"
             target="_blank"
             rel="noopener"
-            class="inline-block px-8 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300"
+            class="inline-block px-8 py-3.5 bg-red-600 hover:bg-red-700 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-red-950"
           >
-            {{ t('events.raPage') }}
+            {{ t('events.raPage') }} ↗
           </a>
         </div>
       </div>
     </div>
+
+    <!-- EVENT DETAILS MODAL (FULL DETAILS) -->
+    <Teleport to="body">
+      <div 
+        v-if="selectedEvent" 
+        class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-6 overflow-y-auto"
+        @click.self="closeModal"
+      >
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl my-auto animate-fade-in relative">
+          <!-- Close Button -->
+          <button 
+            @click="closeModal"
+            class="absolute top-4 right-4 z-20 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors border border-gray-700"
+          >
+            ✕
+          </button>
+
+          <!-- Modal Flyer Header -->
+          <div class="relative w-full max-h-96 overflow-hidden bg-black flex items-center justify-center">
+            <img 
+              :src="selectedEvent.flyer_url || fallbackImage" 
+              :alt="selectedEvent.title" 
+              class="w-full h-auto max-h-96 object-contain"
+              @error="onImageError"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+          </div>
+
+          <!-- Modal Content -->
+          <div class="p-6 md:p-8 space-y-6">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span 
+                  v-for="genre in selectedEvent.genres" 
+                  :key="genre" 
+                  class="px-3 py-1 bg-red-950/80 border border-red-800/80 text-red-400 rounded-full text-xs font-bold uppercase tracking-wider"
+                >
+                  {{ genre }}
+                </span>
+                <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs font-semibold">
+                  {{ formatDate(selectedEvent.date) }}
+                </span>
+              </div>
+              
+              <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">
+                {{ selectedEvent.title }}
+              </h2>
+              
+              <p class="text-sm text-gray-400 flex items-center space-x-2">
+                <span>📍 Kader Grad Kodeljevo (Ulica Carla Benza 20, Ljubljana)</span>
+                <span v-if="selectedEvent.start_time">• 🕒 {{ formatTime(selectedEvent.start_time) }} {{ selectedEvent.end_time ? '– ' + formatTime(selectedEvent.end_time) : '' }}</span>
+              </p>
+            </div>
+
+            <!-- Artists List -->
+            <div v-if="selectedEvent.artists.length > 0" class="bg-gray-800/60 p-4 rounded-xl border border-gray-800">
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Nastopajoči / Lineup Artists</h4>
+              <div class="flex flex-wrap gap-2">
+                <span 
+                  v-for="artist in selectedEvent.artists" 
+                  :key="artist"
+                  class="px-3 py-1.5 bg-gray-700/80 hover:bg-gray-700 text-white rounded-lg text-sm font-bold transition-colors"
+                >
+                  🎧 {{ artist }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Raw Lineup Text -->
+            <div v-if="selectedEvent.lineup" class="bg-gray-800/40 p-4 rounded-xl border border-gray-800">
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Celotni Spored / Full Lineup</h4>
+              <div class="text-sm text-gray-300 whitespace-pre-line leading-relaxed font-mono" v-html="cleanLineup(selectedEvent.lineup)"></div>
+            </div>
+
+            <!-- Pretix Widget or Direct RA Link -->
+            <div class="pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-gray-400 block uppercase font-medium">Vstopnina / Entry Fee</span>
+                <span class="text-xl font-black text-white">
+                  {{ selectedEvent.cost ? selectedEvent.cost + ' €' : 'Po programu / RA Info' }}
+                </span>
+              </div>
+
+              <div class="flex gap-3 w-full sm:w-auto">
+                <a 
+                  v-if="selectedEvent.pretix_event_url"
+                  :href="selectedEvent.pretix_event_url"
+                  target="_blank"
+                  rel="noopener"
+                  class="flex-1 sm:flex-none px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-center transition-colors shadow-lg shadow-red-950"
+                >
+                  Kupi Vstopnico 🎟️
+                </a>
+                <a 
+                  :href="selectedEvent.ra_url || 'https://ra.co/clubs/78778'"
+                  target="_blank"
+                  rel="noopener"
+                  class="flex-1 sm:flex-none px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold rounded-xl text-center transition-colors"
+                >
+                  Odpri na Resident Advisor ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const { locale, t } = useLocale()
 
@@ -152,7 +293,6 @@ const typeFilters = computed(() => [
   { label: t('events.filterLive'), value: 'live' }
 ])
 
-// map filter value → translation key suffix for the empty-state message
 const activeFilterLabelsKey = (f: string) => (f === 'all' ? 'allEvents' : f === 'pizzeria' ? 'filterPizzeria' : f === 'club' ? 'filterClub' : 'filterLive')
 
 const emptyMessage = computed(() => {
@@ -167,11 +307,37 @@ const onImageError = (e: Event) => {
   if (img) img.src = fallbackImage
 }
 
-const openRa = (url: string | null) => {
-  window.open(url || 'https://ra.co/clubs/78778', '_blank', 'noopener')
+// Modal State
+const selectedEvent = ref<RaEvent | null>(null)
+
+const openModal = (event: RaEvent) => {
+  selectedEvent.value = event
 }
 
-// Upcoming events (loaded from /api/ra-events?scope=upcoming)
+const closeModal = () => {
+  selectedEvent.value = null
+}
+
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') closeModal()
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+  loadEvents()
+  loadPastEvents()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+})
+
+const cleanLineup = (raw: string | null) => {
+  if (!raw) return ''
+  return raw.replace(/<[^>]*>/g, '').trim()
+}
+
+// Upcoming events
 const events = ref<RaEvent[]>([])
 const activeFilter = ref('all')
 const loading = ref(true)
@@ -179,7 +345,6 @@ const loadError = ref('')
 
 const filteredEvents = computed(() => {
   if (activeFilter.value === 'all') return events.value
-  // RA genres aren't strongly typed, so filter by genre name or title matching
   return events.value.filter((e) => {
     const genre = (e.genres[0] || '').toLowerCase()
     const title = (e.title || '').toLowerCase()
@@ -191,9 +356,9 @@ const filteredEvents = computed(() => {
 })
 
 const formatDate = (d: string) => new Date(d).toLocaleDateString('sl-SI', {
-  weekday: 'long',
+  weekday: 'short',
   day: 'numeric',
-  month: 'long',
+  month: 'short',
   year: 'numeric'
 })
 
@@ -228,9 +393,8 @@ const loadPastEvents = async () => {
   }
 }
 
-const pastDateLabel = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+const pastDateLabel = (d: string) => new Date(d).toLocaleDateString('sl-SI', { day: 'numeric', month: 'short', year: 'numeric' })
 
-// Normalize API rows to guarantee array fields
 function normalizeEvent(e: any): RaEvent {
   return {
     ...e,
@@ -238,9 +402,4 @@ function normalizeEvent(e: any): RaEvent {
     genres: Array.isArray(e.genres) ? e.genres : []
   }
 }
-
-onMounted(() => {
-  loadEvents()
-  loadPastEvents()
-})
 </script>

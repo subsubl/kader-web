@@ -3,8 +3,9 @@
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
-          <NuxtLink to="/" class="flex items-center space-x-2">
-            <img :src="logoUrl" alt="Kader" class="h-9 w-auto" />
+          <NuxtLink to="/" class="flex items-center space-x-3">
+            <img src="/logo-badge.png" alt="Kader Logo" class="w-10 h-10 object-contain rounded-md" />
+            <span class="text-xl font-black tracking-wider text-white">KADER <span class="text-red-500 font-medium text-sm block md:inline md:ml-1">GRAD KODELJEVO</span></span>
           </NuxtLink>
         </div>
         
@@ -48,8 +49,6 @@
 <script setup lang="ts">
 import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/vue/24/outline'
 import { useDark } from '@vueuse/core'
-
-const logoUrl = '/kader/asset-6100.png'
 
 const mobileMenuOpen = ref(false)
 const darkMode = useDark()

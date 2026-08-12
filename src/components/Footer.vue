@@ -1,76 +1,86 @@
 <template>
-  <footer class="bg-black border-t border-gray-800 py-12">
+  <footer class="bg-black border-t border-gray-800 py-12 text-gray-300">
     <div class="max-w-6xl mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <div class="flex items-center space-x-2 mb-4">
-            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-xl">K</div>
-            <span class="text-xl font-bold">KADER GRAD KODELJEVO</span>
+          <div class="flex items-center space-x-3 mb-4">
+            <img src="/logo-badge.png" alt="Kader Logo" class="w-10 h-10 object-contain rounded-md" />
+            <span class="text-xl font-black tracking-wider text-white">KADER</span>
           </div>
-          <p class="text-gray-400 mb-4">Historic castle venue offering authentic pizzeria experiences and underground club nights in the heart of Ljubljana.</p>
-          <div class="flex space-x-4">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
-              <FacebookIcon class="w-5 h-5" />
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
-              <InstagramIcon class="w-5 h-5" />
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
-              <TwitterIcon class="w-5 h-5" />
-            </a>
+          <p class="text-sm text-gray-400 mb-4">Pizza bistro in plesni bar na gradu Kodeljevo. Pizzeria podnevi in klubska kultura ponoči v zgodovinskem ambientu.</p>
+          <div class="text-xs text-gray-500 space-y-1">
+            <p><strong>Kader d.o.o.</strong></p>
+            <p>Ulica Carla Benza 20, 1000 Ljubljana</p>
+            <p>Davčna št.: SI45321361</p>
           </div>
         </div>
         
         <div>
-          <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-          <ul class="space-y-2">
-            <li><NuxtLink to="/" class="text-gray-400 hover:text-white transition-colors duration-300">Home</NuxtLink></li>
-            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-white transition-colors duration-300">Pizzeria Menu</NuxtLink></li>
-            <li><NuxtLink to="/club" class="text-gray-400 hover:text-white transition-colors duration-300">Club Experience</NuxtLink></li>
-            <li><NuxtLink to="/events" class="text-gray-400 hover:text-white transition-colors duration-300">Events Calendar</NuxtLink></li>
-            <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-white transition-colors duration-300">Private Hire</NuxtLink></li>
+          <h3 class="text-lg font-bold mb-4 text-white">Hitre Povezave</h3>
+          <ul class="space-y-2 text-sm">
+            <li><NuxtLink to="/" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Začetna / Home</NuxtLink></li>
+            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Meni / Pizzeria</NuxtLink></li>
+            <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Klub / Klipsch Sound</NuxtLink></li>
+            <li><NuxtLink to="/events" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Dogodki / Events</NuxtLink></li>
+            <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Zasebni Najem / Buyouts</NuxtLink></li>
           </ul>
         </div>
         
         <div>
-          <h3 class="text-lg font-bold mb-4">Contact Info</h3>
-          <ul class="space-y-2 text-gray-400">
+          <h3 class="text-lg font-bold mb-4 text-white">Kontakt & Naročila</h3>
+          <ul class="space-y-3 text-sm text-gray-400">
             <li class="flex items-start">
-              <MapPinIcon class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
-              <span>Grad Kodeljevo Castle, Ljubljana, Slovenia</span>
+              <MapPinIcon class="w-5 h-5 mr-2 mt-0.5 text-red-500 flex-shrink-0" />
+              <span>Ulica Carla Benza 20,<br />1000 Ljubljana (Grad Kodeljevo)</span>
             </li>
             <li class="flex items-center">
-              <PhoneIcon class="w-5 h-5 mr-2 flex-shrink-0" />
-              <span>+386 1 234 5678</span>
+              <PhoneIcon class="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
+              <div>
+                <span class="text-xs text-gray-500 block">Naročim in pridem iskat:</span>
+                <a href="tel:+38683836740" class="hover:text-white font-semibold text-white">+386 83 836 740</a>
+              </div>
             </li>
             <li class="flex items-center">
-              <EnvelopeIcon class="w-5 h-5 mr-2 flex-shrink-0" />
-              <span>info@kadergradkodeljevo.si</span>
+              <PhoneIcon class="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
+              <div>
+                <span class="text-xs text-gray-500 block">Rezervacije miz:</span>
+                <a href="tel:+38640175628" class="hover:text-white font-semibold text-white">+386 40 175 628</a>
+              </div>
             </li>
           </ul>
         </div>
         
         <div>
-          <h3 class="text-lg font-bold mb-4">Opening Hours</h3>
-          <ul class="space-y-2 text-gray-400">
-            <li class="flex justify-between">
-              <span>Monday - Thursday</span>
-              <span>11:00 - 23:00</span>
+          <h3 class="text-lg font-bold mb-4 text-white">Delovni Čas (Google)</h3>
+          <ul class="space-y-2 text-xs text-gray-400">
+            <li class="flex justify-between border-b border-gray-800 pb-1">
+              <span>Ponedeljek – Sreda</span>
+              <span class="text-white font-medium">09:00 – 22:00</span>
             </li>
-            <li class="flex justify-between">
-              <span>Friday - Saturday</span>
-              <span>11:00 - 02:00</span>
+            <li class="flex justify-between border-b border-gray-800 pb-1">
+              <span>Četrtek</span>
+              <span class="text-white font-medium">09:00 – 01:00</span>
             </li>
-            <li class="flex justify-between">
-              <span>Sunday</span>
-              <span>12:00 - 22:00</span>
+            <li class="flex justify-between border-b border-gray-800 pb-1">
+              <span>Petek</span>
+              <span class="text-white font-medium">09:00 – 05:00</span>
+            </li>
+            <li class="flex justify-between border-b border-gray-800 pb-1">
+              <span>Sobota</span>
+              <span class="text-white font-medium">09:00 – 01:00</span>
+            </li>
+            <li class="flex justify-between pb-1">
+              <span>Nedelja</span>
+              <span class="text-white font-medium">09:00 – 20:00</span>
             </li>
           </ul>
+          <p class="text-[11px] text-gray-500 mt-3 italic">* Kuhinja obratuje od 12:00 do 22:00</p>
         </div>
       </div>
       
-      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-        <p>&copy; {{ new Date().getFullYear() }} Kader Grad Kodeljevo. All rights reserved.</p>
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+        <p>&copy; {{ new Date().getFullYear() }} Kader Grad Kodeljevo. Vse pravice pridržane.</p>
+        <p class="mt-2 md:mt-0">Cenik velja od 06.09.2024. Cene so v € in vključujejo DDV.</p>
       </div>
     </div>
   </footer>

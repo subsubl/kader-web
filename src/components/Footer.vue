@@ -7,7 +7,7 @@
             <img src="/logo-badge.png" alt="Kader Logo" class="w-10 h-10 object-contain rounded-md" />
             <span class="text-xl font-black tracking-wider text-white">KADER</span>
           </div>
-          <p class="text-sm text-gray-400 mb-4">Pizza bistro in plesni bar na gradu Kodeljevo. Pizzeria podnevi in klubska kultura ponoči v zgodovinskem ambientu.</p>
+          <p class="text-sm text-gray-400 mb-4">{{ t('footer.tagline') }}</p>
           <div class="text-xs text-gray-500 space-y-1">
             <p><strong>Kader d.o.o.</strong></p>
             <p>Ulica Carla Benza 20, 1000 Ljubljana</p>
@@ -16,18 +16,18 @@
         </div>
         
         <div>
-          <h3 class="text-lg font-bold mb-4 text-white">Hitre Povezave</h3>
+          <h3 class="text-lg font-bold mb-4 text-white">{{ t('footer.quickLinks') }}</h3>
           <ul class="space-y-2 text-sm">
-            <li><NuxtLink to="/" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Začetna / Home</NuxtLink></li>
-            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Meni / Pizzeria</NuxtLink></li>
-            <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Klub / Klipsch Sound</NuxtLink></li>
+            <li><NuxtLink to="/" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Home</NuxtLink></li>
+            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Pizzeria</NuxtLink></li>
+            <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Klub / Club</NuxtLink></li>
             <li><NuxtLink to="/events" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Dogodki / Events</NuxtLink></li>
             <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Zasebni Najem / Buyouts</NuxtLink></li>
           </ul>
         </div>
         
         <div>
-          <h3 class="text-lg font-bold mb-4 text-white">Kontakt & Naročila</h3>
+          <h3 class="text-lg font-bold mb-4 text-white">{{ t('footer.contacts') }}</h3>
           <ul class="space-y-3 text-sm text-gray-400">
             <li class="flex items-start">
               <MapPinIcon class="w-5 h-5 mr-2 mt-0.5 text-red-500 flex-shrink-0" />
@@ -36,14 +36,14 @@
             <li class="flex items-center">
               <PhoneIcon class="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
               <div>
-                <span class="text-xs text-gray-500 block">Naročim in pridem iskat:</span>
+                <span class="text-xs text-gray-500 block">{{ t('footer.pickUp') }}</span>
                 <a href="tel:+38683836740" class="hover:text-white font-semibold text-white">+386 83 836 740</a>
               </div>
             </li>
             <li class="flex items-center">
               <PhoneIcon class="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
               <div>
-                <span class="text-xs text-gray-500 block">Rezervacije miz:</span>
+                <span class="text-xs text-gray-500 block">{{ t('footer.tableRes') }}</span>
                 <a href="tel:+38640175628" class="hover:text-white font-semibold text-white">+386 40 175 628</a>
               </div>
             </li>
@@ -88,6 +88,8 @@
 
 <script setup lang="ts">
 import { MapPinIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/vue/24/outline'
+
+const { t } = useLocale()
 
 // Social media icons would be imported here
 // For this example, we'll use placeholder icons

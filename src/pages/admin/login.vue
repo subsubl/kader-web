@@ -77,6 +77,15 @@ const handleLogin = async () => {
   loading.value = true
 
   try {
+    const config = useRuntimeConfig()
+    const supabaseUrl = config.public?.supabaseUrl as string
+
+    if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
+      error.value = 'Sistem nima konfigurirane prave Supabase baze. V .env datoteki nastavite NUXT_PUBLIC_SUPABASE_URL in NUXT_PUBLIC_SUPABASE_ANON_KEY.'
+      loading.value = false
+      return
+    }
+
     const { $supabase } = useNuxtApp()
     
     const { data, error: authError } = await $supabase.auth.signInWithPassword({
@@ -85,12 +94,12 @@ const handleLogin = async () => {
     })
 
     if (authError) {
-      error.value = authError.message || 'Invalid credentials. Please try again.'
+      error.value = authError.message || 'Neveljavni podatki za prijavo.'
       return
     }
 
     if (!data.user) {
-      error.value = 'Login failed. User object not returned.'
+      error.value = 'Prijava ni uspela (uporabnik ni bil vrnjen).'
       return
     }
 
@@ -104,26 +113,30 @@ const handleLogin = async () => {
     if (roleError) {
       console.error('Role check database error:', roleError)
       await $supabase.auth.signOut()
-      error.value = `Role check failed: ${roleError.message}`
+      error.value = `Preverjanje vloge ni uspelo: ${roleError.message}`
       return
     }
 
     if (!userRole) {
       await $supabase.auth.signOut()
-      error.value = `Access denied. No role entry found in 'users_roles' table for user (${data.user.email}).`
+      error.value = `Dostop zavrnjen. V tabeli 'users_roles' ni vnosa za uporabnika (${data.user.email}).`
       return
     }
 
     if (userRole.role !== 'admin') {
       await $supabase.auth.signOut()
-      error.value = `Access denied. Role '${userRole.role}' is not 'admin'.`
+      error.value = `Dostop zavrnjen. Vloga '${userRole.role}' nima admin pravic.`
       return
     }
 
     // Redirect to admin dashboard
     await router.push('/admin/dashboard')
   } catch (err: any) {
-    error.value = err.message || 'An unexpected error occurred. Please try again.'
+    if (err.message && err.message.includes('Failed to fetch')) {
+      error.value = 'Povezava s Supabase bazo ni uspela (Failed to fetch). Preverite delovanje strežnika ali URL baze v .env datoteki.'
+    } else {
+      error.value = err.message || 'Prišlo je do nepričakovane napake.'
+    }
     console.error('Login error:', err)
   } finally {
     loading.value = false

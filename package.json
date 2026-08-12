@@ -9,6 +9,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
+    "create-admin": "node scripts/create-admin.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

@@ -2,19 +2,19 @@
   <div class="max-w-6xl mx-auto p-6">
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
       <div>
-        <h1 class="text-3xl font-black text-white">Upravljanje Dogodkov / Event Management</h1>
-        <p class="text-gray-400 mt-1 text-sm">Dodajte nove dogodke ali urejajte obstoječe (prikazani bodo na kader.si/events v slogu Resident Advisor)</p>
+        <h1 class="text-3xl font-bold text-white">Upravljanje dogodkov</h1>
+        <p class="text-gray-400 mt-1 text-sm">Dodajte nove dogodke ali urejajte obstoječe za prikaz na kader.si/events</p>
       </div>
       <div class="flex gap-3">
         <button 
           @click="syncRa" 
           :disabled="syncing"
-          class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-xl font-bold transition-colors flex items-center gap-2 text-sm"
+          class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-xl font-semibold transition-colors flex items-center gap-2 text-sm"
         >
-          {{ syncing ? 'Sinhronizacija...' : '🔄 Osveži RA Dogodke' }}
+          {{ syncing ? 'Sinhronizacija...' : 'Osveži RA dogodke' }}
         </button>
-        <NuxtLink to="/admin/events/new" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-extrabold transition-all duration-300 shadow-lg shadow-red-950 text-sm">
-          + Nov Dogodek / New Event
+        <NuxtLink to="/admin/events/new" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-colors shadow-lg shadow-red-950 text-sm">
+          + Nov dogodek
         </NuxtLink>
       </div>
     </div>
@@ -38,11 +38,11 @@
         <table class="w-full text-left">
           <thead class="bg-black/60 border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
             <tr>
-              <th class="px-6 py-4 font-bold">Dogodek / Event</th>
-              <th class="px-6 py-4 font-bold">Datum / Date</th>
-              <th class="px-6 py-4 font-bold">Žanri / Genres</th>
-              <th class="px-6 py-4 font-bold">Vrsta / Source</th>
-              <th class="px-6 py-4 font-bold text-right">Akcije / Actions</th>
+              <th class="px-6 py-4 font-bold">Dogodek</th>
+              <th class="px-6 py-4 font-bold">Datum</th>
+              <th class="px-6 py-4 font-bold">Žanri</th>
+              <th class="px-6 py-4 font-bold">Vir</th>
+              <th class="px-6 py-4 font-bold text-right">Akcije</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-800/80 text-sm">
@@ -82,12 +82,12 @@
                   :class="event.is_custom ? 'bg-purple-950/80 text-purple-400 border-purple-800/80' : 'bg-blue-950/80 text-blue-400 border-blue-800/80'" 
                   class="px-2.5 py-1 text-xs font-bold rounded-full border"
                 >
-                  {{ event.is_custom ? 'Ročni Vnos' : 'Resident Advisor' }}
+                  {{ event.is_custom ? 'Ročni vnos' : 'Resident Advisor' }}
                 </span>
               </td>
               <td class="px-6 py-4 text-right whitespace-nowrap">
                 <NuxtLink :to="`/admin/events/${event.ra_id}`" class="text-xs font-bold text-red-400 hover:text-red-300 mr-4">
-                  Uredi / Edit
+                  Uredi
                 </NuxtLink>
                 <button 
                   v-if="event.is_custom"

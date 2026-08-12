@@ -9,14 +9,14 @@
       <!-- Upcoming & Featured Events -->
       <div class="mb-12">
         <div class="mb-8 border-b border-gray-800 pb-4">
-          <h2 class="text-3xl font-black tracking-tight text-white">{{ t('events.upcoming') }}</h2>
+          <h2 class="text-3xl font-bold tracking-tight text-white">{{ t('events.upcoming') }}</h2>
         </div>
 
         <!-- Error state -->
         <div v-if="loadError" class="bg-red-900/30 border border-red-700 text-red-300 rounded-xl p-8 text-center">
           <p class="mb-2">{{ loadError }}</p>
           <button @click="loadEvents" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors">
-            Retry
+            Poskusi znova
           </button>
         </div>
 
@@ -36,7 +36,7 @@
             v-for="event in events" 
             :key="event.ra_id" 
             @click="openModal(event)"
-            class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-800 hover:border-red-600/60 transform hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+            class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-800 hover:border-red-600/60 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
           >
             <div>
               <div class="relative overflow-hidden aspect-[16/10]">
@@ -51,14 +51,14 @@
                   {{ event.genres[0] || 'Club' }}
                 </div>
                 <div class="absolute bottom-3 left-4 right-4 flex justify-between items-end">
-                  <span class="text-xs font-bold bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-gray-200">
+                  <span class="text-xs font-medium bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-gray-200">
                     {{ formatDate(event.date) }}
                   </span>
                 </div>
               </div>
 
               <div class="p-6">
-                <h3 class="text-xl font-extrabold mb-2 text-white group-hover:text-red-400 transition-colors leading-snug">
+                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-red-400 transition-colors leading-snug">
                   {{ event.title }}
                 </h3>
                 <p class="text-xs text-gray-400 mb-3 flex items-center">
@@ -73,16 +73,16 @@
             </div>
 
             <div class="px-6 pb-6 pt-0">
-              <div class="flex items-center justify-between pt-4 border-t border-gray-700/60 text-xs font-bold">
+              <div class="flex items-center justify-between pt-4 border-t border-gray-700/60 text-xs font-medium">
                 <span class="text-red-400 flex items-center group-hover:translate-x-1 transition-transform">
-                  Podrobnosti & Vstopnice 
+                  Podrobnosti & vstopnice
                   <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </span>
                 <span 
                   v-if="event.cost === 0 || event.ticket_provider === 'free'" 
-                  class="text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-1 rounded-md font-extrabold"
+                  class="text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-1 rounded-md font-semibold"
                 >
-                  🎉 Prost vstop
+                  Prost vstop
                 </span>
                 <span v-else-if="event.cost" class="text-gray-300 bg-gray-700/60 px-2.5 py-1 rounded-md">
                   {{ event.cost }} €
@@ -134,11 +134,11 @@
         class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-6 overflow-y-auto"
         @click.self="closeModal"
       >
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl my-auto animate-fade-in relative">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl my-auto relative">
           <!-- Close Button -->
           <button 
             @click="closeModal"
-            class="absolute top-4 right-4 z-20 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors border border-gray-700"
+            class="absolute top-4 right-4 z-20 bg-black/60 hover:bg-black/90 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors border border-gray-700 text-sm"
           >
             ✕
           </button>
@@ -161,92 +161,90 @@
                 <span 
                   v-for="genre in selectedEvent.genres" 
                   :key="genre" 
-                  class="px-3 py-1 bg-red-950/80 border border-red-800/80 text-red-400 rounded-full text-xs font-bold uppercase tracking-wider"
+                  class="px-3 py-1 bg-red-950/80 border border-red-800/80 text-red-400 rounded-full text-xs font-semibold uppercase tracking-wider"
                 >
                   {{ genre }}
                 </span>
-                <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs font-semibold">
+                <span class="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs font-medium">
                   {{ formatDate(selectedEvent.date) }}
                 </span>
               </div>
               
-              <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">
+              <h2 class="text-3xl md:text-4xl font-bold text-white tracking-tight mb-2">
                 {{ selectedEvent.title }}
               </h2>
               
               <p class="text-sm text-gray-400 flex items-center space-x-2">
-                <span>📍 Kader Grad Kodeljevo (Ulica Carla Benza 20, Ljubljana)</span>
-                <span v-if="selectedEvent.start_time">• 🕒 {{ formatTime(selectedEvent.start_time) }} {{ selectedEvent.end_time ? '– ' + formatTime(selectedEvent.end_time) : '' }}</span>
+                <span>Kader Grad Kodeljevo (Ulica Carla Benza 20, Ljubljana)</span>
+                <span v-if="selectedEvent.start_time">• {{ formatTime(selectedEvent.start_time) }} {{ selectedEvent.end_time ? '– ' + formatTime(selectedEvent.end_time) : '' }}</span>
               </p>
             </div>
 
             <!-- Artists List -->
             <div v-if="selectedEvent.artists.length > 0" class="bg-gray-800/60 p-4 rounded-xl border border-gray-800">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Nastopajoči / Lineup Artists</h4>
+              <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Nastopajoči</h4>
               <div class="flex flex-wrap gap-2">
                 <span 
                   v-for="artist in selectedEvent.artists" 
                   :key="artist"
-                  class="px-3 py-1.5 bg-gray-700/80 hover:bg-gray-700 text-white rounded-lg text-sm font-bold transition-colors"
+                  class="px-3 py-1.5 bg-gray-700/80 hover:bg-gray-700 text-white rounded-lg text-sm font-semibold transition-colors"
                 >
-                  🎧 {{ artist }}
+                  {{ artist }}
                 </span>
               </div>
             </div>
 
             <!-- Raw Lineup Text -->
             <div v-if="selectedEvent.lineup" class="bg-gray-800/40 p-4 rounded-xl border border-gray-800">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Celotni Spored / Full Lineup</h4>
+              <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Spored</h4>
               <div class="text-sm text-gray-300 whitespace-pre-line leading-relaxed font-mono" v-html="cleanLineup(selectedEvent.lineup)"></div>
             </div>
 
-            <!-- Embedded Pretix Checkout Widget -->
-            <div v-if="selectedEvent.ticket_provider === 'pretix' || selectedEvent.pretix_event_url" class="bg-gray-800/60 p-4 rounded-xl border border-gray-700">
-              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Notranja Prodaja Vstopnic / Direct Ticket Checkout</h4>
+            <!-- Embedded Pretix Checkout Widget (Upcoming events only) -->
+            <div v-if="!isPastEvent(selectedEvent) && (selectedEvent.ticket_provider === 'pretix' || selectedEvent.pretix_event_url)" class="bg-gray-800/60 p-4 rounded-xl border border-gray-700">
+              <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Nakup vstopnic</h4>
               <PretixWidget :event="selectedEvent.pretix_event_url || selectedEvent.ticket_url || ''" />
             </div>
 
-            <!-- Ticket & Price Action Footer (Only for upcoming events) -->
+            <!-- Ticket & Price Action Footer (Upcoming events only) -->
             <div v-if="!isPastEvent(selectedEvent)" class="pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <span class="text-xs text-gray-400 block uppercase font-medium">Vstopnina / Entry Fee</span>
-                <span class="text-xl font-black text-white">
-                  {{ selectedEvent.cost === 0 || selectedEvent.ticket_provider === 'free' ? '🎉 Prost vstop / Free Entry' : (selectedEvent.cost ? selectedEvent.cost + ' €' : 'Vstop prost / Free') }}
+                <span class="text-xs text-gray-400 block uppercase font-medium">Vstopnina</span>
+                <span class="text-xl font-bold text-white">
+                  {{ selectedEvent.cost === 0 || selectedEvent.ticket_provider === 'free' ? 'Prost vstop' : (selectedEvent.cost ? selectedEvent.cost + ' €' : 'Vstop prost') }}
                 </span>
               </div>
 
               <div class="w-full sm:w-auto">
-                <div v-if="selectedEvent.ticket_provider === 'free' || selectedEvent.cost === 0" class="px-6 py-3 bg-emerald-950 border border-emerald-700 text-emerald-300 font-extrabold rounded-xl text-center text-sm">
-                  🎉 Prost Vstop / Free Admission
+                <div v-if="selectedEvent.ticket_provider === 'free' || selectedEvent.cost === 0" class="px-6 py-3 bg-emerald-950 border border-emerald-800 text-emerald-300 font-bold rounded-xl text-center text-sm">
+                  Prost vstop
                 </div>
                 <a 
                   v-else-if="selectedEvent.ticket_provider === 'olaii' || (selectedEvent.ticket_url && selectedEvent.ticket_url.includes('olaii'))"
                   :href="selectedEvent.ticket_url || 'https://olaii.com'"
                   target="_blank"
                   rel="noopener"
-                  class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl text-center transition-all duration-300 shadow-lg shadow-red-950 flex items-center justify-center gap-2"
+                  class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-center transition-colors shadow-lg shadow-red-950 flex items-center justify-center"
                 >
-                  <span>Kupi na Olaii</span>
-                  <span class="text-lg">🎫</span>
+                  Kupi na Olaii
                 </a>
                 <a 
                   v-else
                   :href="selectedEvent.ticket_url || selectedEvent.pretix_event_url || selectedEvent.ra_url || 'https://kader.si'"
                   target="_blank"
                   rel="noopener"
-                  class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl text-center transition-all duration-300 shadow-lg shadow-red-950 flex items-center justify-center gap-2"
+                  class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-center transition-colors shadow-lg shadow-red-950 flex items-center justify-center"
                 >
-                  <span>Kupi Vstopnico / Buy Ticket</span>
-                  <span class="text-lg">🎟️</span>
+                  Kupi vstopnico
                 </a>
               </div>
             </div>
 
             <!-- Past Event Concluded Banner -->
             <div v-else class="pt-4 border-t border-gray-800 flex items-center justify-between">
-              <span class="text-xs text-gray-500 uppercase font-semibold">Pretekli Dogodek / Past Event</span>
-              <span class="px-4 py-2 bg-gray-800 border border-gray-700 text-gray-400 text-xs font-bold rounded-xl">
-                🔒 Zaključeno / Event Concluded
+              <span class="text-xs text-gray-500 uppercase font-semibold">Pretekli dogodek</span>
+              <span class="px-4 py-2 bg-gray-800 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl">
+                Zaključeno
               </span>
             </div>
           </div>

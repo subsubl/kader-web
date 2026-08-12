@@ -4,8 +4,8 @@
       <div class="flex items-center gap-4">
         <NuxtLink to="/admin/events" class="text-gray-400 hover:text-white transition-colors text-xl font-bold">←</NuxtLink>
         <div>
-          <h1 class="text-3xl font-black text-white">{{ isEdit ? 'Uredi Dogodek / Edit Event' : 'Nov Dogodek / Create Event' }}</h1>
-          <p class="text-sm text-gray-400 mt-1">Ustvari ali uredi dogodek za prikaz na kader.si (v slogu Resident Advisor)</p>
+          <h1 class="text-3xl font-bold text-white">{{ isEdit ? 'Uredi dogodek' : 'Nov dogodek' }}</h1>
+          <p class="text-sm text-gray-400 mt-1">Ustvari ali uredi dogodek za prikaz na kader.si</p>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Naslov Dogodka / Event Title *</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Naslov dogodka *</label>
           <input 
             v-model="form.title" 
             type="text" 
@@ -32,7 +32,7 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Datum & Začetek / Date & Start Time *</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Datum & Začetek *</label>
           <input 
             v-model="form.date" 
             type="datetime-local" 
@@ -42,7 +42,7 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Konec Dogodka / End Time</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Konec dogodka</label>
           <input 
             v-model="form.end_time" 
             type="datetime-local" 
@@ -51,7 +51,7 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Vstopnina (€) / Cost (€)</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Vstopnina (€)</label>
           <input 
             v-model="form.cost" 
             type="number" 
@@ -62,7 +62,7 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Žanri / Genres (z vejico ločeno)</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Žanri (z vejico ločeno)</label>
           <input 
             v-model="form.genres" 
             type="text" 
@@ -72,7 +72,7 @@
         </div>
 
         <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Nastopajoči Izvajalci / Artists (z vejico ločeno)</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Nastopajoči (z vejico ločeno)</label>
           <input 
             v-model="form.artists" 
             type="text" 
@@ -82,7 +82,7 @@
         </div>
 
         <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Slika Flyerja / Flyer Image URL</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Slika flyerja / URL</label>
           <input 
             v-model="form.flyer_url" 
             type="url" 
@@ -97,14 +97,14 @@
 
         <!-- Ticket System Selection -->
         <div class="md:col-span-2 bg-gray-800/80 p-5 rounded-2xl border border-gray-700/80 space-y-4">
-          <label class="block text-xs font-bold text-gray-200 uppercase tracking-wider">Prodaja Vstopnic / Ticket System</label>
+          <label class="block text-xs font-bold text-gray-200 uppercase tracking-wider">Prodaja vstopnic / Sistem</label>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             <label 
               :class="form.ticket_provider === 'free' ? 'bg-red-600/30 border-red-500 text-white font-bold' : 'bg-gray-900/60 border-gray-700 text-gray-400 hover:text-white'"
               class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
             >
               <input type="radio" v-model="form.ticket_provider" value="free" class="hidden" />
-              <span>🎉 Prost vstop / Free</span>
+              <span>Prost vstop</span>
             </label>
 
             <label 
@@ -112,7 +112,7 @@
               class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
             >
               <input type="radio" v-model="form.ticket_provider" value="pretix" class="hidden" />
-              <span>🎟️ Pretix (Notranji)</span>
+              <span>Pretix</span>
             </label>
 
             <label 
@@ -120,7 +120,7 @@
               class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
             >
               <input type="radio" v-model="form.ticket_provider" value="olaii" class="hidden" />
-              <span>🎫 Olaii</span>
+              <span>Olaii</span>
             </label>
 
             <label 
@@ -128,13 +128,13 @@
               class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
             >
               <input type="radio" v-model="form.ticket_provider" value="ra" class="hidden" />
-              <span>📻 Resident Advisor</span>
+              <span>Resident Advisor</span>
             </label>
           </div>
 
           <div v-if="form.ticket_provider !== 'free'" class="pt-2">
             <label class="block text-xs font-semibold text-gray-300 mb-1">
-              {{ form.ticket_provider === 'pretix' ? 'Pretix Event Shop URL' : form.ticket_provider === 'olaii' ? 'Olaii Event URL' : 'Povezava do vstopnic / Ticket URL' }}
+              {{ form.ticket_provider === 'pretix' ? 'Pretix URL' : form.ticket_provider === 'olaii' ? 'Olaii URL' : 'Povezava do vstopnic' }}
             </label>
             <input 
               v-model="form.ticket_url" 
@@ -146,7 +146,7 @@
         </div>
 
         <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Celoten Spored / Full Lineup Text</label>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Spored / Lineup</label>
           <textarea 
             v-model="form.lineup" 
             rows="4" 
@@ -160,9 +160,9 @@
         <button 
           type="submit"
           :disabled="saving"
-          class="px-8 py-3.5 bg-red-600 hover:bg-red-700 disabled:bg-red-800 text-white font-extrabold rounded-xl transition-all duration-300 shadow-lg shadow-red-950 flex items-center gap-2"
+          class="px-8 py-3.5 bg-red-600 hover:bg-red-700 disabled:bg-red-800 text-white font-bold rounded-xl transition-colors shadow-lg shadow-red-950 flex items-center gap-2"
         >
-          {{ saving ? 'Shranjevanje...' : (isEdit ? 'Shrani Spremembe' : 'Objavi Dogodek') }}
+          {{ saving ? 'Shranjevanje...' : (isEdit ? 'Shrani spremembe' : 'Objavi dogodek') }}
         </button>
         <NuxtLink to="/admin/events" class="px-6 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl font-bold transition-colors">
           Prekliči

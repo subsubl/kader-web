@@ -1,7 +1,5 @@
 // POST /api/admin/sync-ra — trigger a one-off Resident Advisor sync (admin only)
-// Self-authorizes (session + admin role), fetches RA events, upserts into ra_events.
-// The scheduled GitHub Actions workflow (scripts/sync-ra.mjs) is the primary sync;
-// this lets staff run it on demand from the admin UI without waiting.
+// Self-authorizes (session + admin role), fetches RA events (past + upcoming), upserts into ra_events.
 
 import { createError } from '#imports'
 
@@ -9,6 +7,39 @@ const RA_CLUB_ID = '78778'
 const RA_GRAPHQL = 'https://ra.co/graphql'
 const RA_UPLOAD_DOMAIN = 'https://d1rlyio0xno2kt.cloudfront.net'
 const LIMIT = 200
+
+async function fetchRaEventsType(type: string, year?: number) {
+  const query = `query ClubEvents($id: ID!, $limit: Int, $year: Int) {
+    venue(id: $id) {
+      id
+      name
+      events(type: ${type}, limit: $limit, year: $year) {
+        id title date startTime endTime cost contentUrl flyerFront lineup
+        artists { id name } genres { name }
+      }
+    }
+  }`
+
+  try {
+    const res = await fetch(RA_GRAPHQL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      },
+      body: JSON.stringify({
+        query,
+        variables: { id: RA_CLUB_ID, limit: LIMIT, year: year || undefined }
+      })
+    })
+    if (!res.ok) return []
+    const json = await res.json()
+    if (json.errors) return []
+    return json?.data?.venue?.events || []
+  } catch (err) {
+    return []
+  }
+}
 
 export default defineEventHandler(async (event) => {
   // --- Authorization: valid session + admin role ---
@@ -26,32 +57,22 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, statusMessage: 'Admin access required.' })
   }
 
-  // --- Fetch from RA ---
-  const query = `query ClubEvents($id: ID!, $limit: Int) {
-    venue(id: $id) {
-      id events(type: PREVIOUS, limit: $limit) {
-        id title date startTime endTime cost contentUrl flyerFront lineup
-        artists { name } genres { name }
-      }
-    }
-  }`
+  // --- Fetch past + upcoming events from RA ---
+  const eventsMap = new Map()
 
-  let raJson
-  try {
-    const res = await fetch(RA_GRAPHQL, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ query, variables: { id: RA_CLUB_ID, limit: LIMIT } })
-    })
-    if (!res.ok) throw new Error(`RA responded ${res.status}`)
-    raJson = await res.json()
-    if (raJson.errors) throw new Error(`RA errors: ${JSON.stringify(raJson.errors).slice(0, 200)}`)
-  } catch (err) {
-    console.error('[api] RA fetch failed:', (err as Error).message)
-    throw createError({ statusCode: 502, statusMessage: 'Could not reach Resident Advisor.' })
+  const todayEvs = await fetchRaEventsType('TODAY')
+  todayEvs.forEach((e: any) => eventsMap.set(e.id, e))
+
+  const prevEvs = await fetchRaEventsType('PREVIOUS')
+  prevEvs.forEach((e: any) => eventsMap.set(e.id, e))
+
+  const currentYear = new Date().getFullYear()
+  for (let y = currentYear; y >= currentYear - 5; y--) {
+    const archiveEvs = await fetchRaEventsType('ARCHIVE', y)
+    archiveEvs.forEach((e: any) => eventsMap.set(e.id, e))
   }
 
-  const events = raJson?.data?.venue?.events || []
+  const events = Array.from(eventsMap.values())
   const rows = events.map((e: any) => {
     let flyerUrl = null
     if (e.flyerFront) {

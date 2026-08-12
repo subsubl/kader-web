@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-08-12T22:12:25.152Z",
+  "lastSyncedAt": "2026-08-12T22:41:53.104Z",
   "events": [
     {
       "ra_id": 2470385,
@@ -8,7 +8,7 @@
       "start_time": "2026-06-18T14:00:00.000Z",
       "end_time": "2026-06-18T21:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/922d9172070b4a460486ca02c56a6de1b5a7b672.jpg",
       "ra_url": "https://ra.co/events/2470385",
       "lineup": "<artist id=\"100773\">Mornik</artist> \nDaNe\nVenj <artist id=\"128754\">Urban Ground</artist>",
       "artists": [
@@ -19,7 +19,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2459500,
@@ -28,7 +28,7 @@
       "start_time": "2026-06-11T17:00:00.000Z",
       "end_time": "2026-06-12T03:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/afcc2edd70f26e03394834cf577b41a2525bfb8f.jpg",
       "ra_url": "https://ra.co/events/2459500",
       "lineup": "<artist id=\"107260\">RotorMotor</artist>\n<artist id=\"170267\">Pholia</artist> \nglorex\nfauve\nspäti\nmima",
       "artists": [
@@ -39,7 +39,7 @@
         "Trance",
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2423257,
@@ -48,7 +48,7 @@
       "start_time": "2026-04-24T21:00:00.000Z",
       "end_time": "2026-04-25T03:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/3c97409b89a9c0c4da639da4686e72202ea4fd37.jpg",
       "ra_url": "https://ra.co/events/2423257",
       "lineup": "<artist id=\"111185\">Akaj</artist>",
       "artists": [
@@ -57,7 +57,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2380705,
@@ -66,7 +66,7 @@
       "start_time": "2026-02-27T21:00:00.000Z",
       "end_time": "2026-02-28T07:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/86fbd8c41ed58ea9758205faa5926fa3b5bf2601.jpg",
       "ra_url": "https://ra.co/events/2380705",
       "lineup": "<artist id=\"110312\">Keras</artist> \n<artist id=\"111185\">Akaj</artist> \n<artist id=\"125008\">Polner</artist> \n<artist id=\"116218\">Moare</artist> \n<artist id=\"121930\">Vitomil</artist>",
       "artists": [
@@ -79,7 +79,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2376045,
@@ -88,7 +88,7 @@
       "start_time": "2026-02-21T22:00:00.000Z",
       "end_time": "2026-02-22T04:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/f22f228645cd20957905156bcd756d124157fb3b.png",
       "ra_url": "https://ra.co/events/2376045",
       "lineup": "<artist id=\"129834\">PUSMUS</artist> \n<artist id=\"119738\">Radios</artist> \n<artist id=\"139072\">Rikros</artist> \n@Matan_dj\n@Rebecca",
       "artists": [
@@ -100,7 +100,7 @@
         "Techno",
         "Psytrance"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2358620,
@@ -109,7 +109,7 @@
       "start_time": "2026-02-20T22:00:00.000Z",
       "end_time": "2026-02-21T04:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/00326c7f4fd2fb8592934f9974c5115d6eb75e48.jpg",
       "ra_url": "https://ra.co/events/2358620",
       "lineup": "<artist id=\"141855\">maniken05</artist> \nNOMARK (live)\n<artist id=\"139496\">4materasu</artist> \nEgoist\nThe Yugen",
       "artists": [
@@ -120,7 +120,7 @@
         "Trance",
         "Bass"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2337425,
@@ -129,7 +129,7 @@
       "start_time": "2026-01-16T22:00:00.000Z",
       "end_time": "2026-01-17T04:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/b05b108f4defb4932fd0376611199a613ed9a358.png",
       "ra_url": "https://ra.co/events/2337425",
       "lineup": "gabi98 b2b msn gf\nEgoist b3b Comrad",
       "artists": [],
@@ -137,7 +137,7 @@
         "Techno",
         "Bass"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2328830,
@@ -146,7 +146,7 @@
       "start_time": "2025-12-26T21:00:00.000Z",
       "end_time": "2025-12-27T04:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/989759599dd801230ba69d7173d888b1b693c140.jpg",
       "ra_url": "https://ra.co/events/2328830",
       "lineup": "<artist id=\"32377\">Ranerro</artist> B2B Teo (SOLVD)\n<artist id=\"162786\">93kb</artist> B2B SPÄti (House Therapy)\nFEJZO DJ B2B Senč (Gliser)",
       "artists": [
@@ -156,7 +156,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2204667,
@@ -165,7 +165,7 @@
       "start_time": "2025-07-04T17:00:00.000Z",
       "end_time": "2025-07-05T03:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/a207e85bb788ebdc51567ed1a086e2ac9e38cb7e.jpg",
       "ra_url": "https://ra.co/events/2204667",
       "lineup": "<artist id=\"142081\">giac.</artist> \n<artist id=\"100773\">Mornik</artist> \nLev & Rožle\n<artist id=\"162786\">93kb</artist>\n<artist id=\"129742\">Merru</artist> \n<artist id=\"128754\">Urban Ground</artist>",
       "artists": [
@@ -179,7 +179,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2090095,
@@ -188,7 +188,7 @@
       "start_time": "2025-02-21T21:00:00.000Z",
       "end_time": "2025-02-22T06:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/8a09e5e2cb9ae41a195acf2711cb814ae49821ff.jpg",
       "ra_url": "https://ra.co/events/2090095",
       "lineup": "<artist id=\"15784\">Mirella Kroes</artist> \nRahul\nRhaegal\n<artist id=\"76573\">MMali</artist>",
       "artists": [
@@ -199,7 +199,7 @@
         "Trance",
         "Techno"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2061817,
@@ -208,7 +208,7 @@
       "start_time": "2024-12-25T21:00:00.000Z",
       "end_time": "2024-12-26T10:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/90c82f6eceb3414fc497df60aeefdf97a05f361b.jpg",
       "ra_url": "https://ra.co/events/2061817",
       "lineup": "<artist id=\"111185\">Akaj</artist> \n<artist id=\"10965\">Evano</artist> \n<artist id=\"77202\">Nikolaj (SLO)</artist> \n<artist id=\"121930\">Vitomil</artist> \nGap",
       "artists": [
@@ -221,7 +221,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 2030471,
@@ -230,7 +230,7 @@
       "start_time": "2024-11-29T21:00:00.000Z",
       "end_time": "2024-11-30T05:30:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/fe303707abc27147d463fbb1292e6f4da2d5594d.jpg",
       "ra_url": "https://ra.co/events/2030471",
       "lineup": "<artist id=\"56855\">Amanda Mussi</artist> \nRhaegal\n<artist id=\"76573\">MMali</artist>",
       "artists": [
@@ -241,7 +241,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 1909999,
@@ -250,7 +250,7 @@
       "start_time": "2024-04-27T20:00:00.000Z",
       "end_time": "2024-04-28T06:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/6d00ed07e181d47482b94cc982c290557d40f6cf.jpg",
       "ra_url": "https://ra.co/events/1909999",
       "lineup": "<artist id=\"99468\">LEGRAM VG</artist> \nMK",
       "artists": [
@@ -259,7 +259,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 1885731,
@@ -268,7 +268,7 @@
       "start_time": "2024-03-29T17:00:00.000Z",
       "end_time": "2024-03-30T05:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/1a2e3b4c19f261fc6960bcae1264a1d856740baa.jpg",
       "ra_url": "https://ra.co/events/1885731",
       "lineup": "<artist id=\"54344\">Nicolas Bailly</artist> \n<artist id=\"77202\">Nikolaj (SLO)</artist> \n<artist id=\"111185\">Akaj</artist>",
       "artists": [
@@ -280,7 +280,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 1849697,
@@ -289,7 +289,7 @@
       "start_time": "2024-02-23T21:00:00.000Z",
       "end_time": "2024-02-24T06:00:00.000Z",
       "cost": null,
-      "flyer_url": null,
+      "flyer_url": "https://images.ra.co/09ef0d99cd24d70ec8177446425443f35b50ddfa.jpg",
       "ra_url": "https://ra.co/events/1849697",
       "lineup": "<artist id=\"92090\">Kyle Toole</artist> \n<artist id=\"77202\">Nikolaj (SLO)</artist> \nMK",
       "artists": [
@@ -299,7 +299,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 539712,
@@ -322,7 +322,7 @@
         "Some1Else"
       ],
       "genres": [],
-      "updated_at": "2026-08-12T22:12:25.152Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     },
     {
       "ra_id": 485105,
@@ -344,7 +344,7 @@
         "Schrauff"
       ],
       "genres": [],
-      "updated_at": "2026-08-12T22:12:25.151Z"
+      "updated_at": "2026-08-12T22:41:53.104Z"
     }
   ]
 }

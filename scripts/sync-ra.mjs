@@ -44,6 +44,7 @@ async function fetchRaEventsType(type, year) {
         cost
         contentUrl
         flyerFront
+        images { filename type }
         minimumAge
         lineup
         artists { id name }
@@ -106,6 +107,13 @@ function normalize(e) {
     flyerUrl = /^https?:/i.test(e.flyerFront)
       ? e.flyerFront
       : `${RA_UPLOAD_DOMAIN}${e.flyerFront}`
+  } else if (Array.isArray(e.images) && e.images.length > 0) {
+    const frontImage = e.images.find((img) => img.type === 'FLYERFRONT' || img.type === 'FLYER') || e.images[0]
+    if (frontImage && frontImage.filename) {
+      flyerUrl = /^https?:/i.test(frontImage.filename)
+        ? frontImage.filename
+        : `${RA_UPLOAD_DOMAIN}${frontImage.filename}`
+    }
   }
   return {
     ra_id: Number(e.id),
@@ -146,12 +154,55 @@ async function upsert(rows) {
   return rows.length
 }
 
+async function fetchSingleEventFlyer(id) {
+  const query = `query SingleEvent($id: ID!) {
+    event(id: $id) {
+      flyerFront
+      images { filename type }
+    }
+  }`
+  try {
+    const res = await fetch(RA_GRAPHQL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      },
+      body: JSON.stringify({ query, variables: { id: String(id) } })
+    })
+    if (!res.ok) return null
+    const json = await res.json()
+    const ev = json?.data?.event
+    if (!ev) return null
+    if (ev.flyerFront) {
+      return /^https?:/i.test(ev.flyerFront) ? ev.flyerFront : `${RA_UPLOAD_DOMAIN}${ev.flyerFront}`
+    }
+    if (Array.isArray(ev.images) && ev.images.length > 0) {
+      const front = ev.images.find((img) => img.type === 'FLYERFRONT' || img.type === 'FLYER') || ev.images[0]
+      if (front && front.filename) {
+        return /^https?:/i.test(front.filename) ? front.filename : `${RA_UPLOAD_DOMAIN}${front.filename}`
+      }
+    }
+  } catch {
+    return null
+  }
+  return null
+}
+
 async function main() {
   console.log(`[sync-ra] Syncing all past and upcoming events for RA club ${RA_CLUB_ID}...`)
   const events = await fetchAllRaEvents()
   console.log(`[sync-ra] Got ${events.length} total unique events from RA.`)
 
   const rows = events.map(normalize)
+
+  for (const row of rows) {
+    if (!row.flyer_url) {
+      const singleFlyer = await fetchSingleEventFlyer(row.ra_id)
+      if (singleFlyer) row.flyer_url = singleFlyer
+    }
+  }
+
   const upserted = await upsert(rows)
 
   const now = new Date()

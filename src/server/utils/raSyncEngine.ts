@@ -64,12 +64,48 @@ export function writeLocalStore(store: LocalStoreData) {
   }
 }
 
+async function fetchSingleEventFlyer(id: string | number): Promise<string | null> {
+  const query = `query SingleEvent($id: ID!) {
+    event(id: $id) {
+      flyerFront
+      images { filename type }
+    }
+  }`
+  try {
+    const res = await fetch(RA_GRAPHQL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      },
+      body: JSON.stringify({ query, variables: { id: String(id) } })
+    })
+    if (!res.ok) return null
+    const json = await res.json()
+    const ev = json?.data?.event
+    if (!ev) return null
+    if (ev.flyerFront) {
+      return /^https?:/i.test(ev.flyerFront) ? ev.flyerFront : `${RA_UPLOAD_DOMAIN}${ev.flyerFront}`
+    }
+    if (Array.isArray(ev.images) && ev.images.length > 0) {
+      const front = ev.images.find((img: any) => img.type === 'FLYERFRONT' || img.type === 'FLYER') || ev.images[0]
+      if (front && front.filename) {
+        return /^https?:/i.test(front.filename) ? front.filename : `${RA_UPLOAD_DOMAIN}${front.filename}`
+      }
+    }
+  } catch {
+    return null
+  }
+  return null
+}
+
 async function fetchRaType(type: string, year?: number): Promise<any[]> {
   const query = `query ClubEvents($id: ID!, $limit: Int, $year: Int) {
     venue(id: $id) {
       id name
       events(type: ${type}, limit: $limit, year: $year) {
         id title date startTime endTime cost contentUrl flyerFront lineup
+        images { filename type }
         artists { id name } genres { name }
       }
     }
@@ -94,12 +130,22 @@ async function fetchRaType(type: string, year?: number): Promise<any[]> {
   }
 }
 
+export function extractFlyerUrl(e: any): string | null {
+  if (e.flyerFront) {
+    return /^https?:/i.test(e.flyerFront) ? e.flyerFront : `${RA_UPLOAD_DOMAIN}${e.flyerFront}`
+  }
+  if (Array.isArray(e.images) && e.images.length > 0) {
+    const frontImage = e.images.find((img: any) => img.type === 'FLYERFRONT' || img.type === 'FLYER') || e.images[0]
+    if (frontImage && frontImage.filename) {
+      return /^https?:/i.test(frontImage.filename) ? frontImage.filename : `${RA_UPLOAD_DOMAIN}${frontImage.filename}`
+    }
+  }
+  return null
+}
+
 export function normalizeRaEvent(e: any): RaEventRecord {
   const date = e.startTime || e.date
-  let flyerUrl = null
-  if (e.flyerFront) {
-    flyerUrl = /^https?:/i.test(e.flyerFront) ? e.flyerFront : `${RA_UPLOAD_DOMAIN}${e.flyerFront}`
-  }
+  const flyerUrl = extractFlyerUrl(e)
   return {
     ra_id: Number(e.id),
     title: e.title || 'Untitled Event',
@@ -140,18 +186,21 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
   let newCount = 0
   const updatedEventsMap = new Map<number, RaEventRecord>(existingMap)
 
-  fetchedEventsMap.forEach((rawEvent) => {
+  for (const rawEvent of fetchedEventsMap.values()) {
     const normalized = normalizeRaEvent(rawEvent)
+    if (!normalized.flyer_url) {
+      const singleFlyer = await fetchSingleEventFlyer(normalized.ra_id)
+      if (singleFlyer) normalized.flyer_url = singleFlyer
+    }
     if (!existingMap.has(normalized.ra_id)) {
       newCount++
     }
-    // Preserve any existing pretix_event_url if attached manually
     const existing = existingMap.get(normalized.ra_id)
     if (existing && existing.pretix_event_url) {
       normalized.pretix_event_url = existing.pretix_event_url
     }
     updatedEventsMap.set(normalized.ra_id, normalized)
-  })
+  }
 
   const allEvents = Array.from(updatedEventsMap.values()).sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -184,7 +233,6 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
 export async function getSyncedRaEvents(scope: string = 'upcoming'): Promise<RaEventRecord[]> {
   let store = readLocalStore()
 
-  // Auto sync if empty or last sync was > 10 mins ago
   const TEN_MINS = 10 * 60 * 1000
   const isStale = !store.lastSyncedAt || new Date().getTime() - new Date(store.lastSyncedAt).getTime() > TEN_MINS
 
@@ -199,10 +247,9 @@ export async function getSyncedRaEvents(scope: string = 'upcoming'): Promise<RaE
   if (scope === 'upcoming') {
     const upcoming = events
       .filter((e) => new Date(e.date) >= now)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => new Date(a.date).getTime() - new Date(a.date).getTime())
 
     if (upcoming.length > 0) return upcoming
-    // Fallback if no future events exist right now
     return events.slice(0, 12)
   }
 

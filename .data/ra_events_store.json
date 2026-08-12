@@ -1,6 +1,30 @@
 {
-  "lastSyncedAt": "2026-08-12T22:41:53.104Z",
+  "lastSyncedAt": "2026-08-12T22:44:56.297Z",
   "events": [
+    {
+      "ra_id": 1786574972899,
+      "title": "Kader Summer Opening Night",
+      "date": "2026-08-20T21:00:00.000Z",
+      "start_time": "2026-08-20T21:00:00.000Z",
+      "end_time": null,
+      "cost": 12,
+      "flyer_url": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80",
+      "ra_url": null,
+      "lineup": "DJ Alex (21:00 - 23:00)\nMarko (23:00 - 01:00)\nSpecial Guest (01:00 - 04:00)",
+      "artists": [
+        "DJ Alex",
+        "Marko",
+        "Special Guest"
+      ],
+      "genres": [
+        "House",
+        "Disco",
+        "Tech"
+      ],
+      "pretix_event_url": null,
+      "is_custom": true,
+      "updated_at": "2026-08-12T22:49:32.899Z"
+    },
     {
       "ra_id": 2470385,
       "title": "Simply Life",
@@ -19,7 +43,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2459500,
@@ -39,7 +63,7 @@
         "Trance",
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2423257,
@@ -57,7 +81,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2380705,
@@ -79,7 +103,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2376045,
@@ -100,7 +124,7 @@
         "Techno",
         "Psytrance"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2358620,
@@ -120,7 +144,7 @@
         "Trance",
         "Bass"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2337425,
@@ -137,7 +161,7 @@
         "Techno",
         "Bass"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2328830,
@@ -156,7 +180,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2204667,
@@ -179,7 +203,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2090095,
@@ -199,7 +223,7 @@
         "Trance",
         "Techno"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2061817,
@@ -221,7 +245,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 2030471,
@@ -241,7 +265,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 1909999,
@@ -259,7 +283,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 1885731,
@@ -280,7 +304,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 1849697,
@@ -299,7 +323,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.297Z"
     },
     {
       "ra_id": 539712,
@@ -322,7 +346,7 @@
         "Some1Else"
       ],
       "genres": [],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.226Z"
     },
     {
       "ra_id": 485105,
@@ -344,7 +368,7 @@
         "Schrauff"
       ],
       "genres": [],
-      "updated_at": "2026-08-12T22:41:53.104Z"
+      "updated_at": "2026-08-12T22:44:56.226Z"
     }
   ]
 }

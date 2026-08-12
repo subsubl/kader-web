@@ -1,6 +1,6 @@
-// Local Persistent RA Sync Engine
-// Syncs and caches all RA events (flyers, lineup, artists, genres, cost, dates) locally in persistent storage.
-// Checks for new/updated events and syncs with Supabase when wired.
+// Local Persistent RA & Custom Events Sync Engine
+// Syncs RA events and allows creating/managing custom admin events.
+// Preserves custom events and flyers across auto-syncs.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -18,6 +18,7 @@ export interface RaEventRecord {
   artists: string[]
   genres: string[]
   pretix_event_url?: string | null
+  is_custom?: boolean
   updated_at: string
 }
 
@@ -184,10 +185,21 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
   }
 
   let newCount = 0
-  const updatedEventsMap = new Map<number, RaEventRecord>(existingMap)
+  const updatedEventsMap = new Map<number, RaEventRecord>()
+
+  // Preserve existing custom events first!
+  currentStore.events.forEach((ev) => {
+    if (ev.is_custom) {
+      updatedEventsMap.set(ev.ra_id, ev)
+    }
+  })
 
   for (const rawEvent of fetchedEventsMap.values()) {
     const normalized = normalizeRaEvent(rawEvent)
+    const existing = existingMap.get(normalized.ra_id)
+    if (existing?.flyer_url && !normalized.flyer_url) {
+      normalized.flyer_url = existing.flyer_url
+    }
     if (!normalized.flyer_url) {
       const singleFlyer = await fetchSingleEventFlyer(normalized.ra_id)
       if (singleFlyer) normalized.flyer_url = singleFlyer
@@ -195,7 +207,6 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
     if (!existingMap.has(normalized.ra_id)) {
       newCount++
     }
-    const existing = existingMap.get(normalized.ra_id)
     if (existing && existing.pretix_event_url) {
       normalized.pretix_event_url = existing.pretix_event_url
     }
@@ -220,7 +231,8 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
     const url = config.public?.supabaseUrl as string
     if (url && !url.includes('placeholder')) {
       const admin = getAdminSupabase()
-      await admin.from('ra_events').upsert(allEvents, { onConflict: 'ra_id' })
+      const dbRows = allEvents.map(({ is_custom, ...rest }) => rest)
+      await admin.from('ra_events').upsert(dbRows as any, { onConflict: 'ra_id' })
       console.log('[raSyncEngine] Supabase ra_events table synced.')
     }
   } catch (e) {
@@ -228,6 +240,49 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
   }
 
   return { synced: allEvents.length, total: allEvents.length, newCount }
+}
+
+export function saveCustomEvent(eventData: Partial<RaEventRecord>): RaEventRecord {
+  const store = readLocalStore()
+  const ra_id = eventData.ra_id || Date.now()
+
+  const record: RaEventRecord = {
+    ra_id,
+    title: eventData.title || 'Untitled Event',
+    date: eventData.date ? new Date(eventData.date).toISOString() : new Date().toISOString(),
+    start_time: eventData.start_time ? new Date(eventData.start_time).toISOString() : null,
+    end_time: eventData.end_time ? new Date(eventData.end_time).toISOString() : null,
+    cost: typeof eventData.cost === 'number' ? eventData.cost : null,
+    flyer_url: eventData.flyer_url || null,
+    ra_url: eventData.ra_url || null,
+    lineup: eventData.lineup || null,
+    artists: Array.isArray(eventData.artists) ? eventData.artists : [],
+    genres: Array.isArray(eventData.genres) ? eventData.genres : [],
+    pretix_event_url: eventData.pretix_event_url || null,
+    is_custom: true,
+    updated_at: new Date().toISOString()
+  }
+
+  const existingIdx = store.events.findIndex((e) => e.ra_id === ra_id)
+  if (existingIdx >= 0) {
+    store.events[existingIdx] = record
+  } else {
+    store.events.unshift(record)
+  }
+
+  writeLocalStore(store)
+  return record
+}
+
+export function deleteCustomEvent(ra_id: number): boolean {
+  const store = readLocalStore()
+  const initialCount = store.events.length
+  store.events = store.events.filter((e) => e.ra_id !== ra_id)
+  if (store.events.length !== initialCount) {
+    writeLocalStore(store)
+    return true
+  }
+  return false
 }
 
 export async function getSyncedRaEvents(scope: string = 'upcoming'): Promise<RaEventRecord[]> {
@@ -247,7 +302,7 @@ export async function getSyncedRaEvents(scope: string = 'upcoming'): Promise<RaE
   if (scope === 'upcoming') {
     const upcoming = events
       .filter((e) => new Date(e.date) >= now)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(a.date).getTime())
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
     if (upcoming.length > 0) return upcoming
     return events.slice(0, 12)

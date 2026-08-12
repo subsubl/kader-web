@@ -206,8 +206,8 @@
               <PretixWidget :event="selectedEvent.pretix_event_url || selectedEvent.ticket_url || ''" />
             </div>
 
-            <!-- Ticket & Price Action Footer -->
-            <div class="pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <!-- Ticket & Price Action Footer (Only for upcoming events) -->
+            <div v-if="!isPastEvent(selectedEvent)" class="pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <span class="text-xs text-gray-400 block uppercase font-medium">Vstopnina / Entry Fee</span>
                 <span class="text-xl font-black text-white">
@@ -240,6 +240,14 @@
                   <span class="text-lg">🎟️</span>
                 </a>
               </div>
+            </div>
+
+            <!-- Past Event Concluded Banner -->
+            <div v-else class="pt-4 border-t border-gray-800 flex items-center justify-between">
+              <span class="text-xs text-gray-500 uppercase font-semibold">Pretekli Dogodek / Past Event</span>
+              <span class="px-4 py-2 bg-gray-800 border border-gray-700 text-gray-400 text-xs font-bold rounded-xl">
+                🔒 Zaključeno / Event Concluded
+              </span>
             </div>
           </div>
         </div>
@@ -279,6 +287,12 @@ const onImageError = (e: Event) => {
 
 // Modal State
 const selectedEvent = ref<RaEvent | null>(null)
+
+const isPastEvent = (event: RaEvent | null) => {
+  if (!event) return false
+  const time = new Date(event.end_time || event.date).getTime()
+  return time < new Date().getTime()
+}
 
 const openModal = (event: RaEvent) => {
   selectedEvent.value = event

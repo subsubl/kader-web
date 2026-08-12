@@ -304,17 +304,14 @@ export async function getSyncedRaEvents(scope: string = 'upcoming'): Promise<RaE
   const now = new Date()
 
   if (scope === 'upcoming') {
-    const upcoming = events
-      .filter((e) => new Date(e.date) >= now)
+    return events
+      .filter((e) => new Date(e.end_time || e.date) >= now)
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-
-    if (upcoming.length > 0) return upcoming
-    return events.slice(0, 12)
   }
 
   if (scope === 'past') {
     return events
-      .filter((e) => new Date(e.date) < now)
+      .filter((e) => new Date(e.end_time || e.date) < now)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }
 

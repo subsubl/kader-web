@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 px-4">
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60 z-10"></div>
-      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-40">
+      <img src="/hero-bg.jpg" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
       
       <div class="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
         <img src="/logo-banner.png" alt="Kader Grad Kodeljevo Logo" class="h-24 md:h-32 object-contain mb-8 drop-shadow-[0_0_25px_rgba(239,68,68,0.5)] animate-fade-in" />

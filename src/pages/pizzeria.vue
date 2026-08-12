@@ -2,46 +2,49 @@
   <div class="min-h-screen bg-black text-gray-100 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <!-- Header Banner -->
-      <header class="mb-12 text-center relative">
-        <div class="flex justify-center mb-6">
-          <img src="/logo-banner.png" alt="Kader Logo" class="h-16 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]" />
-        </div>
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white mb-3">
-          Meni / Menu
-        </h1>
-        <p class="text-lg md:text-xl text-red-500 font-semibold max-w-2xl mx-auto uppercase tracking-widest">
-          {{ t('pizzeria.tagline') }}
-        </p>
-        <p class="text-sm text-gray-400 mt-2">
-          {{ t('pizzeria.locationLine') }}
-        </p>
+      <header class="mb-12 text-center relative overflow-hidden rounded-2xl py-10 px-6 border border-zinc-800 bg-zinc-950">
+        <img src="/pizzeria-bg.jpg" alt="Kader Pizzeria" class="absolute inset-0 w-full h-full object-cover opacity-25" />
+        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/75 to-transparent"></div>
+        <div class="relative z-10">
+          <div class="flex justify-center mb-6">
+            <img src="/logo-banner.png" alt="Kader Logo" class="h-16 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]" />
+          </div>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white mb-3">
+            Meni / Menu
+          </h1>
+          <p class="text-lg md:text-xl text-red-500 font-semibold max-w-2xl mx-auto uppercase tracking-widest">
+            {{ t('pizzeria.tagline') }}
+          </p>
+          <p class="text-sm text-gray-400 mt-2">
+            {{ t('pizzeria.locationLine') }}
+          </p>
 
-        <!-- Direct Contact Action Cards -->
-        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
-          <a href="tel:+38683836740" class="flex items-center justify-center p-4 bg-red-950/40 border border-red-800/60 rounded-xl hover:bg-red-900/50 transition-all duration-300 group">
-            <PhoneIcon class="w-6 h-6 text-red-500 mr-3 group-hover:scale-110 transition-transform" />
-            <div class="text-left">
-              <span class="text-xs text-gray-400 block uppercase font-medium">{{ t('pizzeria.pickUp') }}</span>
-              <span class="text-lg font-bold text-white tracking-wider">+386 83 836 740</span>
-            </div>
-          </a>
-          <a href="tel:+38640175628" class="flex items-center justify-center p-4 bg-zinc-900 border border-zinc-700/80 rounded-xl hover:bg-zinc-800 transition-all duration-300 group">
-            <CalendarDaysIcon class="w-6 h-6 text-red-500 mr-3 group-hover:scale-110 transition-transform" />
-            <div class="text-left">
-              <span class="text-xs text-gray-400 block uppercase font-medium">{{ t('pizzeria.tableRes') }}</span>
-              <span class="text-lg font-bold text-white tracking-wider">+386 40 175 628</span>
-            </div>
-          </a>
-        </div>
+          <!-- Direct Contact Action Cards -->
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+            <a href="tel:+38683836740" class="flex items-center justify-center p-4 bg-red-950/40 border border-red-800/60 rounded-xl hover:bg-red-900/50 transition-all duration-300 group">
+              <PhoneIcon class="w-6 h-6 text-red-500 mr-3 group-hover:scale-110 transition-transform" />
+              <div class="text-left">
+                <span class="text-xs text-gray-400 block uppercase font-medium">{{ t('pizzeria.pickUp') }}</span>
+                <span class="text-lg font-bold text-white tracking-wider">+386 83 836 740</span>
+              </div>
+            </a>
+            <a href="tel:+38640175628" class="flex items-center justify-center p-4 bg-zinc-900 border border-zinc-700/80 rounded-xl hover:bg-zinc-800 transition-all duration-300 group">
+              <CalendarDaysIcon class="w-6 h-6 text-red-500 mr-3 group-hover:scale-110 transition-transform" />
+              <div class="text-left">
+                <span class="text-xs text-gray-400 block uppercase font-medium">{{ t('pizzeria.tableRes') }}</span>
+                <span class="text-lg font-bold text-white tracking-wider">+386 40 175 628</span>
+              </div>
+            </a>
+          </div>
 
-        <!-- Toggle View: Interactive Menu vs Printed Menu Image -->
-        <div class="mt-8 flex justify-center space-x-3">
-          <button 
-            @click="activeView = 'digital'"
-            :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'digital' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"
-          >
-            {{ t('pizzeria.digitalMenu') }}
-          </button>
+          <!-- Toggle View: Interactive Menu vs Printed Menu Image -->
+          <div class="mt-8 flex justify-center space-x-3">
+            <button 
+              @click="activeView = 'digital'"
+              :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'digital' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"
+            >
+              {{ t('pizzeria.digitalMenu') }}
+            </button>
           <button 
             @click="activeView = 'printed'"
             :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'printed' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"

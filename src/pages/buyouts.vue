@@ -1,9 +1,13 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white py-12">
     <div class="max-w-6xl mx-auto px-4">
-      <header class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ t('buyouts.pageTitle') }}</h1>
-        <p class="text-xl text-gray-300 max-w-2xl mx-auto">{{ t('buyouts.pageDesc') }}</p>
+      <header class="mb-12 text-center relative overflow-hidden rounded-2xl py-12 px-6 border border-gray-800 bg-gray-950">
+        <img src="/buyout-bg.jpg" alt="Grad Kodeljevo Buyouts" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent"></div>
+        <div class="relative z-10">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ t('buyouts.pageTitle') }}</h1>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto">{{ t('buyouts.pageDesc') }}</p>
+        </div>
       </header>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">

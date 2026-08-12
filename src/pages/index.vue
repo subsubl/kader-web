@@ -46,19 +46,19 @@
           <div>
             <div class="flex items-center space-x-3 mb-6">
               <span class="text-4xl">🍕</span>
-              <h2 class="text-3xl font-black uppercase text-white">Pizza Bistro podnevi</h2>
+              <h2 class="text-3xl font-black uppercase text-white">{{ t('home.dayTitle') }}</h2>
             </div>
             <p class="text-gray-300 text-lg mb-6 leading-relaxed">
-              V dnevnem času Grad Kodeljevo zaživi kot sproščen pizza bistro. Nudimo sveže ročno raztegnjeno pica testo, vrhunske italijanske sestavine (San Marzano pelati, Mocarela Bufala D.O.P, Mortadela D.O.P, sveži panuozzo sendviči) ter obare in salate.
+              {{ t('home.dayP') }}
             </p>
             <ul class="space-y-3 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> Ročno raztegnjene neapeljske pice in Panuozzo sendviči</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> Možnost osebenega prevzema ("Naročim in pridem iskat")</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> Zgodovinski ambient z prostranim gostinskim vrtom</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF1') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF2') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF3') }}</li>
             </ul>
           </div>
           <NuxtLink to="/pizzeria" class="inline-block text-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-colors duration-300">
-            Celoten Meni & Cene →
+            {{ t('home.dayCta') }}
           </NuxtLink>
         </div>
 
@@ -66,19 +66,19 @@
           <div>
             <div class="flex items-center space-x-3 mb-6">
               <span class="text-4xl">🪩</span>
-              <h2 class="text-3xl font-black uppercase text-white">Plesni Bar ponoči</h2>
+              <h2 class="text-3xl font-black uppercase text-white">{{ t('home.nightTitle') }}</h2>
             </div>
             <p class="text-gray-300 text-lg mb-6 leading-relaxed">
-              Ob petkih in vikend večerih se grajski prostori spremenijo v podzemni klub z izjemno zvokovno izkušnjo. Klipsch La Scala ozvočenje in skrbno izbran glasbeni program ustvarjata nepozabno nočno vzdušje.
+              {{ t('home.nightP') }}
             </p>
             <ul class="space-y-3 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> Avdiofilsko Klipsch La Scala ozvočenje</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> Petkove in sobote zabave (odprto do 05:00)</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> Vrhunska izbira hišnih koktajlov, vin in craft piv</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> {{ t('home.nightF1') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> {{ t('home.nightF2') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> {{ t('home.nightF3') }}</li>
             </ul>
           </div>
           <NuxtLink to="/events" class="inline-block text-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold transition-colors duration-300">
-            Koledar Dogodkov →
+            {{ t('home.nightCta') }}
           </NuxtLink>
         </div>
       </div>
@@ -87,7 +87,7 @@
     <!-- Featured Events (RA Integration) -->
     <section class="py-20 px-4 bg-black">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-black uppercase text-center mb-12">Prihajajoči Dogodki / Upcoming Events</h2>
+        <h2 class="text-3xl font-black uppercase text-center mb-12">{{ t('home.upcomingTitle') }}</h2>
 
         <!-- Loading -->
         <div v-if="loading" class="flex items-center justify-center py-16 text-gray-400">
@@ -98,14 +98,14 @@
         <div v-else-if="loadError" class="bg-zinc-900 rounded-xl p-10 text-center border border-zinc-800">
           <p class="text-gray-400 mb-4">{{ loadError }}</p>
           <button @click="loadFeatured" class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors">
-            Poskusi znova
+            {{ t('home.retry') }}
           </button>
         </div>
 
         <!-- Empty -->
         <div v-else-if="featuredEvents.length === 0" class="bg-zinc-900 rounded-xl p-10 text-center border border-zinc-800">
-          <p class="text-gray-400 mb-2">Trenutno ni načrtovanih novih dogodkov.</p>
-          <p class="text-sm text-gray-500">Spremljajte naš koledar ali nas obiščite ob vikendih.</p>
+          <p class="text-gray-400 mb-2">{{ t('home.noEvents') }}</p>
+          <p class="text-sm text-gray-500">{{ t('home.noEvents2') }}</p>
         </div>
 
         <!-- Events grid -->
@@ -120,7 +120,7 @@
               <p class="text-xs text-gray-400 mb-4">{{ event.dateLabel }}</p>
               <p class="text-sm text-gray-300 mb-4 line-clamp-3">{{ event.description }}</p>
               <a :href="event.ra_url" target="_blank" rel="noopener" class="text-red-500 hover:text-red-400 text-sm font-bold inline-flex items-center">
-                Več o dogodku (RA) →
+                {{ t('home.viewRA') }}
               </a>
             </div>
           </div>
@@ -133,43 +133,43 @@
       <div class="max-w-6xl mx-auto bg-zinc-900 border border-zinc-800 rounded-3xl p-8 md:p-12">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
-            <span class="text-xs font-bold text-red-500 uppercase tracking-widest block mb-2">Lokacija & Obratovalni Čas</span>
-            <h2 class="text-3xl font-black text-white mb-6 uppercase">Obiščite Nas na Gradu Kodeljevo</h2>
+            <span class="text-xs font-bold text-red-500 uppercase tracking-widest block mb-2">{{ t('home.visitLabel') }}</span>
+            <h2 class="text-3xl font-black text-white mb-6 uppercase">{{ t('home.visitTitle') }}</h2>
             <p class="text-gray-400 mb-6 leading-relaxed">
-              Nahajamo se na naslovu Ulica Carla Benza 20 v Ljubljani. Za naročila hrane za s seboj nas pokličite na telefonsko številko <a href="tel:+38683836740" class="text-white font-bold underline">+386 83 836 740</a> ali za rezervacije miz na <a href="tel:+38640175628" class="text-white font-bold underline">+386 40 175 628</a>.
+              {{ t('home.visitP', { food: '(+386 83 836 740)', table: '(+386 40 175 628)' }) }}
             </p>
             <div class="flex space-x-4">
               <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-lg transition-colors">
-                Odpri Google Maps ↗
+                {{ t('home.openMaps') }}
               </a>
             </div>
           </div>
 
           <div class="bg-black/60 p-6 rounded-2xl border border-zinc-800">
-            <h3 class="text-lg font-bold text-white mb-4 border-b border-zinc-800 pb-2">Aktualni Delovni Čas (Google)</h3>
+            <h3 class="text-lg font-bold text-white mb-4 border-b border-zinc-800 pb-2">{{ t('home.hoursTitle') }}</h3>
             <div class="space-y-3 text-sm">
               <div class="flex justify-between text-gray-300">
-                <span>Ponedeljek – Sreda</span>
+                <span>{{ t('home.monWed') }}</span>
                 <span class="font-bold text-white">09:00 – 22:00</span>
               </div>
               <div class="flex justify-between text-gray-300">
-                <span>Četrtek</span>
+                <span>{{ t('home.thu') }}</span>
                 <span class="font-bold text-white">09:00 – 01:00</span>
               </div>
               <div class="flex justify-between text-gray-300">
-                <span>Petek (Klubska zabava)</span>
+                <span>{{ t('home.fri') }}</span>
                 <span class="font-bold text-red-400">09:00 – 05:00</span>
               </div>
               <div class="flex justify-between text-gray-300">
-                <span>Sobota</span>
+                <span>{{ t('home.sat') }}</span>
                 <span class="font-bold text-white">09:00 – 01:00</span>
               </div>
               <div class="flex justify-between text-gray-300">
-                <span>Nedelja</span>
+                <span>{{ t('home.sun') }}</span>
                 <span class="font-bold text-white">09:00 – 20:00</span>
               </div>
             </div>
-            <p class="text-xs text-gray-500 mt-4 italic">* Kuhinja obratuje od 12:00 do 22:00</p>
+            <p class="text-xs text-gray-500 mt-4 italic">{{ t('footer.kitchenNote') }}</p>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { CheckIcon, MapPinIcon, PhoneIcon } from '@heroicons/vue/24/outline'
 
-const { t } = useLocale()
+const { locale, t } = useLocale()
 
 useHead({
   title: 'Kader Grad Kodeljevo — Pizza bistro in plesni bar Ljubljana',
@@ -226,9 +226,9 @@ const featuredEvents = computed<FeaturedEvent[]>(() =>
   events.value.slice(0, 3).map((e) => ({
     id: e.ra_id,
     title: e.title,
-    description: e.artists?.length ? `Nastopajo: ${e.artists.join(', ')}` : 'Vabljeni na večer v Kader Grad Kodeljevo.',
+    description: e.artists?.length ? `${t('home.featuredBy')}${e.artists.join(', ')}` : t('home.fallbackDesc'),
     image: e.flyer_url || fallbackImage,
-    dateLabel: new Date(e.date).toLocaleDateString('sl-SI', { day: 'numeric', month: 'long', year: 'numeric' }),
+    dateLabel: new Date(e.date).toLocaleDateString(locale.value === 'sl' ? 'sl-SI' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
     typeLabel: (e.genres?.[0] || 'Klub'),
     ra_url: e.ra_url || 'https://ra.co/clubs/78778'
   }))

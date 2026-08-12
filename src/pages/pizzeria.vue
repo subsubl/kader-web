@@ -10,10 +10,10 @@
           Meni / Menu
         </h1>
         <p class="text-lg md:text-xl text-red-500 font-semibold max-w-2xl mx-auto uppercase tracking-widest">
-          Pizza bistro in plesni bar na gradu Kodeljevo
+          {{ t('pizzeria.tagline') }}
         </p>
         <p class="text-sm text-gray-400 mt-2">
-          Ulica Carla Benza 20, 1000 Ljubljana • Kuhinja obratuje 12:00 – 22:00
+          {{ t('pizzeria.locationLine') }}
         </p>
 
         <!-- Direct Contact Action Cards -->
@@ -21,14 +21,14 @@
           <a href="tel:+38683836740" class="flex items-center justify-center p-4 bg-red-950/40 border border-red-800/60 rounded-xl hover:bg-red-900/50 transition-all duration-300 group">
             <PhoneIcon class="w-6 h-6 text-red-500 mr-3 group-hover:scale-110 transition-transform" />
             <div class="text-left">
-              <span class="text-xs text-gray-400 block uppercase font-medium">Naročim in pridem iskat</span>
+              <span class="text-xs text-gray-400 block uppercase font-medium">{{ t('pizzeria.pickUp') }}</span>
               <span class="text-lg font-bold text-white tracking-wider">+386 83 836 740</span>
             </div>
           </a>
           <a href="tel:+38640175628" class="flex items-center justify-center p-4 bg-zinc-900 border border-zinc-700/80 rounded-xl hover:bg-zinc-800 transition-all duration-300 group">
             <CalendarDaysIcon class="w-6 h-6 text-red-500 mr-3 group-hover:scale-110 transition-transform" />
             <div class="text-left">
-              <span class="text-xs text-gray-400 block uppercase font-medium">Rezervacije miz</span>
+              <span class="text-xs text-gray-400 block uppercase font-medium">{{ t('pizzeria.tableRes') }}</span>
               <span class="text-lg font-bold text-white tracking-wider">+386 40 175 628</span>
             </div>
           </a>
@@ -40,13 +40,13 @@
             @click="activeView = 'digital'"
             :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'digital' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"
           >
-            Digitalni Meni
+            {{ t('pizzeria.digitalMenu') }}
           </button>
           <button 
             @click="activeView = 'printed'"
             :class="['px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300', activeView === 'printed' ? 'bg-red-600 text-white shadow-lg shadow-red-950' : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800']"
           >
-            Originalni Natisnjeni Meni (A3)
+            {{ t('pizzeria.printedMenu') }}
           </button>
         </div>
       </header>
@@ -54,8 +54,8 @@
       <!-- VIEW 1: PRINTED MENU IMAGE -->
       <div v-if="activeView === 'printed'" class="mb-16 bg-zinc-950 p-4 rounded-2xl border border-zinc-800 shadow-2xl">
         <div class="flex justify-between items-center mb-4 px-2">
-          <span class="text-sm text-gray-400">Prikaz uradnega ponudbenega cenika v Gradu Kodeljevo</span>
-          <a href="/menu-a3.jpg" target="_blank" class="text-xs text-red-400 hover:underline">Odpri sliko v polni velikosti ↗</a>
+          <span class="text-sm text-gray-400">{{ t('pizzeria.printedCaption') }}</span>
+          <a href="/menu-a3.jpg" target="_blank" class="text-xs text-red-400 hover:underline">{{ t('pizzeria.openFullSize') }}</a>
         </div>
         <img :src="menuImageUrl" alt="Kader Grad Kodeljevo Meni A3" class="w-full h-auto rounded-xl shadow-inner border border-zinc-800 cursor-zoom-in" @click="zoomOpen = true" />
       </div>
@@ -71,7 +71,7 @@
             :class="['px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 flex items-center space-x-2', activeCategory === cat.id ? 'bg-red-600 text-white shadow-md' : 'bg-zinc-900 text-gray-400 hover:bg-zinc-800 hover:text-white border border-zinc-800']"
           >
             <span>{{ cat.icon }}</span>
-            <span>{{ cat.name }}</span>
+            <span>{{ catName(cat) }}</span>
           </button>
         </div>
 
@@ -86,7 +86,7 @@
               <div class="flex items-center space-x-3">
                 <span class="text-3xl">{{ cat.icon }}</span>
                 <div>
-                  <h2 class="text-2xl md:text-3xl font-black uppercase text-white tracking-wider">{{ cat.name }}</h2>
+                  <h2 class="text-2xl md:text-3xl font-black uppercase text-white tracking-wider">{{ catName(cat) }}</h2>
                   <p v-if="cat.subtitle" class="text-xs text-red-400 mt-0.5 font-medium">{{ cat.subtitle }}</p>
                 </div>
               </div>
@@ -131,13 +131,13 @@
       <!-- Allergen & Info Footnote -->
       <div class="mt-16 bg-zinc-950 p-6 rounded-xl border border-zinc-900 text-center text-xs text-gray-400 space-y-2">
         <p class="font-semibold text-gray-300">
-          Seznam alergenov v hrani in pijači je na voljo pri strežnem osebju pri šanku.
+          {{ t('pizzeria.allergenNote') }}
         </p>
         <p>
-          Bar obratuje 09:00 – 22:00 (ob vikendih dlje) • Kuhinja obratuje 12:00 – 22:00.
+          {{ t('pizzeria.hoursNote') }}
         </p>
         <p class="text-gray-500 text-[11px]">
-          Kader d.o.o. • Ulica Carla Benza 20, 1000 Ljubljana • SI45321361
+          {{ t('pizzeria.companyLine') }}
         </p>
       </div>
 
@@ -148,7 +148,7 @@
           class="fixed inset-0 z-[100] bg-black bg-opacity-95 flex items-center justify-center p-4 cursor-zoom-out"
           @click="zoomOpen = false"
         >
-          <img :src="menuImageUrl" alt="Kader pizzeria menu (zoomed)" class="max-w-full max-h-full object-contain rounded-xl">
+          <img :src="menuImageUrl" :alt="t('pizzeria.zoomedAlt')" class="max-w-full max-h-full object-contain rounded-xl">
         </div>
       </Teleport>
     </div>
@@ -158,6 +158,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { PhoneIcon, CalendarDaysIcon } from '@heroicons/vue/24/outline'
+
+const { t } = useLocale()
 
 const activeView = ref<'digital' | 'printed'>('digital')
 const activeCategory = ref('all')
@@ -455,4 +457,17 @@ const filteredCategories = computed(() => {
   }
   return categories.filter(c => c.id === activeCategory.value)
 })
+
+// Map category id → translation key
+const CATEGORY_KEYS: Record<string, string> = {
+  pizza: 'pizzeria.catPizza',
+  panuozzo: 'pizzeria.catPanuozzo',
+  stews: 'pizzeria.catStews',
+  mains: 'pizzeria.catMains',
+  salads: 'pizzeria.catSalads',
+  sides: 'pizzeria.catSides',
+  desserts: 'pizzeria.catDesserts',
+  drinks: 'pizzeria.catDrinks'
+}
+const catName = (cat: Category) => (CATEGORY_KEYS[cat.id] ? t(CATEGORY_KEYS[cat.id]) : cat.name)
 </script>

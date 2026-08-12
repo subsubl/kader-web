@@ -2,16 +2,16 @@
   <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white py-12">
     <div class="max-w-6xl mx-auto px-4">
       <header class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Events Calendar</h1>
-        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Join us for exciting events at Kader Grad Kodeljevo - from live music to cultural evenings.</p>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ t('events.pageTitle') }}</h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">{{ t('events.pageDesc') }}</p>
       </header>
 
       <!-- Upcoming events -->
       <div class="mb-12">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h2 class="text-2xl font-bold mb-2">Upcoming Events</h2>
-            <p class="text-gray-300">Synced from our Resident Advisor page — new posts appear automatically</p>
+            <h2 class="text-2xl font-bold mb-2">{{ t('events.upcoming') }}</h2>
+            <p class="text-gray-300">{{ t('events.syncedFromRA') }}</p>
           </div>
           <div class="flex gap-2">
             <button 
@@ -42,10 +42,10 @@
 
         <!-- Empty state -->
         <div v-else-if="filteredEvents.length === 0" class="bg-gray-800/50 border border-gray-700 rounded-xl p-16 text-center text-gray-500">
-          <p class="text-lg mb-2">No upcoming events{{ activeFilter !== 'all' ? ` in "${activeFilterLabels[activeFilter]}"` : '' }}.</p>
-          <p class="text-sm">New events will sync here as soon as they're posted.</p>
+          <p class="text-lg mb-2">{{ emptyMessage }}</p>
+          <p class="text-sm">{{ t('events.newEventsSync') }}</p>
           <button v-if="activeFilter !== 'all'" @click="activeFilter = 'all'" class="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">
-            View all events
+            {{ t('events.viewAll') }}
           </button>
         </div>
 
@@ -66,7 +66,7 @@
             <div class="p-6">
               <h3 class="text-xl font-bold mb-2">{{ event.title }}</h3>
               <p class="text-gray-300 mb-2">{{ formatDate(event.date) }} {{ event.start_time ? '· ' + formatTime(event.start_time) : '' }}</p>
-              <p v-if="event.artists.length" class="text-sm text-gray-400 mb-4">{{ event.artists.join(', ') }}</p>
+              <p v-if="event.artists.length" class="text-sm text-gray-400 mb-4">{{ t('events.featuringBy') }}{{ event.artists.join(', ') }}</p>
               <div v-if="event.pretix_event_url" class="mt-4">
                 <PretixWidget :event="event.pretix_event_url" />
               </div>
@@ -77,7 +77,7 @@
                 rel="noopener"
                 class="inline-block w-full py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold text-center transition-colors duration-300"
               >
-                View on Resident Advisor
+                {{ t('events.viewOnRA') }}
               </a>
             </div>
           </div>
@@ -86,7 +86,7 @@
 
       <!-- Past events archive -->
       <div v-if="pastEvents.length > 0" class="mb-12">
-        <h2 class="text-2xl font-bold mb-6">Past Events</h2>
+        <h2 class="text-2xl font-bold mb-6">{{ t('events.pastEvents') }}</h2>
         <div v-if="pastLoading" class="flex items-center justify-center py-10 text-gray-400">
           <svg class="animate-spin h-8 w-8" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
         </div>
@@ -107,9 +107,9 @@
       </div>
 
       <div class="bg-gray-800 rounded-xl p-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">Tickets & Booking</h2>
-        <p class="text-xl mb-2 max-w-2xl mx-auto">Buy tickets right here on each event card — secure, with QR check-in at the door.</p>
-        <p class="text-gray-400 mb-6 max-w-2xl mx-auto">Also discover events and browse the full lineup on our Resident Advisor page.</p>
+        <h2 class="text-3xl font-bold mb-4">{{ t('events.ticketsTitle') }}</h2>
+        <p class="text-xl mb-2 max-w-2xl mx-auto">{{ t('events.buyHere') }}</p>
+        <p class="text-gray-400 mb-6 max-w-2xl mx-auto">{{ t('events.alsoRA') }}</p>
         <div class="flex flex-wrap gap-4 justify-center">
           <a
             href="https://ra.co/clubs/78778"
@@ -117,7 +117,7 @@
             rel="noopener"
             class="inline-block px-8 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300"
           >
-            Resident Advisor page
+            {{ t('events.raPage') }}
           </a>
         </div>
       </div>
@@ -127,6 +127,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+
+const { locale, t } = useLocale()
 
 interface RaEvent {
   ra_id: number
@@ -143,18 +145,20 @@ interface RaEvent {
   pretix_event_url: string | null
 }
 
-const typeFilters = [
-  { label: 'All Events', value: 'all' },
-  { label: 'Club', value: 'club' },
-  { label: 'Pizzeria', value: 'pizzeria' },
-  { label: 'Live', value: 'live' }
-]
+const typeFilters = computed(() => [
+  { label: t('events.allEvents'), value: 'all' },
+  { label: t('events.filterPizzeria'), value: 'pizzeria' },
+  { label: t('events.filterClub'), value: 'club' },
+  { label: t('events.filterLive'), value: 'live' }
+])
 
-const activeFilterLabels: Record<string, string> = {
-  pizzeria: 'Pizzeria',
-  club: 'Club',
-  live: 'Live Music'
-}
+// map filter value → translation key suffix for the empty-state message
+const activeFilterLabelsKey = (f: string) => (f === 'all' ? 'allEvents' : f === 'pizzeria' ? 'filterPizzeria' : f === 'club' ? 'filterClub' : 'filterLive')
+
+const emptyMessage = computed(() => {
+  if (activeFilter.value === 'all') return t('events.noUpcoming', { filter: '' })
+  return t('events.noUpcoming', { filter: ` — ${t('events.' + activeFilterLabelsKey(activeFilter.value))}` })
+})
 
 const fallbackImage = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80'
 

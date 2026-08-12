@@ -11,13 +11,13 @@
 
       <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 md:pb-20 w-full">
         <p class="text-xs md:text-sm uppercase tracking-[0.35em] mb-4 text-kader-red font-semibold">
-          Grad Kodeljevo · Ljubljana
+          {{ t('club.location') }}
         </p>
         <h1 class="text-5xl md:text-8xl font-black leading-[0.92] mb-6 uppercase">
           Club<br>Kader
         </h1>
         <p class="text-lg md:text-2xl max-w-2xl text-kader-cream/80">
-          Electronic music. Live acts.<br>Everyone's welcome.
+          {{ t('club.heroTagline') }}
         </p>
       </div>
     </section>
@@ -27,29 +27,29 @@
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div class="lg:col-span-4">
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">The Venue</p>
-            <h2 class="text-3xl md:text-5xl font-black leading-tight">A castle, minutes from Ljubljana's centre</h2>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('club.theVenue') }}</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight">{{ t('club.venueTitle') }}</h2>
           </div>
           <div class="lg:col-span-8">
             <p class="text-xl md:text-3xl leading-relaxed mb-6">
-              Kader is a club set within a historic castle. We play
-              <span class="text-kader-red font-semibold">electronic music and host live acts</span>.
+              {{ t('club.venueP1') }}
+              <span class="text-kader-red font-semibold">{{ t('club.venueP1Accent') }}</span>.
             </p>
             <p class="text-lg md:text-xl leading-relaxed text-kader-cream/70">
-              Inclusive, LGBT-friendly, and for everyone. Come as you are; the night is open.
+              {{ t('club.venueP2') }}
             </p>
             <div class="grid grid-cols-3 gap-6 mt-12 border-t border-kader-cream/10 pt-8">
               <div>
                 <p class="font-mono text-3xl font-black text-kader-red">01</p>
-                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">Basement club</p>
+                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">{{ t('club.venueBasement') }}</p>
               </div>
               <div>
                 <p class="font-mono text-3xl font-black text-kader-red">02</p>
-                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">Dance floor &amp; bar</p>
+                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">{{ t('club.venueFloor') }}</p>
               </div>
               <div>
                 <p class="font-mono text-3xl font-black text-kader-red">03</p>
-                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">Summer garden</p>
+                <p class="text-sm uppercase tracking-wider text-kader-cream/60 mt-2">{{ t('club.venueGarden') }}</p>
               </div>
             </div>
           </div>
@@ -60,14 +60,14 @@
     <!-- ===== The Spaces ===== -->
     <section class="py-16 md:py-24 px-4 bg-gradient-to-b from-kader-black to-[#1a0506]">
       <div class="max-w-6xl mx-auto">
-        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">Explore the Spaces</p>
-        <h2 class="text-3xl md:text-5xl font-black text-center mb-14 uppercase">Four worlds in one castle</h2>
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('club.exploreSpaces') }}</p>
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-14 uppercase">{{ t('club.spacesTitle') }}</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-kader-red/20 border border-kader-red/20">
-          <div v-for="space in spaces" :key="space.title" class="bg-[#120607] p-8 md:p-12 group hover:bg-[#1a0a0b] transition-colors duration-300">
+          <div v-for="space in spaces" :key="space.index" class="bg-[#120607] p-8 md:p-12 group hover:bg-[#1a0a0b] transition-colors duration-300">
             <p class="font-mono text-sm text-kader-red mb-4">{{ space.index }}</p>
-            <h3 class="text-2xl md:text-3xl font-bold mb-3">{{ space.title }}</h3>
-            <p class="text-kader-cream/70 leading-relaxed">{{ space.description }}</p>
+            <h3 class="text-2xl md:text-3xl font-bold mb-3">{{ spaceTitle(space) }}</h3>
+            <p class="text-kader-cream/70 leading-relaxed">{{ spaceDesc(space) }}</p>
           </div>
         </div>
       </div>
@@ -78,24 +78,18 @@
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">The Sound</p>
-            <h2 class="text-3xl md:text-5xl font-black leading-tight mb-6">Custom, high-fidelity systems in both indoor rooms</h2>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('club.theSound') }}</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight mb-6">{{ t('club.soundTitle') }}</h2>
             <div class="text-kader-cream/80 text-lg space-y-4 leading-relaxed max-w-xl">
-              <p>
-                Both indoor rooms are powered by dedicated, custom-engineered audio rigs built for clarity and
-                body — engineered to fill the castle's stone vaults without a hint of distortion.
-              </p>
-              <p>
-                The centrepiece is the <strong class="text-kader-cream">Klipsch La Scala AL6</strong>: a fully
-                horn-loaded, three-way loudspeaker chosen for its efficiency and punch in this historic space.
-              </p>
+              <p>{{ t('club.soundP1') }}</p>
+              <p v-html="t('club.soundP2')"></p>
             </div>
 
             <button
               @click="showSpecs = !showSpecs"
               class="mt-8 px-6 py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-lg font-semibold transition-colors duration-300"
             >
-              {{ showSpecs ? 'Hide specs' : 'View technical specs' }}
+              {{ showSpecs ? t('club.hideSpecs') : t('club.viewSpecs') }}
             </button>
           </div>
 
@@ -111,7 +105,7 @@
                 <span class="text-right font-medium">{{ spec.value }}</span>
               </div>
             </div>
-            <p v-else class="text-kader-cream/50 text-lg italic">Tap to reveal the engineering behind the sound.</p>
+            <p v-else class="text-kader-cream/50 text-lg italic">{{ t('club.tapReveal') }}</p>
           </div>
         </div>
       </div>
@@ -122,27 +116,24 @@
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
           <div class="lg:col-span-2">
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">Our Promise</p>
-            <h2 class="text-3xl md:text-5xl font-black leading-tight uppercase">Safer Spaces</h2>
-            <p class="text-kader-cream/70 mt-4 leading-relaxed">
-              A club is only as good as how safe everyone feels inside it. These are the ground rules we hold for every night, every dance floor, every room of the castle.
-            </p>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('club.ourPromise') }}</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight uppercase">{{ t('club.saferSpaces') }}</h2>
+            <p class="text-kader-cream/70 mt-4 leading-relaxed">{{ t('club.safeIntro') }}</p>
           </div>
           <div class="lg:col-span-3">
             <div class="divide-y divide-kader-cream/10 border-y border-kader-cream/10">
-              <div v-for="rule in codeRules" :key="rule.title" class="py-5">
+              <div v-for="rule in codeRules" :key="rule.key" class="py-5">
                 <div class="flex items-start gap-4">
                   <span class="font-mono text-kader-red shrink-0 mt-0.5">{{ rule.index }}</span>
                   <div>
-                    <h3 class="font-bold text-lg mb-1">{{ rule.title }}</h3>
-                    <p class="text-kader-cream/70 leading-relaxed">{{ rule.text }}</p>
+                    <h3 class="font-bold text-lg mb-1">{{ ruled(rule).title }}</h3>
+                    <p class="text-kader-cream/70 leading-relaxed">{{ ruled(rule).text }}</p>
                   </div>
                 </div>
               </div>
             </div>
             <p class="text-kader-cream/50 text-sm mt-6 leading-relaxed">
-              We'll always be learning, and hope you will too. If anything — or anyone — makes you feel unsafe,
-              tell our staff. We take it seriously.
+              {{ t('club.safeOutro') }}
             </p>
           </div>
         </div>
@@ -154,15 +145,15 @@
       <div class="max-w-6xl mx-auto">
         <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
           <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2">Lineup</p>
-            <h2 class="text-3xl md:text-5xl font-black uppercase">Upcoming Nights</h2>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2">{{ t('club.lineup') }}</p>
+            <h2 class="text-3xl md:text-5xl font-black uppercase">{{ t('club.upcomingNights') }}</h2>
           </div>
           <a
             href="https://ra.co/clubs/78778"
             target="_blank"
             rel="noopener"
             class="text-sm text-kader-red hover:underline"
-          >View all on Resident Advisor →</a>
+          >{{ t('club.viewAllRA') }}</a>
         </div>
 
         <!-- Loading -->
@@ -172,16 +163,16 @@
 
         <!-- Error -->
         <div v-else-if="loadError" class="bg-kader-red/10 border border-kader-red/40 rounded-2xl p-10 text-center">
-          <p class="text-kader-cream/80 mb-4">{{ loadError }}</p>
+          <p class="text-kader-cream/80 mb-4">{{ t('club.loadLineupError') }}</p>
           <button @click="loadClubEvents" class="px-6 py-2 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-lg font-semibold transition-colors">
-            Retry
+            {{ t('club.retry') }}
           </button>
         </div>
 
         <!-- Empty -->
         <div v-else-if="clubEvents.length === 0" class="bg-kader-red/10 border border-kader-red/40 rounded-2xl p-10 text-center text-kader-cream/70">
-          <p class="mb-2">No club nights scheduled right now.</p>
-          <p class="text-sm">New lineups sync here automatically.</p>
+          <p class="mb-2">{{ t('club.noNights') }}</p>
+          <p class="text-sm">{{ t('club.newLineups') }}</p>
         </div>
 
         <!-- Club events (editorial list, not cards) -->
@@ -200,7 +191,7 @@
               <p v-if="event.artists.length" class="text-kader-cream/60 mt-1">{{ event.artists.join(', ') }}</p>
             </div>
             <span class="text-kader-cream/40 group-hover:text-kader-red transition-colors text-sm shrink-0 md:text-right">
-              Tickets →
+              {{ t('club.tickets') }}
             </span>
           </a>
         </div>
@@ -210,14 +201,14 @@
     <!-- ===== Private events ===== -->
     <section class="py-20 md:py-28 px-4 text-center">
       <div class="max-w-3xl mx-auto">
-        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">Private Hire</p>
-        <h2 class="text-3xl md:text-5xl font-black mb-6 uppercase">Take over the castle</h2>
-        <p class="text-lg text-kader-cream/70 mb-8">Transform your occasion into an unforgettable night in our historic venue.</p>
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('club.privateHire') }}</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6 uppercase">{{ t('club.takeoverTitle') }}</h2>
+        <p class="text-lg text-kader-cream/70 mb-8">{{ t('club.takeoverP') }}</p>
         <NuxtLink
           to="/buyouts"
           class="inline-block px-8 py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-lg font-semibold transition-colors duration-300"
         >
-          Book the venue
+          {{ t('club.bookVenue') }}
         </NuxtLink>
       </div>
     </section>
@@ -226,6 +217,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+
+const { locale, t } = useLocale()
 
 interface ClubEvent {
   ra_id: number
@@ -238,28 +231,16 @@ interface ClubEvent {
   genres: string[]
 }
 
+// Spaces hold translation keys so titles/descriptions are locale-aware.
 const spaces = [
-  {
-    index: '01',
-    title: 'The Basement Club',
-    description: 'Descend into the vaulted basement — an intimate, immersive room for electronics and heavy-hitting sets.'
-  },
-  {
-    index: '02',
-    title: 'The Floor & Cocktail Bar',
-    description: 'A ground-level dance floor with a dedicated cocktail bar, engineered for music and conversation alike.'
-  },
-  {
-    index: '03',
-    title: 'The Summer Garden',
-    description: 'An expansive outdoor garden that opens up in the warm months — for daytime hangs and balmy night sets.'
-  },
-  {
-    index: '04',
-    title: 'The Pizzeria',
-    description: 'Our on-site pizzeria keeps the night fuelled with fire-baked pizzas from the castle kitchen.'
-  }
+  { index: '01', titleKey: 'club.space01Title', descKey: 'club.space01Desc' },
+  { index: '02', titleKey: 'club.space02Title', descKey: 'club.space02Desc' },
+  { index: '03', titleKey: 'club.space03Title', descKey: 'club.space03Desc' },
+  { index: '04', titleKey: 'club.space04Title', descKey: 'club.space04Desc' }
 ]
+
+const spaceTitle = (s: (typeof spaces)[number]) => t(s.titleKey)
+const spaceDesc = (s: (typeof spaces)[number]) => t(s.descKey)
 
 const specs = [
   { label: 'Product', value: 'Klipsch La Scala AL6' },
@@ -271,32 +252,14 @@ const specs = [
 ]
 
 const codeRules = [
-  {
-    index: '01',
-    title: 'Respect & consent',
-    text: "Ask before you touch. No means no. Space, consent and boundaries are non-negotiable — for everyone, every time."
-  },
-  {
-    index: '02',
-    title: 'Check your assumptions',
-    text: "Leave assumptions at the door. We're inclusive of every background, identity, and belief — including how you read yours and other people's."
-  },
-  {
-    index: '03',
-    title: 'Know your impact',
-    text: "Watch your space, your noise, and your energy. How you behave shapes the night for the people around you."
-  },
-  {
-    index: '04',
-    title: 'Honour privacy',
-    text: "What happens on the floor stays on the floor. Respect that everyone's presence here is their own business."
-  },
-  {
-    index: '05',
-    title: 'Respect the door',
-    text: "Our door policy balances safety and freedom for all. It exists to keep the space open and welcoming — and we hold it firmly."
-  }
+  { key: 'rule01', index: '01', titleKey: 'club.rule01Title', textKey: 'club.rule01Text' },
+  { key: 'rule02', index: '02', titleKey: 'club.rule02Title', textKey: 'club.rule02Text' },
+  { key: 'rule03', index: '03', titleKey: 'club.rule03Title', textKey: 'club.rule03Text' },
+  { key: 'rule04', index: '04', titleKey: 'club.rule04Title', textKey: 'club.rule04Text' },
+  { key: 'rule05', index: '05', titleKey: 'club.rule05Title', textKey: 'club.rule05Text' }
 ]
+// Computed accessors so template can read rule.title / rule.text
+const ruled = (r: (typeof codeRules)[number]) => ({ title: t(r.titleKey), text: t(r.textKey) })
 
 const fallbackImage = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'
 
@@ -314,7 +277,7 @@ const clubEvents = computed(() =>
 )
 
 const listDate = (e: ClubEvent) =>
-  new Date(e.date).toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' })
+  new Date(e.date).toLocaleDateString(locale.value === 'sl' ? 'sl-SI' : 'en-GB', { weekday: 'short', day: '2-digit', month: 'short' })
 
 const loadClubEvents = async () => {
   loading.value = true
@@ -328,7 +291,7 @@ const loadClubEvents = async () => {
     }))
   } catch (err: any) {
     console.error('Failed to load club events:', err)
-    loadError.value = 'We couldn\u2019t load the club lineup right now.'
+    loadError.value = t('club.loadLineupError')
   } finally {
     loading.value = false
   }

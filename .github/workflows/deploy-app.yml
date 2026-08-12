@@ -44,34 +44,42 @@ jobs:
         run: tar -czf release.tar.gz .output package.json nuxt.config.ts
 
       - name: Push release to deploy API
-        if: ${{ secrets.DEPLOY_URL != '' }}
+        if: ${{ env.DEPLOY_URL != '' }}
+        env:
+          DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
           curl --fail-with-body --silent --show-error \
-            -X POST "${{ secrets.DEPLOY_URL }}" \
-            -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" \
+            -X POST "$DEPLOY_URL" \
+            -H "Authorization: Bearer $DEPLOY_TOKEN" \
             -H "Content-Type: application/octet-stream" \
             --data-binary @release.tar.gz \
             --output deploy-response.json
           cat deploy-response.json
 
       - name: Skip deploy step if DEPLOY_URL not set
-        if: ${{ secrets.DEPLOY_URL == '' }}
+        if: ${{ env.DEPLOY_URL == '' }}
+        env:
+          DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
         run: |
           echo "::warning::DEPLOY_URL secret is not configured in GitHub settings. Skipping server push step."
 
       - name: Install Supabase CLI
-        if: ${{ secrets.SUPABASE_DB_URL != '' }}
+        if: ${{ env.SUPABASE_DB_URL != '' }}
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
         uses: supabase/setup-cli@v3
         with:
           version: latest
 
       - name: Push Supabase migrations (production DB)
-        if: ${{ secrets.SUPABASE_DB_URL != '' }}
-        run: |
-          supabase db push --db-url "${{ secrets.SUPABASE_DB_URL }}"
-          supabase gen types typescript --db-url "${{ secrets.SUPABASE_DB_URL }}" > /tmp/database.ts
-          diff -q /tmp/database.ts src/types/database.ts && echo "Types up to date." || echo "::warning::Generated types differ from committed types — run 'supabase gen types typescript' locally and commit."
+        if: ${{ env.SUPABASE_DB_URL != '' }}
         env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          supabase db push --db-url "$SUPABASE_DB_URL"
+          supabase gen types typescript --db-url "$SUPABASE_DB_URL" > /tmp/database.ts
+          diff -q /tmp/database.ts src/types/database.ts && echo "Types up to date." || echo "::warning::Generated types differ from committed types — run 'supabase gen types typescript' locally and commit."

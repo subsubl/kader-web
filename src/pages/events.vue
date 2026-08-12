@@ -8,23 +8,8 @@
 
       <!-- Upcoming & Featured Events -->
       <div class="mb-12">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <div>
-            <h2 class="text-2xl font-bold mb-2">{{ t('events.upcoming') }}</h2>
-            <p class="text-gray-300">{{ t('events.syncedFromRA') }}</p>
-          </div>
-          <div class="flex gap-2">
-            <button 
-              v-for="f in typeFilters" 
-              :key="f.value"
-              @click="activeFilter = f.value"
-              :class="activeFilter === f.value
-                ? 'px-4 py-2 bg-red-600 text-white rounded-lg transition-colors duration-300 font-semibold'
-                : 'px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors duration-300 text-gray-300'"
-            >
-              {{ f.label }}
-            </button>
-          </div>
+        <div class="mb-8 border-b border-gray-800 pb-4">
+          <h2 class="text-3xl font-black tracking-tight text-white">{{ t('events.upcoming') }}</h2>
         </div>
 
         <!-- Error state -->
@@ -41,18 +26,14 @@
         </div>
 
         <!-- Empty state -->
-        <div v-else-if="filteredEvents.length === 0" class="bg-gray-800/50 border border-gray-700 rounded-xl p-16 text-center text-gray-500">
-          <p class="text-lg mb-2">{{ emptyMessage }}</p>
-          <p class="text-sm">{{ t('events.newEventsSync') }}</p>
-          <button v-if="activeFilter !== 'all'" @click="activeFilter = 'all'" class="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">
-            {{ t('events.viewAll') }}
-          </button>
+        <div v-else-if="events.length === 0" class="bg-gray-800/50 border border-gray-700 rounded-xl p-16 text-center text-gray-500">
+          <p class="text-lg mb-2">{{ t('events.noUpcoming', { filter: '' }) }}</p>
         </div>
 
         <!-- Events grid (Clickable Cards) -->
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div 
-            v-for="event in filteredEvents" 
+            v-for="event in events" 
             :key="event.ra_id" 
             @click="openModal(event)"
             class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-800 hover:border-red-600/60 transform hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between"

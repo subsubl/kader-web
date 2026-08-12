@@ -1,192 +1,177 @@
 <template>
-  <div>
-    <div class="flex items-center justify-between mb-8">
+  <div class="max-w-6xl mx-auto p-6">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
       <div>
-        <h1 class="text-3xl font-bold">Events</h1>
-        <p class="text-gray-400 mt-1">Manage events, flyers, and ticket links</p>
+        <h1 class="text-3xl font-black text-white">Upravljanje Dogodkov / Event Management</h1>
+        <p class="text-gray-400 mt-1 text-sm">Dodajte nove dogodke ali urejajte obstoječe (prikazani bodo na kader.si/events v slogu Resident Advisor)</p>
       </div>
-      <NuxtLink to="/admin/events/new" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300">
-        + New Event
-      </NuxtLink>
+      <div class="flex gap-3">
+        <button 
+          @click="syncRa" 
+          :disabled="syncing"
+          class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-xl font-bold transition-colors flex items-center gap-2 text-sm"
+        >
+          {{ syncing ? 'Sinhronizacija...' : '🔄 Osveži RA Dogodke' }}
+        </button>
+        <NuxtLink to="/admin/events/new" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-extrabold transition-all duration-300 shadow-lg shadow-red-950 text-sm">
+          + Nov Dogodek / New Event
+        </NuxtLink>
+      </div>
     </div>
 
-    <!-- Filters -->
-    <div class="flex gap-3 mb-6">
-      <button 
-        v-for="filter in filters" 
-        :key="filter.value"
-        @click="activeFilter = filter.value"
-        :class="activeFilter === filter.value 
-          ? 'bg-red-600 text-white' 
-          : 'bg-gray-800 text-gray-300 hover:bg-gray-700'"
-        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300"
-      >
-        {{ filter.label }}
-      </button>
+    <!-- Feedback alert -->
+    <div v-if="alertMsg" class="mb-6 px-4 py-3 bg-emerald-900/50 border border-emerald-700 text-emerald-300 rounded-xl text-sm font-semibold">
+      {{ alertMsg }}
     </div>
 
     <!-- Events Table -->
-    <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+    <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
       <div v-if="loading" class="flex items-center justify-center py-16 text-gray-400">
         <svg class="animate-spin h-8 w-8" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
       </div>
 
-      <div v-else-if="filteredEvents.length === 0" class="text-center py-16 text-gray-500">
-        No events found.
+      <div v-else-if="events.length === 0" class="text-center py-16 text-gray-500">
+        Trenutno ni vnesenih dogodkov. <NuxtLink to="/admin/events/new" class="text-red-400 font-bold hover:underline">Dodaj prvega</NuxtLink>
       </div>
 
-      <table v-else class="w-full">
-        <thead class="bg-gray-900">
-          <tr class="text-left text-sm text-gray-400">
-            <th class="px-6 py-3 font-medium">Event</th>
-            <th class="px-6 py-3 font-medium">Date</th>
-            <th class="px-6 py-3 font-medium">Type</th>
-            <th class="px-6 py-3 font-medium">Status</th>
-            <th class="px-6 py-3 font-medium text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-700">
-          <tr v-for="event in filteredEvents" :key="event.id" class="hover:bg-gray-700/50 transition-colors">
-            <td class="px-6 py-4">
-              <div class="flex items-center gap-3">
-                <img 
-                  v-if="event.image_url" 
-                  :src="event.image_url" 
-                  :alt="event.title"
-                  class="w-12 h-12 rounded-lg object-cover"
-                />
-                <div v-else class="w-12 h-12 rounded-lg bg-gray-600 flex items-center justify-center">
-                  <CalendarIcon class="w-6 h-6 text-gray-400" />
+      <div v-else class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-black/60 border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400">
+            <tr>
+              <th class="px-6 py-4 font-bold">Dogodek / Event</th>
+              <th class="px-6 py-4 font-bold">Datum / Date</th>
+              <th class="px-6 py-4 font-bold">Žanri / Genres</th>
+              <th class="px-6 py-4 font-bold">Vrsta / Source</th>
+              <th class="px-6 py-4 font-bold text-right">Akcije / Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800/80 text-sm">
+            <tr v-for="event in events" :key="event.ra_id" class="hover:bg-gray-800/40 transition-colors">
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <img 
+                    :src="event.flyer_url || fallbackImage" 
+                    :alt="event.title"
+                    class="w-12 h-12 rounded-lg object-cover border border-gray-800 shrink-0"
+                    @error="onImgErr"
+                  />
+                  <div>
+                    <p class="font-bold text-white leading-tight">{{ event.title }}</p>
+                    <p v-if="event.artists && event.artists.length" class="text-xs text-gray-400 line-clamp-1 mt-0.5">
+                      {{ event.artists.join(', ') }}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p class="font-medium">{{ event.title }}</p>
-                  <p class="text-xs text-gray-400">{{ event.slug }}</p>
+              </td>
+              <td class="px-6 py-4 text-gray-300 whitespace-nowrap font-medium">
+                {{ formatDate(event.date) }}
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex flex-wrap gap-1">
+                  <span 
+                    v-for="g in (event.genres || []).slice(0, 2)" 
+                    :key="g" 
+                    class="px-2 py-0.5 bg-gray-800 text-red-400 text-xs font-semibold rounded-md border border-gray-700"
+                  >
+                    {{ g }}
+                  </span>
                 </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 text-sm">{{ formatDate(event.date) }}</td>
-            <td class="px-6 py-4 text-sm">{{ event.type || '—' }}</td>
-            <td class="px-6 py-4">
-              <span :class="statusClass(event.status)" class="px-2 py-1 text-xs font-medium rounded-full">
-                {{ event.status || 'draft' }}
-              </span>
-            </td>
-            <td class="px-6 py-4 text-right whitespace-nowrap">
-              <button @click="toggleStatus(event)" class="text-sm text-gray-300 hover:text-white mr-3 transition-colors">
-                {{ event.status === 'published' ? 'Unpublish' : 'Publish' }}
-              </button>
-              <NuxtLink :to="`/admin/events/${event.id}`" class="text-sm text-red-400 hover:text-red-300 mr-3">Edit</NuxtLink>
-              <button @click="deleteEvent(event)" class="text-sm text-red-500 hover:text-red-400">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span 
+                  :class="event.is_custom ? 'bg-purple-950/80 text-purple-400 border-purple-800/80' : 'bg-blue-950/80 text-blue-400 border-blue-800/80'" 
+                  class="px-2.5 py-1 text-xs font-bold rounded-full border"
+                >
+                  {{ event.is_custom ? 'Ročni Vnos' : 'Resident Advisor' }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right whitespace-nowrap">
+                <NuxtLink :to="`/admin/events/${event.ra_id}`" class="text-xs font-bold text-red-400 hover:text-red-300 mr-4">
+                  Uredi / Edit
+                </NuxtLink>
+                <button 
+                  v-if="event.is_custom"
+                  @click="removeEvent(event.ra_id)" 
+                  class="text-xs font-bold text-red-500 hover:text-red-400"
+                >
+                  Izbriši
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { CalendarIcon } from '@heroicons/vue/24/outline'
+import { ref, onMounted } from 'vue'
 
-interface EventItem {
-  id: string
+interface EventRecord {
+  ra_id: number
   title: string
-  slug: string
   date: string
-  type: string | null
-  image_url: string | null
-  status: string | null
+  flyer_url: string | null
+  artists: string[]
+  genres: string[]
+  is_custom?: boolean
 }
 
-const filters = [
-  { label: 'All', value: 'all' },
-  { label: 'Published', value: 'published' },
-  { label: 'Draft', value: 'draft' },
-  { label: 'Upcoming', value: 'upcoming' }
-]
+const events = ref<EventRecord[]>([])
+const loading = ref(true)
+const syncing = ref(false)
+const alertMsg = ref('')
 
-const events = ref<EventItem[]>([])
-const activeFilter = ref('all')
-const loading = ref(false)
+const fallbackImage = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80'
 
-const filteredEvents = computed(() => {
-  if (activeFilter.value === 'all') return events.value
-  if (activeFilter.value === 'upcoming') {
-    return events.value.filter(e => new Date(e.date) >= new Date())
-  }
-  return events.value.filter(e => e.status === activeFilter.value)
+const onImgErr = (e: Event) => {
+  const img = e.currentTarget as HTMLImageElement | null
+  if (img) img.src = fallbackImage
+}
+
+const formatDate = (d: string) => new Date(d).toLocaleDateString('sl-SI', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric'
 })
 
-const formatDate = (dateStr: string) => {
-  return new Date(dateStr).toLocaleDateString('sl-SI', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  })
-}
-
-const statusClass = (status: string | null) => {
-  const classes: Record<string, string> = {
-    draft: 'bg-gray-600 text-gray-200',
-    published: 'bg-green-900/30 text-green-300',
-    cancelled: 'bg-red-900/30 text-red-300',
-    completed: 'bg-gray-600 text-gray-300'
-  }
-  return `px-2 py-1 text-xs font-medium rounded-full ${classes[status || 'draft'] || classes.draft}`
-}
-
-const fetchEvents = async () => {
+const loadEvents = async () => {
   loading.value = true
   try {
-    const { $supabase } = useNuxtApp()
-    const { data, error } = await $supabase
-      .from('events')
-      .select('id, title, slug, date, type, image_url, status')
-      .order('date', { ascending: false })
-
-    if (error) throw error
+    const data = await $fetch<EventRecord[]>('/api/ra-events?scope=all')
     events.value = data || []
   } catch (err: any) {
-    console.error('Failed to fetch events:', err)
-    alert('Failed to load events.')
+    console.error('Failed to load events:', err)
   } finally {
     loading.value = false
   }
 }
 
-const toggleStatus = async (event: EventItem) => {
-  const newStatus = event.status === 'published' ? 'draft' : 'published'
+const syncRa = async () => {
+  syncing.value = true
+  alertMsg.value = ''
   try {
-    const { $supabase } = useNuxtApp()
-    const { error } = await $supabase
-      .from('events')
-      .update({ status: newStatus })
-      .eq('id', event.id)
-    if (error) throw error
-    event.status = newStatus
+    await $fetch('/api/admin/sync-ra', { method: 'POST' })
+    alertMsg.value = 'Resident Advisor dogodki uspešno osveženi!'
+    await loadEvents()
   } catch (err: any) {
-    console.error('Failed to update event status:', err)
+    alertMsg.value = 'Napaka pri osveževanju RA dogodkov.'
+  } finally {
+    syncing.value = false
   }
 }
 
-const deleteEvent = async (event: EventItem) => {
-  if (!confirm(`Delete "${event.title}"? This cannot be undone.`)) return
+const removeEvent = async (id: number) => {
+  if (!confirm('Ali ste prepričani, da želite izbrisati ta dogodek?')) return
   try {
-    const { $supabase } = useNuxtApp()
-    const { error } = await $supabase
-      .from('events')
-      .delete()
-      .eq('id', event.id)
-    if (error) throw error
-    events.value = events.value.filter(e => e.id !== event.id)
+    await $fetch(`/api/admin/events?id=${id}`, { method: 'DELETE' })
+    alertMsg.value = 'Dogodek uspešno izbrisan!'
+    await loadEvents()
   } catch (err: any) {
-    console.error('Failed to delete event:', err)
-    alert('Failed to delete event.')
+    alertMsg.value = 'Napaka pri brisanju dogodka.'
   }
 }
 
-onMounted(fetchEvents)
-
-definePageMeta({ layout: 'admin' })
+onMounted(loadEvents)
 </script>

@@ -1,79 +1,141 @@
 <template>
-  <div class="max-w-2xl">
-    <div class="flex items-center gap-4 mb-8">
-      <NuxtLink to="/admin/events" class="text-gray-400 hover:text-white transition-colors">←</NuxtLink>
-      <div>
-        <h1 class="text-3xl font-bold">{{ isEdit ? 'Edit Event' : 'New Event' }}</h1>
-        <p class="text-gray-400 mt-1">{{ isEdit ? 'Update event details' : 'Create a new event' }}</p>
+  <div class="max-w-3xl mx-auto p-6 bg-gray-900 rounded-2xl border border-gray-800 shadow-2xl my-8">
+    <div class="flex items-center justify-between mb-8 pb-4 border-b border-gray-800">
+      <div class="flex items-center gap-4">
+        <NuxtLink to="/admin/events" class="text-gray-400 hover:text-white transition-colors text-xl font-bold">←</NuxtLink>
+        <div>
+          <h1 class="text-3xl font-black text-white">{{ isEdit ? 'Uredi Dogodek / Edit Event' : 'Nov Dogodek / Create Event' }}</h1>
+          <p class="text-sm text-gray-400 mt-1">Ustvari ali uredi dogodek za prikaz na kader.si (v slogu Resident Advisor)</p>
+        </div>
       </div>
     </div>
 
     <form @submit.prevent="save" class="space-y-6">
-      <div v-if="error" class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-sm">
+      <div v-if="error" class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-xl text-sm font-semibold">
         {{ error }}
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Title *</label>
-        <input v-model="form.title" type="text" required class="input-field" placeholder="e.g. Techno Night: DJ XXX" />
+      <div v-if="successMsg" class="bg-emerald-900/50 border border-emerald-700 text-emerald-300 px-4 py-3 rounded-xl text-sm font-semibold">
+        {{ successMsg }}
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Slug</label>
-        <input v-model="form.slug" type="text" class="input-field" placeholder="auto-generated if empty" />
-        <p class="text-xs text-gray-500 mt-1">Used in the URL: /events/&lt;slug&gt;</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Naslov Dogodka / Event Title *</label>
+          <input 
+            v-model="form.title" 
+            type="text" 
+            required 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="npr. Simply Life @ Kader ili House Night" 
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Datum & Začetek / Date & Start Time *</label>
+          <input 
+            v-model="form.date" 
+            type="datetime-local" 
+            required 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors" 
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Konec Dogodka / End Time</label>
+          <input 
+            v-model="form.end_time" 
+            type="datetime-local" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors" 
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Vstopnina (€) / Cost (€)</label>
+          <input 
+            v-model="form.cost" 
+            type="number" 
+            step="0.5"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="npr. 10 ali 0 za prost vstop" 
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Žanri / Genres (z vejico ločeno)</label>
+          <input 
+            v-model="form.genres" 
+            type="text" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="House, Techno, Electronica" 
+          />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Nastopajoči Izvajalci / Artists (z vejico ločeno)</label>
+          <input 
+            v-model="form.artists" 
+            type="text" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="Mornik, ROTOR MOTOR, Akaj" 
+          />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Slika Flyerja / Flyer Image URL</label>
+          <input 
+            v-model="form.flyer_url" 
+            type="url" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="https://images.ra.co/... ali URL slike" 
+          />
+          <div v-if="form.flyer_url" class="mt-3">
+            <p class="text-xs text-gray-400 mb-1">Predogled flyerja:</p>
+            <img :src="form.flyer_url" alt="Flyer Preview" class="w-32 h-32 object-cover rounded-lg border border-gray-700" />
+          </div>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Povezava do Vstopnic / Pretix or Ticket Link</label>
+          <input 
+            v-model="form.pretix_event_url" 
+            type="url" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="https://pretix.eu/... ali povezava do nakupa" 
+          />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Resident Advisor Povezava / RA Link (opcijsko)</label>
+          <input 
+            v-model="form.ra_url" 
+            type="url" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
+            placeholder="https://ra.co/events/..." 
+          />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Celoten Spored / Full Lineup Text</label>
+          <textarea 
+            v-model="form.lineup" 
+            rows="4" 
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors font-mono text-sm"
+            placeholder="Mornik&#10;DaNe&#10;Venj Urban Ground"
+          ></textarea>
+        </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Date & Time *</label>
-        <input v-model="form.date" type="datetime-local" required class="input-field" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Event Type</label>
-        <select v-model="form.type" class="input-field">
-          <option value="club">Club Night</option>
-          <option value="pizzeria">Pizzeria / Dining event</option>
-          <option value="live">Live Music</option>
-          <option value="private">Private / Buyout</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Description</label>
-        <textarea v-model="form.description" rows="5" class="input-field" placeholder="Event description..."></textarea>
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Flyer Image URL</label>
-        <input v-model="form.image_url" type="url" class="input-field" placeholder="https://... (Supabase Storage or Unsplash)" />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Resident Advisor Link</label>
-        <input v-model="form.ra_link" type="url" class="input-field" placeholder="https://ra.co/events/..." />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-300 mb-2">Status</label>
-        <select v-model="form.status" class="input-field">
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
-
-      <div class="flex gap-4 pt-2">
+      <div class="flex gap-4 pt-4 border-t border-gray-800">
         <button 
           type="submit"
           :disabled="saving"
-          class="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-800 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2"
+          class="px-8 py-3.5 bg-red-600 hover:bg-red-700 disabled:bg-red-800 text-white font-extrabold rounded-xl transition-all duration-300 shadow-lg shadow-red-950 flex items-center gap-2"
         >
-          {{ saving ? 'Saving...' : (isEdit ? 'Save Changes' : 'Create Event') }}
+          {{ saving ? 'Shranjevanje...' : (isEdit ? 'Shrani Spremembe' : 'Objavi Dogodek') }}
         </button>
-        <NuxtLink to="/admin/events" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors duration-300">
-          Cancel
+        <NuxtLink to="/admin/events" class="px-6 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl font-bold transition-colors">
+          Prekliči
         </NuxtLink>
       </div>
     </form>
@@ -81,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -90,95 +152,81 @@ const isEdit = computed(() => !!route.params.id && route.params.id !== 'new')
 const eventId = (route.params.id || '') as string
 
 const form = ref({
+  ra_id: undefined as number | undefined,
   title: '',
-  slug: '',
   date: '',
-  type: 'club',
-  description: '',
-  image_url: '',
-  ra_link: '',
-  status: 'draft'
+  end_time: '',
+  cost: '' as string | number,
+  genres: '',
+  artists: '',
+  flyer_url: '',
+  pretix_event_url: '',
+  ra_url: '',
+  lineup: ''
 })
 
 const error = ref('')
+const successMsg = ref('')
 const saving = ref(false)
 
-const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-
-const fetchEvent = async () => {
+const loadEventToEdit = async () => {
+  if (!isEdit.value) return
   try {
-    const { $supabase } = useNuxtApp()
-    const { data, error: err } = await $supabase
-      .from('events')
-      .select('*')
-      .eq('id', eventId)
-      .single()
-
-    if (err) throw err
-    if (data) {
-      form.value.title = data.title
-      form.value.slug = data.slug
-      form.value.date = toLocalInput(new Date(data.date))
-      form.value.type = data.type || 'club'
-      form.value.description = data.description || ''
-      form.value.image_url = data.image_url || ''
-      form.value.ra_link = data.ra_link || ''
-      form.value.status = data.status || 'draft'
+    const allEvents = await $fetch<any[]>('/api/ra-events?scope=all')
+    const target = allEvents.find((e) => String(e.ra_id) === String(eventId))
+    if (target) {
+      form.value.ra_id = target.ra_id
+      form.value.title = target.title || ''
+      form.value.date = target.date ? new Date(target.date).toISOString().slice(0, 16) : ''
+      form.value.end_time = target.end_time ? new Date(target.end_time).toISOString().slice(0, 16) : ''
+      form.value.cost = target.cost ?? ''
+      form.value.genres = Array.isArray(target.genres) ? target.genres.join(', ') : ''
+      form.value.artists = Array.isArray(target.artists) ? target.artists.join(', ') : ''
+      form.value.flyer_url = target.flyer_url || ''
+      form.value.pretix_event_url = target.pretix_event_url || ''
+      form.value.ra_url = target.ra_url || ''
+      form.value.lineup = target.lineup || ''
     }
   } catch (err: any) {
-    error.value = 'Failed to load event.'
-    console.error(err)
+    error.value = 'Failed to load event data.'
   }
-}
-
-const toLocalInput = (d: Date) => {
-  const offset = d.getTimezoneOffset()
-  const local = new Date(d.getTime() - offset * 60000)
-  return local.toISOString().slice(0, 16)
 }
 
 const save = async () => {
   error.value = ''
+  successMsg.value = ''
   saving.value = true
+
   try {
-    const { $supabase } = useNuxtApp()
-    const payload = {
-      title: form.value.title,
-      slug: form.value.slug || slugify(form.value.title),
-      date: new Date(form.value.date).toISOString(),
-      type: form.value.type,
-      description: form.value.description,
-      image_url: form.value.image_url,
-      ra_link: form.value.ra_link,
-      status: form.value.status
-    }
+    const res = await $fetch<{ ok: boolean; event: any }>('/api/admin/events', {
+      method: 'POST',
+      body: {
+        ra_id: form.value.ra_id,
+        title: form.value.title,
+        date: form.value.date,
+        end_time: form.value.end_time || null,
+        cost: form.value.cost,
+        genres: form.value.genres,
+        artists: form.value.artists,
+        flyer_url: form.value.flyer_url,
+        pretix_event_url: form.value.pretix_event_url,
+        ra_url: form.value.ra_url,
+        lineup: form.value.lineup
+      }
+    })
 
-    if (isEdit) {
-      const { error: err } = await $supabase.from('events').update(payload).eq('id', eventId)
-      if (err) throw err
-    } else {
-      const { error: err } = await $supabase.from('events').insert(payload)
-      if (err) throw err
+    if (res?.ok) {
+      successMsg.value = 'Dogodek uspešno shranjen! Preusmerjam...'
+      setTimeout(() => {
+        router.push('/admin/events')
+      }, 1000)
     }
-
-    await router.push('/admin/events')
   } catch (err: any) {
-    error.value = err?.message || 'Failed to save event.'
-    console.error(err)
+    error.value = err.statusMessage || err.message || 'Napaka pri shranjevanju dogodka.'
   } finally {
     saving.value = false
   }
 }
 
-onMounted(() => {
-  if (isEdit) fetchEvent()
-})
-
-definePageMeta({ layout: 'admin' })
+onMounted(loadEventToEdit)
 </script>
-
-<style scoped>
-.input-field {
-  @apply w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent;
-}
-</style>

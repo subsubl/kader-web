@@ -9,7 +9,6 @@
         </div>
         
         <nav class="hidden md:flex space-x-8">
-          <NuxtLink to="/" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.home') }}</NuxtLink>
           <NuxtLink to="/pizzeria" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.pizzeria') }}</NuxtLink>
           <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.club') }}</NuxtLink>
           <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.events') }}</NuxtLink>
@@ -30,9 +29,6 @@
               class="px-3 py-1.5 text-sm font-semibold transition-colors duration-300"
             >EN</button>
           </div>
-          <NuxtLink to="/admin" class="hidden md:block px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300">
-            {{ t('nav.admin') }}
-          </NuxtLink>
           <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors duration-300">
             <Bars3Icon class="w-6 h-6" />
           </button>
@@ -42,12 +38,10 @@
       <!-- Mobile Menu -->
       <div v-show="mobileMenuOpen" class="md:hidden py-4 border-t border-gray-800">
         <div class="flex flex-col space-y-3">
-          <NuxtLink to="/" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.home') }}</NuxtLink>
           <NuxtLink to="/pizzeria" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.pizzeria') }}</NuxtLink>
           <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.club') }}</NuxtLink>
           <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.events') }}</NuxtLink>
           <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.buyouts') }}</NuxtLink>
-          <NuxtLink to="/admin" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300 mt-2" @click="mobileMenuOpen = false">{{ t('nav.admin') }}</NuxtLink>
         </div>
       </div>
     </div>

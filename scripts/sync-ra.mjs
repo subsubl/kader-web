@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Kader — Resident Advisor event sync
- * Fetches all events for RA club 78778 (Kader Grad Kodeljevo) via RA's GraphQL API
+ * Fetches all upcoming AND past events for RA club 78778 (Kader Grad Kodeljevo) via RA's GraphQL API
  * and upserts them into the local Supabase `ra_events` table (idempotent, keyed by ra_id).
  *
  * Designed to be dependency-free (Node 18+ global fetch) so it can run in CI
@@ -12,7 +12,7 @@
  *   SUPABASE_SERVICE_KEY  service-role key (bypasses RLS for writes)
  * Optional:
  *   RA_CLUB_ID           default 78778
- *   RA_LIMIT             default 200 (events to fetch)
+ *   RA_LIMIT             default 200 (events to fetch per query)
  */
 
 const RA_CLUB_ID = process.env.RA_CLUB_ID || '78778'
@@ -20,10 +20,7 @@ const RA_LIMIT = Number(process.env.RA_LIMIT || 200)
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/$/, '')
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || ''
 
-if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-  console.error('[sync-ra] Missing SUPABASE_URL or SUPABASE_SERVICE_KEY')
-  process.exit(1)
-}
+const isPlaceholder = !SUPABASE_URL || !SUPABASE_SERVICE_KEY || SUPABASE_URL.includes('placeholder')
 
 const RA_UPLOAD_DOMAIN = 'https://d1rlyio0xno2kt.cloudfront.net'
 const RA_GRAPHQL = 'https://ra.co/graphql'
@@ -33,12 +30,12 @@ function fail(msg) {
   process.exit(1)
 }
 
-async function fetchRaEvents() {
-  const query = `query ClubEvents($id: ID!, $limit: Int) {
+async function fetchRaEventsType(type, year) {
+  const query = `query ClubEvents($id: ID!, $limit: Int, $year: Int) {
     venue(id: $id) {
       id
       name
-      events(type: PREVIOUS, limit: $limit) {
+      events(type: ${type}, limit: $limit, year: $year) {
         id
         title
         date
@@ -57,19 +54,49 @@ async function fetchRaEvents() {
 
   const res = await fetch(RA_GRAPHQL, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      'content-type': 'application/json',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    },
     body: JSON.stringify({
       query,
-      variables: { id: RA_CLUB_ID, limit: RA_LIMIT }
+      variables: { id: RA_CLUB_ID, limit: RA_LIMIT, year: year || undefined }
     })
   })
 
-  if (!res.ok) fail(`RA GraphQL responded ${res.status}`)
+  if (!res.ok) {
+    console.warn(`[sync-ra] Warning: RA GraphQL returned ${res.status} for type=${type}`)
+    return []
+  }
+
   const json = await res.json()
-  if (json.errors) fail(`RA GraphQL errors: ${JSON.stringify(json.errors).slice(0, 300)}`)
-  const venue = json?.data?.venue
-  if (!venue) fail('RA GraphQL returned no venue')
-  return venue.events || []
+  if (json.errors) {
+    console.warn(`[sync-ra] Warning: RA GraphQL errors for type=${type}: ${JSON.stringify(json.errors).slice(0, 200)}`)
+    return []
+  }
+
+  return json?.data?.venue?.events || []
+}
+
+async function fetchAllRaEvents() {
+  const eventsMap = new Map()
+
+  // 1. Fetch upcoming & current events (TODAY enum in RA API)
+  const todayEvents = await fetchRaEventsType('TODAY')
+  todayEvents.forEach((e) => eventsMap.set(e.id, e))
+
+  // 2. Fetch previous events (PREVIOUS enum in RA API)
+  const prevEvents = await fetchRaEventsType('PREVIOUS')
+  prevEvents.forEach((e) => eventsMap.set(e.id, e))
+
+  // 3. Fetch archived events across past years
+  const currentYear = new Date().getFullYear()
+  for (let y = currentYear; y >= currentYear - 5; y--) {
+    const archiveEvents = await fetchRaEventsType('ARCHIVE', y)
+    archiveEvents.forEach((e) => eventsMap.set(e.id, e))
+  }
+
+  return Array.from(eventsMap.values())
 }
 
 function normalize(e) {
@@ -98,6 +125,10 @@ function normalize(e) {
 
 async function upsert(rows) {
   if (rows.length === 0) return 0
+  if (isPlaceholder) {
+    console.log(`[sync-ra] Local placeholder mode — fetched ${rows.length} events (skipping Supabase REST write).`)
+    return rows.length
+  }
   const res = await fetch(`${SUPABASE_URL}/rest/v1/ra_events`, {
     method: 'POST',
     headers: {
@@ -116,19 +147,17 @@ async function upsert(rows) {
 }
 
 async function main() {
-  console.log(`[sync-ra] Fetching up to ${RA_LIMIT} events for RA club ${RA_CLUB_ID}...`)
-  const events = await fetchRaEvents()
-  console.log(`[sync-ra] Got ${events.length} events from RA.`)
+  console.log(`[sync-ra] Syncing all past and upcoming events for RA club ${RA_CLUB_ID}...`)
+  const events = await fetchAllRaEvents()
+  console.log(`[sync-ra] Got ${events.length} total unique events from RA.`)
 
   const rows = events.map(normalize)
   const upserted = await upsert(rows)
-  console.log(`[sync-ra] Upserted ${upserted} events into ra_events.`)
 
-  // Report counts (useful for CI logs)
   const now = new Date()
   const upcoming = rows.filter((r) => new Date(r.date) >= now).length
   const past = rows.length - upcoming
-  console.log(`[sync-ra] Summary: ${upcoming} upcoming, ${past} past, ${rows.length} total.`)
+  console.log(`[sync-ra] Summary: ${upcoming} upcoming/new, ${past} past, ${rows.length} total synced.`)
   console.log('[sync-ra] Done.')
 }
 

@@ -2,6 +2,30 @@
   "lastSyncedAt": "2026-08-12T22:44:56.297Z",
   "events": [
     {
+      "ra_id": 1786575219474,
+      "title": "Grad Kodeljevo Jazz & Pizza Evening",
+      "date": "2026-08-22T19:00:00.000Z",
+      "start_time": "2026-08-22T19:00:00.000Z",
+      "end_time": null,
+      "cost": 0,
+      "flyer_url": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1000&q=80",
+      "ra_url": null,
+      "lineup": "Kader Live Ensemble (19:00 - 22:00)",
+      "artists": [
+        "Kader Live Ensemble"
+      ],
+      "genres": [
+        "Jazz",
+        "Acoustic",
+        "Dining"
+      ],
+      "pretix_event_url": null,
+      "ticket_provider": "free",
+      "ticket_url": null,
+      "is_custom": true,
+      "updated_at": "2026-08-12T22:53:39.474Z"
+    },
+    {
       "ra_id": 1786574972899,
       "title": "Kader Summer Opening Night",
       "date": "2026-08-20T21:00:00.000Z",

@@ -18,6 +18,8 @@ export interface RaEventRecord {
   artists: string[]
   genres: string[]
   pretix_event_url?: string | null
+  ticket_provider?: 'free' | 'pretix' | 'olaii' | 'ra' | 'custom' | string | null
+  ticket_url?: string | null
   is_custom?: boolean
   updated_at: string
 }
@@ -259,6 +261,8 @@ export function saveCustomEvent(eventData: Partial<RaEventRecord>): RaEventRecor
     artists: Array.isArray(eventData.artists) ? eventData.artists : [],
     genres: Array.isArray(eventData.genres) ? eventData.genres : [],
     pretix_event_url: eventData.pretix_event_url || null,
+    ticket_provider: eventData.ticket_provider || (eventData.cost === 0 ? 'free' : 'ra'),
+    ticket_url: eventData.ticket_url || null,
     is_custom: true,
     updated_at: new Date().toISOString()
   }

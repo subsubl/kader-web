@@ -44,7 +44,9 @@ export default defineEventHandler(async (event) => {
     lineup: body.lineup || null,
     artists: typeof body.artists === 'string' ? body.artists.split(',').map((s: string) => s.trim()).filter(Boolean) : (Array.isArray(body.artists) ? body.artists : []),
     genres: typeof body.genres === 'string' ? body.genres.split(',').map((s: string) => s.trim()).filter(Boolean) : (Array.isArray(body.genres) ? body.genres : []),
-    pretix_event_url: body.pretix_event_url || null
+    pretix_event_url: body.pretix_event_url || null,
+    ticket_provider: body.ticket_provider || (Number(body.cost) === 0 ? 'free' : 'ra'),
+    ticket_url: body.ticket_url || body.ra_url || body.pretix_event_url || null
   })
 
   return { ok: true, event: record }

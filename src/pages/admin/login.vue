@@ -77,15 +77,6 @@ const handleLogin = async () => {
   loading.value = true
 
   try {
-    const config = useRuntimeConfig()
-    const supabaseUrl = config.public?.supabaseUrl as string
-
-    if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
-      error.value = 'Sistem nima konfigurirane prave Supabase baze. V .env datoteki nastavite NUXT_PUBLIC_SUPABASE_URL in NUXT_PUBLIC_SUPABASE_ANON_KEY.'
-      loading.value = false
-      return
-    }
-
     const { $supabase } = useNuxtApp()
     
     const { data, error: authError } = await $supabase.auth.signInWithPassword({

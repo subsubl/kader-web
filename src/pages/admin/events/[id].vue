@@ -27,7 +27,7 @@
             type="text" 
             required 
             class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
-            placeholder="npr. Simply Life @ Kader ili House Night" 
+            placeholder="npr. Simply Life @ Kader ali House Night" 
           />
         </div>
 
@@ -95,24 +95,54 @@
           </div>
         </div>
 
-        <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Povezava do Vstopnic / Pretix or Ticket Link</label>
-          <input 
-            v-model="form.pretix_event_url" 
-            type="url" 
-            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
-            placeholder="https://pretix.eu/... ali povezava do nakupa" 
-          />
-        </div>
+        <!-- Ticket System Selection -->
+        <div class="md:col-span-2 bg-gray-800/80 p-5 rounded-2xl border border-gray-700/80 space-y-4">
+          <label class="block text-xs font-bold text-gray-200 uppercase tracking-wider">Prodaja Vstopnic / Ticket System</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <label 
+              :class="form.ticket_provider === 'free' ? 'bg-red-600/30 border-red-500 text-white font-bold' : 'bg-gray-900/60 border-gray-700 text-gray-400 hover:text-white'"
+              class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
+            >
+              <input type="radio" v-model="form.ticket_provider" value="free" class="hidden" />
+              <span>🎉 Prost vstop / Free</span>
+            </label>
 
-        <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Resident Advisor Povezava / RA Link (opcijsko)</label>
-          <input 
-            v-model="form.ra_url" 
-            type="url" 
-            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 transition-colors"
-            placeholder="https://ra.co/events/..." 
-          />
+            <label 
+              :class="form.ticket_provider === 'pretix' ? 'bg-red-600/30 border-red-500 text-white font-bold' : 'bg-gray-900/60 border-gray-700 text-gray-400 hover:text-white'"
+              class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
+            >
+              <input type="radio" v-model="form.ticket_provider" value="pretix" class="hidden" />
+              <span>🎟️ Pretix (Notranji)</span>
+            </label>
+
+            <label 
+              :class="form.ticket_provider === 'olaii' ? 'bg-red-600/30 border-red-500 text-white font-bold' : 'bg-gray-900/60 border-gray-700 text-gray-400 hover:text-white'"
+              class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
+            >
+              <input type="radio" v-model="form.ticket_provider" value="olaii" class="hidden" />
+              <span>🎫 Olaii</span>
+            </label>
+
+            <label 
+              :class="form.ticket_provider === 'ra' ? 'bg-red-600/30 border-red-500 text-white font-bold' : 'bg-gray-900/60 border-gray-700 text-gray-400 hover:text-white'"
+              class="p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-center gap-2 text-xs"
+            >
+              <input type="radio" v-model="form.ticket_provider" value="ra" class="hidden" />
+              <span>📻 Resident Advisor</span>
+            </label>
+          </div>
+
+          <div v-if="form.ticket_provider !== 'free'" class="pt-2">
+            <label class="block text-xs font-semibold text-gray-300 mb-1">
+              {{ form.ticket_provider === 'pretix' ? 'Pretix Event Shop URL' : form.ticket_provider === 'olaii' ? 'Olaii Event URL' : 'Povezava do vstopnic / Ticket URL' }}
+            </label>
+            <input 
+              v-model="form.ticket_url" 
+              type="url" 
+              class="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-red-500 text-sm"
+              :placeholder="form.ticket_provider === 'pretix' ? 'https://pretix.eu/kader/event-slug/' : form.ticket_provider === 'olaii' ? 'https://olaii.com/event/...' : 'https://...'"
+            />
+          </div>
         </div>
 
         <div class="md:col-span-2">
@@ -160,8 +190,8 @@ const form = ref({
   genres: '',
   artists: '',
   flyer_url: '',
-  pretix_event_url: '',
-  ra_url: '',
+  ticket_provider: 'free' as 'free' | 'pretix' | 'olaii' | 'ra' | 'custom',
+  ticket_url: '',
   lineup: ''
 })
 
@@ -183,8 +213,8 @@ const loadEventToEdit = async () => {
       form.value.genres = Array.isArray(target.genres) ? target.genres.join(', ') : ''
       form.value.artists = Array.isArray(target.artists) ? target.artists.join(', ') : ''
       form.value.flyer_url = target.flyer_url || ''
-      form.value.pretix_event_url = target.pretix_event_url || ''
-      form.value.ra_url = target.ra_url || ''
+      form.value.ticket_provider = target.ticket_provider || (target.cost === 0 ? 'free' : 'ra')
+      form.value.ticket_url = target.ticket_url || target.pretix_event_url || target.ra_url || ''
       form.value.lineup = target.lineup || ''
     }
   } catch (err: any) {
@@ -209,8 +239,10 @@ const save = async () => {
         genres: form.value.genres,
         artists: form.value.artists,
         flyer_url: form.value.flyer_url,
-        pretix_event_url: form.value.pretix_event_url,
-        ra_url: form.value.ra_url,
+        ticket_provider: form.value.ticket_provider,
+        ticket_url: form.value.ticket_url,
+        pretix_event_url: form.value.ticket_provider === 'pretix' ? form.value.ticket_url : null,
+        ra_url: form.value.ticket_provider === 'ra' ? form.value.ticket_url : null,
         lineup: form.value.lineup
       }
     })

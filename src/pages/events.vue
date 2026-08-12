@@ -78,7 +78,13 @@
                   Podrobnosti & Vstopnice 
                   <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </span>
-                <span v-if="event.cost" class="text-gray-300 bg-gray-700/60 px-2.5 py-1 rounded-md">
+                <span 
+                  v-if="event.cost === 0 || event.ticket_provider === 'free'" 
+                  class="text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-1 rounded-md font-extrabold"
+                >
+                  🎉 Prost vstop
+                </span>
+                <span v-else-if="event.cost" class="text-gray-300 bg-gray-700/60 px-2.5 py-1 rounded-md">
                   {{ event.cost }} €
                 </span>
               </div>
@@ -117,23 +123,6 @@
               <svg class="w-4 h-4 text-gray-500 group-hover:text-red-400 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </div>
           </button>
-        </div>
-      </div>
-
-      <!-- Tickets & RA CTA Footer Banner -->
-      <div class="bg-gray-800/80 border border-gray-700 rounded-xl p-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">{{ t('events.ticketsTitle') }}</h2>
-        <p class="text-xl mb-2 max-w-2xl mx-auto">{{ t('events.buyHere') }}</p>
-        <p class="text-gray-400 mb-6 max-w-2xl mx-auto">{{ t('events.alsoRA') }}</p>
-        <div class="flex flex-wrap gap-4 justify-center">
-          <a
-            href="https://ra.co/clubs/78778"
-            target="_blank"
-            rel="noopener"
-            class="inline-block px-8 py-3.5 bg-red-600 hover:bg-red-700 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-red-950"
-          >
-            {{ t('events.raPage') }} ↗
-          </a>
         </div>
       </div>
     </div>
@@ -211,32 +200,44 @@
               <div class="text-sm text-gray-300 whitespace-pre-line leading-relaxed font-mono" v-html="cleanLineup(selectedEvent.lineup)"></div>
             </div>
 
-            <!-- Pretix Widget or Direct RA Link -->
+            <!-- Embedded Pretix Checkout Widget -->
+            <div v-if="selectedEvent.ticket_provider === 'pretix' || selectedEvent.pretix_event_url" class="bg-gray-800/60 p-4 rounded-xl border border-gray-700">
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Notranja Prodaja Vstopnic / Direct Ticket Checkout</h4>
+              <PretixWidget :event="selectedEvent.pretix_event_url || selectedEvent.ticket_url || ''" />
+            </div>
+
+            <!-- Ticket & Price Action Footer -->
             <div class="pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <span class="text-xs text-gray-400 block uppercase font-medium">Vstopnina / Entry Fee</span>
                 <span class="text-xl font-black text-white">
-                  {{ selectedEvent.cost ? selectedEvent.cost + ' €' : 'Po programu / RA Info' }}
+                  {{ selectedEvent.cost === 0 || selectedEvent.ticket_provider === 'free' ? '🎉 Prost vstop / Free Entry' : (selectedEvent.cost ? selectedEvent.cost + ' €' : 'Vstop prost / Free') }}
                 </span>
               </div>
 
-              <div class="flex gap-3 w-full sm:w-auto">
+              <div class="w-full sm:w-auto">
+                <div v-if="selectedEvent.ticket_provider === 'free' || selectedEvent.cost === 0" class="px-6 py-3 bg-emerald-950 border border-emerald-700 text-emerald-300 font-extrabold rounded-xl text-center text-sm">
+                  🎉 Prost Vstop / Free Admission
+                </div>
                 <a 
-                  v-if="selectedEvent.pretix_event_url"
-                  :href="selectedEvent.pretix_event_url"
+                  v-else-if="selectedEvent.ticket_provider === 'olaii' || (selectedEvent.ticket_url && selectedEvent.ticket_url.includes('olaii'))"
+                  :href="selectedEvent.ticket_url || 'https://olaii.com'"
                   target="_blank"
                   rel="noopener"
-                  class="flex-1 sm:flex-none px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-center transition-colors shadow-lg shadow-red-950"
+                  class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl text-center transition-all duration-300 shadow-lg shadow-red-950 flex items-center justify-center gap-2"
                 >
-                  Kupi Vstopnico 🎟️
+                  <span>Kupi na Olaii</span>
+                  <span class="text-lg">🎫</span>
                 </a>
                 <a 
-                  :href="selectedEvent.ra_url || 'https://ra.co/clubs/78778'"
+                  v-else
+                  :href="selectedEvent.ticket_url || selectedEvent.pretix_event_url || selectedEvent.ra_url || 'https://kader.si'"
                   target="_blank"
                   rel="noopener"
-                  class="flex-1 sm:flex-none px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold rounded-xl text-center transition-colors"
+                  class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl text-center transition-all duration-300 shadow-lg shadow-red-950 flex items-center justify-center gap-2"
                 >
-                  Odpri na Resident Advisor ↗
+                  <span>Kupi Vstopnico / Buy Ticket</span>
+                  <span class="text-lg">🎟️</span>
                 </a>
               </div>
             </div>
@@ -265,21 +266,9 @@ interface RaEvent {
   artists: string[]
   genres: string[]
   pretix_event_url: string | null
+  ticket_provider?: string | null
+  ticket_url?: string | null
 }
-
-const typeFilters = computed(() => [
-  { label: t('events.allEvents'), value: 'all' },
-  { label: t('events.filterPizzeria'), value: 'pizzeria' },
-  { label: t('events.filterClub'), value: 'club' },
-  { label: t('events.filterLive'), value: 'live' }
-])
-
-const activeFilterLabelsKey = (f: string) => (f === 'all' ? 'allEvents' : f === 'pizzeria' ? 'filterPizzeria' : f === 'club' ? 'filterClub' : 'filterLive')
-
-const emptyMessage = computed(() => {
-  if (activeFilter.value === 'all') return t('events.noUpcoming', { filter: '' })
-  return t('events.noUpcoming', { filter: ` — ${t('events.' + activeFilterLabelsKey(activeFilter.value))}` })
-})
 
 const fallbackImage = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80'
 
@@ -320,21 +309,8 @@ const cleanLineup = (raw: string | null) => {
 
 // Upcoming events
 const events = ref<RaEvent[]>([])
-const activeFilter = ref('all')
 const loading = ref(true)
 const loadError = ref('')
-
-const filteredEvents = computed(() => {
-  if (activeFilter.value === 'all') return events.value
-  return events.value.filter((e) => {
-    const genre = (e.genres[0] || '').toLowerCase()
-    const title = (e.title || '').toLowerCase()
-    if (activeFilter.value === 'club') return genre.includes('house') || genre.includes('techno') || genre.includes('club') || genre.includes('electronica')
-    if (activeFilter.value === 'live') return genre.includes('live') || genre.includes('jazz') || genre.includes('music')
-    if (activeFilter.value === 'pizzeria') return title.includes('pizza') || title.includes('dining') || genre.includes('pizzeria')
-    return true
-  })
-})
 
 const formatDate = (d: string) => new Date(d).toLocaleDateString('sl-SI', {
   weekday: 'short',

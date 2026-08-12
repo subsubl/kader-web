@@ -1,9 +1,5 @@
 # Kader — Deploy to self-hosted production server (Hermes / Caddy @ 192.168.64.139:9090).
 # Triggers on push to main (after CI), or manually for any branch.
-# Best practices applied:
-#  - Environment-scoped secrets with required reviewers (least privilege).
-#  - Deploys only one revision at a time (concurrency + max-parallelism).
-#  - Server endpoint is reached over HTTPS w/ a deploy token, never a raw SSH key in logs.
 
 name: Deploy
 
@@ -14,7 +10,7 @@ on:
     inputs:
       environment:
         description: 'Target environment'
-        required: true
+        required: false
         default: 'production'
         type: choice
         options:
@@ -22,7 +18,7 @@ on:
           - staging
 
 concurrency:
-  group: deploy-${{ github.event.inputs.environment || 'production' }}
+  group: deploy-production
   cancel-in-progress: false
 
 permissions:
@@ -30,9 +26,9 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy → ${{ inputs.environment || 'production' }}
+    name: Deploy → Production
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || 'production' }}
+    environment: production
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -82,7 +78,7 @@ jobs:
           version: latest
 
       - name: Push Supabase migrations (production DB)
-        if: ${{ (inputs.environment || 'production') == 'production' && secrets.SUPABASE_DB_URL != '' }}
+        if: ${{ secrets.SUPABASE_DB_URL != '' }}
         run: |
           supabase db push --db-url "${{ secrets.SUPABASE_DB_URL }}"
           supabase gen types typescript --db-url "${{ secrets.SUPABASE_DB_URL }}" > /tmp/database.ts

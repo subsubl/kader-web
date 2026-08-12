@@ -85,12 +85,12 @@ const handleLogin = async () => {
     })
 
     if (authError) {
-      error.value = 'Invalid credentials. Please try again.'
+      error.value = authError.message || 'Neveljavni podatki za prijavo.'
       return
     }
 
     if (!data.user) {
-      error.value = 'Login failed. Please try again.'
+      error.value = 'Prijava ni uspela (uporabnik ni bil vrnjen).'
       return
     }
 
@@ -101,16 +101,33 @@ const handleLogin = async () => {
       .eq('user_id', data.user.id)
       .maybeSingle()
 
-    if (roleError || !userRole || userRole.role !== 'admin') {
+    if (roleError) {
+      console.error('Role check database error:', roleError)
       await $supabase.auth.signOut()
-      error.value = 'Access denied. Admin role required.'
+      error.value = `Preverjanje vloge ni uspelo: ${roleError.message}`
+      return
+    }
+
+    if (!userRole) {
+      await $supabase.auth.signOut()
+      error.value = `Dostop zavrnjen. V tabeli 'users_roles' ni vnosa za uporabnika (${data.user.email}).`
+      return
+    }
+
+    if (userRole.role !== 'admin') {
+      await $supabase.auth.signOut()
+      error.value = `Dostop zavrnjen. Vloga '${userRole.role}' nima admin pravic.`
       return
     }
 
     // Redirect to admin dashboard
     await router.push('/admin/dashboard')
-  } catch (err) {
-    error.value = 'An unexpected error occurred. Please try again.'
+  } catch (err: any) {
+    if (err.message && err.message.includes('Failed to fetch')) {
+      error.value = 'Povezava s Supabase bazo ni uspela (Failed to fetch). Preverite delovanje strežnika ali URL baze v .env datoteki.'
+    } else {
+      error.value = err.message || 'Prišlo je do nepričakovane napake.'
+    }
     console.error('Login error:', err)
   } finally {
     loading.value = false

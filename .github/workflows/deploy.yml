@@ -58,6 +58,7 @@ jobs:
         run: tar -czf release.tar.gz .output package.json nuxt.config.ts
 
       - name: Push release to deploy API
+        if: ${{ secrets.DEPLOY_URL != '' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -69,13 +70,19 @@ jobs:
             --output deploy-response.json
           cat deploy-response.json
 
+      - name: Skip deploy step if DEPLOY_URL not set
+        if: ${{ secrets.DEPLOY_URL == '' }}
+        run: |
+          echo "::warning::DEPLOY_URL secret is not configured in GitHub settings. Skipping server push step."
+
       - name: Install Supabase CLI
+        if: ${{ secrets.SUPABASE_DB_URL != '' }}
         uses: supabase/setup-cli@v3
         with:
           version: latest
 
       - name: Push Supabase migrations (production DB)
-        if: ${{ (inputs.environment || 'production') == 'production' }}
+        if: ${{ (inputs.environment || 'production') == 'production' && secrets.SUPABASE_DB_URL != '' }}
         run: |
           supabase db push --db-url "${{ secrets.SUPABASE_DB_URL }}"
           supabase gen types typescript --db-url "${{ secrets.SUPABASE_DB_URL }}" > /tmp/database.ts

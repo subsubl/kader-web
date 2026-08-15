@@ -23,6 +23,7 @@
             <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Klub / Club</NuxtLink></li>
             <li><NuxtLink to="/events" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Dogodki / Events</NuxtLink></li>
             <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Zasebni Najem / Buyouts</NuxtLink></li>
+            <li><NuxtLink to="/shop" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Trgovina / Shop</NuxtLink></li>
           </ul>
         </div>
         

@@ -3,7 +3,7 @@
     <!-- ===== Immersive Hero (distinct from rest of site) ===== -->
     <section class="relative h-[88vh] min-h-[560px] flex items-end overflow-hidden">
       <img
-        :src="'https://images.unsplash.com/photo-1571333250630-f0230c320b6d?auto=format&fit=crop&w=1600&q=80'"
+        :src="'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1600&q=80'"
         alt="Kader club"
         class="absolute inset-0 w-full h-full object-cover opacity-40"
       >
@@ -57,17 +57,73 @@
       </div>
     </section>
 
-    <!-- ===== The Spaces ===== -->
+    <!-- ===== The Floors ===== -->
     <section class="py-16 md:py-24 px-4 bg-gradient-to-b from-kader-black to-[#1a0506]">
       <div class="max-w-6xl mx-auto">
         <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('club.exploreSpaces') }}</p>
-        <h2 class="text-3xl md:text-5xl font-black text-center mb-14 uppercase">{{ t('club.spacesTitle') }}</h2>
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-14 uppercase">{{ t('club.floorsTitle') }}</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-kader-red/20 border border-kader-red/20">
-          <div v-for="space in spaces" :key="space.index" class="bg-[#120607] p-8 md:p-12 group hover:bg-[#1a0a0b] transition-colors duration-300">
-            <p class="font-mono text-sm text-kader-red mb-4">{{ space.index }}</p>
-            <h3 class="text-2xl md:text-3xl font-bold mb-3">{{ spaceTitle(space) }}</h3>
-            <p class="text-kader-cream/70 leading-relaxed">{{ spaceDesc(space) }}</p>
+        <!-- FLOOR 01: BASEMENT -->
+        <div class="mb-2 group">
+          <div class="relative overflow-hidden rounded-3xl">
+            <img
+              src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1400&q=80"
+              alt="Kader Basement Club"
+              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.45] group-hover:brightness-[0.55] transition-all duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+
+            <!-- Floor label -->
+            <div class="absolute top-6 left-6 md:top-8 md:left-8 flex items-center space-x-3">
+              <span class="font-mono text-4xl md:text-6xl font-black text-kader-red leading-none">01</span>
+              <div class="h-px w-8 bg-kader-red"></div>
+              <span class="text-xs uppercase tracking-[0.3em] text-kader-cream/60 font-semibold">{{ t('club.floorLabel') }}</span>
+            </div>
+
+            <!-- Content overlay -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+              <div class="max-w-3xl">
+                <h3 class="text-3xl md:text-5xl font-black uppercase mb-3">{{ t('club.floor01Title') }}</h3>
+                <p class="text-kader-cream/75 text-base md:text-lg leading-relaxed mb-6 max-w-2xl">{{ t('club.floor01Desc') }}</p>
+                <div class="flex flex-wrap gap-2">
+                  <span v-for="tag in ['Klipsch La Scala AL6', t('club.tagCapacity300'), t('club.tagLowCeiling'), t('club.tagResidentDJs')]" :key="tag"
+                    class="px-3 py-1 bg-kader-red/20 border border-kader-red/40 text-kader-cream/80 text-xs font-bold uppercase tracking-wider rounded-full"
+                  >{{ tag }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLOOR 02: GROUND LEVEL -->
+        <div class="group">
+          <div class="relative overflow-hidden rounded-3xl">
+            <img
+              src="https://images.unsplash.com/photo-1571333250630-f0230c320b6d?auto=format&fit=crop&w=1400&q=80"
+              alt="Kader Ground Floor"
+              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.45] group-hover:brightness-[0.55] transition-all duration-700"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+
+            <!-- Floor label -->
+            <div class="absolute top-6 left-6 md:top-8 md:left-8 flex items-center space-x-3">
+              <span class="font-mono text-4xl md:text-6xl font-black text-kader-red leading-none">02</span>
+              <div class="h-px w-8 bg-kader-red"></div>
+              <span class="text-xs uppercase tracking-[0.3em] text-kader-cream/60 font-semibold">{{ t('club.floorLabel') }}</span>
+            </div>
+
+            <!-- Content overlay -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+              <div class="max-w-3xl">
+                <h3 class="text-3xl md:text-5xl font-black uppercase mb-3">{{ t('club.floor02Title') }}</h3>
+                <p class="text-kader-cream/75 text-base md:text-lg leading-relaxed mb-6 max-w-2xl">{{ t('club.floor02Desc') }}</p>
+                <div class="flex flex-wrap gap-2">
+                  <span v-for="tag in [t('club.tagCocktailBar'), t('club.tagGarden'), t('club.tagPizzeria'), t('club.tagOpenAir')]" :key="tag"
+                    class="px-3 py-1 bg-kader-red/20 border border-kader-red/40 text-kader-cream/80 text-xs font-bold uppercase tracking-wider rounded-full"
+                  >{{ tag }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -95,7 +151,7 @@
 
           <div class="bg-white/[0.03] border border-kader-cream/10 rounded-2xl p-8">
             <img
-              :src="'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80'"
+              :src="'https://images.unsplash.com/photo-1598387846168-20e4e45de4db?auto=format&fit=crop&w=800&q=80'"
               alt="Klipsch La Scala systems"
               class="w-full h-64 object-cover rounded-xl mb-6"
             >
@@ -231,16 +287,6 @@ interface ClubEvent {
   genres: string[]
 }
 
-// Spaces hold translation keys so titles/descriptions are locale-aware.
-const spaces = [
-  { index: '01', titleKey: 'club.space01Title', descKey: 'club.space01Desc' },
-  { index: '02', titleKey: 'club.space02Title', descKey: 'club.space02Desc' },
-  { index: '03', titleKey: 'club.space03Title', descKey: 'club.space03Desc' },
-  { index: '04', titleKey: 'club.space04Title', descKey: 'club.space04Desc' }
-]
-
-const spaceTitle = (s: (typeof spaces)[number]) => t(s.titleKey)
-const spaceDesc = (s: (typeof spaces)[number]) => t(s.descKey)
 
 const specs = [
   { label: 'Product', value: 'Klipsch La Scala AL6' },

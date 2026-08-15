@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center h-20">
         <div class="flex items-center">
           <NuxtLink to="/" class="flex items-center">
-            <img :src="logoUrl" alt="Kader" class="h-12 md:h-14 w-auto object-contain" />
+            <img :src="logoUrl" alt="Kader" class="h-10 md:h-12 w-auto object-contain rounded-lg shadow-sm" />
           </NuxtLink>
         </div>
         
@@ -13,6 +13,7 @@
           <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.club') }}</NuxtLink>
           <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.events') }}</NuxtLink>
           <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.buyouts') }}</NuxtLink>
+          <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.shop') }}</NuxtLink>
         </nav>
         
         <div class="flex items-center space-x-4">
@@ -42,6 +43,7 @@
           <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.club') }}</NuxtLink>
           <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.events') }}</NuxtLink>
           <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.buyouts') }}</NuxtLink>
+          <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.shop') }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -55,7 +57,7 @@ import { useLocale, type Locale } from '~/composables/useLocale'
 
 const { locale, setLocale, t } = useLocale()
 
-const logoUrl = '/logo-banner.png'
+const logoUrl = '/logo-k.jpg'
 const mobileMenuOpen = ref(false)
 
 const langClass = (l: Locale) =>

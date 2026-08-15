@@ -29,11 +29,11 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md">
-          <NuxtLink to="/pizzeria" class="px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-950 text-center">
-            {{ t('hero.menu') }}
-          </NuxtLink>
-          <NuxtLink to="/events" class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center">
+          <NuxtLink to="/events" class="px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-950 text-center">
             {{ t('hero.events') }}
+          </NuxtLink>
+          <NuxtLink to="/pizzeria" class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center">
+            {{ t('nav.pizzeria') }}
           </NuxtLink>
         </div>
       </div>

@@ -1,187 +1,170 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white py-12">
+  <div class="min-h-screen bg-kader-black text-kader-cream">
+
+    <!-- ===== Hero ===== -->
+    <section class="relative h-[70vh] min-h-[480px] flex items-end overflow-hidden">
+      <img
+        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80"
+        alt="Grad Kodeljevo private hire"
+        class="absolute inset-0 w-full h-full object-cover opacity-35"
+      >
+      <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
+      <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 md:pb-20 w-full">
+        <p class="text-xs md:text-sm uppercase tracking-[0.35em] mb-4 text-kader-red font-semibold">{{ t('club.privateHire') }}</p>
+        <h1 class="text-5xl md:text-8xl font-black leading-[0.92] mb-6 uppercase">{{ t('buyouts.pageTitle') }}</h1>
+        <p class="text-lg md:text-2xl max-w-2xl text-kader-cream/80">{{ t('buyouts.pageDesc') }}</p>
+      </div>
+    </section>
+
     <div class="max-w-6xl mx-auto px-4">
-      <header class="mb-12 text-center relative overflow-hidden rounded-2xl py-12 px-6 border border-gray-800 bg-gray-950">
-        <img src="/buyout-bg.jpg" alt="Grad Kodeljevo Buyouts" class="absolute inset-0 w-full h-full object-cover opacity-30" />
-        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent"></div>
-        <div class="relative z-10">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ t('buyouts.pageTitle') }}</h1>
-          <p class="text-xl text-gray-300 max-w-2xl mx-auto">{{ t('buyouts.pageDesc') }}</p>
-        </div>
-      </header>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-        <div>
-          <h2 class="text-3xl font-bold mb-6">{{ t('buyouts.venueOverview') }}</h2>
-          <p class="text-lg mb-6">{{ t('buyouts.venueP') }}</p>
-          
-          <div class="bg-gray-800 rounded-xl p-6 mb-6">
-            <h3 class="text-xl font-bold mb-4">{{ t('buyouts.venueFeatures') }}</h3>
-            <ul class="space-y-2">
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>{{ t('buyouts.feat1') }}</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>{{ t('buyouts.feat2') }}</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>{{ t('buyouts.feat3') }}</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>{{ t('buyouts.feat4') }}</span>
-              </li>
-              <li class="flex items-start">
-                <CheckIcon class="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                <span>{{ t('buyouts.feat5') }}</span>
-              </li>
-            </ul>
+      <!-- ===== Venue overview + event types ===== -->
+      <section class="py-20 md:py-28">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div class="lg:col-span-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.venueOverview') }}</p>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight">{{ t('buyouts.venueTitle') }}</h2>
           </div>
-          
-          <div class="bg-gray-800 rounded-xl p-6">
-            <h3 class="text-xl font-bold mb-4">{{ t('buyouts.eventTypes') }}</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="p-4 bg-gray-900 rounded-lg">
-                <h4 class="font-bold mb-2">{{ t('buyouts.weddings') }}</h4>
-                <p class="text-sm">{{ t('buyouts.weddingsDesc') }}</p>
-              </div>
-              <div class="p-4 bg-gray-900 rounded-lg">
-                <h4 class="font-bold mb-2">{{ t('buyouts.corporate') }}</h4>
-                <p class="text-sm">{{ t('buyouts.corporateDesc') }}</p>
-              </div>
-              <div class="p-4 bg-gray-900 rounded-lg">
-                <h4 class="font-bold mb-2">{{ t('buyouts.privateParties') }}</h4>
-                <p class="text-sm">{{ t('buyouts.privatePartiesDesc') }}</p>
-              </div>
-              <div class="p-4 bg-gray-900 rounded-lg">
-                <h4 class="font-bold mb-2">{{ t('buyouts.cultural') }}</h4>
-                <p class="text-sm">{{ t('buyouts.culturalDesc') }}</p>
-              </div>
+          <div class="lg:col-span-8">
+            <p class="text-xl md:text-2xl leading-relaxed text-kader-cream/80 mb-8">{{ t('buyouts.venueP') }}</p>
+            <div class="flex flex-wrap gap-2">
+              <span v-for="i in 5" :key="i"
+                class="px-3 py-1.5 bg-kader-red/10 border border-kader-red/30 text-kader-cream/80 text-xs font-bold uppercase tracking-wider rounded-full"
+              >{{ t(`buyouts.feat${i}`) }}</span>
             </div>
           </div>
         </div>
-        
-        <div>
-          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80" alt="Buyout Venue" class="rounded-xl shadow-2xl w-full h-96 object-cover">
-          <div class="mt-6 bg-gray-800 rounded-xl p-6">
-            <h3 class="text-xl font-bold mb-4">{{ t('buyouts.bookingProcess') }}</h3>
-            <ol class="space-y-3">
-              <li class="flex items-start">
-                <span class="flex-shrink-0 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center mr-3">1</span>
-                <span>{{ t('buyouts.booking1') }}</span>
-              </li>
-              <li class="flex items-start">
-                <span class="flex-shrink-0 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center mr-3">2</span>
-                <span>{{ t('buyouts.booking2') }}</span>
-              </li>
-              <li class="flex items-start">
-                <span class="flex-shrink-0 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center mr-3">3</span>
-                <span>{{ t('buyouts.booking3') }}</span>
-              </li>
-              <li class="flex items-start">
-                <span class="flex-shrink-0 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center mr-3">4</span>
-                <span>{{ t('buyouts.booking4') }}</span>
-              </li>
-              <li class="flex items-start">
-                <span class="flex-shrink-0 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center mr-3">5</span>
-                <span>{{ t('buyouts.booking5') }}</span>
-              </li>
-            </ol>
+
+        <!-- Event type cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-kader-red/20 border border-kader-red/20 rounded-2xl overflow-hidden">
+          <div v-for="type in eventTypesList" :key="type.key" class="bg-[#120607] p-8 group hover:bg-[#1a0a0b] transition-colors duration-300">
+            <p class="font-mono text-sm text-kader-red mb-4">{{ type.index }}</p>
+            <h3 class="text-lg md:text-xl font-bold mb-2">{{ t(type.titleKey) }}</h3>
+            <p class="text-kader-cream/60 text-sm leading-relaxed">{{ t(type.descKey) }}</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="bg-gray-800 rounded-xl p-8 mb-12">
-        <h2 class="text-3xl font-bold mb-6 text-center">{{ t('buyouts.tieredPricing') }}</h2>
+      <!-- ===== Booking process + photo ===== -->
+      <section class="pb-20 md:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.bookingProcess') }}</p>
+          <h2 class="text-3xl md:text-4xl font-black leading-tight mb-8">{{ t('buyouts.howItWorks') }}</h2>
+          <ol class="space-y-5">
+            <li v-for="n in 5" :key="n" class="flex items-start gap-4 border-b border-kader-cream/10 pb-5 last:border-b-0">
+              <span class="font-mono text-kader-red text-sm shrink-0 mt-0.5">0{{ n }}</span>
+              <span class="text-kader-cream/80 leading-relaxed">{{ t(`buyouts.booking${n}`) }}</span>
+            </li>
+          </ol>
+        </div>
+        <div class="rounded-3xl overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1561489396-888724a1543d?auto=format&fit=crop&w=1000&q=80"
+            alt="Event at Grad Kodeljevo"
+            class="w-full h-80 md:h-96 object-cover"
+          >
+        </div>
+      </section>
+
+      <!-- ===== Pricing tiers ===== -->
+      <section class="pb-20 md:pb-24">
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('buyouts.tieredPricing') }}</p>
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-12 uppercase">{{ t('buyouts.choosePlan') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-gray-900 rounded-lg p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">{{ t('buyouts.basic') }}</h3>
-            <div class="text-3xl font-bold text-red-500 mb-4">€1,500</div>
-            <ul class="space-y-2 mb-6">
-              <li>{{ t('buyouts.upTo', { n: 100 }) }}</li>
-              <li>{{ t('buyouts.basicCatering') }}</li>
-              <li>{{ t('buyouts.standardSound') }}</li>
-              <li>{{ t('buyouts.basicDecor') }}</li>
+
+          <!-- Basic -->
+          <div class="bg-[#120607] border border-kader-red/20 rounded-3xl p-8 flex flex-col">
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.basic') }}</p>
+            <div class="text-4xl font-black text-white mb-1">€1,500</div>
+            <p class="text-kader-cream/40 text-sm mb-6">{{ t('buyouts.upTo', { n: 100 }) }}</p>
+            <ul class="space-y-2 text-sm text-kader-cream/70 flex-1 mb-8">
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.basicCatering') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.standardSound') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.basicDecor') }}</li>
             </ul>
-            <button class="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors duration-300">
+            <button @click="scrollToForm" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
-          
-          <div class="bg-gray-900 rounded-lg p-6 text-center border-2 border-red-500 relative">
-            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-1 rounded-full text-sm font-bold">
-              {{ t('buyouts.popular') }}
-            </div>
-            <h3 class="text-xl font-bold mb-2">{{ t('buyouts.premium') }}</h3>
-            <div class="text-3xl font-bold text-red-500 mb-4">€3,000</div>
-            <ul class="space-y-2 mb-6">
-              <li>{{ t('buyouts.upTo', { n: 200 }) }}</li>
-              <li>{{ t('buyouts.fullCatering') }}</li>
-              <li>{{ t('buyouts.proSound') }}</li>
-              <li>{{ t('buyouts.elegantDecor') }}</li>
-              <li>{{ t('buyouts.specialistLighting') }}</li>
+
+          <!-- Premium (highlighted) -->
+          <div class="bg-kader-red/10 border border-kader-red rounded-3xl p-8 flex flex-col relative">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-kader-red text-white px-5 py-1 rounded-full text-xs font-black uppercase tracking-wider">{{ t('buyouts.popular') }}</div>
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.premium') }}</p>
+            <div class="text-4xl font-black text-white mb-1">€3,000</div>
+            <p class="text-kader-cream/40 text-sm mb-6">{{ t('buyouts.upTo', { n: 200 }) }}</p>
+            <ul class="space-y-2 text-sm text-kader-cream/80 flex-1 mb-8">
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.fullCatering') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.proSound') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.elegantDecor') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.specialistLighting') }}</li>
             </ul>
-            <button class="w-full py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors duration-300">
+            <button @click="scrollToForm" class="w-full py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
-          
-          <div class="bg-gray-900 rounded-lg p-6 text-center">
-            <h3 class="text-xl font-bold mb-2">{{ t('buyouts.luxury') }}</h3>
-            <div class="text-3xl font-bold text-red-500 mb-4">€5,000</div>
-            <ul class="space-y-2 mb-6">
-              <li>{{ t('buyouts.upTo', { n: 300 }) }}</li>
-              <li>{{ t('buyouts.luxuryCatering') }}</li>
-              <li>{{ t('buyouts.fullSound') }}</li>
-              <li>{{ t('buyouts.customDecor') }}</li>
-              <li>{{ t('buyouts.personalizedService') }}</li>
-              <li>{{ t('buyouts.exclusiveAccess') }}</li>
+
+          <!-- Luxury -->
+          <div class="bg-[#120607] border border-kader-red/20 rounded-3xl p-8 flex flex-col">
+            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.luxury') }}</p>
+            <div class="text-4xl font-black text-white mb-1">€5,000</div>
+            <p class="text-kader-cream/40 text-sm mb-6">{{ t('buyouts.upTo', { n: 300 }) }}</p>
+            <ul class="space-y-2 text-sm text-kader-cream/70 flex-1 mb-8">
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.luxuryCatering') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.fullSound') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.customDecor') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.personalizedService') }}</li>
+              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.exclusiveAccess') }}</li>
             </ul>
-            <button class="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold transition-colors duration-300">
+            <button @click="scrollToForm" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="bg-gray-800 rounded-xl p-8">
-        <h2 class="text-3xl font-bold mb-6 text-center">{{ t('buyouts.requestQuote') }}</h2>
+      <!-- ===== Inquiry form ===== -->
+      <section id="inquiry-form" class="pb-28">
         <div class="max-w-2xl mx-auto">
-          <div v-if="submitState === 'success'" class="bg-green-900/40 border border-green-700 text-green-300 rounded-lg p-6 text-center mb-6">
-            <h3 class="text-xl font-semibold mb-2">{{ t('buyouts.inquiryReceived') }}</h3>
-            <p>{{ t('buyouts.thankYou', { name: inquiryForm.name.split(' ')[0] }) }}</p>
-            <button @click="resetForm" class="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">
+          <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('buyouts.requestQuote') }}</p>
+          <h2 class="text-3xl md:text-5xl font-black text-center mb-10 uppercase">{{ t('buyouts.getInTouch') }}</h2>
+
+          <!-- Success state -->
+          <div v-if="submitState === 'success'" class="bg-kader-red/10 border border-kader-red/40 rounded-3xl p-10 text-center">
+            <h3 class="text-2xl font-black mb-3">{{ t('buyouts.inquiryReceived') }}</h3>
+            <p class="text-kader-cream/70 mb-6">{{ t('buyouts.thankYou', { name: inquiryForm.name.split(' ')[0] }) }}</p>
+            <button @click="resetForm" class="px-6 py-2.5 border border-kader-red text-kader-cream hover:bg-kader-red rounded-xl font-bold text-sm uppercase tracking-wider transition-colors">
               {{ t('buyouts.sendAnother') }}
             </button>
           </div>
 
-          <form v-else @submit.prevent="submitInquiry" novalidate class="space-y-6">
-            <div v-if="submitState === 'error'" class="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-sm">
+          <!-- Form -->
+          <form v-else @submit.prevent="submitInquiry" novalidate class="space-y-6 bg-[#0e0404] border border-kader-red/20 rounded-3xl p-8 md:p-10">
+            <div v-if="submitState === 'error'" class="bg-kader-red/10 border border-kader-red/40 text-kader-cream/80 px-4 py-3 rounded-xl text-sm">
               {{ submitError }}
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="name" class="block mb-2 font-medium">{{ t('buyouts.fullName') }} <span class="text-red-500">*</span></label>
+                <label for="name" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.fullName') }} <span class="text-kader-red">*</span></label>
                 <input type="text" id="name" v-model="inquiryForm.name" :class="inputClass('name')" placeholder="Janez Novak">
-                <p v-if="fieldErrors.name" class="mt-1 text-sm text-red-400">{{ fieldErrors.name }}</p>
+                <p v-if="fieldErrors.name" class="mt-1 text-xs text-kader-red">{{ fieldErrors.name }}</p>
               </div>
               <div>
-                <label for="email" class="block mb-2 font-medium">{{ t('buyouts.email') }} <span class="text-red-500">*</span></label>
+                <label for="email" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.email') }} <span class="text-kader-red">*</span></label>
                 <input type="email" id="email" v-model="inquiryForm.email" :class="inputClass('email')" placeholder="janez@example.com">
-                <p v-if="fieldErrors.email" class="mt-1 text-sm text-red-400">{{ fieldErrors.email }}</p>
+                <p v-if="fieldErrors.email" class="mt-1 text-xs text-kader-red">{{ fieldErrors.email }}</p>
               </div>
             </div>
+
             <div>
-              <label for="phone" class="block mb-2 font-medium">{{ t('buyouts.phone') }} <span class="text-red-500">*</span></label>
+              <label for="phone" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.phone') }} <span class="text-kader-red">*</span></label>
               <input type="tel" id="phone" v-model="inquiryForm.phone" :class="inputClass('phone')" placeholder="+386 40 123 456">
-              <p v-if="fieldErrors.phone" class="mt-1 text-sm text-red-400">{{ fieldErrors.phone }}</p>
+              <p v-if="fieldErrors.phone" class="mt-1 text-xs text-kader-red">{{ fieldErrors.phone }}</p>
             </div>
+
             <div>
-              <label for="event-type" class="block mb-2 font-medium">{{ t('buyouts.eventType') }} <span class="text-red-500">*</span></label>
+              <label for="event-type" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.eventType') }} <span class="text-kader-red">*</span></label>
               <select id="event-type" v-model="inquiryForm.eventType" :class="inputClass('eventType')">
                 <option value="">{{ t('buyouts.selectEventType') }}</option>
                 <option value="wedding">{{ t('buyouts.optWedding') }}</option>
@@ -190,37 +173,53 @@
                 <option value="cultural">{{ t('buyouts.optCultural') }}</option>
                 <option value="other">{{ t('buyouts.optOther') }}</option>
               </select>
-              <p v-if="fieldErrors.eventType" class="mt-1 text-sm text-red-400">{{ fieldErrors.eventType }}</p>
+              <p v-if="fieldErrors.eventType" class="mt-1 text-xs text-kader-red">{{ fieldErrors.eventType }}</p>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="guests" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.guests') }} <span class="text-kader-red">*</span></label>
+                <input type="number" id="guests" v-model.number="inquiryForm.guests" min="1" max="500" :class="inputClass('guests')">
+                <p v-if="fieldErrors.guests" class="mt-1 text-xs text-kader-red">{{ fieldErrors.guests }}</p>
+              </div>
+              <div>
+                <label for="date" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.preferredDate') }} <span class="text-kader-red">*</span></label>
+                <input type="date" id="date" v-model="inquiryForm.date" :min="todayString" :class="inputClass('date')">
+                <p v-if="fieldErrors.date" class="mt-1 text-xs text-kader-red">{{ fieldErrors.date }}</p>
+              </div>
+            </div>
+
             <div>
-              <label for="guests" class="block mb-2 font-medium">{{ t('buyouts.guests') }} <span class="text-red-500">*</span></label>
-              <input type="number" id="guests" v-model.number="inquiryForm.guests" min="1" max="500" :class="inputClass('guests')">
-              <p v-if="fieldErrors.guests" class="mt-1 text-sm text-red-400">{{ fieldErrors.guests }}</p>
+              <label for="message" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.additionalInfo') }}</label>
+              <textarea id="message" v-model="inquiryForm.message" rows="4" class="w-full px-4 py-3 bg-kader-black/60 border border-kader-cream/20 rounded-xl text-kader-cream focus:ring-2 focus:ring-kader-red focus:border-transparent outline-none transition-all text-sm leading-relaxed resize-none"></textarea>
             </div>
-            <div>
-              <label for="date" class="block mb-2 font-medium">{{ t('buyouts.preferredDate') }} <span class="text-red-500">*</span></label>
-              <input type="date" id="date" v-model="inquiryForm.date" :min="todayString" :class="inputClass('date')">
-              <p v-if="fieldErrors.date" class="mt-1 text-sm text-red-400">{{ fieldErrors.date }}</p>
-            </div>
-            <div>
-              <label for="message" class="block mb-2 font-medium">{{ t('buyouts.additionalInfo') }}</label>
-              <textarea id="message" v-model="inquiryForm.message" rows="4" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"></textarea>
-            </div>
-            <button type="submit" :disabled="submitting" class="w-full py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:cursor-not-allowed rounded-lg font-semibold transition-colors duration-300">
+
+            <button type="submit" :disabled="submitting" class="w-full py-4 bg-kader-red hover:bg-kader-cream hover:text-kader-black disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black text-sm uppercase tracking-widest transition-all duration-300">
               {{ submitting ? t('buyouts.submitting') : t('buyouts.submit') }}
             </button>
           </form>
         </div>
-      </div>
+      </section>
+
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { CheckIcon } from '@heroicons/vue/24/outline'
 
 const { t } = useLocale()
+
+const eventTypesList = [
+  { key: 'weddings', index: '01', titleKey: 'buyouts.weddings', descKey: 'buyouts.weddingsDesc' },
+  { key: 'corporate', index: '02', titleKey: 'buyouts.corporate', descKey: 'buyouts.corporateDesc' },
+  { key: 'privateParties', index: '03', titleKey: 'buyouts.privateParties', descKey: 'buyouts.privatePartiesDesc' },
+  { key: 'cultural', index: '04', titleKey: 'buyouts.cultural', descKey: 'buyouts.culturalDesc' }
+]
+
+const scrollToForm = () => {
+  document.getElementById('inquiry-form')?.scrollIntoView({ behavior: 'smooth' })
+}
 
 const inquiryForm = reactive({
   name: '',
@@ -239,7 +238,6 @@ const submitting = ref(false)
 
 const todayString = new Date().toISOString().slice(0, 10)
 
-// Per-field client validation (mirrors the server route)
 const validate = () => {
   const errors: Record<string, string> = {}
 
@@ -266,10 +264,10 @@ const validate = () => {
 }
 
 const inputClass = (field: string) => {
-  const base = 'w-full px-4 py-2 bg-gray-700 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent'
+  const base = 'w-full px-4 py-3 bg-kader-black/60 border rounded-xl text-kader-cream focus:ring-2 focus:ring-kader-red focus:border-transparent outline-none transition-all text-sm'
   return fieldErrors[field]
-    ? `${base} border-red-500`
-    : `${base} border-gray-600`
+    ? `${base} border-kader-red`
+    : `${base} border-kader-cream/20`
 }
 
 const submitInquiry = async () => {

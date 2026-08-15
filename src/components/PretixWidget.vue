@@ -1,14 +1,15 @@
 <template>
   <div class="pretix-widget-wrap">
     <!-- The custom element <pretix-widget> is upgraded by plugins/pretix.client.ts -->
-    <pretix-widget
+    <component
+      :is="'pretix-widget'"
       :event="event"
       :items="items || undefined"
       :subevent="subevent || undefined"
       :voucher="voucher || undefined"
       :list-type="listType || undefined"
       disable-filters
-    ></pretix-widget>
+    ></component>
 
     <noscript>
       <div class="pretix-widget">
@@ -37,7 +38,7 @@ const props = defineProps<{
 
 // Per-event stylesheet so the widget renders in the venue's colours on the page.
 const config = useRuntimeConfig()
-const pretixUrl = (config.public.pretixUrl as string || 'https://pretix.eu').replace(/\/$/, '')
+const pretixUrl = (config.public.pretixUrl as string || 'http://192.168.64.147').replace(/\/$/, '')
 const fullUrl = props.event.startsWith('http') ? props.event : `${pretixUrl}${props.event}`
 
 useHead({

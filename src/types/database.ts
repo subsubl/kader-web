@@ -2,6 +2,8 @@
 // Regenerate against your live project with: supabase gen types typescript
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
+export type DbStaffRole = 'bar' | 'door' | 'kitchen' | 'floor' | 'manager' | 'security' | 'cleanup'
+
 interface DbTable<Row, Insert, Update> {
   Row: Row
   Insert: Insert
@@ -61,6 +63,21 @@ export interface Database {
         { id: string; user_id: string; role: string },
         { id?: string; user_id: string; role: string },
         { role?: string }
+      >
+      shift_templates: DbTable<
+        { id: string; name: string; description: string | null; day_of_week: number; start_time: string; end_time: string; role: DbStaffRole; required_count: number; location: string | null; is_active: boolean | null; created_at: string | null; updated_at: string | null },
+        { id?: string; name: string; description?: string | null; day_of_week: number; start_time: string; end_time: string; role: DbStaffRole; required_count?: number; location?: string | null; is_active?: boolean | null; created_at?: string | null; updated_at?: string | null },
+        { name?: string; description?: string | null; day_of_week?: number; start_time?: string; end_time?: string; role?: DbStaffRole; required_count?: number; location?: string | null; is_active?: boolean | null; updated_at?: string | null }
+      >
+      shifts: DbTable<
+        { id: string; template_id: string | null; date: string; start_time: string; end_time: string; role: DbStaffRole; required_count: number; location: string | null; status: string | null; notes: string | null; created_at: string | null; updated_at: string | null },
+        { id?: string; template_id?: string | null; date: string; start_time: string; end_time: string; role: DbStaffRole; required_count?: number; location?: string | null; status?: string | null; notes?: string | null; created_at?: string | null; updated_at?: string | null },
+        { template_id?: string | null; date?: string; start_time?: string; end_time?: string; role?: DbStaffRole; required_count?: number; location?: string | null; status?: string | null; notes?: string | null; updated_at?: string | null }
+      >
+      shift_assignments: DbTable<
+        { id: string; shift_id: string; user_id: string; user_name: string; user_email: string; assigned_at: string | null; status: string | null },
+        { id?: string; shift_id: string; user_id: string; user_name: string; user_email: string; assigned_at?: string | null; status?: string | null },
+        { shift_id?: string; user_id?: string; user_name?: string; user_email?: string; status?: string | null }
       >
     }
     Views: Record<string, never>

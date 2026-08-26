@@ -111,6 +111,56 @@ create table if not exists users_roles (
   role text check (role in ('admin', 'door', 'promoter'))
 );
 
+-- ── Staff scheduling (migration 00010) ──
+do $$
+begin
+  create type staff_role as enum ('bar', 'door', 'kitchen', 'floor', 'manager', 'security', 'cleanup');
+exception
+  when duplicate_object then null;
+end $$;
+
+create table if not exists shift_templates (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  description text,
+  day_of_week int not null check (day_of_week >= 0 and day_of_week <= 6),
+  start_time time not null,
+  end_time time not null,
+  role staff_role not null,
+  required_count int not null default 1,
+  location text,
+  is_active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists shifts (
+  id uuid primary key default gen_random_uuid(),
+  template_id uuid references shift_templates(id) on delete set null,
+  date date not null,
+  start_time time not null,
+  end_time time not null,
+  role staff_role not null,
+  required_count int not null default 1,
+  location text,
+  status text not null default 'open' check (status in ('open','filled','cancelled')),
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (date, start_time, end_time, role, location)
+);
+
+create table if not exists shift_assignments (
+  id uuid primary key default gen_random_uuid(),
+  shift_id uuid not null references shifts(id) on delete cascade,
+  user_id uuid not null,
+  user_name text not null,
+  user_email text not null,
+  assigned_at timestamptz not null default now(),
+  status text not null default 'confirmed' check (status in ('confirmed','pending','declined')),
+  unique (shift_id, user_id)
+);
+
 alter table events enable row level security;
 alter table menu_items enable row level security;
 alter table guestlists enable row level security;
@@ -119,6 +169,9 @@ alter table pretix_orders enable row level security;
 alter table pretix_tickets enable row level security;
 alter table internal_notes enable row level security;
 alter table ra_events enable row level security;
+alter table shift_templates enable row level security;
+alter table shifts enable row level security;
+alter table shift_assignments enable row level security;
 
 -- RLS: public can read published events + menu
 create policy "public read published events" on events

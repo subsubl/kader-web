@@ -41,6 +41,10 @@
             <ClockIcon class="w-5 h-5" />
             <span>Internal Calendar</span>
           </NuxtLink>
+          <NuxtLink to="/admin/schedule" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+            <CalendarDaysIcon class="w-5 h-5" />
+            <span>Staff Scheduling</span>
+          </NuxtLink>
         </nav>
         
         <div class="mt-8 pt-4 border-t border-gray-700">
@@ -63,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { HomeIcon, CalendarIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon, PhotoIcon, RadioIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, CalendarIcon, CalendarDaysIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon, PhotoIcon, RadioIcon } from '@heroicons/vue/24/outline'
 
 definePageMeta({ middleware: 'admin' })
 </script>

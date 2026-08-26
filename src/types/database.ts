@@ -79,6 +79,11 @@ export interface Database {
         { id?: string; shift_id: string; user_id: string; user_name: string; user_email: string; assigned_at?: string | null; status?: string | null },
         { shift_id?: string; user_id?: string; user_name?: string; user_email?: string; status?: string | null }
       >
+      logbook_entries: DbTable<
+        { id: string; entry_date: string; category: string; content: string; event_id: string | null; author_id: string | null; author_name: string | null; created_at: string | null },
+        { id?: string; entry_date?: string; category?: string; content: string; event_id?: string | null; author_id?: string | null; author_name?: string | null; created_at?: string | null },
+        { entry_date?: string; category?: string; content?: string; event_id?: string | null; author_id?: string | null; author_name?: string | null }
+      >
     }
     Views: Record<string, never>
     Functions: Record<string, never>

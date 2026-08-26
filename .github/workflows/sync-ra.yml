@@ -24,7 +24,7 @@ jobs:
       RA_CLUB_ID: '78778'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Run RA event sync
         run: node scripts/sync-ra.mjs

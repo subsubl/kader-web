@@ -16,7 +16,7 @@
     "@heroicons/vue": "^2.2.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@supabase/supabase-js": "^2.112.3",
-    "@vueuse/nuxt": "^11.3.0",
+    "@vueuse/nuxt": "^14.4.0",
     "dayjs": "^1.11.23",
     "nuxt": "^3.15.4",
     "pinia": "^2.3.0",

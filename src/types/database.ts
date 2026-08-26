@@ -84,6 +84,21 @@ export interface Database {
         { id?: string; entry_date?: string; category?: string; content: string; event_id?: string | null; author_id?: string | null; author_name?: string | null; created_at?: string | null },
         { entry_date?: string; category?: string; content?: string; event_id?: string | null; author_id?: string | null; author_name?: string | null }
       >
+      guests: DbTable<
+        { id: string; name: string; email: string | null; phone: string | null; tags: string[] | null; is_blacklisted: boolean | null; blacklist_reason: string | null; notes: string | null; visit_count: number | null; last_visit_at: string | null; created_at: string | null; updated_at: string | null },
+        { id?: string; name: string; email?: string | null; phone?: string | null; tags?: string[] | null; is_blacklisted?: boolean | null; blacklist_reason?: string | null; notes?: string | null; visit_count?: number | null; last_visit_at?: string | null; created_at?: string | null; updated_at?: string | null },
+        { name?: string; email?: string | null; phone?: string | null; tags?: string[] | null; is_blacklisted?: boolean | null; blacklist_reason?: string | null; notes?: string | null; visit_count?: number | null; last_visit_at?: string | null; updated_at?: string | null }
+      >
+      vip_tables: DbTable<
+        { id: string; name: string; location: string | null; capacity: number | null; min_spend: number | null; is_active: boolean | null; created_at: string | null },
+        { id?: string; name: string; location?: string | null; capacity?: number | null; min_spend?: number | null; is_active?: boolean | null; created_at?: string | null },
+        { name?: string; location?: string | null; capacity?: number | null; min_spend?: number | null; is_active?: boolean | null }
+      >
+      table_reservations: DbTable<
+        { id: string; event_ra_id: number | null; event_label: string | null; guest_id: string | null; guest_name: string; guest_phone: string | null; table_id: string | null; party_size: number | null; min_spend: number | null; bottles_note: string | null; status: string | null; created_by: string | null; created_at: string | null },
+        { id?: string; event_ra_id?: number | null; event_label?: string | null; guest_id?: string | null; guest_name: string; guest_phone?: string | null; table_id?: string | null; party_size?: number | null; min_spend?: number | null; bottles_note?: string | null; status?: string | null; created_by?: string | null; created_at?: string | null },
+        { event_ra_id?: number | null; event_label?: string | null; guest_id?: string | null; guest_name?: string; guest_phone?: string | null; table_id?: string | null; party_size?: number | null; min_spend?: number | null; bottles_note?: string | null; status?: string | null; created_by?: string | null }
+      >
     }
     Views: Record<string, never>
     Functions: Record<string, never>

@@ -49,6 +49,14 @@
             <BookOpenIcon class="w-5 h-5" />
             <span>Logbook</span>
           </NuxtLink>
+          <NuxtLink to="/admin/vip" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+            <StarIcon class="w-5 h-5" />
+            <span>VIP &amp; Guests</span>
+          </NuxtLink>
+          <NuxtLink to="/admin/analytics" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+            <ChartBarIcon class="w-5 h-5" />
+            <span>Analytics</span>
+          </NuxtLink>
         </nav>
         
         <div class="mt-8 pt-4 border-t border-gray-700">
@@ -71,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { HomeIcon, CalendarIcon, CalendarDaysIcon, BookOpenIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon, PhotoIcon, RadioIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, CalendarIcon, CalendarDaysIcon, BookOpenIcon, StarIcon, ChartBarIcon, Bars3Icon, UserGroupIcon, ShieldCheckIcon, ClockIcon, UserCircleIcon, PhotoIcon, RadioIcon } from '@heroicons/vue/24/outline'
 
 definePageMeta({ middleware: 'admin' })
 </script>

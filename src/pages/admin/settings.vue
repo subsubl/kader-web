@@ -52,8 +52,8 @@
         :class="activeTab === 'notifications' ? 'border-red-500 text-white font-semibold' : 'border-transparent text-gray-400 hover:text-gray-200'"
         class="py-3 px-1 border-b-2 text-sm flex items-center gap-2 transition-colors"
       >
-        <BellIcon class="w-4 h-4 text-emerald-400" />
-        Notifications &amp; Telegram
+        <BuildingStorefrontIcon class="w-4 h-4 text-emerald-400" />
+        Microgramm POS Integration
       </button>
     </div>
 
@@ -228,78 +228,72 @@
 
     <!-- Modal for Adding / Editing Camera Stream -->
 
-    <!-- TAB 4: NOTIFICATIONS & TELEGRAM -->
+    <!-- TAB 4: MICROGRAMM POS INTEGRATION -->
     <div v-if="activeTab === 'notifications'" class="space-y-6">
       <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6">
         <div>
           <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <BellIcon class="w-5 h-5 text-emerald-400" /> Telegram Staff Alert Bot
+            <BuildingStorefrontIcon class="w-5 h-5 text-emerald-400" /> Microgramm Bar POS System Integration
           </h2>
-          <p class="text-xs text-gray-400 mt-1">Send real-time operational alerts to your staff Telegram group chat.</p>
+          <p class="text-xs text-gray-400 mt-1">
+            QR code table orders automatically dispatch to your existing <a href="https://microgramm.si/" target="_blank" class="text-emerald-400 hover:underline">Microgramm.si</a> POS system at the bar.
+          </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="space-y-4">
-            <div class="p-4 rounded-xl border" :class="telegramStatus === 'connected' ? 'bg-emerald-950/30 border-emerald-800/60' : telegramStatus === 'error' ? 'bg-red-950/30 border-red-800/60' : 'bg-gray-800/60 border-gray-700'">
+            <div class="p-4 rounded-xl border" :class="microgrammStatus === 'connected' ? 'bg-emerald-950/30 border-emerald-800/60' : microgrammStatus === 'error' ? 'bg-red-950/30 border-red-800/60' : 'bg-gray-800/60 border-gray-700'">
               <div class="flex items-center gap-3 mb-2">
-                <div class="w-3 h-3 rounded-full" :class="telegramStatus === 'connected' ? 'bg-emerald-500' : telegramStatus === 'error' ? 'bg-red-500' : 'bg-gray-500'"></div>
+                <div class="w-3 h-3 rounded-full" :class="microgrammStatus === 'connected' ? 'bg-emerald-500' : microgrammStatus === 'error' ? 'bg-red-500' : 'bg-gray-500'"></div>
                 <span class="text-sm font-bold text-white">
-                  {{ telegramStatus === 'connected' ? 'Bot Connected' : telegramStatus === 'error' ? 'Connection Failed' : 'Not Configured' }}
+                  {{ microgrammStatus === 'connected' ? 'Microgramm Active' : microgrammStatus === 'error' ? 'Integration Error' : 'System Configured' }}
                 </span>
               </div>
-              <p class="text-xs text-gray-400">{{ telegramStatusMessage }}</p>
+              <p class="text-xs text-gray-400">{{ microgrammStatusMessage }}</p>
             </div>
 
             <button 
-              @click="testTelegram" 
-              :disabled="telegramTesting"
+              @click="testMicrogramm" 
+              :disabled="microgrammTesting"
               class="w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 disabled:cursor-not-allowed text-white rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-colors"
             >
-              <span v-if="telegramTesting">Sending Test Message...</span>
-              <span v-else>🤖 Send Test Alert to Telegram</span>
+              <span v-if="microgrammTesting">Dispatching Test Order...</span>
+              <span v-else>🧪 Send Test Order to Microgramm POS</span>
             </button>
           </div>
 
           <div class="space-y-3">
-            <h3 class="text-sm font-bold text-white">Alert Types (Active)</h3>
+            <h3 class="text-sm font-bold text-white">Microgramm POS Integration Details</h3>
             <div class="space-y-2 text-xs">
               <div class="flex items-center gap-3 p-2.5 bg-gray-800/60 rounded-lg border border-gray-700/60">
-                <span>🍕</span>
+                <span class="text-emerald-400 font-mono text-base">🌐</span>
                 <div>
-                  <p class="font-semibold text-white">Kitchen Orders</p>
-                  <p class="text-gray-400">New QR table orders from guests</p>
+                  <p class="font-semibold text-white">System URL</p>
+                  <p class="text-gray-400 font-mono">https://microgramm.si/</p>
                 </div>
               </div>
               <div class="flex items-center gap-3 p-2.5 bg-gray-800/60 rounded-lg border border-gray-700/60">
-                <span>📋</span>
+                <span class="text-emerald-400 font-mono text-base">🍸</span>
                 <div>
-                  <p class="font-semibold text-white">Buyout Inquiries</p>
-                  <p class="text-gray-400">New private hire form submissions</p>
+                  <p class="font-semibold text-white">Bar Terminal Sync</p>
+                  <p class="text-gray-400">Direct ticket &amp; item dispatch for bar staff</p>
                 </div>
               </div>
               <div class="flex items-center gap-3 p-2.5 bg-gray-800/60 rounded-lg border border-gray-700/60">
-                <span>🎫</span>
+                <span class="text-emerald-400 font-mono text-base">📱</span>
                 <div>
-                  <p class="font-semibold text-white">Pretix Ticket Sales</p>
-                  <p class="text-gray-400">Paid ticket orders (silent mode)</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 p-2.5 bg-gray-800/60 rounded-lg border border-gray-700/60">
-                <span>🚪</span>
-                <div>
-                  <p class="font-semibold text-white">Capacity Warnings</p>
-                  <p class="text-gray-400">Venue nearing max occupancy</p>
+                  <p class="font-semibold text-white">QR Code Table Ordering</p>
+                  <p class="text-gray-400">Guests order at table → auto-printed at bar POS</p>
                 </div>
               </div>
             </div>
 
             <div class="mt-4 p-3 bg-gray-800/40 rounded-lg border border-gray-700/40 text-xs text-gray-400">
-              <p class="font-semibold text-gray-300 mb-1">Setup Guide</p>
+              <p class="font-semibold text-gray-300 mb-1">Configuration Guide</p>
               <ol class="list-decimal list-inside space-y-1">
-                <li>Create a bot via <a href="https://t.me/BotFather" target="_blank" class="text-emerald-400 hover:underline">@BotFather</a> on Telegram</li>
-                <li>Add the bot to your staff group chat</li>
-                <li>Set <code class="text-gray-300">NUXT_TELEGRAM_BOT_TOKEN</code> and <code class="text-gray-300">NUXT_TELEGRAM_CHAT_ID</code> in <code class="text-gray-300">.env</code></li>
-                <li>Restart the server and click "Send Test Alert"</li>
+                <li>Obtain API credentials from your <a href="https://microgramm.si/" target="_blank" class="text-emerald-400 hover:underline">Microgramm.si</a> administrator</li>
+                <li>Set <code class="text-gray-300">NUXT_MICROGRAMM_API_KEY</code> and <code class="text-gray-300">NUXT_MICROGRAMM_POS_ID</code> in <code class="text-gray-300">.env</code></li>
+                <li>Click "Send Test Order" to verify bar terminal receipt</li>
               </ol>
             </div>
           </div>
@@ -376,6 +370,7 @@ import {
   VideoCameraIcon, 
   RadioIcon, 
   BuildingOfficeIcon, 
+  BuildingStorefrontIcon,
   PlusIcon, 
   CheckCircleIcon 
 } from '@heroicons/vue/24/outline'
@@ -465,24 +460,24 @@ const saveVenueSettings = () => {
   showToast('Venue capacity & shift operational limits saved.')
 }
 
-// Telegram bot test
-const telegramStatus = ref<'unknown' | 'connected' | 'error'>('unknown')
-const telegramStatusMessage = ref('Click "Send Test Alert" to verify your Telegram bot configuration.')
-const telegramTesting = ref(false)
+// Microgramm POS integration test
+const microgrammStatus = ref<'unknown' | 'connected' | 'error'>('unknown')
+const microgrammStatusMessage = ref('Click "Send Test Order" to verify dispatch to your Microgramm bar terminal.')
+const microgrammTesting = ref(false)
 
-const testTelegram = async () => {
-  telegramTesting.value = true
+const testMicrogramm = async () => {
+  microgrammTesting.value = true
   try {
-    const result = await $fetch<{ ok: boolean; configured: boolean; message: string }>('/api/admin/telegram-test', { method: 'POST' })
-    telegramStatus.value = result.ok ? 'connected' : result.configured ? 'error' : 'unknown'
-    telegramStatusMessage.value = result.message
+    const result = await $fetch<{ ok: boolean; message: string }>('/api/admin/microgramm-test', { method: 'POST' })
+    microgrammStatus.value = result.ok ? 'connected' : 'error'
+    microgrammStatusMessage.value = result.message
     showToast(result.message)
   } catch (err: any) {
-    telegramStatus.value = 'error'
-    telegramStatusMessage.value = 'Failed to reach the test endpoint.'
-    showToast('Telegram test failed.')
+    microgrammStatus.value = 'error'
+    microgrammStatusMessage.value = 'Failed to reach the Microgramm test endpoint.'
+    showToast('Microgramm POS test failed.')
   } finally {
-    telegramTesting.value = false
+    microgrammTesting.value = false
   }
 }
 

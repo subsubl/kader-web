@@ -2,7 +2,6 @@ import { defineEventHandler, readRawBody, getHeader, createError } from 'h3'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import type { Database, Json } from '../../../types/database'
-import { telegramAlerts } from '../../utils/telegram'
 
 // ── Typed Supabase server client (service role — bypasses RLS for writes) ──
 function getSupabase(): SupabaseClient<Database> {
@@ -151,9 +150,9 @@ async function syncOrder(supabase: SupabaseClient<Database>, body: PretixWebhook
   }
   console.log(`[pretix] synced order ${order.code} (${status}) with ${rows.length} tickets`)
 
-  // Notify staff via Telegram on paid orders
+  // Log status update
   if (status === 'paid') {
-    telegramAlerts.pretixOrderPaid(order.code, total).catch(() => {})
+    console.log(`[pretix] Order ${order.code} paid total €${total}`)
   }
 }
 

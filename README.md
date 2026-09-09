@@ -34,12 +34,10 @@
 - **Server Price Validation**: Server-side price calculation and menu item availability verification (`/api/table-orders`).
 - **Kitchen Display System (KDS)**: `/admin/kitchen` tablet display with 8s auto-polling, incoming order chime, order timers, and status buttons (`Pending` → `Preparing` → `Ready` → `Served`).
 
-### 🤖 5. Telegram Staff Alerts Bot
-- **Real-Time Push Alerts**: Dispatches instant HTML alerts to a designated staff Telegram group chat on:
-  - 📋 **Venue Buyout Inquiries** (`/api/inquiries`)
-  - 🍕 **Kitchen & Table Orders** (`/api/table-orders`)
-  - 🎫 **Pretix Ticket Sales** (`/api/webhooks/pretix`)
-- **In-App Testing**: "Send Test Alert" button on `/admin/settings` to verify bot credentials.
+### 🍸 5. Microgramm Bar POS Integration (`https://microgramm.si/`)
+- **Direct Bar POS Sync**: QR code table orders automatically forward to your bar terminal POS system at Grad Kodeljevo bar (`/api/table-orders`).
+- **Bar POS Dispatch Payload**: Transmits structured JSON containing POS ID, table number, item subtotals, notes, and timestamp.
+- **In-App Testing**: "Send Test Order to Microgramm POS" button on `/admin/settings` to verify connection to your bar POS hardware.
 
 ### 📣 6. Promoter Performance & Commission Tracker (`/admin/promoters`)
 - **Leaderboard**: Aggregates promoter guestlist entries vs. verified door check-ins.
@@ -66,7 +64,7 @@
 | **Promoter Tracker** | `/admin/promoters` | Admin | Promoter leaderboard & payout generator |
 | **Event P&L Reports** | `/admin/pnl` | Admin | Event financial report manager & CSV exporter |
 | **Door Operations** | `/admin/door` | Staff / Admin | Door check-ins, guestlist search, walk-ins |
-| **Admin Settings** | `/admin/settings` | Admin | Camera feeds, Telegram bot, venue limits |
+| **Admin Settings** | `/admin/settings` | Admin | Camera feeds, Microgramm POS, venue limits |
 
 ---
 
@@ -77,7 +75,7 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) (Dark Mode High-Contrast Venue Theme)
 - **Icons & Media**: Heroicons, HTML5 Web Audio API, RTSP/HLS HTML5 Stream Video
 - **Ticketing & Webhooks**: Pretix REST API & Webhooks (`/api/webhooks/pretix`)
-- **Alert System**: Telegram Bot API (`sendTelegramAlert`)
+- **POS System Sync**: [Microgramm.si POS Integration](https://microgramm.si/) (`sendMicrogrammOrder`)
 - **E2E Testing**: [Playwright](https://playwright.dev/) (Chromium)
 - **CI/CD**: GitHub Actions (`.github/workflows/ci.yml`)
 
@@ -106,8 +104,9 @@ Fill in your credentials in `.env`:
 NUXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NUXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 NUXT_SUPABASE_SERVICE_KEY=your-service-role-key
-NUXT_TELEGRAM_BOT_TOKEN=your-telegram-bot-token
-NUXT_TELEGRAM_CHAT_ID=-100yourchatid
+NUXT_MICROGRAMM_API_URL=https://api.microgramm.si/v1/orders
+NUXT_MICROGRAMM_API_KEY=your-microgramm-api-key
+NUXT_MICROGRAMM_POS_ID=BAR-KODELJEVO-1
 ```
 
 ### 3. Database Migrations

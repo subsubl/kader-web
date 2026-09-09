@@ -1,6 +1,6 @@
 import { readBody, setResponseStatus } from '#imports'
 import { getAdminSupabase } from '../utils/supabase'
-import { telegramAlerts } from '../utils/telegram'
+import { sendMicrogrammOrder } from '../utils/microgramm'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -86,8 +86,14 @@ export default defineEventHandler(async (event) => {
     return { errors: { server: 'Failed to insert order' } }
   }
   
-  const itemSummary = finalItems.map((i: any) => `${i.qty}x ${i.name}`).join('\n')
-  telegramAlerts.newKitchenOrder(table_number, itemSummary, total).catch(console.error)
+  // Forward QR code order to Microgramm POS system in the bar (https://microgramm.si/)
+  sendMicrogrammOrder({
+    orderId: inserted.id,
+    tableNumber: table_number,
+    items: finalItems,
+    total,
+    customerNote: customer_note
+  }).catch((err) => console.error('[api/table-orders] Microgramm dispatch failed:', err))
   
   return { ok: true, id: inserted.id, total }
 })

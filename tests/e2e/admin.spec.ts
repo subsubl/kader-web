@@ -51,19 +51,20 @@ test.describe('Admin Operations BI & Operational Tooling', () => {
     await expect(page.getByRole('button', { name: /Generate New Report/i })).toBeVisible()
   })
 
-  test('admin settings tabs include RTSP camera and Telegram config', async ({ page }) => {
+  test('admin settings tabs include RTSP camera and Microgramm POS config', async ({ page }) => {
     await page.goto('/admin/settings')
     
     // Check for Camera Stream Settings tab button
     const cameraTab = page.getByRole('button', { name: /Security & RTSP Cameras/i })
     await expect(cameraTab).toBeVisible()
 
-    // Check for Notifications tab button
-    const notifTab = page.getByRole('button', { name: /Notifications & Telegram/i })
-    await expect(notifTab).toBeVisible()
+    // Check for Microgramm POS tab button
+    const posTab = page.getByRole('button', { name: /Microgramm POS Integration/i })
+    await expect(posTab).toBeVisible()
 
-    // Click notifications tab and check Telegram bot section heading
-    await notifTab.click()
-    await expect(page.getByText(/Telegram Staff Alert Bot/i)).toBeVisible()
+    // Click Microgramm tab and check section heading
+    await posTab.click()
+    await expect(page.getByText(/Microgramm Bar POS System Integration/i)).toBeVisible()
+    await expect(page.getByRole('button', { name: /Send Test Order to Microgramm POS/i })).toBeVisible()
   })
 })

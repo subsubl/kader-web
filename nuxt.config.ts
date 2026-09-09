@@ -26,8 +26,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     pretixWebhookSecret: process.env.NUXT_PRETIX_WEBHOOK_SECRET || '',
     supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY || '',
-    telegramBotToken: process.env.NUXT_TELEGRAM_BOT_TOKEN || '',
-    telegramChatId: process.env.NUXT_TELEGRAM_CHAT_ID || '',
+    microgrammApiUrl: process.env.NUXT_MICROGRAMM_API_URL || 'https://api.microgramm.si/v1/orders',
+    microgrammApiKey: process.env.NUXT_MICROGRAMM_API_KEY || '',
+    microgrammPosId: process.env.NUXT_MICROGRAMM_POS_ID || 'BAR-KODELJEVO-1',
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || '',
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || '',

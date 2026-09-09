@@ -67,4 +67,22 @@ test.describe('Admin Operations BI & Operational Tooling', () => {
     await expect(page.getByText(/Microgramm Bar POS System Integration/i)).toBeVisible()
     await expect(page.getByRole('button', { name: /Send Test Order to Microgramm POS/i })).toBeVisible()
   })
+
+  test('team accounts & role-based rights (RBAC) management dashboard loads', async ({ page }) => {
+    await page.goto('/admin/team')
+    await expect(page.getByRole('heading', { name: /Team Accounts & Access Rights/i })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Create Team Account/i })).toBeVisible()
+  })
+
+  test('internal tasks checklist for today loads', async ({ page }) => {
+    await page.goto('/admin/tasks')
+    await expect(page.getByRole('heading', { name: /Internal Operational Tasks/i })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Add Task/i })).toBeVisible()
+  })
+
+  test('interactive calendar and team date notes load', async ({ page }) => {
+    await page.goto('/admin/calendar')
+    await expect(page.getByRole('heading', { name: /Interactive Calendar & Team Notes/i })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Add Date Note/i })).toBeVisible()
+  })
 })

@@ -97,6 +97,16 @@
               <span>Logbook</span>
             </NuxtLink>
 
+            <NuxtLink to="/admin/tasks" class="nav-item flex items-center space-x-2.5 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors" active-class="bg-red-950/60 text-red-400 border border-red-800/60">
+              <ClipboardDocumentCheckIcon class="w-4 h-4" />
+              <span>Internal Tasks</span>
+            </NuxtLink>
+
+            <NuxtLink to="/admin/team" class="nav-item flex items-center space-x-2.5 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors" active-class="bg-red-950/60 text-red-400 border border-red-800/60">
+              <UsersIcon class="w-4 h-4" />
+              <span>Team &amp; RBAC</span>
+            </NuxtLink>
+
             <NuxtLink to="/admin/settings" class="nav-item flex items-center space-x-2.5 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors" active-class="bg-red-950/60 text-red-400 border border-red-800/60">
               <Cog6ToothIcon class="w-4 h-4" />
               <span>Settings</span>
@@ -137,7 +147,9 @@ import {
   UserCircleIcon, 
   PhotoIcon, 
   RadioIcon,
-  Cog6ToothIcon
+  Cog6ToothIcon,
+  UsersIcon,
+  ClipboardDocumentCheckIcon
 } from '@heroicons/vue/24/outline'
 import RadioPlayer from '~/components/admin/RadioPlayer.vue'
 

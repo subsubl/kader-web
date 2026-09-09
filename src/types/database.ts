@@ -119,6 +119,21 @@ export interface Database {
         { id?: string; event_id?: string | null; event_label: string; event_date?: string | null; ticket_revenue?: number; bar_revenue?: number; door_revenue?: number; other_revenue?: number; staff_cost?: number; promoter_cost?: number; artist_fee?: number; venue_cost?: number; other_cost?: number; attendance?: number | null; notes?: string | null; status?: string; created_by?: string | null; created_at?: string; updated_at?: string },
         { event_id?: string | null; event_label?: string; event_date?: string | null; ticket_revenue?: number; bar_revenue?: number; door_revenue?: number; other_revenue?: number; staff_cost?: number; promoter_cost?: number; artist_fee?: number; venue_cost?: number; other_cost?: number; attendance?: number | null; notes?: string | null; status?: string; created_by?: string | null; updated_at?: string }
       >
+      calendar_notes: DbTable<
+        { id: string; date: string; event_id: string | null; title: string; content: string | null; category: string; author_id: string | null; author_name: string | null; created_at: string; updated_at: string },
+        { id?: string; date: string; event_id?: string | null; title: string; content?: string | null; category?: string; author_id?: string | null; author_name?: string | null; created_at?: string; updated_at?: string },
+        { date?: string; event_id?: string | null; title?: string; content?: string | null; category?: string; author_id?: string | null; author_name?: string | null; updated_at?: string }
+      >
+      team_tasks: DbTable<
+        { id: string; title: string; description: string | null; category: string; assigned_role: string; assigned_user_id: string | null; task_type: string; due_date: string | null; recurrence_days: Json | null; is_active: boolean; created_by: string | null; created_by_name: string | null; created_at: string; updated_at: string },
+        { id?: string; title: string; description?: string | null; category?: string; assigned_role?: string; assigned_user_id?: string | null; task_type?: string; due_date?: string | null; recurrence_days?: Json | null; is_active?: boolean; created_by?: string | null; created_by_name?: string | null; created_at?: string; updated_at?: string },
+        { title?: string; description?: string | null; category?: string; assigned_role?: string; assigned_user_id?: string | null; task_type?: string; due_date?: string | null; recurrence_days?: Json | null; is_active?: boolean; updated_at?: string }
+      >
+      team_task_completions: DbTable<
+        { id: string; task_id: string; completion_date: string; completed_by: string | null; completed_by_name: string | null; completed_at: string },
+        { id?: string; task_id: string; completion_date: string; completed_by?: string | null; completed_by_name?: string | null; completed_at?: string },
+        { task_id?: string; completion_date?: string; completed_by?: string | null; completed_by_name?: string | null }
+      >
     }
     Views: Record<string, never>
     Functions: Record<string, never>

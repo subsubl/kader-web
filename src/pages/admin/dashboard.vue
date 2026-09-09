@@ -180,10 +180,22 @@
             <p class="text-xs text-gray-400 mt-0.5">BEO notes &amp; security logs</p>
           </NuxtLink>
 
+          <NuxtLink to="/admin/tasks" class="p-3.5 bg-gray-900 border border-gray-800 hover:border-gray-700 rounded-xl transition-all group">
+            <ClipboardDocumentCheckIcon class="w-6 h-6 text-emerald-400 mb-2 group-hover:scale-110 transition-transform" />
+            <h4 class="font-bold text-white text-sm">Internal Tasks</h4>
+            <p class="text-xs text-gray-400 mt-0.5">Daily &amp; recurring checklists</p>
+          </NuxtLink>
+
+          <NuxtLink to="/admin/team" class="p-3.5 bg-gray-900 border border-gray-800 hover:border-gray-700 rounded-xl transition-all group">
+            <UsersIcon class="w-6 h-6 text-blue-400 mb-2 group-hover:scale-110 transition-transform" />
+            <h4 class="font-bold text-white text-sm">Team &amp; RBAC</h4>
+            <p class="text-xs text-gray-400 mt-0.5">Accounts &amp; role rights</p>
+          </NuxtLink>
+
           <NuxtLink to="/admin/settings" class="p-3.5 bg-gray-900 border border-gray-800 hover:border-gray-700 rounded-xl transition-all group">
             <Cog6ToothIcon class="w-6 h-6 text-gray-400 mb-2 group-hover:scale-110 transition-transform" />
             <h4 class="font-bold text-white text-sm">System Settings</h4>
-            <p class="text-xs text-gray-400 mt-0.5">Cameras &amp; radio config</p>
+            <p class="text-xs text-gray-400 mt-0.5">Cameras &amp; Microgramm POS</p>
           </NuxtLink>
         </div>
       </div>
@@ -225,7 +237,8 @@ import {
   UserGroupIcon,
   BookOpenIcon,
   Cog6ToothIcon,
-  BellIcon
+  BellIcon,
+  ClipboardDocumentCheckIcon
 } from '@heroicons/vue/24/outline'
 import RtspCameraStream from '~/components/admin/RtspCameraStream.vue'
 

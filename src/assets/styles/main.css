@@ -3,4 +3,49 @@
 @tailwind utilities;
 
 html.dark { background-color: #0D0F12; }
-body { @apply antialiased; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply antialiased text-gray-100 bg-black;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Touch & Mobile UX Utilities */
+.touch-target-min {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Safe Area Inset Support for Modern Mobile Viewports */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.mb-safe {
+  margin-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.bottom-safe {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+/* Hide scrollbars for pill navigation */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Performance optimizations for heavy offscreen sections */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+

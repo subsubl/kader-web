@@ -167,11 +167,11 @@
       </div>
 
       <!-- Sticky Floating Action Bar for Mobile Quick Calling -->
-      <div class="fixed bottom-4 left-4 right-4 z-40 md:hidden bg-zinc-900/95 border border-zinc-700/80 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
-        <a href="tel:+38683836740" class="flex-1 mr-2 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black uppercase text-center flex items-center justify-center">
+      <div class="fixed bottom-safe left-4 right-4 z-40 md:hidden bg-zinc-900/95 border border-zinc-700/80 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
+        <a href="tel:+38683836740" class="flex-1 mr-2 py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min">
           <PhoneIcon class="w-4 h-4 mr-1.5" /> Naročim Za S Seboj
         </a>
-        <a href="tel:+38640175628" class="flex-1 ml-2 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-600 rounded-xl text-xs font-black uppercase text-center flex items-center justify-center">
+        <a href="tel:+38640175628" class="flex-1 ml-2 py-3 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 text-white border border-zinc-600 rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min">
           <CalendarDaysIcon class="w-4 h-4 mr-1.5 text-red-500" /> Rezervacija Mize
         </a>
       </div>

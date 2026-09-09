@@ -88,70 +88,70 @@
     </section>
 
     <!-- The Club Experience -->
-    <section class="py-24 px-4 bg-black border-b border-zinc-900">
-      <div class="max-w-6xl mx-auto space-y-32">
+    <section class="py-16 md:py-24 px-4 bg-black border-b border-zinc-900 content-visibility-auto">
+      <div class="max-w-6xl mx-auto space-y-20 md:space-y-32">
         <!-- Basement Segment -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div class="order-2 md:order-1 flex flex-col justify-center">
             <h3 class="text-red-600 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.basementSub') }}</h3>
-            <h2 class="text-4xl md:text-5xl font-black uppercase text-white mb-6">{{ t('home.basementTitle') }}</h2>
-            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-4 md:mb-6">{{ t('home.basementTitle') }}</h2>
+            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
               {{ t('home.basementDesc') }}
             </p>
-            <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-xl inline-block max-w-sm">
-              <h4 class="text-white font-bold mb-2 flex items-center"><span class="text-red-500 mr-2">🔊</span> {{ t('home.basementSoundTitle') }}</h4>
-              <p class="text-gray-400 text-sm">{{ t('home.basementSoundDesc') }}</p>
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl inline-block max-w-sm">
+              <h4 class="text-white font-bold mb-1.5 flex items-center"><span class="text-red-500 mr-2">🔊</span> {{ t('home.basementSoundTitle') }}</h4>
+              <p class="text-gray-400 text-sm leading-snug">{{ t('home.basementSoundDesc') }}</p>
             </div>
           </div>
-          <div class="order-1 md:order-2 h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(239,68,68,0.1)]">
+          <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(239,68,68,0.1)]">
             <div class="absolute inset-0 bg-red-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?auto=format&fit=crop&w=800&q=80" alt="Basement Club" class="w-full h-full object-cover filter contrast-125 saturate-50 group-hover:scale-105 transition-transform duration-700">
+            <img src="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?auto=format&fit=crop&w=800&q=80" alt="Basement Club" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-50 group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
 
         <!-- 2nd Floor Segment -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div class="h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(168,85,247,0.1)]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div class="h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(168,85,247,0.1)]">
             <div class="absolute inset-0 bg-purple-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" alt="2nd Floor Club" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" alt="2nd Floor Club" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
           </div>
           <div class="flex flex-col justify-center">
             <h3 class="text-purple-500 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.secondFloorSub') }}</h3>
-            <h2 class="text-4xl md:text-5xl font-black uppercase text-white mb-6">{{ t('home.secondFloorTitle') }}</h2>
-            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-4 md:mb-6">{{ t('home.secondFloorTitle') }}</h2>
+            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
               {{ t('home.secondFloorDesc') }}
             </p>
-            <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-xl inline-block max-w-sm">
-              <h4 class="text-white font-bold mb-2 flex items-center"><span class="text-purple-500 mr-2">🔊</span> {{ t('home.secondFloorSoundTitle') }}</h4>
-              <p class="text-gray-400 text-sm">{{ t('home.secondFloorSoundDesc') }}</p>
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl inline-block max-w-sm">
+              <h4 class="text-white font-bold mb-1.5 flex items-center"><span class="text-purple-500 mr-2">🔊</span> {{ t('home.secondFloorSoundTitle') }}</h4>
+              <p class="text-gray-400 text-sm leading-snug">{{ t('home.secondFloorSoundDesc') }}</p>
             </div>
           </div>
         </div>
 
         <!-- Summer Outdoor Segment -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div class="order-2 md:order-1 flex flex-col justify-center">
             <h3 class="text-orange-500 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.terraceSub') }}</h3>
-            <h2 class="text-4xl md:text-5xl font-black uppercase text-white mb-6">{{ t('home.terraceTitle') }}</h2>
-            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-4 md:mb-6">{{ t('home.terraceTitle') }}</h2>
+            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
               {{ t('home.terraceDesc') }}
             </p>
-            <ul class="space-y-4 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF1') }}</li>
-              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF2') }}</li>
-              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF3') }}</li>
+            <ul class="space-y-3 mb-8 text-sm text-gray-300">
+              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30 flex-shrink-0"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF1') }}</li>
+              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30 flex-shrink-0"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF2') }}</li>
+              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30 flex-shrink-0"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF3') }}</li>
             </ul>
           </div>
-          <div class="order-1 md:order-2 h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(249,115,22,0.1)]">
+          <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(249,115,22,0.1)]">
             <div class="absolute inset-0 bg-orange-900/20 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="https://images.unsplash.com/photo-1533174000255-a63b8f20c1da?auto=format&fit=crop&w=800&q=80" alt="Summer Terrace" class="w-full h-full object-cover filter contrast-110 saturate-150 group-hover:scale-105 transition-transform duration-700">
+            <img src="https://images.unsplash.com/photo-1533174000255-a63b8f20c1da?auto=format&fit=crop&w=800&q=80" alt="Summer Terrace" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-110 saturate-150 group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
       </div>
     </section>
 
     <!-- Featured Events (RA Integration) -->
-    <section class="py-20 px-4 bg-black">
+    <section class="py-16 md:py-20 px-4 bg-black content-visibility-auto">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-black uppercase text-center mb-12">{{ t('home.upcomingTitle') }}</h2>
 
@@ -163,7 +163,7 @@
         <!-- Error -->
         <div v-else-if="loadError" class="bg-zinc-900 rounded-xl p-10 text-center border border-zinc-800">
           <p class="text-gray-400 mb-4">{{ loadError }}</p>
-          <button @click="loadFeatured" class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors">
+          <button @click="loadFeatured" class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors min-h-[44px]">
             {{ t('home.retry') }}
           </button>
         </div>
@@ -176,16 +176,18 @@
 
         <!-- Events grid -->
         <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div v-for="event in featuredEvents" :key="event.id" class="bg-zinc-900 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl border border-zinc-800 transition-all duration-300 hover:border-red-900/50">
-            <div class="relative">
-              <img :src="event.image || fallbackImage" :alt="event.title" class="w-full h-48 object-cover" @error="onImageError">
+          <div v-for="event in featuredEvents" :key="event.id" class="bg-zinc-900 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl border border-zinc-800 transition-all duration-300 hover:border-red-900/50 flex flex-col">
+            <div class="relative aspect-[16/9] overflow-hidden">
+              <img :src="event.image || fallbackImage" :alt="event.title" loading="lazy" decoding="async" class="w-full h-full object-cover" @error="onImageError">
               <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{{ event.typeLabel }}</div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-white">{{ event.title }}</h3>
-              <p class="text-xs text-gray-400 mb-4">{{ event.dateLabel }}</p>
-              <p class="text-sm text-gray-300 mb-4 line-clamp-3">{{ event.description }}</p>
-              <a :href="event.ra_url" target="_blank" rel="noopener" class="text-red-500 hover:text-red-400 text-sm font-bold inline-flex items-center">
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold mb-2 text-white">{{ event.title }}</h3>
+                <p class="text-xs text-gray-400 mb-4">{{ event.dateLabel }}</p>
+                <p class="text-sm text-gray-300 mb-4 line-clamp-3">{{ event.description }}</p>
+              </div>
+              <a :href="event.ra_url" target="_blank" rel="noopener" class="text-red-500 hover:text-red-400 text-sm font-bold inline-flex items-center min-h-[44px]">
                 {{ t('home.viewRA') }}
               </a>
             </div>

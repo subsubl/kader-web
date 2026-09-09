@@ -1,60 +1,84 @@
 <template>
-  <header class="bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
+  <header class="bg-black/90 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-800/80">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between items-center h-20">
         <div class="flex items-center">
-          <NuxtLink to="/" class="flex items-center">
-            <img :src="logoUrl" alt="Kader" class="h-10 md:h-12 w-auto object-contain rounded-lg shadow-sm" />
+          <NuxtLink to="/" class="flex items-center p-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+            <img :src="logoUrl" alt="Kader Grad Kodeljevo" class="h-10 md:h-12 w-auto object-contain rounded-lg shadow-sm" width="120" height="48" />
           </NuxtLink>
         </div>
         
-        <nav class="hidden md:flex space-x-8">
-          <NuxtLink to="/pizzeria" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.pizzeria') }}</NuxtLink>
-          <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.club') }}</NuxtLink>
-          <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.events') }}</NuxtLink>
-          <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.buyouts') }}</NuxtLink>
-          <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300">{{ t('nav.shop') }}</NuxtLink>
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <NuxtLink to="/pizzeria" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.pizzeria') }}</NuxtLink>
+          <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.club') }}</NuxtLink>
+          <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.events') }}</NuxtLink>
+          <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.buyouts') }}</NuxtLink>
+          <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.shop') }}</NuxtLink>
+          <NuxtLink to="/order" class="px-3 py-1.5 bg-red-600/90 hover:bg-red-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-colors">
+            QR Menu
+          </NuxtLink>
         </nav>
         
-        <div class="flex items-center space-x-4">
-          <!-- Language switch -->
+        <div class="flex items-center space-x-3">
+          <!-- Language switch with optimal touch target -->
           <div class="relative">
             <select
               :value="locale"
               @change="(e: any) => setLocale(e.target.value as Locale)"
-              class="bg-zinc-900 border border-zinc-700 text-gray-200 text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer appearance-none pr-7 shadow-sm"
+              aria-label="Language selector"
+              class="bg-zinc-900 border border-zinc-700 text-gray-200 text-xs font-bold rounded-xl px-3 py-2.5 min-h-[44px] focus:outline-none focus:border-red-500 cursor-pointer appearance-none pr-8 shadow-sm"
             >
-              <option v-for="(info, key) in localeLabels" :key="key" :value="key" class="bg-zinc-900 text-white">
+              <option v-for="(info, key) in localeLabels" :key="key" :value="key" class="bg-zinc-900 text-white py-1">
                 {{ info.flag }} {{ key.toUpperCase() }}
               </option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-              <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
             </div>
           </div>
-          <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors duration-300">
-            <Bars3Icon class="w-6 h-6" />
+
+          <button 
+            @click="mobileMenuOpen = !mobileMenuOpen" 
+            aria-label="Toggle Navigation Menu"
+            :aria-expanded="mobileMenuOpen"
+            class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-800 text-gray-200 hover:text-white hover:bg-zinc-800 transition-colors"
+          >
+            <XMarkIcon v-if="mobileMenuOpen" class="w-6 h-6 text-red-500" />
+            <Bars3Icon v-else class="w-6 h-6" />
           </button>
         </div>
       </div>
       
-      <!-- Mobile Menu -->
-      <div v-show="mobileMenuOpen" class="md:hidden py-4 border-t border-gray-800">
-        <div class="flex flex-col space-y-3">
-          <NuxtLink to="/pizzeria" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.pizzeria') }}</NuxtLink>
-          <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.club') }}</NuxtLink>
-          <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.events') }}</NuxtLink>
-          <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.buyouts') }}</NuxtLink>
-          <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300 py-2" @click="mobileMenuOpen = false">{{ t('nav.shop') }}</NuxtLink>
+      <!-- Mobile Navigation Drawer -->
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 -translate-y-2"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition duration-150 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 -translate-y-2"
+      >
+        <div v-show="mobileMenuOpen" class="md:hidden py-4 border-t border-zinc-800/80 bg-black/95">
+          <div class="flex flex-col space-y-1 text-base font-semibold">
+            <NuxtLink to="/pizzeria" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.pizzeria') }}</NuxtLink>
+            <NuxtLink to="/club" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.club') }}</NuxtLink>
+            <NuxtLink to="/events" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.events') }}</NuxtLink>
+            <NuxtLink to="/buyouts" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.buyouts') }}</NuxtLink>
+            <NuxtLink to="/shop" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.shop') }}</NuxtLink>
+            <NuxtLink to="/order" class="bg-red-600/20 text-red-400 border border-red-800/50 hover:bg-red-600 hover:text-white rounded-xl px-4 py-3 transition-colors flex items-center justify-between" @click="mobileMenuOpen = false">
+              <span>Digital QR Menu & Order</span>
+              <span class="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">QR</span>
+            </NuxtLink>
+          </div>
         </div>
-      </div>
+      </Transition>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Bars3Icon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useLocale, localeLabels, type Locale } from '~/composables/useLocale'
 
 const { locale, setLocale, t } = useLocale()

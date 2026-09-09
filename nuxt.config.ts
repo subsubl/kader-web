@@ -17,7 +17,10 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Doživite pristen okus italijanske pice v Gradu Kodeljevo! Sveže sestavine, ročno raztegnjeno testo in popolno pečena pica. Obiščite nas ali naročite za s seboj!' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600;700;900&display=swap' }
       ],
       htmlAttrs: { lang: 'sl', class: 'dark' }
     }

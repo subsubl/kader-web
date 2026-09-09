@@ -13,9 +13,19 @@ export default <Partial<Config>>{
           cream: '#f0efe0',
           gray: '#d2d3d4'
         },
+        masanielli: {
+          gold: '#cdb083',
+          goldDark: '#a8895b',
+          goldLight: '#e4cfab',
+          darkBg: '#0f0a0d'
+        },
         brand: { red: '#E63946', dark: '#0D0F12', card: '#161920', accent: '#FF4D4D' }
       },
-      fontFamily: { sans: ['Inter', 'sans-serif'] }
+      fontFamily: { 
+        sans: ['Inter', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        montserrat: ['Montserrat', 'sans-serif']
+      }
     }
   }
 }

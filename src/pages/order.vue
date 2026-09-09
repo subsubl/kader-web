@@ -5,6 +5,9 @@
       <div v-if="tableNum" class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
         Table {{ tableNum }}
       </div>
+      <div v-else class="bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full text-sm font-semibold">
+        Digital Menu
+      </div>
     </header>
 
     <div v-if="success" class="p-6 mt-8 max-w-md mx-auto">
@@ -40,7 +43,7 @@
             <div class="text-red-500 font-semibold mt-2">€{{ item.price.toFixed(2) }}</div>
           </div>
           
-          <div class="flex items-center gap-3 bg-black border border-gray-800 rounded-lg p-1">
+          <div v-if="tableNum" class="flex items-center gap-3 bg-black border border-gray-800 rounded-lg p-1">
             <button @click="updateQty(item, -1)" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md hover:bg-gray-800 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" /></svg>
             </button>

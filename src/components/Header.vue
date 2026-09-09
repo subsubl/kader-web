@@ -18,17 +18,19 @@
         
         <div class="flex items-center space-x-4">
           <!-- Language switch -->
-          <div class="flex items-center border border-gray-700 rounded-lg overflow-hidden">
-            <button
-              @click="setLocale('sl')"
-              :class="langClass('sl')"
-              class="px-3 py-1.5 text-sm font-semibold transition-colors duration-300"
-            >SL</button>
-            <button
-              @click="setLocale('en')"
-              :class="langClass('en')"
-              class="px-3 py-1.5 text-sm font-semibold transition-colors duration-300"
-            >EN</button>
+          <div class="relative">
+            <select
+              :value="locale"
+              @change="(e: any) => setLocale(e.target.value as Locale)"
+              class="bg-zinc-900 border border-zinc-700 text-gray-200 text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer appearance-none pr-7 shadow-sm"
+            >
+              <option v-for="(info, key) in localeLabels" :key="key" :value="key" class="bg-zinc-900 text-white">
+                {{ info.flag }} {{ key.toUpperCase() }}
+              </option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+              <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+            </div>
           </div>
           <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors duration-300">
             <Bars3Icon class="w-6 h-6" />
@@ -51,15 +53,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
-import { useLocale, type Locale } from '~/composables/useLocale'
+import { useLocale, localeLabels, type Locale } from '~/composables/useLocale'
 
 const { locale, setLocale, t } = useLocale()
 
 const logoUrl = '/logo-k.jpg'
 const mobileMenuOpen = ref(false)
-
-const langClass = (l: Locale) =>
-  locale.value === l ? 'bg-red-600 text-white' : 'text-gray-300 hover:bg-gray-800'
 </script>

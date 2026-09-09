@@ -26,6 +26,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     pretixWebhookSecret: process.env.NUXT_PRETIX_WEBHOOK_SECRET || '',
     supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY || '',
+    telegramBotToken: process.env.NUXT_TELEGRAM_BOT_TOKEN || '',
+    telegramChatId: process.env.NUXT_TELEGRAM_CHAT_ID || '',
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || '',
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY || '',

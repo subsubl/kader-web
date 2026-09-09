@@ -99,6 +99,26 @@ export interface Database {
         { id?: string; event_ra_id?: number | null; event_label?: string | null; guest_id?: string | null; guest_name: string; guest_phone?: string | null; table_id?: string | null; party_size?: number | null; min_spend?: number | null; bottles_note?: string | null; status?: string | null; created_by?: string | null; created_at?: string | null },
         { event_ra_id?: number | null; event_label?: string | null; guest_id?: string | null; guest_name?: string; guest_phone?: string | null; table_id?: string | null; party_size?: number | null; min_spend?: number | null; bottles_note?: string | null; status?: string | null; created_by?: string | null }
       >
+      table_orders: DbTable<
+        { id: string; table_number: number; items: Json; total: number; status: string; customer_note: string | null; created_at: string; updated_at: string },
+        { id?: string; table_number: number; items: Json; total?: number; status?: string; customer_note?: string | null; created_at?: string; updated_at?: string },
+        { table_number?: number; items?: Json; total?: number; status?: string; customer_note?: string | null; updated_at?: string }
+      >
+      promoter_commission_rates: DbTable<
+        { id: string; event_id: string | null; rate_per_checkin: number; rate_type: string; created_at: string },
+        { id?: string; event_id?: string | null; rate_per_checkin?: number; rate_type?: string; created_at?: string },
+        { event_id?: string | null; rate_per_checkin?: number; rate_type?: string }
+      >
+      promoter_payouts: DbTable<
+        { id: string; promoter_id: string; promoter_name: string; event_id: string | null; event_label: string | null; verified_checkins: number; commission_rate: number; total_payout: number; status: string; period_start: string | null; period_end: string | null; notes: string | null; created_at: string },
+        { id?: string; promoter_id: string; promoter_name: string; event_id?: string | null; event_label?: string | null; verified_checkins?: number; commission_rate: number; total_payout?: number; status?: string; period_start?: string | null; period_end?: string | null; notes?: string | null; created_at?: string },
+        { promoter_id?: string; promoter_name?: string; event_id?: string | null; event_label?: string | null; verified_checkins?: number; commission_rate?: number; total_payout?: number; status?: string; period_start?: string | null; period_end?: string | null; notes?: string | null }
+      >
+      event_pnl: DbTable<
+        { id: string; event_id: string | null; event_label: string; event_date: string | null; ticket_revenue: number; bar_revenue: number; door_revenue: number; other_revenue: number; staff_cost: number; promoter_cost: number; artist_fee: number; venue_cost: number; other_cost: number; total_revenue: number; total_cost: number; net_profit: number; attendance: number | null; notes: string | null; status: string; created_by: string | null; created_at: string; updated_at: string },
+        { id?: string; event_id?: string | null; event_label: string; event_date?: string | null; ticket_revenue?: number; bar_revenue?: number; door_revenue?: number; other_revenue?: number; staff_cost?: number; promoter_cost?: number; artist_fee?: number; venue_cost?: number; other_cost?: number; attendance?: number | null; notes?: string | null; status?: string; created_by?: string | null; created_at?: string; updated_at?: string },
+        { event_id?: string | null; event_label?: string; event_date?: string | null; ticket_revenue?: number; bar_revenue?: number; door_revenue?: number; other_revenue?: number; staff_cost?: number; promoter_cost?: number; artist_fee?: number; venue_cost?: number; other_cost?: number; attendance?: number | null; notes?: string | null; status?: string; created_by?: string | null; updated_at?: string }
+      >
     }
     Views: Record<string, never>
     Functions: Record<string, never>

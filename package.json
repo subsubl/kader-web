@@ -9,6 +9,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
+    "test:e2e": "playwright test",
     "create-admin": "node scripts/create-admin.mjs",
     "postinstall": "nuxt prepare"
   },
@@ -24,6 +25,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^26.2.0",
     "nuxt-icon": "^0.6.10",
     "typescript": "^5.9.3",

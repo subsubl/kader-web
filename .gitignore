@@ -5,3 +5,8 @@ dist/
 .env
 *.log
 actionlint
+test-results/
+playwright-report/
+data/
+.data/
+config/private.key

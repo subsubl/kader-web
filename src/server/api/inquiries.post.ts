@@ -3,6 +3,7 @@
 
 import { useRuntimeConfig, createError } from '#imports'
 import type { Database } from '../../types/database'
+import { telegramAlerts } from '../utils/telegram'
 
 // Allowed inquiry types (map from the public form's eventType values)
 const TYPE_MAP: Record<string, string> = {
@@ -66,6 +67,9 @@ export default defineEventHandler(async (event) => {
     console.error('[api] inquiry insert failed:', error.message)
     throw createError({ statusCode: 500, statusMessage: 'Could not save your inquiry. Please try again.' })
   }
+
+  // Notify staff via Telegram bot
+  telegramAlerts.newInquiry(name, TYPE_MAP[eventType], guests, preferredDate).catch(() => {})
 
   return { ok: true, id: data.id }
 })

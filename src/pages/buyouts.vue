@@ -4,7 +4,7 @@
     <!-- ===== Hero ===== -->
     <section class="relative h-[70vh] min-h-[480px] flex items-end overflow-hidden">
       <img
-        src="/images/instagram/ig_img_5.jpg"
+        :src="getOptImg(siteImages.buyouts_hero_bg, 1920, 85)"
         alt="Grad Kodeljevo private hire terrace party"
         class="absolute inset-0 w-full h-full object-cover opacity-45 filter contrast-110 saturate-90"
       >
@@ -59,7 +59,7 @@
         </div>
         <div class="rounded-3xl overflow-hidden border border-kader-red/30 shadow-2xl">
           <img
-            src="/images/instagram/ig_img_3.jpg"
+            :src="getOptImg(siteImages.buyouts_booking_bg, 1000, 80)"
             alt="Live Event at Grad Kodeljevo"
             class="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-700"
           >
@@ -257,6 +257,7 @@
 import { ref, reactive } from 'vue'
 
 const { t } = useLocale()
+const { siteImages, getOptImg } = useSiteImages()
 
 const eventTypesList = [
   { key: 'weddings', index: '01', titleKey: 'buyouts.weddings', descKey: 'buyouts.weddingsDesc' },

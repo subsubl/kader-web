@@ -3,7 +3,7 @@
     <!-- ===== Immersive Hero (distinct from rest of site) ===== -->
     <section class="relative h-[88vh] min-h-[560px] flex items-end overflow-hidden">
       <img
-        :src="'/images/instagram/ig_img_10.jpg'"
+        :src="getOptImg(siteImages.club_hero_bg, 1920, 85)"
         alt="Kader club atmosphere"
         class="absolute inset-0 w-full h-full object-cover opacity-50"
       >
@@ -67,7 +67,7 @@
         <div class="mb-2 group">
           <div class="relative overflow-hidden rounded-3xl">
             <img
-              src="/images/instagram/ig_img_3.jpg"
+              :src="getOptImg(siteImages.club_floor1_bg, 1200, 80)"
               alt="Kader Basement Club"
               loading="lazy"
               decoding="async"
@@ -101,7 +101,7 @@
         <div class="group">
           <div class="relative overflow-hidden rounded-3xl">
             <img
-              src="/images/instagram/ig_img_5.jpg"
+              :src="getOptImg(siteImages.club_floor2_bg, 1200, 80)"
               alt="Kader Outdoor Terrace Party"
               loading="lazy"
               decoding="async"
@@ -155,7 +155,7 @@
 
           <div class="bg-white/[0.03] border border-kader-cream/10 rounded-2xl p-8">
             <img
-              src="/images/instagram/ig_img_6.jpg"
+              :src="getOptImg(siteImages.club_sound_system, 800, 80)"
               alt="Klipsch La Scala audio system at Kader"
               loading="lazy"
               decoding="async"
@@ -281,6 +281,7 @@
 import { ref, computed, onMounted } from 'vue'
 
 const { locale, t } = useLocale()
+const { siteImages, getOptImg } = useSiteImages()
 
 interface ClubEvent {
   ra_id: number

@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 px-4">
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60 z-10"></div>
-      <img src="/hero-bg.jpg" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
+      <img :src="getOptImg(siteImages.home_hero_bg, 1920, 85)" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
       
       <div class="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
         <img src="/logo-banner.png" alt="Kader Grad Kodeljevo Logo" class="h-24 md:h-32 object-contain mb-8 drop-shadow-[0_0_25px_rgba(239,68,68,0.5)] animate-fade-in" />
@@ -105,7 +105,7 @@
           </div>
           <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(239,68,68,0.1)]">
             <div class="absolute inset-0 bg-red-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="/images/instagram/ig_img_3.jpg" alt="Basement Club Live Performance" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-75 group-hover:scale-105 transition-transform duration-700">
+            <img :src="getOptImg(siteImages.home_basement_bg, 1200, 80)" alt="Basement Club Live Performance" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-75 group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
 
@@ -113,7 +113,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div class="h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(168,85,247,0.1)]">
             <div class="absolute inset-0 bg-purple-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="/images/instagram/ig_img_7.jpg" alt="2nd Floor Pizzeria Lounge" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
+            <img :src="getOptImg(siteImages.home_second_floor_bg, 1200, 80)" alt="2nd Floor Pizzeria Lounge" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
           </div>
           <div class="flex flex-col justify-center">
             <h3 class="text-purple-500 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.secondFloorSub') }}</h3>
@@ -144,7 +144,7 @@
           </div>
           <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(249,115,22,0.1)]">
             <div class="absolute inset-0 bg-orange-900/20 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="/images/instagram/ig_img_5.jpg" alt="Summer Terrace Party" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-700">
+            <img :src="getOptImg(siteImages.home_terrace_bg, 1200, 80)" alt="Summer Terrace Party" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
       </div>
@@ -178,7 +178,7 @@
         <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div v-for="event in featuredEvents" :key="event.id" class="bg-zinc-900 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl border border-zinc-800 transition-all duration-300 hover:border-red-900/50 flex flex-col">
             <div class="relative aspect-[16/9] overflow-hidden">
-              <img :src="event.image || fallbackImage" :alt="event.title" loading="lazy" decoding="async" class="w-full h-full object-cover" @error="onImageError">
+              <img :src="getOptImg(event.image || fallbackImage, 600, 80)" :alt="event.title" loading="lazy" decoding="async" class="w-full h-full object-cover" @error="onImageError">
               <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{{ event.typeLabel }}</div>
             </div>
             <div class="p-6 flex-1 flex flex-col justify-between">
@@ -266,25 +266,18 @@
           </a>
         </div>
 
-        <!-- Image Grid (Pure Photos Only - No Flyers or Text Posters) -->
+        <!-- Image Grid (Pure Photos Only - Dynamic & Optimized) -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
           <a 
-            v-for="(item, idx) in [
-              { src: '/images/instagram/ig_img_7.jpg', label: '🍕 Neapeljska Pica z Izbrano Rukolo' },
-              { src: '/images/instagram/ig_img_13.jpg', label: '🥪 Panuozzo z Mortadelo & Burrato' },
-              { src: '/images/instagram/ig_img_5.jpg', label: '🎉 Poletna Zabava na Terasi' },
-              { src: '/images/instagram/ig_img_3.jpg', label: '🎸 Koncert v Živo pod Grajskimi Drevesi' },
-              { src: '/pizzeria-bg.jpg', label: '🍷 Neapeljski Pica Bistro Ambient' },
-              { src: '/buyout-bg.jpg', label: '🏰 Grajski Vrt Kodeljevo' }
-            ]" 
+            v-for="(item, idx) in siteImages.gallery_items" 
             :key="idx"
             href="https://www.instagram.com/kader.lunapark/"
             target="_blank"
             class="relative group aspect-square overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/50 transition-all duration-500"
           >
             <img 
-              :src="item.src" 
-              alt="Kader Lunapark Instagram photo" 
+              :src="getOptImg(item.src, 640, 80)" 
+              alt="Kader Lunapark photo" 
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
@@ -303,6 +296,7 @@ import { ref, computed, onMounted } from 'vue'
 import { CheckIcon, MapPinIcon, PhoneIcon } from '@heroicons/vue/24/outline'
 
 const { locale, t } = useLocale()
+const { siteImages, getOptImg } = useSiteImages()
 
 useHead({
   title: 'Kader Grad Kodeljevo — Pizza bistro in plesni bar Ljubljana',

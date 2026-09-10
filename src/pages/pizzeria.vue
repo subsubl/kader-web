@@ -4,7 +4,7 @@
     <header class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-masanielli-gold/20 bg-black py-20 px-4">
       <!-- High contrast dark imagery layer -->
       <img 
-        src="/images/instagram/ig_img_7.jpg" 
+        :src="getOptImg(siteImages.pizzeria_hero_bg, 1920, 85)" 
         alt="Kader Neapolitan Pizza" 
         class="absolute inset-0 w-full h-full object-cover opacity-35 filter contrast-125 saturate-75 scale-105 transform transition-transform duration-1000" 
       />
@@ -144,7 +144,7 @@
         <!-- Real Instagram Food Showcase Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           <div class="relative overflow-hidden rounded-3xl border border-masanielli-gold/30 group shadow-2xl">
-            <img src="/images/instagram/ig_img_7.jpg" alt="Neapolitan Pizza with Prosciutto and Arugula" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg(siteImages.pizzeria_showcase_1, 800, 80)" alt="Neapolitan Pizza with Prosciutto and Arugula" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[11px] font-mono text-masanielli-gold uppercase tracking-widest block mb-1">Sveže iz peči</span>
@@ -153,7 +153,7 @@
             </div>
           </div>
           <div class="relative overflow-hidden rounded-3xl border border-masanielli-gold/30 group shadow-2xl">
-            <img src="/images/instagram/ig_img_13.jpg" alt="Panuozzo Mortadella Burrata e Pistacchio" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg(siteImages.pizzeria_showcase_2, 800, 80)" alt="Panuozzo Mortadella Burrata e Pistacchio" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[11px] font-mono text-masanielli-gold uppercase tracking-widest block mb-1">Hišna Specialiteta</span>
@@ -401,6 +401,7 @@ import { ref, computed, onMounted } from 'vue'
 import { PhoneIcon, CalendarDaysIcon } from '@heroicons/vue/24/outline'
 
 const { t } = useLocale()
+const { siteImages, getOptImg } = useSiteImages()
 
 const activeView = ref<'digital' | 'printed'>('digital')
 const activeCategory = ref('all')

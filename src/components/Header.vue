@@ -14,9 +14,6 @@
           <NuxtLink to="/events" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.events') }}</NuxtLink>
           <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.buyouts') }}</NuxtLink>
           <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300 py-2">{{ t('nav.shop') }}</NuxtLink>
-          <NuxtLink to="/order" class="px-3 py-1.5 bg-red-600/90 hover:bg-red-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-colors">
-            QR Menu
-          </NuxtLink>
         </nav>
         
         <div class="flex items-center space-x-3">
@@ -65,10 +62,6 @@
             <NuxtLink to="/events" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.events') }}</NuxtLink>
             <NuxtLink to="/buyouts" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.buyouts') }}</NuxtLink>
             <NuxtLink to="/shop" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" @click="mobileMenuOpen = false">{{ t('nav.shop') }}</NuxtLink>
-            <NuxtLink to="/order" class="bg-red-600/20 text-red-400 border border-red-800/50 hover:bg-red-600 hover:text-white rounded-xl px-4 py-3 transition-colors flex items-center justify-between" @click="mobileMenuOpen = false">
-              <span>Digital QR Menu & Order</span>
-              <span class="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">QR</span>
-            </NuxtLink>
           </div>
         </div>
       </Transition>

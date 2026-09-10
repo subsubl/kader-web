@@ -1,6 +1,29 @@
 {
-  "lastSyncedAt": "2026-08-12T23:28:33.069Z",
+  "lastSyncedAt": "2026-09-10T08:27:02.392Z",
   "events": [
+    {
+      "ra_id": 2518874,
+      "title": "Kader 2nd Anniversary",
+      "date": "2026-09-04T15:00:00.000Z",
+      "start_time": "2026-09-04T15:00:00.000Z",
+      "end_time": "2026-09-05T12:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/62b3c435f4e9580b754d72adf2f215112372f190.jpg",
+      "ra_url": "https://ra.co/events/2518874",
+      "lineup": "<artist id=\"2798\">Ian F</artist>  \n<artist id=\"127154\">Lottie (SI)</artist> B2B <artist id=\"73850\">Lara (1)</artist> \nGliser Soundsystem\n<artist id=\"24785\">Dulash Der DJ</artist> \nMarco \nMajissimo\n<artist id=\"102102\">Simm.</artist>",
+      "artists": [
+        "Ian F",
+        "Lottie (SI)",
+        "Lara (1)",
+        "Dulash Der DJ",
+        "Simm."
+      ],
+      "genres": [
+        "House",
+        "Electro"
+      ],
+      "updated_at": "2026-09-10T08:27:02.392Z"
+    },
     {
       "ra_id": 1786575219474,
       "title": "Grad Kodeljevo Jazz & Pizza Evening",
@@ -50,6 +73,23 @@
       "updated_at": "2026-08-12T22:49:32.899Z"
     },
     {
+      "ra_id": 2513234,
+      "title": "Mary's Back",
+      "date": "2026-08-15T15:00:00.000Z",
+      "start_time": "2026-08-15T15:00:00.000Z",
+      "end_time": "2026-08-16T03:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/8efc8b2dce04849c0ad96d22cd0956a42da33fab.jpg",
+      "ra_url": "https://ra.co/events/2513234",
+      "lineup": "Dash\nLeanne\nOlivia Swim\nMNTR\nAndrea Fox\n4materasu\n4na\nBlagch\nHoney Dews\nIskrazy\nKalina\nLady Julz\nMaja Panini\nMashi",
+      "artists": [],
+      "genres": [
+        "Techno",
+        "Disco"
+      ],
+      "updated_at": "2026-09-10T08:27:02.392Z"
+    },
+    {
       "ra_id": 2470385,
       "title": "Simply Life",
       "date": "2026-06-18T14:00:00.000Z",
@@ -67,7 +107,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.392Z"
     },
     {
       "ra_id": 2459500,
@@ -87,7 +127,7 @@
         "Trance",
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2423257,
@@ -105,7 +145,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2380705,
@@ -127,7 +167,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2376045,
@@ -148,7 +188,7 @@
         "Techno",
         "Psytrance"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2358620,
@@ -168,7 +208,7 @@
         "Trance",
         "Bass"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2337425,
@@ -185,7 +225,7 @@
         "Techno",
         "Bass"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2328830,
@@ -204,7 +244,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2204667,
@@ -227,7 +267,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2090095,
@@ -247,7 +287,7 @@
         "Trance",
         "Techno"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2061817,
@@ -269,7 +309,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 2030471,
@@ -289,7 +329,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 1909999,
@@ -307,7 +347,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 1885731,
@@ -328,7 +368,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 1849697,
@@ -347,7 +387,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-08-12T23:28:33.069Z"
+      "updated_at": "2026-09-10T08:27:02.391Z"
     },
     {
       "ra_id": 539712,
@@ -370,7 +410,7 @@
         "Some1Else"
       ],
       "genres": [],
-      "updated_at": "2026-08-12T23:28:33.010Z"
+      "updated_at": "2026-09-10T08:27:02.324Z"
     },
     {
       "ra_id": 485105,
@@ -392,7 +432,7 @@
         "Schrauff"
       ],
       "genres": [],
-      "updated_at": "2026-08-12T23:28:33.010Z"
+      "updated_at": "2026-09-10T08:27:02.324Z"
     }
   ]
 }

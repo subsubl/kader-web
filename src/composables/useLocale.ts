@@ -179,7 +179,7 @@ const sl: Dict = {
     countdownSeconds: 'Sek',
     buyTicketsRA: 'Kupi Vstopnico na RA →',
     doorPolicyTitle: 'Pravila na vratih & Pogosta vprašanja',
-    doorPolicySub: 'Berlinska klubska kultura, svoboda in varnost',
+    doorPolicySub: 'Ljubljanska klubska kultura, svoboda in varnost',
     faqPhotoTitle: 'Prepoved fotografiranja in snemanja (No Photo Policy)',
     faqPhotoBadge: 'NALEPKA NA KAMERI · STICKER ON CAMERA',
     faqPhotoHighlight: 'Brez kamer na plesišču. Živi v trenutku in zaščiti zasebnost vseh prisotnih.',

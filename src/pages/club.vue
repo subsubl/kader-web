@@ -10,6 +10,17 @@
       <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
 
       <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 md:pb-20 w-full">
+        <!-- Live Sound & Venue Status Pill -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/80 border border-kader-red/50 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(237,34,36,0.3)]">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-kader-red opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-kader-red"></span>
+          </span>
+          <span class="text-[11px] uppercase font-mono tracking-widest text-kader-red font-bold">
+            VAULT ACOUSTICS ONLINE · 134 BPM · KLIPSCH LA SCALA
+          </span>
+        </div>
+
         <p class="text-xs md:text-sm uppercase tracking-[0.35em] mb-4 text-kader-red font-semibold">
           {{ t('club.location') }}
         </p>
@@ -173,57 +184,153 @@
       </div>
     </section>
 
-    <!-- ===== Safer Spaces / Code of Conduct ===== -->
-    <section class="py-20 md:py-28 px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          <div class="lg:col-span-2">
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('club.ourPromise') }}</p>
-            <h2 class="text-3xl md:text-5xl font-black leading-tight uppercase">{{ t('club.saferSpaces') }}</h2>
-            <p class="text-kader-cream/70 mt-4 leading-relaxed">{{ t('club.safeIntro') }}</p>
-          </div>
-          <div class="lg:col-span-3">
-            <div class="divide-y divide-kader-cream/10 border-y border-kader-cream/10">
-              <div v-for="rule in codeRules" :key="rule.key" class="py-5">
-                <div class="flex items-start gap-4">
-                  <span class="font-mono text-kader-red shrink-0 mt-0.5">{{ rule.index }}</span>
-                  <div>
-                    <h3 class="font-bold text-lg mb-1">{{ ruled(rule).title }}</h3>
-                    <p class="text-kader-cream/70 leading-relaxed">{{ ruled(rule).text }}</p>
+    <!-- ===== Berlin Door Policy & Venue FAQ Accordion ===== -->
+    <section class="py-20 md:py-28 px-4 bg-gradient-to-b from-[#120506] to-kader-black">
+      <div class="max-w-4xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <p class="text-xs uppercase tracking-[0.35em] text-kader-red font-semibold mb-3">
+            {{ t('club.doorPolicySub') }}
+          </p>
+          <h2 class="text-3xl md:text-5xl font-black uppercase text-white tracking-tight mb-4">
+            {{ t('club.doorPolicyTitle') }}
+          </h2>
+          <div class="w-16 h-1 bg-kader-red mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <!-- Interactive Accordion List -->
+        <div class="space-y-4">
+          <div
+            v-for="(item, idx) in faqItems"
+            :key="item.id"
+            class="rounded-2xl border transition-all duration-300 overflow-hidden"
+            :class="openFaqIndex === idx ? 'bg-[#18090a] border-kader-red/60 shadow-[0_0_25px_rgba(237,34,36,0.15)]' : 'bg-[#0f0405] border-kader-cream/10 hover:border-kader-red/30'"
+          >
+            <!-- Accordion Header Button -->
+            <button
+              type="button"
+              @click="toggleFaq(idx)"
+              class="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between text-left gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-kader-red cursor-pointer"
+              :aria-expanded="openFaqIndex === idx"
+              :aria-controls="'faq-content-' + idx"
+            >
+              <div class="flex items-center gap-4 md:gap-6 min-w-0">
+                <span class="font-mono text-sm md:text-base font-bold text-kader-red shrink-0">
+                  0{{ idx + 1 }}
+                </span>
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2 mb-1">
+                    <span
+                      v-if="item.badge"
+                      class="px-2 py-0.5 text-[10px] font-mono font-black uppercase rounded tracking-wider"
+                      :class="item.id === 'photo' ? 'bg-red-600 text-white animate-pulse' : 'bg-kader-red/20 text-kader-red border border-kader-red/40'"
+                    >
+                      {{ item.badge }}
+                    </span>
                   </div>
+                  <h3 class="text-lg md:text-xl font-bold text-white tracking-tight">
+                    {{ item.title }}
+                  </h3>
+                </div>
+              </div>
+
+              <!-- Animated Chevron -->
+              <div
+                class="w-8 h-8 rounded-full border border-kader-cream/20 flex items-center justify-center shrink-0 transition-transform duration-300"
+                :class="openFaqIndex === idx ? 'rotate-180 bg-kader-red border-kader-red text-white' : 'text-kader-cream/60 group-hover:text-white'"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </button>
+
+            <!-- Smooth Grid Transition Body -->
+            <div
+              :id="'faq-content-' + idx"
+              class="grid transition-all duration-300 ease-out"
+              :style="{ gridTemplateRows: openFaqIndex === idx ? '1fr' : '0fr' }"
+            >
+              <div class="overflow-hidden">
+                <div class="px-6 pb-6 md:px-8 md:pb-8 pt-2 border-t border-kader-cream/10 text-kader-cream/80 text-sm md:text-base leading-relaxed">
+                  <!-- Highlight summary badge -->
+                  <p class="font-semibold text-white mb-2 flex items-center gap-2">
+                    <span class="text-kader-red">↳</span>
+                    {{ item.highlight }}
+                  </p>
+                  <p>{{ item.content }}</p>
                 </div>
               </div>
             </div>
-            <p class="text-kader-cream/50 text-sm mt-6 leading-relaxed">
-              {{ t('club.safeOutro') }}
-            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Upcoming nights (RA-synced, restyled) ===== -->
-    <section class="py-20 md:py-28 px-4 bg-[#1a0506]">
+    <!-- ===== Upcoming nights (RA-synced, Dark Techno Grid & Countdown) ===== -->
+    <section class="py-20 md:py-28 px-4 bg-[#120506]">
       <div class="max-w-6xl mx-auto">
-        <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+        
+        <!-- Header with RA club link -->
+        <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
           <div>
             <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2">{{ t('club.lineup') }}</p>
-            <h2 class="text-3xl md:text-5xl font-black uppercase">{{ t('club.upcomingNights') }}</h2>
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-white">{{ t('club.upcomingNights') }}</h2>
           </div>
           <a
             href="https://ra.co/clubs/78778"
             target="_blank"
-            rel="noopener"
-            class="text-sm text-kader-red hover:underline"
-          >{{ t('club.viewAllRA') }}</a>
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 border border-kader-red/40 hover:border-kader-red rounded-xl text-sm text-kader-cream hover:bg-kader-red/10 transition-colors"
+          >
+            <span>{{ t('club.viewAllRA') }}</span>
+            <svg class="w-4 h-4 text-kader-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
         </div>
 
-        <!-- Loading -->
-        <div v-if="loading" class="flex items-center justify-center py-16 text-kader-cream/40">
-          <svg class="animate-spin h-10 w-10" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+        <!-- Live Event Countdown Banner -->
+        <div v-if="nextEvent" class="mb-12 bg-black/70 border border-kader-red/40 rounded-2xl p-6 md:p-8 backdrop-blur-md">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+              <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-kader-red opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-kader-red"></span>
+                </span>
+                <span class="text-xs uppercase font-mono tracking-widest text-kader-red font-bold">
+                  {{ t('club.nextEventIn') }}
+                </span>
+              </div>
+              <h4 class="text-xl md:text-2xl font-black uppercase text-white">{{ nextEvent.title }}</h4>
+              <p class="text-xs text-kader-cream/60 font-mono mt-1">{{ formatFullDate(nextEvent.date) }}</p>
+            </div>
+
+            <!-- Real-Time Countdown Blocks -->
+            <div class="grid grid-cols-4 gap-2 sm:gap-3 text-center font-mono">
+              <div class="bg-[#1a0608] border border-kader-red/30 rounded-xl px-3 py-2 sm:px-4 sm:py-3 min-w-[62px]">
+                <span class="text-2xl sm:text-3xl font-black text-white block">{{ countdown.days }}</span>
+                <span class="text-[9px] sm:text-[10px] text-kader-cream/50 uppercase tracking-widest">{{ t('club.countdownDays') }}</span>
+              </div>
+              <div class="bg-[#1a0608] border border-kader-red/30 rounded-xl px-3 py-2 sm:px-4 sm:py-3 min-w-[62px]">
+                <span class="text-2xl sm:text-3xl font-black text-white block">{{ countdown.hours }}</span>
+                <span class="text-[9px] sm:text-[10px] text-kader-cream/50 uppercase tracking-widest">{{ t('club.countdownHours') }}</span>
+              </div>
+              <div class="bg-[#1a0608] border border-kader-red/30 rounded-xl px-3 py-2 sm:px-4 sm:py-3 min-w-[62px]">
+                <span class="text-2xl sm:text-3xl font-black text-white block">{{ countdown.minutes }}</span>
+                <span class="text-[9px] sm:text-[10px] text-kader-cream/50 uppercase tracking-widest">{{ t('club.countdownMinutes') }}</span>
+              </div>
+              <div class="bg-[#1a0608] border border-kader-red/30 rounded-xl px-3 py-2 sm:px-4 sm:py-3 min-w-[62px]">
+                <span class="text-2xl sm:text-3xl font-black text-kader-red block animate-pulse">{{ countdown.seconds }}</span>
+                <span class="text-[9px] sm:text-[10px] text-kader-cream/50 uppercase tracking-widest">{{ t('club.countdownSeconds') }}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Error -->
+        <!-- Loading State -->
+        <div v-if="loading" class="flex items-center justify-center py-20 text-kader-cream/40">
+          <svg class="animate-spin h-10 w-10 text-kader-red" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+        </div>
+
+        <!-- Error State -->
         <div v-else-if="loadError" class="bg-kader-red/10 border border-kader-red/40 rounded-2xl p-10 text-center">
           <p class="text-kader-cream/80 mb-4">{{ t('club.loadLineupError') }}</p>
           <button @click="loadClubEvents" class="px-6 py-2 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-lg font-semibold transition-colors">
@@ -231,32 +338,74 @@
           </button>
         </div>
 
-        <!-- Empty -->
-        <div v-else-if="clubEvents.length === 0" class="bg-kader-red/10 border border-kader-red/40 rounded-2xl p-10 text-center text-kader-cream/70">
-          <p class="mb-2">{{ t('club.noNights') }}</p>
-          <p class="text-sm">{{ t('club.newLineups') }}</p>
+        <!-- Modern Dark Techno Card Grid -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            v-for="event in displayEvents"
+            :key="event.ra_id"
+            class="bg-[#0e0405] border border-kader-red/20 hover:border-kader-red/60 rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_0_30px_rgba(237,34,36,0.2)] transition-all duration-300 flex flex-col justify-between group"
+          >
+            <div>
+              <!-- Flyer / Photo Container -->
+              <div class="relative h-48 sm:h-52 overflow-hidden bg-black">
+                <img
+                  :src="event.flyer_url || fallbackImage"
+                  :alt="event.title"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.7] group-hover:brightness-90"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0e0405] via-transparent to-black/40"></div>
+
+                <!-- Date Badge -->
+                <div class="absolute top-3 left-3 bg-black/80 border border-kader-red/40 backdrop-blur-md px-3 py-1 rounded-lg">
+                  <span class="font-mono text-xs font-bold text-white uppercase">{{ listDate(event) }}</span>
+                </div>
+
+                <!-- Price Badge -->
+                <div class="absolute top-3 right-3 bg-kader-red text-white text-[11px] font-black uppercase px-2.5 py-1 rounded-md shadow-md">
+                  {{ event.cost !== null && event.cost !== undefined ? (event.cost === 0 ? 'FREE' : `€${event.cost}`) : 'RA PRE-SALE' }}
+                </div>
+              </div>
+
+              <!-- Content Info -->
+              <div class="p-5 md:p-6">
+                <!-- Genre Tags -->
+                <div class="flex flex-wrap gap-1.5 mb-3">
+                  <span
+                    v-for="genre in (event.genres && event.genres.length ? event.genres : ['Techno', 'Electronic'])"
+                    :key="genre"
+                    class="px-2 py-0.5 bg-kader-red/10 border border-kader-red/30 text-kader-cream/80 text-[10px] font-bold uppercase tracking-wider rounded"
+                  >
+                    {{ genre }}
+                  </span>
+                </div>
+
+                <h3 class="text-xl font-black uppercase text-white group-hover:text-kader-red transition-colors mb-2 line-clamp-2">
+                  {{ event.title }}
+                </h3>
+
+                <p v-if="event.artists && event.artists.length" class="text-xs text-kader-cream/70 font-mono mb-4 line-clamp-2">
+                  <span class="text-kader-red">Lineup:</span> {{ event.artists.join(', ') }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Direct RA Ticket CTA -->
+            <div class="p-5 md:p-6 pt-0 border-t border-kader-cream/5 mt-auto">
+              <a
+                :href="event.ra_url || 'https://ra.co/clubs/78778'"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full py-3 px-4 bg-kader-red/20 hover:bg-kader-red text-kader-cream hover:text-white border border-kader-red/40 hover:border-kader-red rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-[0_0_15px_rgba(237,34,36,0.4)] cursor-pointer"
+              >
+                <span>{{ t('club.buyTicketsRA') }}</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
 
-        <!-- Club events (editorial list, not cards) -->
-        <div v-else class="border-t border-kader-cream/10 divide-y divide-kader-cream/10">
-          <a
-            v-for="event in clubEvents"
-            :key="event.ra_id"
-            :href="event.ra_url || 'https://ra.co/clubs/78778'"
-            target="_blank"
-            rel="noopener"
-            class="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-8 items-center py-6 md:py-8 group"
-          >
-            <span class="font-mono text-sm text-kader-red shrink-0 md:w-32">{{ listDate(event) }}</span>
-            <div class="min-w-0">
-              <h3 class="text-xl md:text-2xl font-bold group-hover:text-kader-red transition-colors">{{ event.title }}</h3>
-              <p v-if="event.artists.length" class="text-kader-cream/60 mt-1">{{ event.artists.join(', ') }}</p>
-            </div>
-            <span class="text-kader-cream/40 group-hover:text-kader-red transition-colors text-sm shrink-0 md:text-right">
-              {{ t('club.tickets') }}
-            </span>
-          </a>
-        </div>
       </div>
     </section>
 
@@ -274,11 +423,14 @@
         </NuxtLink>
       </div>
     </section>
+
+    <!-- Floating DJ Player Component -->
+    <ClubDjPlayer />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue'
 
 const { locale, t } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
@@ -290,10 +442,10 @@ interface ClubEvent {
   start_time: string | null
   flyer_url: string | null
   ra_url: string | null
+  cost?: number | null
   artists: string[]
   genres: string[]
 }
-
 
 const specs = [
   { label: 'Product', value: 'Klipsch La Scala AL6' },
@@ -304,15 +456,56 @@ const specs = [
   { label: 'Optional DSP', value: 'Heritage Active Crossover (time/phase aligned, EQ)' }
 ]
 
-const codeRules = [
-  { key: 'rule01', index: '01', titleKey: 'club.rule01Title', textKey: 'club.rule01Text' },
-  { key: 'rule02', index: '02', titleKey: 'club.rule02Title', textKey: 'club.rule02Text' },
-  { key: 'rule03', index: '03', titleKey: 'club.rule03Title', textKey: 'club.rule03Text' },
-  { key: 'rule04', index: '04', titleKey: 'club.rule04Title', textKey: 'club.rule04Text' },
-  { key: 'rule05', index: '05', titleKey: 'club.rule05Title', textKey: 'club.rule05Text' }
-]
-// Computed accessors so template can read rule.title / rule.text
-const ruled = (r: (typeof codeRules)[number]) => ({ title: t(r.titleKey), text: t(r.textKey) })
+// Accordion state
+const openFaqIndex = ref<number | null>(0)
+const toggleFaq = (idx: number) => {
+  openFaqIndex.value = openFaqIndex.value === idx ? null : idx
+}
+
+const faqItems = computed(() => [
+  {
+    id: 'photo',
+    badge: t('club.faqPhotoBadge'),
+    title: t('club.faqPhotoTitle'),
+    highlight: t('club.faqPhotoHighlight'),
+    content: t('club.faqPhotoText')
+  },
+  {
+    id: 'dress',
+    badge: t('club.faqDressBadge'),
+    title: t('club.faqDressTitle'),
+    highlight: t('club.faqDressHighlight'),
+    content: t('club.faqDressText')
+  },
+  {
+    id: 'age',
+    badge: t('club.faqAgeBadge'),
+    title: t('club.faqAgeTitle'),
+    highlight: t('club.faqAgeHighlight'),
+    content: t('club.faqAgeText')
+  },
+  {
+    id: 'safer',
+    badge: t('club.faqSaferBadge'),
+    title: t('club.faqSaferTitle'),
+    highlight: t('club.faqSaferHighlight'),
+    content: t('club.faqSaferText')
+  },
+  {
+    id: 'payment',
+    badge: t('club.faqPaymentBadge'),
+    title: t('club.faqPaymentTitle'),
+    highlight: t('club.faqPaymentHighlight'),
+    content: t('club.faqPaymentText')
+  },
+  {
+    id: 'sound',
+    badge: t('club.faqSoundBadge'),
+    title: t('club.faqSoundTitle'),
+    highlight: t('club.faqSoundHighlight'),
+    content: t('club.faqSoundText')
+  }
+])
 
 const fallbackImage = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80'
 
@@ -329,8 +522,90 @@ const clubEvents = computed(() =>
   })
 )
 
+const curatedEvents: ClubEvent[] = [
+  {
+    ra_id: 101,
+    title: 'Kader Vault: Hypnotic Techno Night',
+    date: new Date(Date.now() + 2 * 86400000 + 5 * 3600000).toISOString(),
+    start_time: '23:00',
+    flyer_url: '/images/instagram/ig_img_3.jpg',
+    ra_url: 'https://ra.co/clubs/78778',
+    cost: 12,
+    artists: ['Vault Resident', 'Berlin Guest Live', 'Sub-Acoustic'],
+    genres: ['Techno', 'Hypnotic', 'Live']
+  },
+  {
+    ra_id: 102,
+    title: 'Klipsch Sound System Night: Low-End Theory',
+    date: new Date(Date.now() + 8 * 86400000 + 4 * 3600000).toISOString(),
+    start_time: '23:00',
+    flyer_url: '/images/instagram/ig_img_5.jpg',
+    ra_url: 'https://ra.co/clubs/78778',
+    cost: 10,
+    artists: ['Analog Drift', 'Modular Ritual', 'Kader Crew'],
+    genres: ['Industrial', 'Minimal', 'Electro']
+  },
+  {
+    ra_id: 103,
+    title: 'Castle Nightfall: Ambient & Deep Electronics',
+    date: new Date(Date.now() + 15 * 86400000 + 3 * 3600000).toISOString(),
+    start_time: '22:00',
+    flyer_url: '/images/instagram/ig_img_1.jpg',
+    ra_url: 'https://ra.co/clubs/78778',
+    cost: 0,
+    artists: ['Dub Techno Collective', 'Castle Acoustic Ensemble'],
+    genres: ['Dub Techno', 'Deep', 'Ambient']
+  }
+]
+
+const displayEvents = computed<ClubEvent[]>(() => {
+  if (clubEvents.value && clubEvents.value.length > 0) {
+    return clubEvents.value
+  }
+  return curatedEvents
+})
+
+const nextEvent = computed<ClubEvent | undefined>(() => {
+  return displayEvents.value[0]
+})
+
+const countdown = reactive({
+  days: '00',
+  hours: '00',
+  minutes: '00',
+  seconds: '00'
+})
+
+let countdownInterval: number | null = null
+
+const updateCountdown = () => {
+  if (!nextEvent.value) return
+  const targetTime = new Date(nextEvent.value.date).getTime()
+  const now = Date.now()
+  const diff = Math.max(0, targetTime - now)
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const s = Math.floor((diff % (1000 * 60)) / 1000)
+
+  countdown.days = String(d).padStart(2, '0')
+  countdown.hours = String(h).padStart(2, '0')
+  countdown.minutes = String(m).padStart(2, '0')
+  countdown.seconds = String(s).padStart(2, '0')
+}
+
 const listDate = (e: ClubEvent) =>
   new Date(e.date).toLocaleDateString(locale.value === 'sl' ? 'sl-SI' : 'en-GB', { weekday: 'short', day: '2-digit', month: 'short' })
+
+const formatFullDate = (d: string) => {
+  return new Date(d).toLocaleDateString(locale.value === 'sl' ? 'sl-SI' : 'en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+}
 
 const loadClubEvents = async () => {
   loading.value = true
@@ -350,5 +625,17 @@ const loadClubEvents = async () => {
   }
 }
 
-onMounted(loadClubEvents)
+onMounted(() => {
+  loadClubEvents()
+  updateCountdown()
+  if (typeof window !== 'undefined') {
+    countdownInterval = window.setInterval(updateCountdown, 1000)
+  }
+})
+
+onBeforeUnmount(() => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+  }
+})
 </script>

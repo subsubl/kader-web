@@ -300,8 +300,8 @@
                     @click="openTakeawayWithItem(item)"
                     class="px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border-2 border-red-200 hover:border-red-600 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center space-x-1.5 shadow-sm min-h-[36px]"
                   >
-                    <span>+</span>
-                    <span>Naroči za s seboj</span>
+                    <span>📞</span>
+                    <span>Naroči po telefonu</span>
                   </button>
                 </div>
               </div>
@@ -443,21 +443,19 @@
     </div><!-- end pizzeria white section -->
 
     <!-- ===== STICKY MOBILE ACTION BAR ===== -->
-    <div class="fixed bottom-safe left-4 right-4 z-40 md:hidden bg-zinc-950/95 border border-masanielli-gold/40 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
-      <button 
-        type="button"
-        @click="openModal('takeaway')" 
-        class="flex-1 mr-2 py-3 bg-masanielli-gold text-black rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
+    <div class="fixed bottom-safe left-4 right-4 z-40 md:hidden bg-zinc-950/95 border border-red-500/40 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
+      <a 
+        href="tel:+38683836740" 
+        class="flex-1 mr-2 py-3 bg-red-600 text-white rounded-xl text-[11px] font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
       >
-        <PhoneIcon class="w-4 h-4 mr-1.5" /> Naročim Za S Seboj
-      </button>
-      <button 
-        type="button"
-        @click="openModal('table')" 
-        class="flex-1 ml-2 py-3 bg-zinc-900 text-masanielli-gold border border-masanielli-gold/40 rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
+        <PhoneIcon class="w-4 h-4 mr-1.5" /> Naročila (+386 83 836 740)
+      </a>
+      <a 
+        href="tel:+38640175628" 
+        class="flex-1 ml-2 py-3 bg-zinc-900 text-red-400 border border-red-500/40 rounded-xl text-[11px] font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
       >
-        <CalendarDaysIcon class="w-4 h-4 mr-1.5" /> Rezervacija
-      </button>
+        <CalendarDaysIcon class="w-4 h-4 mr-1.5" /> Rezervacije (+386 40 175 628)
+      </a>
     </div>
 
     <!-- Lightbox Modal for Menu Image -->

@@ -1,46 +1,40 @@
-# Orchestration Plan: Kader Backend Performance & Caching Optimization
+# Implementation & Verification Plan: Kader Frontend Elevation
 
-## Objective
-Research and optimize the Kader Nuxt 3 / Nitro backend architecture, API caching, response latency, and data persistence for peak production performance, verifying with automated benchmarks and passing 100% builds and tests.
+## Objectives & Scope
+Elevate Kader frontend (`index.vue`, `pizzeria.vue`, `club.vue`, `buyouts.vue`) to match 50 Top Pizza and Berlin Techno Club (Berghain, Tresor, Watergate, RSO) world-class standards.
 
----
+## Requirements Breakdown
+- **R1: Interactive Day/Night Mode Switcher & Home Page Elevation (`src/pages/index.vue`)**
+  - Ambient mode toggle (Day: Pizzeria Bistro, Night: Dance Club).
+  - Ambient color shifts, lighting accents, hero dynamic elements, quick navigation.
+  - Interactive full-screen Image Lightbox modal for "KADER V SLIKAH" gallery with smooth transitions, keyboard ESC navigation, and zoom.
 
-## Phase 1: Deep Backend Architecture & Caching Audit (Milestone 1)
-- [ ] Initialize Orchestrator environment, briefing, and heartbeat cron.
-- [ ] Spawn 3 Explorers in parallel:
-  - **Explorer 1**: Audit Nitro server routes in `src/server/api/` (focus: `/api/site-images`, `/api/events`, `/api/ra-events`, `/api/menu-config`).
-  - **Explorer 2**: Audit data persistence layer (`.data/*.json` and Supabase integration), analyzing I/O bottlenecks and race conditions.
-  - **Explorer 3**: Audit Sharp image optimization pipeline (`/api/img` or related), investigating memory usage, streaming, ETags, and 304 Not Modified handling.
-- [ ] Synthesize findings into unified Architecture & Bottleneck Audit Report.
+- **R2: World-Class Neapolitan Pizzeria Showcase (`src/pages/pizzeria.vue`)**
+  - Ingredient Provenance Badges (San Marzano DOP, Fior di Latte, 48h Fermentation, Bufala Campana DOP).
+  - Interactive Table Reservation & Takeaway Quick-Modal triggering directly from menu items and header CTAs.
+  - "Pizzeria Craft & Oven" interactive feature section showcasing 48h dough preparation, hydration, 450°C wood oven heat.
 
----
+- **R3: Berlin Club & Nightlife Experience (`src/pages/club.vue`)**
+  - Floating / embedded DJ Mix & Sound Preview Player with play/pause, simulated/audio waveforms, audio tracks, track progress.
+  - Enhanced Resident Advisor (RA) lineup cards with artist tags, event countdown timers, direct RA ticket purchase CTAs.
+  - Interactive Door Policy & Venue FAQ Accordion (dress code, photo policy, safer spaces).
 
-## Phase 2: High-Performance API Caching & Optimization Implementation (Milestone 2)
-- [ ] Spawn 3 Explorers to propose concrete implementation plan based on M1 findings.
-- [ ] Spawn Worker with Mandatory Integrity Warning to implement:
-  - Memory / ETag / SWR caching for semi-static endpoints.
-  - Sharp image stream caching and 304 Not Modified conditional GET handling.
-  - Safe concurrent file I/O refactoring for `.data/*.json`.
-- [ ] Spawn 2 Reviewers independently to verify code quality, zero regressions, and backward compatibility.
-- [ ] Spawn 2 Challengers to adversarially test concurrency, cache invalidation, and edge cases.
-- [ ] Spawn Forensic Auditor (`teamwork_preview_auditor`) for integrity verification.
-- [ ] Evaluate Gate: build/test passing + Reviewer approval + Challenger confirmation + Auditor clean verdict.
+- **R4: Buyouts / Private Hire Polish & Layout Refinement (`src/pages/buyouts.vue`)**
+  - Refined visuals, booking flow, package selection, mobile responsiveness.
 
----
+- **R5: Verification & Build Integrity**
+  - `npm run build` exits with 0 errors.
+  - 100% responsive across mobile (<640px), tablet (768px-1024px), desktop (>1024px).
+  - Reviewer adversarial audit & Forensic integrity verification.
 
-## Phase 3: Automated Verification & Benchmark Suite (Milestone 3)
-- [ ] Spawn Worker to develop automated benchmark & verification suite:
-  - Measure response latency (< 50ms cached, < 100ms uncached).
-  - Verify Cache-Control and ETag headers.
-  - Verify 100% API correctness on all endpoints.
-- [ ] Spawn Reviewers, Challengers, and Forensic Auditor to validate benchmark methodology and results.
-- [ ] Gate evaluation.
-
----
-
-## Phase 4: Final Milestone (E2E Verification & Adversarial Coverage Hardening)
-- [ ] Execute full application build (`npm run build`) with 0 errors.
-- [ ] Run full test suite to 100% pass rate.
-- [ ] Phase 2 adversarial coverage hardening by Challengers.
-- [ ] Final Forensic Auditor verification.
-- [ ] Produce final handoff report and report to parent.
+## Execution Strategy
+1. **Exploration & Architectural Design**:
+   - Dispatch Explorers with `modern-web-guidance` skill to analyze existing components, find optimal modern CSS/Vue patterns (dialog/modal, audio API, state transitions).
+2. **Implementation**:
+   - Worker implements Milestone 1, 2, 3, 4 with modern design system, verified build output.
+3. **Review & Empirical Challenge**:
+   - Independent Reviewers inspect code quality, responsiveness, accessibility.
+   - Challengers execute automated DOM/headless browser or build/script assertions.
+4. **Forensic Integrity Audit**:
+   - `teamwork_preview_auditor` performs systematic integrity forensic checks.
+5. **Sentinel Notification & Victory Audit Trigger**.

@@ -43,20 +43,22 @@
 
         <!-- Direct Action Buttons (Gold bordered, refined) -->
         <div class="flex flex-wrap gap-4 justify-center w-full max-w-xl">
-          <a 
-            href="tel:+38683836740" 
-            class="px-8 py-4 bg-masanielli-gold text-black hover:bg-masanielli-goldLight font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-masanielli-gold/10 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px]"
+          <button 
+            type="button"
+            @click="openModal('takeaway')" 
+            class="px-8 py-4 bg-masanielli-gold text-black hover:bg-masanielli-goldLight font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-masanielli-gold/10 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
           >
             <PhoneIcon class="w-4 h-4 mr-2" />
             {{ t('pizzeria.pickUp') }}
-          </a>
-          <a 
-            href="tel:+38640175628" 
-            class="px-8 py-4 bg-zinc-950 border border-masanielli-gold/40 text-masanielli-gold hover:bg-zinc-900 hover:border-masanielli-gold font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px]"
+          </button>
+          <button 
+            type="button"
+            @click="openModal('table')" 
+            class="px-8 py-4 bg-zinc-950 border border-masanielli-gold/40 text-masanielli-gold hover:bg-zinc-900 hover:border-masanielli-gold font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
           >
             <CalendarDaysIcon class="w-4 h-4 mr-2" />
             {{ t('pizzeria.tableRes') }}
-          </a>
+          </button>
         </div>
 
         <!-- Digital vs Printed View Switcher -->
@@ -77,65 +79,70 @@
       </div>
     </header>
 
+    <!-- ===== PIZZERIA WHITE SECTION (matching print menu aesthetic) ===== -->
+    <div class="relative bg-white">
+      <!-- Top red stripe border (matching print menu) -->
+      <div class="menu-stripe-border" aria-hidden="true"></div>
+
     <div class="max-w-6xl mx-auto px-4 py-16">
 
       <!-- ===== "ZAČUTITE OBRT" / PHILOSOPHY CARDS (I Masanielli Style) ===== -->
       <section class="mb-20">
         <div class="text-center mb-12">
-          <span class="text-xs uppercase tracking-[0.3em] text-masanielli-gold font-semibold block mb-2">Filozofija & Tehnika</span>
-          <h2 class="text-3xl md:text-5xl font-serif font-black uppercase text-white tracking-tight">Kultura Neapeljske Pice</h2>
-          <div class="w-16 h-0.5 bg-masanielli-gold mx-auto mt-4"></div>
+          <span class="text-xs uppercase tracking-[0.3em] text-red-600 font-semibold block mb-2">Filozofija & Tehnika</span>
+          <h2 class="text-3xl md:text-5xl font-serif font-black uppercase text-gray-900 tracking-tight">Kultura Neapeljske Pice</h2>
+          <div class="w-16 h-1 bg-red-600 mx-auto mt-4"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div class="bg-zinc-950 border border-zinc-800/90 rounded-3xl p-6 flex flex-col justify-between hover:border-masanielli-gold/50 transition-all duration-500 group shadow-xl">
+          <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
             <div>
-              <span class="font-mono text-xs text-masanielli-gold block mb-3">01 / TESTO</span>
-              <h3 class="text-lg font-serif font-bold text-white mb-2 uppercase group-hover:text-masanielli-gold transition-colors">48h Fermentacija</h3>
-              <p class="text-xs text-gray-400 leading-relaxed">
+              <span class="font-mono text-xs text-red-600 block mb-3 font-bold">01 / TESTO</span>
+              <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">48h Fermentacija</h3>
+              <p class="text-xs text-gray-500 leading-relaxed">
                 Pripravljamo po izročilu neapeljskih mojstrov — mehko, zračno in lahkoproprobavljivo z izrazitim vzhajanim robom (cornicione).
               </p>
             </div>
-            <div class="mt-6 pt-4 border-t border-zinc-900 text-[11px] font-mono text-masanielli-gold/70">
+            <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
               High Hydration & Dough Maturity
             </div>
           </div>
 
-          <div class="bg-zinc-950 border border-zinc-800/90 rounded-3xl p-6 flex flex-col justify-between hover:border-masanielli-gold/50 transition-all duration-500 group shadow-xl">
+          <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
             <div>
-              <span class="font-mono text-xs text-masanielli-gold block mb-3">02 / SESTAVINE</span>
-              <h3 class="text-lg font-serif font-bold text-white mb-2 uppercase group-hover:text-masanielli-gold transition-colors">D.O.P. Poreklo</h3>
-              <p class="text-xs text-gray-400 leading-relaxed">
+              <span class="font-mono text-xs text-red-600 block mb-3 font-bold">02 / SESTAVINE</span>
+              <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">D.O.P. Poreklo</h3>
+              <p class="text-xs text-gray-500 leading-relaxed">
                 Uporabljamo izključno pelate San Marzano D.O.P., Mocarelo Bufala iz Kampanije ter Mortadelo D.O.P. z mletimi pistacijami.
               </p>
             </div>
-            <div class="mt-6 pt-4 border-t border-zinc-900 text-[11px] font-mono text-masanielli-gold/70">
+            <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
               100% Certified Italian Origin
             </div>
           </div>
 
-          <div class="bg-zinc-950 border border-zinc-800/90 rounded-3xl p-6 flex flex-col justify-between hover:border-masanielli-gold/50 transition-all duration-500 group shadow-xl">
+          <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
             <div>
-              <span class="font-mono text-xs text-masanielli-gold block mb-3">03 / PANUOZZO</span>
-              <h3 class="text-lg font-serif font-bold text-white mb-2 uppercase group-hover:text-masanielli-gold transition-colors">Grajski Sendviči</h3>
-              <p class="text-xs text-gray-400 leading-relaxed">
+              <span class="font-mono text-xs text-red-600 block mb-3 font-bold">03 / PANUOZZO</span>
+              <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">Grajski Sendviči</h3>
+              <p class="text-xs text-gray-500 leading-relaxed">
                 Domači Panuozzo sendviči iz 160g sveže pečenega pica testa, napolnjeni s svežo stracciatella burrato in vrhunskimi nadevi.
               </p>
             </div>
-            <div class="mt-6 pt-4 border-t border-zinc-900 text-[11px] font-mono text-masanielli-gold/70">
+            <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
               Freshly Baked 160g Bread
             </div>
           </div>
 
-          <div class="bg-zinc-950 border border-zinc-800/90 rounded-3xl p-6 flex flex-col justify-between hover:border-masanielli-gold/50 transition-all duration-500 group shadow-xl">
+          <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
             <div>
-              <span class="font-mono text-xs text-masanielli-gold block mb-3">04 / AMBIENT</span>
-              <h3 class="text-lg font-serif font-bold text-white mb-2 uppercase group-hover:text-masanielli-gold transition-colors">Grad Kodeljevo</h3>
-              <p class="text-xs text-gray-400 leading-relaxed">
+              <span class="font-mono text-xs text-red-600 block mb-3 font-bold">04 / AMBIENT</span>
+              <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">Grad Kodeljevo</h3>
+              <p class="text-xs text-gray-500 leading-relaxed">
                 Zgodovinski grajski kotiček v Ljubljani s prelepim poletnim vrtom, osvežilnimi koktajli in sproščenim vzdušjem.
               </p>
             </div>
-            <div class="mt-6 pt-4 border-t border-zinc-900 text-[11px] font-mono text-masanielli-gold/70">
+            <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
               Castle Garden & Bistro Bar
             </div>
           </div>
@@ -164,19 +171,53 @@
         </div>
       </section>
 
+      <!-- ===== "PIZZERIA CRAFT & OVEN" FEATURE SECTION ===== -->
+      <PizzeriaCraft />
+
       <!-- ===== PRINTED A3 MENU VIEW ===== -->
-      <div v-if="activeView === 'printed'" class="mb-20 bg-zinc-950 p-6 rounded-3xl border border-zinc-800 shadow-2xl">
+      <div v-if="activeView === 'printed'" class="mb-20 bg-white border-2 border-gray-200 p-6 rounded-3xl shadow-xl">
         <div class="flex justify-between items-center mb-6 px-2">
-          <span class="text-xs text-gray-400 font-mono uppercase tracking-wider">{{ t('pizzeria.printedCaption') }}</span>
-          <a href="/menu-a3.jpg" target="_blank" class="text-xs text-masanielli-gold hover:underline font-bold uppercase tracking-wider">{{ t('pizzeria.openFullSize') }}</a>
+          <span class="text-xs text-gray-500 font-mono uppercase tracking-wider">{{ t('pizzeria.printedCaption') }}</span>
+          <a href="/menu-a3.jpg" target="_blank" class="text-xs text-red-600 hover:underline font-bold uppercase tracking-wider">{{ t('pizzeria.openFullSize') }}</a>
         </div>
-        <img :src="menuImageUrl" alt="Kader Grad Kodeljevo Meni A3" class="w-full h-auto rounded-2xl shadow-2xl border border-zinc-800 cursor-zoom-in hover:opacity-95 transition-opacity" @click="zoomOpen = true" />
+        <img :src="menuImageUrl" alt="Kader Grad Kodeljevo Meni A3" class="w-full h-auto rounded-2xl shadow-xl border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" @click="zoomOpen = true" />
       </div>
 
       <!-- ===== DIGITAL INTERACTIVE MENU VIEW ===== -->
       <div v-else class="mb-20">
+        <!-- ===== INGREDIENT PROVENANCE GUARANTEE BANNER ===== -->
+        <div class="mb-10 p-5 bg-red-600 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-11 h-11 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-white text-xl">
+              🛡️
+            </div>
+            <div>
+              <h4 class="text-sm md:text-base font-serif font-black text-white uppercase tracking-wider">
+                Zaveza Pristnosti & Certificirano Poreklo
+              </h4>
+              <p class="text-xs text-red-100 font-light">
+                Uporabljamo izključno certificirane italijanske sestavine (D.O.P. in I.G.P.) ter hladno stiskano ekološko oljčno olje.
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 text-[10px] font-mono">
+            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+              🍅 SAN MARZANO D.O.P.
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+              🐃 BUFALA CAMPANA D.O.P.
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+              🥓 MORTADELLA I.G.P.
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+              🌿 BIO EXTRA VERGINE
+            </span>
+          </div>
+        </div>
+
         <!-- Category Pill Navigation -->
-        <div class="flex overflow-x-auto pb-4 mb-12 space-x-2 hide-scrollbar justify-start md:justify-center border-b border-zinc-900">
+        <div class="flex overflow-x-auto pb-4 mb-12 space-x-2 hide-scrollbar justify-start md:justify-center border-b-2 border-red-100">
           <button
             v-for="cat in categories"
             :key="cat.id"
@@ -184,8 +225,8 @@
             :class="[
               'px-5 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center space-x-2 min-h-[44px]',
               activeCategory === cat.id 
-                ? 'bg-masanielli-gold text-black shadow-lg shadow-masanielli-gold/10 font-black' 
-                : 'bg-zinc-950 text-gray-400 hover:bg-zinc-900 hover:text-white border border-zinc-800/80'
+                ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black' 
+                : 'bg-white text-gray-500 hover:bg-red-50 hover:text-red-600 border-2 border-gray-200 hover:border-red-300'
             ]"
           >
             <span>{{ cat.icon }}</span>
@@ -198,14 +239,14 @@
           <div 
             v-for="cat in filteredCategories" 
             :key="cat.id"
-            class="bg-zinc-950/90 rounded-3xl p-6 md:p-10 border border-zinc-800/80 shadow-2xl"
+            class="bg-white rounded-3xl p-6 md:p-10 border-2 border-gray-100 shadow-md hover:shadow-lg transition-shadow duration-300"
           >
-            <div class="flex items-center justify-between border-b border-zinc-800/80 pb-4 mb-8">
+            <div class="flex items-center justify-between border-b-2 border-red-100 pb-4 mb-8">
               <div class="flex items-center space-x-4">
-                <span class="text-3xl p-2 bg-zinc-900 rounded-2xl border border-zinc-800">{{ cat.icon }}</span>
+                <span class="text-3xl p-2 bg-red-50 rounded-2xl border-2 border-red-100">{{ cat.icon }}</span>
                 <div>
-                  <h2 class="text-2xl md:text-3xl font-serif font-black uppercase text-white tracking-wider">{{ catName(cat) }}</h2>
-                  <p v-if="cat.subtitle" class="text-xs text-masanielli-gold mt-1 font-medium italic">{{ cat.subtitle }}</p>
+                  <h2 class="text-2xl md:text-3xl font-serif font-black uppercase text-gray-900 tracking-wider">{{ catName(cat) }}</h2>
+                  <p v-if="cat.subtitle" class="text-xs text-red-500 mt-1 font-medium italic">{{ cat.subtitle }}</p>
                 </div>
               </div>
             </div>
@@ -215,30 +256,53 @@
               <div 
                 v-for="item in cat.items" 
                 :key="item.name"
-                class="bg-zinc-900/60 p-6 rounded-2xl border border-zinc-800/60 hover:border-masanielli-gold/40 transition-all duration-300 flex flex-col justify-between group"
+                class="bg-gray-50 p-6 rounded-3xl border-2 border-gray-100 hover:border-red-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-lg font-serif font-bold text-white group-hover:text-masanielli-gold transition-colors">
+                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-red-600 transition-colors">
                       {{ item.name }}
                     </h3>
-                    <span class="text-base font-mono font-bold text-masanielli-gold ml-4 whitespace-nowrap bg-masanielli-gold/10 px-3 py-1 rounded-xl border border-masanielli-gold/30">
+                    <span class="text-base font-mono font-bold text-red-600 ml-4 whitespace-nowrap bg-red-50 px-3 py-1 rounded-xl border-2 border-red-100">
                       {{ item.price }}
                     </span>
                   </div>
-                  <p v-if="item.description" class="text-xs md:text-sm text-gray-300 leading-relaxed mb-4 font-light">
+                  <p v-if="item.description" class="text-xs md:text-sm text-gray-500 leading-relaxed mb-4 font-light">
                     {{ item.description }}
                   </p>
                 </div>
 
-                <div v-if="item.tags && item.tags.length > 0" class="flex flex-wrap gap-1.5 mt-2">
+                <!-- Interactive Provenance Badges with Flyout Tooltips -->
+                <div v-if="item.badges && item.badges.length > 0" class="flex flex-wrap gap-1.5 my-3">
+                  <ProvenanceBadge
+                    v-for="badgeKey in item.badges"
+                    :key="badgeKey"
+                    :badge-key="badgeKey"
+                  />
+                </div>
+                <div v-else-if="item.tags && item.tags.length > 0" class="flex flex-wrap gap-1.5 my-3">
                   <span 
                     v-for="tag in item.tags" 
                     :key="tag"
-                    class="px-2.5 py-0.5 bg-zinc-950 text-masanielli-gold/90 text-[10px] font-mono font-semibold rounded-md uppercase tracking-wider border border-masanielli-gold/20"
+                    class="px-2.5 py-0.5 bg-white text-red-600 text-[10px] font-mono font-semibold rounded-md uppercase tracking-wider border border-red-200"
                   >
                     {{ tag }}
                   </span>
+                </div>
+
+                <!-- Item Quick Action Conversion Button -->
+                <div class="mt-4 pt-3.5 border-t-2 border-gray-100 flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-gray-400">
+                    {{ cat.id === 'pizza' ? '48h testo · peč 450°C' : cat.id === 'panuozzo' ? '160g svež kruh' : 'Kader bistro' }}
+                  </span>
+                  <button
+                    type="button"
+                    @click="openTakeawayWithItem(item)"
+                    class="px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border-2 border-red-200 hover:border-red-600 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center space-x-1.5 shadow-sm min-h-[36px]"
+                  >
+                    <span>+</span>
+                    <span>Naroči za s seboj</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -247,72 +311,72 @@
       </div>
 
       <!-- ===== 4-COLUMN ESSENTIAL INFO BLOCK (Dove, Come, Orari, Reviews) ===== -->
-      <section class="mt-20 bg-zinc-950 border border-zinc-800 rounded-3xl p-8 md:p-12 shadow-2xl">
+      <section class="mt-20 bg-white border-2 border-gray-100 rounded-3xl p-8 md:p-12 shadow-md">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center md:text-left">
           
           <!-- Dove / Kje -->
           <div class="flex flex-col items-center md:items-start">
-            <div class="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 text-masanielli-gold flex items-center justify-center mb-4 text-xl">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-100 text-red-600 flex items-center justify-center mb-4 text-xl">
               📍
             </div>
-            <h4 class="font-serif font-bold text-white text-lg uppercase mb-2">Dove / Lokacija</h4>
-            <p class="text-xs text-gray-400 leading-relaxed">
+            <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">Dove / Lokacija</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">
               Grad Kodeljevo<br />
-              <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="text-masanielli-gold hover:underline font-medium">Ulica Carla Benza 20</a><br />
+              <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="text-red-600 hover:underline font-medium">Ulica Carla Benza 20</a><br />
               1000 Ljubljana, Slovenija
             </p>
           </div>
 
           <!-- Come / Kontakt -->
           <div class="flex flex-col items-center md:items-start">
-            <div class="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 text-masanielli-gold flex items-center justify-center mb-4 text-xl">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-100 text-red-600 flex items-center justify-center mb-4 text-xl">
               📞
             </div>
-            <h4 class="font-serif font-bold text-white text-lg uppercase mb-2">Naročila & Mizah</h4>
-            <p class="text-xs text-gray-400 leading-relaxed mb-2">
-              <strong class="text-gray-200">Hrana za s seboj:</strong><br />
-              <a href="tel:+38683836740" class="text-masanielli-gold hover:underline font-mono text-sm">+386 83 836 740</a>
+            <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">Naročila & Mizah</h4>
+            <p class="text-xs text-gray-500 leading-relaxed mb-2">
+              <strong class="text-gray-700">Hrana za s seboj:</strong><br />
+              <a href="tel:+38683836740" class="text-red-600 hover:underline font-mono text-sm">+386 83 836 740</a>
             </p>
-            <p class="text-xs text-gray-400 leading-relaxed">
-              <strong class="text-gray-200">Rezervacije miz:</strong><br />
-              <a href="tel:+38640175628" class="text-masanielli-gold hover:underline font-mono text-sm">+386 40 175 628</a>
+            <p class="text-xs text-gray-500 leading-relaxed">
+              <strong class="text-gray-700">Rezervacije miz:</strong><br />
+              <a href="tel:+38640175628" class="text-red-600 hover:underline font-mono text-sm">+386 40 175 628</a>
             </p>
           </div>
 
           <!-- Orari / Delovni Čas -->
           <div class="flex flex-col items-center md:items-start">
-            <div class="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 text-masanielli-gold flex items-center justify-center mb-4 text-xl">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-100 text-red-600 flex items-center justify-center mb-4 text-xl">
               ⏰
             </div>
-            <h4 class="font-serif font-bold text-white text-lg uppercase mb-2">Orari / Delovni Čas</h4>
-            <div class="text-xs text-gray-400 space-y-1">
-              <p><strong class="text-gray-200">Pon – Sre:</strong> 09:00 – 22:00</p>
-              <p><strong class="text-gray-200">Četrtek:</strong> 09:00 – 01:00</p>
-              <p><strong class="text-gray-200">Petek (Klub):</strong> 09:00 – 05:00</p>
-              <p><strong class="text-gray-200">Sobota:</strong> 09:00 – 01:00</p>
-              <p><strong class="text-gray-200">Nedelja:</strong> 09:00 – 20:00</p>
-              <p class="text-[11px] text-masanielli-gold italic mt-2">* Kuhinja: 12:00 – 22:00</p>
+            <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">Orari / Delovni Čas</h4>
+            <div class="text-xs text-gray-500 space-y-1">
+              <p><strong class="text-gray-700">Pon – Sre:</strong> 09:00 – 22:00</p>
+              <p><strong class="text-gray-700">Četrtek:</strong> 09:00 – 01:00</p>
+              <p><strong class="text-gray-700">Petek (Klub):</strong> 09:00 – 05:00</p>
+              <p><strong class="text-gray-700">Sobota:</strong> 09:00 – 01:00</p>
+              <p><strong class="text-gray-700">Nedelja:</strong> 09:00 – 20:00</p>
+              <p class="text-[11px] text-red-500 italic mt-2">* Kuhinja: 12:00 – 22:00</p>
             </div>
           </div>
 
           <!-- Certificazioni / Rating -->
           <div class="flex flex-col items-center md:items-start">
-            <div class="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 text-yellow-400 flex items-center justify-center mb-4 text-xl">
+            <div class="w-12 h-12 rounded-2xl bg-yellow-50 border-2 border-yellow-100 text-yellow-500 flex items-center justify-center mb-4 text-xl">
               ⭐
             </div>
-            <h4 class="font-serif font-bold text-white text-lg uppercase mb-2">Priznanja & Mnenja</h4>
-            <div class="flex items-center space-x-1 text-yellow-400 mb-2">
-              <span class="text-2xl font-black text-white mr-1 font-mono">4.8</span>
+            <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">Priznanja & Mnenja</h4>
+            <div class="flex items-center space-x-1 text-yellow-500 mb-2">
+              <span class="text-2xl font-black text-gray-900 mr-1 font-mono">4.8</span>
               <span>★★★★★</span>
             </div>
-            <p class="text-xs text-gray-400 leading-relaxed mb-3">
+            <p class="text-xs text-gray-500 leading-relaxed mb-3">
               Več kot 120+ preverjenih ocen gostov na Google Maps.
             </p>
             <a 
               href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" 
               target="_blank" 
               rel="noopener"
-              class="px-4 py-2 bg-masanielli-gold text-black rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-masanielli-goldLight transition-colors"
+              class="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-red-700 transition-colors"
             >
               Napišite mnenje ↗
             </a>
@@ -322,65 +386,78 @@
       </section>
 
       <!-- ===== GOOGLE VERIFIED REVIEWS SECTION ===== -->
-      <section class="mt-16 bg-zinc-950/80 rounded-3xl p-8 md:p-10 border border-zinc-800/80 shadow-2xl">
+      <section class="mt-16 bg-white rounded-3xl p-8 md:p-10 border-2 border-gray-100 shadow-md">
         <div class="text-center mb-10">
-          <span class="text-xs uppercase tracking-[0.3em] text-masanielli-gold font-semibold block mb-2">Mnenja Obiskovalcev</span>
-          <h2 class="text-3xl font-serif font-bold text-white uppercase">{{ t('pizzeria.reviewsTitle') }}</h2>
+          <span class="text-xs uppercase tracking-[0.3em] text-red-600 font-semibold block mb-2">Mnenja Obiskovalcev</span>
+          <h2 class="text-3xl font-serif font-bold text-gray-900 uppercase">{{ t('pizzeria.reviewsTitle') }}</h2>
+          <div class="w-16 h-1 bg-red-600 mx-auto mt-4"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div 
             v-for="rev in googleReviews" 
             :key="rev.author" 
-            class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800/80 hover:border-masanielli-gold/30 transition-all duration-300 flex flex-col justify-between"
+            class="bg-gray-50 p-6 rounded-2xl border-2 border-gray-100 hover:border-red-200 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-full bg-zinc-800 border border-masanielli-gold/40 text-masanielli-gold font-bold flex items-center justify-center text-sm shadow-md font-serif">
+                  <div class="w-10 h-10 rounded-full bg-red-50 border-2 border-red-100 text-red-600 font-bold flex items-center justify-center text-sm shadow-md font-serif">
                     {{ rev.author.charAt(0) }}
                   </div>
                   <div>
-                    <h3 class="font-bold text-white text-sm flex items-center">
+                    <h3 class="font-bold text-gray-900 text-sm flex items-center">
                       {{ rev.author }}
-                      <span class="ml-1 text-xs text-blue-400" title="Google Verified Review">✓</span>
+                      <span class="ml-1 text-xs text-blue-500" title="Google Verified Review">✓</span>
                     </h3>
-                    <span class="text-xs text-gray-500 font-mono">{{ rev.date }}</span>
+                    <span class="text-xs text-gray-400 font-mono">{{ rev.date }}</span>
                   </div>
                 </div>
-                <div class="flex text-yellow-400 text-sm">
+                <div class="flex text-yellow-500 text-sm">
                   ★★★★★
                 </div>
               </div>
-              <p class="text-xs text-gray-300 leading-relaxed italic mb-4 font-light">
-                “{{ rev.text }}”
+              <p class="text-xs text-gray-500 leading-relaxed italic mb-4 font-light">
+                "{{ rev.text }}"
               </p>
             </div>
             
-            <div class="pt-3 border-t border-zinc-800/50 flex justify-between items-center text-[11px] text-gray-500 font-mono">
+            <div class="pt-3 border-t-2 border-gray-100 flex justify-between items-center text-[11px] text-gray-400 font-mono">
               <span>Google Verified</span>
-              <span class="text-masanielli-gold font-medium">👍 {{ rev.likes }} priporočil</span>
+              <span class="text-red-500 font-medium">👍 {{ rev.likes }} priporočil</span>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Allergen Footnote -->
-      <div class="mt-12 text-center text-xs text-gray-500 space-y-2">
-        <p class="font-medium text-gray-400">{{ t('pizzeria.allergenNote') }}</p>
+      <div class="mt-12 text-center text-xs text-gray-400 space-y-2">
+        <p class="font-medium text-gray-500">{{ t('pizzeria.allergenNote') }}</p>
         <p>{{ t('pizzeria.companyLine') }}</p>
       </div>
 
     </div>
 
+      <!-- Bottom red stripe border (matching print menu) -->
+      <div class="menu-stripe-border" aria-hidden="true"></div>
+    </div><!-- end pizzeria white section -->
+
     <!-- ===== STICKY MOBILE ACTION BAR ===== -->
     <div class="fixed bottom-safe left-4 right-4 z-40 md:hidden bg-zinc-950/95 border border-masanielli-gold/40 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
-      <a href="tel:+38683836740" class="flex-1 mr-2 py-3 bg-masanielli-gold text-black rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min">
+      <button 
+        type="button"
+        @click="openModal('takeaway')" 
+        class="flex-1 mr-2 py-3 bg-masanielli-gold text-black rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
+      >
         <PhoneIcon class="w-4 h-4 mr-1.5" /> Naročim Za S Seboj
-      </a>
-      <a href="tel:+38640175628" class="flex-1 ml-2 py-3 bg-zinc-900 text-masanielli-gold border border-masanielli-gold/40 rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min">
+      </button>
+      <button 
+        type="button"
+        @click="openModal('table')" 
+        class="flex-1 ml-2 py-3 bg-zinc-900 text-masanielli-gold border border-masanielli-gold/40 rounded-xl text-xs font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
+      >
         <CalendarDaysIcon class="w-4 h-4 mr-1.5" /> Rezervacija
-      </a>
+      </button>
     </div>
 
     <!-- Lightbox Modal for Menu Image -->
@@ -393,6 +470,14 @@
         <img :src="menuImageUrl" :alt="t('pizzeria.zoomedAlt')" class="max-w-full max-h-full object-contain rounded-2xl border border-zinc-800">
       </div>
     </Teleport>
+
+    <!-- Table Reservation & Takeaway Modal Instance -->
+    <ReservationModal
+      :is-open="isModalOpen"
+      :initial-tab="modalTab"
+      :preselected-item="selectedItem"
+      @close="closeReservation"
+    />
   </div>
 </template>
 
@@ -407,6 +492,16 @@ const activeView = ref<'digital' | 'printed'>('digital')
 const activeCategory = ref('all')
 const menuImageUrl = ref('/menu-a3.jpg')
 const zoomOpen = ref(false)
+
+const { isModalOpen, modalTab, selectedItem, openReservation, closeReservation } = useReservationModal()
+
+const openModal = (tab: 'table' | 'takeaway') => {
+  openReservation(tab)
+}
+
+const openTakeawayWithItem = (item: { name: string; price: string }) => {
+  openReservation('takeaway', item)
+}
 
 const googleReviews = [
   {
@@ -463,6 +558,7 @@ interface MenuItem {
   description?: string
   price: string
   tags?: string[]
+  badges?: string[]
 }
 
 interface Category {
@@ -484,48 +580,56 @@ const categories: Category[] = [
         name: 'Marg',
         description: 'San Marzano pelati, mocarela, origano.',
         price: '9 €',
-        tags: ['Vegetarijansko', '48h Ferment']
+        tags: ['Vegetarijansko', '48h Ferment'],
+        badges: ['san-marzano', 'ferment-48h', 'vegetarijansko']
       },
       {
         name: 'Bufalina',
         description: 'San Marzano pelati, mocarela bufala D.O.P, sušeni paradižniki, sveža bazilika, grana padano, oljčno olje.',
         price: '12 €',
-        tags: ['Bufala DOP', 'Vegetarijansko', 'Priljubljeno']
+        tags: ['Bufala DOP', 'Vegetarijansko', 'Priljubljeno'],
+        badges: ['san-marzano', 'bufala', 'ferment-48h', 'olio-bio']
       },
       {
         name: 'Melancan',
         description: 'San Marzano pelati, mocarela fior di latte, sušeni paradižniki, pečeni jajčevci, bučke, Taggiasca olive, rikota.',
         price: '12 €',
-        tags: ['Vegetarijansko']
+        tags: ['Vegetarijansko'],
+        badges: ['san-marzano', 'fior-di-latte', 'vegetarijansko']
       },
       {
         name: 'Klasična',
         description: 'San Marzano pelati, mocarela fior di latte, sveži šampinjoni, dimljen kuhan pršut Praga.',
         price: '11 €',
-        tags: ['Pršut Praga']
+        tags: ['Pršut Praga'],
+        badges: ['san-marzano', 'fior-di-latte', 'ferment-48h']
       },
       {
         name: 'Peperoni',
         description: 'San Marzano pelati, mocarela fior di latte, sveži šampinjoni, pikantna salama, pekoč preliv.',
         price: '11 €',
-        tags: ['Pikantno']
+        tags: ['Pikantno'],
+        badges: ['san-marzano', 'fior-di-latte', 'pikantno']
       },
       {
         name: 'Parma',
         description: 'San Marzano pelati, mocarela bufala, rukola, parmski pršut.',
         price: '13 €',
-        tags: ['Pršut Parma', 'Bufala DOP']
+        tags: ['Pršut Parma', 'Bufala DOP'],
+        badges: ['parma', 'bufala', 'san-marzano']
       },
       {
         name: 'Bresaola Tartufo',
         description: 'Tartufina krema, mocarela fior di latte, sveži šampinjoni, sušeni paradižniki, bresaola, mlada špinača, grana padano, rikota, oljčno olje.',
         price: '14 €',
-        tags: ['Tartufi', 'Specialiteta']
+        tags: ['Tartufi', 'Specialiteta'],
+        badges: ['specialiteta', 'fior-di-latte', 'olio-bio']
       },
       {
         name: 'Tuna',
         description: 'San Marzano pelati, mocarela fior di latte, tunina, koruza, Taggiasca olive, rdeča čebula.',
-        price: '11 €'
+        price: '11 €',
+        badges: ['san-marzano', 'fior-di-latte']
       }
     ]
   },
@@ -539,25 +643,29 @@ const categories: Category[] = [
         name: 'Praga',
         description: 'Tanke rezine dimljenega kuhanega pršuta, stracciatella, pesto rosso, rukola, Grana Padano.',
         price: '9 €',
-        tags: ['Stracciatella']
+        tags: ['Stracciatella'],
+        badges: ['stracciatella', 'specialiteta']
       },
       {
         name: 'Mortadela',
         description: 'Tanke rezine Mortadele D.O.P, stracciatella, pistacijina krema in mleti pistaciji.',
         price: '9 €',
-        tags: ['Mortadela DOP', 'Pistacija', 'Priljubljeno']
+        tags: ['Mortadela DOP', 'Pistacija', 'Priljubljeno'],
+        badges: ['mortadella', 'stracciatella', 'pistacchio']
       },
       {
         name: 'Roastbeef',
         description: 'Tanke rezine ohlajenega rostbifa, stracciatella, mlada špinača, honey mustard preliv.',
         price: '11 €',
-        tags: ['Rostbif']
+        tags: ['Rostbif'],
+        badges: ['stracciatella', 'specialiteta']
       },
       {
         name: 'Meatball',
         description: 'Domače mesne kroglice, pelati, mocarela, sveža bazilika, parmezan.',
         price: '10 €',
-        tags: ['Hišna Specialiteta']
+        tags: ['Hišna Specialiteta'],
+        badges: ['specialiteta', 'san-marzano']
       }
     ]
   },

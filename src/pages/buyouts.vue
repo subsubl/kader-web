@@ -82,7 +82,7 @@
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.standardSound') }}</li>
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.basicDecor') }}</li>
             </ul>
-            <button @click="scrollToForm" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
+            <button @click="selectPlan('Basic Paket', 100)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
@@ -99,7 +99,7 @@
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.elegantDecor') }}</li>
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.specialistLighting') }}</li>
             </ul>
-            <button @click="scrollToForm" class="w-full py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
+            <button @click="selectPlan('Premium Paket', 200)" class="w-full py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
@@ -116,9 +116,51 @@
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.personalizedService') }}</li>
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.exclusiveAccess') }}</li>
             </ul>
-            <button @click="scrollToForm" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
+            <button @click="selectPlan('Luxury Paket', 300)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Club & Sound System Takeover Banner ===== -->
+      <section class="pb-20 md:pb-24">
+        <div class="relative overflow-hidden rounded-3xl border border-kader-red/40 bg-gradient-to-br from-[#1a0507] via-kader-black to-[#120405] p-8 md:p-12 shadow-2xl">
+          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-kader-red/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-8">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-kader-red/20 border border-kader-red/40 text-kader-red text-xs font-mono font-bold uppercase tracking-wider mb-4">
+                <span class="w-2 h-2 rounded-full bg-kader-red animate-ping"></span>
+                Ekskluzivni Klubski Takeover · Klipsch Sound System
+              </div>
+              <h3 class="text-2xl md:text-4xl font-black uppercase text-white tracking-tight mb-4">
+                Zasebna Klubska Noč: Grad Kodeljevo Vault
+              </h3>
+              <p class="text-kader-cream/80 text-sm md:text-base leading-relaxed mb-6 max-w-2xl">
+                Iščete prostor za nepozaben zasebni elektronski dogodek, rojstnodnevni rave ali ekskluzivni afterparty? 
+                Zagotovite si celoten klubski obok s surovim opečnatim ambientom, profesionalnim ozvočenjem <strong>Klipsch La Scala</strong>, klubsko osvetlitvijo, DJ kabino in izkušenim tonskim mojstrom.
+              </p>
+              <div class="flex flex-wrap gap-4 text-xs font-mono text-kader-cream/60">
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> Klipsch La Scala Sound</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> DJ Oprema (CDJ-3000 / DJM-A9)</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> Zasebni Bar & Varnostna Služba</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> Akustična Zaščita & Do 300 Oseb</span>
+              </div>
+            </div>
+            <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+              <button
+                @click="selectPlan('Klubski Takeover (Klipsch Sound System)', 300)"
+                class="w-full py-4 px-6 bg-kader-red hover:bg-kader-cream hover:text-kader-black text-kader-cream rounded-xl font-black text-xs uppercase tracking-widest text-center transition-all duration-300 shadow-lg shadow-kader-red/20"
+              >
+                Izberi Klubski Takeover →
+              </button>
+              <NuxtLink
+                to="/club"
+                class="w-full py-3.5 px-6 border border-kader-red/40 hover:border-kader-red hover:bg-kader-red/10 text-kader-cream/80 hover:text-white rounded-xl font-bold text-xs uppercase tracking-wider text-center transition-all duration-300"
+              >
+                Razišči Klub & Akustiko ↗
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </section>
@@ -130,7 +172,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img src="/images/instagram/ig_img_5.jpg" alt="Zasebna zabava na poletni terasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_5.jpg', 600, 80)" alt="Zasebna zabava na poletni terasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Terasa & Poletni Vrt</span>
@@ -140,7 +182,7 @@
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img src="/images/instagram/ig_img_7.jpg" alt="Neapeljske pice na zasebnem dogodku" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_7.jpg', 600, 80)" alt="Neapeljske pice na zasebnem dogodku" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Topli Katering</span>
@@ -150,7 +192,7 @@
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img src="/images/instagram/ig_img_13.jpg" alt="Panuozzo sendviči za katering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_13.jpg', 600, 80)" alt="Panuozzo sendviči za katering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Finger Food</span>
@@ -160,7 +202,7 @@
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img src="/images/instagram/ig_img_3.jpg" alt="Živa glasba in nastopi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_3.jpg', 600, 80)" alt="Živa glasba in nastopi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Oder & Glasba</span>
@@ -188,32 +230,65 @@
 
           <!-- Form -->
           <form v-else @submit.prevent="submitInquiry" novalidate class="space-y-6 bg-[#0e0404] border border-kader-red/20 rounded-3xl p-8 md:p-10">
-            <div v-if="submitState === 'error'" class="bg-kader-red/10 border border-kader-red/40 text-kader-cream/80 px-4 py-3 rounded-xl text-sm">
+            <div v-if="submitState === 'error'" role="alert" class="bg-kader-red/10 border border-kader-red/40 text-kader-cream/80 px-4 py-3 rounded-xl text-sm">
               {{ submitError }}
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="name" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.fullName') }} <span class="text-kader-red">*</span></label>
-                <input type="text" id="name" v-model="inquiryForm.name" :class="inputClass('name')" placeholder="Janez Novak">
-                <p v-if="fieldErrors.name" class="mt-1 text-xs text-kader-red">{{ fieldErrors.name }}</p>
+                <input
+                  type="text"
+                  id="name"
+                  v-model="inquiryForm.name"
+                  autocomplete="name"
+                  :aria-invalid="!!fieldErrors.name"
+                  aria-describedby="name-error"
+                  :class="inputClass('name')"
+                  placeholder="Janez Novak"
+                >
+                <p v-if="fieldErrors.name" id="name-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.name }}</p>
               </div>
               <div>
                 <label for="email" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.email') }} <span class="text-kader-red">*</span></label>
-                <input type="email" id="email" v-model="inquiryForm.email" :class="inputClass('email')" placeholder="janez@example.com">
-                <p v-if="fieldErrors.email" class="mt-1 text-xs text-kader-red">{{ fieldErrors.email }}</p>
+                <input
+                  type="email"
+                  id="email"
+                  v-model="inquiryForm.email"
+                  autocomplete="email"
+                  :aria-invalid="!!fieldErrors.email"
+                  aria-describedby="email-error"
+                  :class="inputClass('email')"
+                  placeholder="janez@example.com"
+                >
+                <p v-if="fieldErrors.email" id="email-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.email }}</p>
               </div>
             </div>
 
             <div>
               <label for="phone" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.phone') }} <span class="text-kader-red">*</span></label>
-              <input type="tel" id="phone" v-model="inquiryForm.phone" :class="inputClass('phone')" placeholder="+386 40 123 456">
-              <p v-if="fieldErrors.phone" class="mt-1 text-xs text-kader-red">{{ fieldErrors.phone }}</p>
+              <input
+                type="tel"
+                id="phone"
+                v-model="inquiryForm.phone"
+                autocomplete="tel"
+                :aria-invalid="!!fieldErrors.phone"
+                aria-describedby="phone-error"
+                :class="inputClass('phone')"
+                placeholder="+386 40 123 456"
+              >
+              <p v-if="fieldErrors.phone" id="phone-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.phone }}</p>
             </div>
 
             <div>
               <label for="event-type" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.eventType') }} <span class="text-kader-red">*</span></label>
-              <select id="event-type" v-model="inquiryForm.eventType" :class="inputClass('eventType')">
+              <select
+                id="event-type"
+                v-model="inquiryForm.eventType"
+                :aria-invalid="!!fieldErrors.eventType"
+                aria-describedby="event-type-error"
+                :class="inputClass('eventType')"
+              >
                 <option value="">{{ t('buyouts.selectEventType') }}</option>
                 <option value="wedding">{{ t('buyouts.optWedding') }}</option>
                 <option value="corporate">{{ t('buyouts.optCorporate') }}</option>
@@ -221,25 +296,47 @@
                 <option value="cultural">{{ t('buyouts.optCultural') }}</option>
                 <option value="other">{{ t('buyouts.optOther') }}</option>
               </select>
-              <p v-if="fieldErrors.eventType" class="mt-1 text-xs text-kader-red">{{ fieldErrors.eventType }}</p>
+              <p v-if="fieldErrors.eventType" id="event-type-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.eventType }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="guests" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.guests') }} <span class="text-kader-red">*</span></label>
-                <input type="number" id="guests" v-model.number="inquiryForm.guests" min="1" max="500" :class="inputClass('guests')">
-                <p v-if="fieldErrors.guests" class="mt-1 text-xs text-kader-red">{{ fieldErrors.guests }}</p>
+                <input
+                  type="number"
+                  id="guests"
+                  v-model.number="inquiryForm.guests"
+                  min="1"
+                  max="500"
+                  :aria-invalid="!!fieldErrors.guests"
+                  aria-describedby="guests-error"
+                  :class="inputClass('guests')"
+                >
+                <p v-if="fieldErrors.guests" id="guests-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.guests }}</p>
               </div>
               <div>
                 <label for="date" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.preferredDate') }} <span class="text-kader-red">*</span></label>
-                <input type="date" id="date" v-model="inquiryForm.date" :min="todayString" :class="inputClass('date')">
-                <p v-if="fieldErrors.date" class="mt-1 text-xs text-kader-red">{{ fieldErrors.date }}</p>
+                <input
+                  type="date"
+                  id="date"
+                  v-model="inquiryForm.date"
+                  :min="todayString"
+                  :aria-invalid="!!fieldErrors.date"
+                  aria-describedby="date-error"
+                  :class="inputClass('date')"
+                >
+                <p v-if="fieldErrors.date" id="date-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.date }}</p>
               </div>
             </div>
 
             <div>
               <label for="message" class="block mb-2 text-sm font-bold uppercase tracking-wider text-kader-cream/70">{{ t('buyouts.additionalInfo') }}</label>
-              <textarea id="message" v-model="inquiryForm.message" rows="4" class="w-full px-4 py-3 bg-kader-black/60 border border-kader-cream/20 rounded-xl text-kader-cream focus:ring-2 focus:ring-kader-red focus:border-transparent outline-none transition-all text-sm leading-relaxed resize-none"></textarea>
+              <textarea
+                id="message"
+                v-model="inquiryForm.message"
+                rows="4"
+                class="w-full px-4 py-3 bg-kader-black/60 border border-kader-cream/20 rounded-xl text-kader-cream focus:ring-2 focus:ring-kader-red focus:border-transparent outline-none transition-all text-sm leading-relaxed resize-none"
+              ></textarea>
             </div>
 
             <button type="submit" :disabled="submitting" class="w-full py-4 bg-kader-red hover:bg-kader-cream hover:text-kader-black disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black text-sm uppercase tracking-widest transition-all duration-300">
@@ -279,6 +376,15 @@ const inquiryForm = reactive({
   date: '',
   message: ''
 })
+
+const selectPlan = (tierName: string, guestCount: number) => {
+  inquiryForm.guests = guestCount
+  inquiryForm.message = `Zanimam se za paket ${tierName} (do ${guestCount} oseb). Prosimo za ponudbo in razpoložljivost.`
+  if (tierName.includes('Klubski Takeover')) {
+    inquiryForm.eventType = 'private-party'
+  }
+  scrollToForm()
+}
 
 const fieldErrors = reactive<Record<string, string>>({})
 const submitState = ref<'idle' | 'success' | 'error'>('idle')

@@ -49,3 +49,33 @@ body {
   contain-intrinsic-size: 1px 500px;
 }
 
+/* Pizzeria section: print-menu red stripe border (matching A3 menu aesthetic) */
+.menu-stripe-border {
+  width: 100%;
+  height: 40px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #cc1a1a 0px,
+    #cc1a1a 14px,
+    #ffffff 14px,
+    #ffffff 17px,
+    #cc1a1a 17px,
+    #cc1a1a 26px,
+    #ffffff 26px,
+    #ffffff 28px,
+    #cc1a1a 28px,
+    #cc1a1a 34px,
+    #ffffff 34px,
+    #ffffff 36px,
+    #cc1a1a 36px,
+    #cc1a1a 44px,
+    #ffffff 44px,
+    #ffffff 46px,
+    #cc1a1a 46px,
+    #cc1a1a 54px,
+    #ffffff 54px,
+    #ffffff 57px
+  );
+  background-size: 57px 100%;
+}
+

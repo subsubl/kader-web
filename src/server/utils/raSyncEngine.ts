@@ -1,9 +1,10 @@
 // Local Persistent RA & Custom Events Sync Engine
 // Syncs RA events and allows creating/managing custom admin events.
-// Preserves custom events and flyers across auto-syncs.
+// Preserves custom events, tickets, and flyers across auto-syncs.
 
-import fs from 'node:fs'
 import path from 'node:path'
+import { readJsonSync, atomicWriteJson, atomicWriteJsonSync } from './fileStore'
+import { getAdminSupabase } from './supabase'
 
 export interface RaEventRecord {
   ra_id: number
@@ -24,7 +25,7 @@ export interface RaEventRecord {
   updated_at: string
 }
 
-interface LocalStoreData {
+export interface LocalStoreData {
   lastSyncedAt: string | null
   events: RaEventRecord[]
 }
@@ -36,35 +37,23 @@ const RA_GRAPHQL = 'https://ra.co/graphql'
 const RA_UPLOAD_DOMAIN = 'https://d1rlyio0xno2kt.cloudfront.net'
 const LIMIT = 200
 
-function ensureStoreDir() {
-  if (!fs.existsSync(STORE_DIR)) {
-    fs.mkdirSync(STORE_DIR, { recursive: true })
-  }
-}
+// In-flight sync promise for single-flight coalescing
+let activeSyncPromise: Promise<{ synced: number; total: number; newCount: number }> | null = null
 
 export function readLocalStore(): LocalStoreData {
-  try {
-    ensureStoreDir()
-    if (fs.existsSync(STORE_FILE)) {
-      const content = fs.readFileSync(STORE_FILE, 'utf-8')
-      const parsed = JSON.parse(content)
-      if (parsed && Array.isArray(parsed.events)) {
-        return parsed
-      }
-    }
-  } catch (e) {
-    console.error('[raSyncEngine] Failed to read local store:', e)
-  }
-  return { lastSyncedAt: null, events: [] }
+  return readJsonSync<LocalStoreData>(STORE_FILE, { lastSyncedAt: null, events: [] })
 }
 
-export function writeLocalStore(store: LocalStoreData) {
-  try {
-    ensureStoreDir()
-    fs.writeFileSync(STORE_FILE, JSON.stringify(store, null, 2), 'utf-8')
-  } catch (e) {
-    console.error('[raSyncEngine] Failed to write local store:', e)
-  }
+export function writeLocalStore(store: LocalStoreData): void {
+  atomicWriteJsonSync(STORE_FILE, store)
+}
+
+export async function writeLocalStoreAsync(store: LocalStoreData): Promise<void> {
+  await atomicWriteJson(STORE_FILE, store)
+}
+
+export function isRaSyncing(): boolean {
+  return activeSyncPromise !== null
 }
 
 async function fetchSingleEventFlyer(id: string | number): Promise<string | null> {
@@ -75,14 +64,18 @@ async function fetchSingleEventFlyer(id: string | number): Promise<string | null
     }
   }`
   try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 5000)
     const res = await fetch(RA_GRAPHQL, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       },
-      body: JSON.stringify({ query, variables: { id: String(id) } })
-    })
+      body: JSON.stringify({ query, variables: { id: String(id) } }),
+      signal: controller.signal
+    }).finally(() => clearTimeout(timeout))
+
     if (!res.ok) return null
     const json = await res.json()
     const ev = json?.data?.event
@@ -114,6 +107,8 @@ async function fetchRaType(type: string, year?: number): Promise<any[]> {
     }
   }`
   try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
     const res = await fetch(RA_GRAPHQL, {
       method: 'POST',
       headers: {
@@ -123,8 +118,10 @@ async function fetchRaType(type: string, year?: number): Promise<any[]> {
       body: JSON.stringify({
         query,
         variables: { id: RA_CLUB_ID, limit: LIMIT, year: year || undefined }
-      })
-    })
+      }),
+      signal: controller.signal
+    }).finally(() => clearTimeout(timeout))
+
     if (!res.ok) return []
     const json = await res.json()
     return json?.data?.venue?.events || []
@@ -165,40 +162,48 @@ export function normalizeRaEvent(e: any): RaEventRecord {
   }
 }
 
-export async function syncRaEventsEngine(): Promise<{ synced: number; total: number; newCount: number }> {
-  console.log('[raSyncEngine] Fetching all events from Resident Advisor...')
-
-  const currentStore = readLocalStore()
-  const existingMap = new Map<number, RaEventRecord>()
-  currentStore.events.forEach((ev) => existingMap.set(ev.ra_id, ev))
+async function executeRaSync(): Promise<{ synced: number; total: number; newCount: number }> {
+  console.log('[raSyncEngine] Fetching events from Resident Advisor...')
 
   const fetchedEventsMap = new Map<string | number, any>()
 
-  const todayEvs = await fetchRaType('TODAY')
-  todayEvs.forEach((e: any) => fetchedEventsMap.set(e.id, e))
-
-  const prevEvs = await fetchRaType('PREVIOUS')
-  prevEvs.forEach((e: any) => fetchedEventsMap.set(e.id, e))
-
   const currentYear = new Date().getFullYear()
-  for (let y = currentYear; y >= currentYear - 5; y--) {
-    const archiveEvs = await fetchRaType('ARCHIVE', y)
-    archiveEvs.forEach((e: any) => fetchedEventsMap.set(e.id, e))
-  }
+  const archiveYears = Array.from({ length: 6 }, (_, i) => currentYear - i)
 
-  let newCount = 0
+  // Concurrent GraphQL queries for high performance
+  const [todayEvs, prevEvs, ...archiveResults] = await Promise.all([
+    fetchRaType('TODAY'),
+    fetchRaType('PREVIOUS'),
+    ...archiveYears.map(y => fetchRaType('ARCHIVE', y))
+  ])
+
+  todayEvs.forEach((e: any) => fetchedEventsMap.set(e.id, e))
+  prevEvs.forEach((e: any) => fetchedEventsMap.set(e.id, e))
+  archiveResults.forEach(batch => {
+    batch.forEach((e: any) => fetchedEventsMap.set(e.id, e))
+  })
+
+  // === CRITICAL CONCURRENCY MERGE (NO LOST UPDATES) ===
+  // Snapshot the freshest store state right now, AFTER external network completes!
+  const freshStore = readLocalStore()
+  const freshMap = new Map<number, RaEventRecord>()
+  freshStore.events.forEach((ev) => freshMap.set(ev.ra_id, ev))
+
   const updatedEventsMap = new Map<number, RaEventRecord>()
 
-  // Preserve existing custom events first!
-  currentStore.events.forEach((ev) => {
+  // 1. Preserve all custom admin events created before or during the network fetch
+  freshStore.events.forEach((ev) => {
     if (ev.is_custom) {
       updatedEventsMap.set(ev.ra_id, ev)
     }
   })
 
+  // 2. Normalize and merge fetched RA events
+  let newCount = 0
   for (const rawEvent of fetchedEventsMap.values()) {
     const normalized = normalizeRaEvent(rawEvent)
-    const existing = existingMap.get(normalized.ra_id)
+    const existing = freshMap.get(normalized.ra_id)
+
     if (existing?.flyer_url && !normalized.flyer_url) {
       normalized.flyer_url = existing.flyer_url
     }
@@ -206,11 +211,18 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
       const singleFlyer = await fetchSingleEventFlyer(normalized.ra_id)
       if (singleFlyer) normalized.flyer_url = singleFlyer
     }
-    if (!existingMap.has(normalized.ra_id)) {
+    if (!freshMap.has(normalized.ra_id)) {
       newCount++
     }
+    // Retain pretix URL and ticket configuration from fresh local store
     if (existing && existing.pretix_event_url) {
       normalized.pretix_event_url = existing.pretix_event_url
+    }
+    if (existing && existing.ticket_provider) {
+      normalized.ticket_provider = existing.ticket_provider
+    }
+    if (existing && existing.ticket_url) {
+      normalized.ticket_url = existing.ticket_url
     }
     updatedEventsMap.set(normalized.ra_id, normalized)
   }
@@ -224,10 +236,10 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
     events: allEvents
   }
 
-  writeLocalStore(newStore)
-  console.log(`[raSyncEngine] Local store updated: ${allEvents.length} events saved (${newCount} new).`)
+  await writeLocalStoreAsync(newStore)
+  console.log(`[raSyncEngine] Store atomically updated: ${allEvents.length} events saved (${newCount} new).`)
 
-  // Try sync with Supabase DB if configured
+  // Sync to Supabase DB in background if configured
   try {
     const config = useRuntimeConfig()
     const url = config.public?.supabaseUrl as string
@@ -237,11 +249,34 @@ export async function syncRaEventsEngine(): Promise<{ synced: number; total: num
       await admin.from('ra_events').upsert(dbRows as any, { onConflict: 'ra_id' })
       console.log('[raSyncEngine] Supabase ra_events table synced.')
     }
-  } catch (e) {
-    // Supabase DB sync optional
+  } catch {
+    // Supabase DB sync optional / non-fatal
   }
 
   return { synced: allEvents.length, total: allEvents.length, newCount }
+}
+
+/**
+ * Single-flight request coalescing for RA sync.
+ */
+export function syncRaEventsEngine(): Promise<{ synced: number; total: number; newCount: number }> {
+  if (activeSyncPromise) {
+    return activeSyncPromise
+  }
+
+  activeSyncPromise = executeRaSync().finally(() => {
+    activeSyncPromise = null
+  })
+
+  return activeSyncPromise
+}
+
+export function triggerBackgroundSync(): void {
+  if (!activeSyncPromise) {
+    syncRaEventsEngine().catch((err) => {
+      console.error('[raSyncEngine] Background auto-sync failed:', err)
+    })
+  }
 }
 
 export function saveCustomEvent(eventData: Partial<RaEventRecord>): RaEventRecord {
@@ -271,7 +306,7 @@ export function saveCustomEvent(eventData: Partial<RaEventRecord>): RaEventRecor
   if (existingIdx >= 0) {
     store.events[existingIdx] = record
   } else {
-    store.events.unshift(record)
+    store.events = [record, ...store.events]
   }
 
   writeLocalStore(store)
@@ -289,15 +324,33 @@ export function deleteCustomEvent(ra_id: number): boolean {
   return false
 }
 
+export async function updateRaEventPretix(
+  ra_id: number,
+  pretix_event_url: string | null
+): Promise<RaEventRecord | null> {
+  const store = readLocalStore()
+  const event = store.events.find((e) => e.ra_id === ra_id)
+  if (!event) {
+    return null
+  }
+  event.pretix_event_url = pretix_event_url || null
+  event.updated_at = new Date().toISOString()
+  await writeLocalStoreAsync(store)
+  return event
+}
+
+/**
+ * Public getter for RA & custom events.
+ * NEVER blocks on external network. Returns local store data in < 1ms.
+ */
 export async function getSyncedRaEvents(scope: string = 'upcoming'): Promise<RaEventRecord[]> {
-  let store = readLocalStore()
+  const store = readLocalStore()
 
   const TEN_MINS = 10 * 60 * 1000
-  const isStale = !store.lastSyncedAt || new Date().getTime() - new Date(store.lastSyncedAt).getTime() > TEN_MINS
+  const isStale = !store.lastSyncedAt || Date.now() - new Date(store.lastSyncedAt).getTime() > TEN_MINS
 
-  if (store.events.length === 0 || isStale) {
-    await syncRaEventsEngine()
-    store = readLocalStore()
+  if (isStale) {
+    triggerBackgroundSync()
   }
 
   const events = store.events

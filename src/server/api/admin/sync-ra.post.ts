@@ -1,7 +1,9 @@
 // POST /api/admin/sync-ra — trigger a one-off Resident Advisor sync (admin only)
 
-import { createError } from '#imports'
+import { createError, defineEventHandler } from 'h3'
 import { syncRaEventsEngine } from '~/server/utils/raSyncEngine'
+import { invalidateCache } from '~/server/utils/cache'
+import { createServerSupabaseClient } from '~/server/utils/supabase'
 
 export default defineEventHandler(async (event) => {
   // Authorization: valid session + admin role (or dev mode fallback)
@@ -28,5 +30,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const result = await syncRaEventsEngine()
+  invalidateCache('ra-events')
+
   return { ok: true, ...result }
 })

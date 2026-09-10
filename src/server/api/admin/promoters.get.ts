@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
   }
   const users = usersData.users
 
-  let ratesQuery = adminClient.from('promoter_commission_rates').select('event_id, rate')
+  let ratesQuery = adminClient.from('promoter_commission_rates').select('event_id, rate_per_checkin')
   if (eventId) {
     ratesQuery = ratesQuery.eq('event_id', eventId)
   }
@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
   if (ratesData) {
     for (const rate of ratesData) {
       if (rate.event_id) {
-        ratesMap.set(rate.event_id, rate.rate)
+        ratesMap.set(rate.event_id, rate.rate_per_checkin)
       }
     }
   }
@@ -84,7 +84,7 @@ export default defineEventHandler(async (event) => {
 
     if (gl.status === 'checked_in') {
       stats.checked_in++
-      const rate = ratesMap.get(gl.event_id) ?? 2.00
+      const rate = (gl.event_id ? ratesMap.get(gl.event_id) : undefined) ?? 2.00
       stats.commission += rate
     }
   }

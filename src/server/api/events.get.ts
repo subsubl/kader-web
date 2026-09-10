@@ -1,23 +1,32 @@
 // GET /api/events — public, returns published upcoming events
-// Reads via admin client (service role). Public-anon reads are allowed by RLS too,
-// but service role keeps this resilient regardless of RLS policy.
+// Reads via admin client (service role). Resilient caching with graceful fallback on database errors.
 
-import { createError } from '#imports'
+import { defineEventHandler } from 'h3'
+import { getAdminSupabase } from '../utils/supabase'
+import { handleCachedJsonRequest } from '../utils/cache'
 
-export default defineEventHandler(async () => {
-  const supabase = getAdminSupabase()
+export default defineEventHandler(async (event) => {
+  return handleCachedJsonRequest(event, {
+    key: 'events',
+    maxAge: 60,
+    staleWhileRevalidate: 300,
+    fetcher: async () => {
+      const supabase = getAdminSupabase()
+      const { data, error } = await supabase
+        .from('events')
+        .select('id, title, slug, date, type, description, image_url, ra_link')
+        .eq('status', 'published')
+        .gte('date', new Date().toISOString())
+        .order('date', { ascending: true })
 
-  const { data, error } = await supabase
-    .from('events')
-    .select('id, title, slug, date, type, description, image_url, ra_link')
-    .eq('status', 'published')
-    .gte('date', new Date().toISOString())
-    .order('date', { ascending: true })
+      if (error) {
+        throw new Error(`[api] events query error: ${error.message}`)
+      }
 
-  if (error) {
-    console.error('[api] events fetch failed:', error.message)
-    throw createError({ statusCode: 500, statusMessage: 'Could not load events.' })
-  }
-
-  return data
+      return data || []
+    },
+    // If Supabase is unconfigured, unreachable, or throwing errors:
+    // Fall back to empty array rather than a 500 error!
+    fallback: []
+  })
 })

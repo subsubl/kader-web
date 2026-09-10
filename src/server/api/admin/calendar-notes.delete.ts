@@ -1,6 +1,6 @@
 // DELETE /api/admin/calendar-notes — delete a calendar note (authenticated staff/admin)
 
-import { createError, getQuery } from '#imports'
+import { createError, getQuery } from 'h3'
 import { createServerSupabaseClient, getAdminSupabase } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {

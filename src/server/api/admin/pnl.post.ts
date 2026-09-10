@@ -1,4 +1,4 @@
-import { createError, readBody, defineEventHandler } from '#imports'
+import { createError, readBody, defineEventHandler } from 'h3'
 import { createServerSupabaseClient, getAdminSupabase } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {

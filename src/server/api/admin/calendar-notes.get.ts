@@ -1,6 +1,6 @@
 // GET /api/admin/calendar-notes — fetch calendar notes for a date range (authenticated staff)
 
-import { createError, getQuery } from '#imports'
+import { createError, getQuery } from 'h3'
 import { createServerSupabaseClient, getAdminSupabase } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {

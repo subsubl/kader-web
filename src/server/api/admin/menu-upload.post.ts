@@ -2,7 +2,8 @@
 // Self-authorizes (session + admin role), saves the file to the 'menu_images'
 // Supabase Storage bucket via the service-role client, returns the public URL.
 
-import { createError } from '#imports'
+import { createError, defineEventHandler, readMultipartFormData } from 'h3'
+import { invalidateCache } from '~/server/utils/cache'
 
 const BUCKET = 'menu_images'
 const MAX_BYTES = 10 * 1024 * 1024 // 10 MB
@@ -58,5 +59,6 @@ export default defineEventHandler(async (event) => {
   }
 
   const publicUrl = admin.storage.from(BUCKET).getPublicUrl(data.path).data.publicUrl
+  invalidateCache('menu-config')
   return { ok: true, url: publicUrl }
 })

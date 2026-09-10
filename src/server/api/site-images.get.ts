@@ -1,6 +1,7 @@
 import { defineEventHandler } from 'h3'
-import fs from 'node:fs'
 import path from 'node:path'
+import { handleCachedJsonRequest } from '../utils/cache'
+import { readJson } from '../utils/fileStore'
 
 const CONFIG_FILE = path.resolve(process.cwd(), '.data/site_images.json')
 
@@ -32,14 +33,15 @@ export const defaultSiteImages = {
   ]
 }
 
-export default defineEventHandler(async () => {
-  if (fs.existsSync(CONFIG_FILE)) {
-    try {
-      const data = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'))
+export default defineEventHandler(async (event) => {
+  return handleCachedJsonRequest(event, {
+    key: 'site-images',
+    maxAge: 3600,
+    staleWhileRevalidate: 86400,
+    fetcher: async () => {
+      const data = await readJson<Record<string, any>>(CONFIG_FILE, {})
       return { ...defaultSiteImages, ...data }
-    } catch (e) {
-      console.error('[site-images] Error parsing config:', e)
-    }
-  }
-  return defaultSiteImages
+    },
+    fallback: defaultSiteImages
+  })
 })

@@ -2,6 +2,8 @@ import { defineEventHandler, readMultipartFormData, createError } from 'h3'
 import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
+import { atomicWriteBuffer } from '~/server/utils/fileStore'
+import { invalidateCache } from '~/server/utils/cache'
 
 const UPLOAD_DIR = path.resolve(process.cwd(), 'src/public/images/uploads')
 
@@ -43,7 +45,8 @@ export default defineEventHandler(async (event) => {
   const newFilename = `upload_${Date.now()}_${safeHash}${ext}`
   const targetPath = path.join(UPLOAD_DIR, newFilename)
 
-  fs.writeFileSync(targetPath, fileItem.data)
+  await atomicWriteBuffer(targetPath, fileItem.data)
+  invalidateCache('site-images')
 
   const publicUrl = `/images/uploads/${newFilename}`
   return { ok: true, url: publicUrl, filename: newFilename }

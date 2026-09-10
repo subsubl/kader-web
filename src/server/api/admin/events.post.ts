@@ -1,7 +1,8 @@
 // POST /api/admin/events — create or update a custom event (admin only)
 
-import { createError } from '#imports'
+import { createError, defineEventHandler, readBody } from 'h3'
 import { saveCustomEvent } from '~/server/utils/raSyncEngine'
+import { invalidateCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   // Authorization check (bypasses in dev placeholder mode)
@@ -48,6 +49,9 @@ export default defineEventHandler(async (event) => {
     ticket_provider: body.ticket_provider || (Number(body.cost) === 0 ? 'free' : 'ra'),
     ticket_url: body.ticket_url || body.ra_url || body.pretix_event_url || null
   })
+
+  invalidateCache('events')
+  invalidateCache('ra-events')
 
   return { ok: true, event: record }
 })

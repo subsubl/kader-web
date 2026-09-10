@@ -2,6 +2,7 @@ import { defineEventHandler, readRawBody, getHeader, createError } from 'h3'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import type { Database, Json } from '../../../types/database'
+import { invalidateCache } from '../../utils/cache'
 
 // ── Typed Supabase server client (service role — bypasses RLS for writes) ──
 function getSupabase(): SupabaseClient<Database> {
@@ -98,6 +99,7 @@ export default defineEventHandler(async (event) => {
       default:
         console.log(`[pretix] unhandled event: ${body.event}`)
     }
+    invalidateCache('events')
     return { status: 'success' }
   } catch (err) {
     console.error('[pretix] webhook error', err)

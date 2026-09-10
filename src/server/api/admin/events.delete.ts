@@ -1,7 +1,8 @@
 // DELETE /api/admin/events — delete a custom event (admin only)
 
-import { createError } from '#imports'
+import { createError, defineEventHandler, getQuery } from 'h3'
 import { deleteCustomEvent } from '~/server/utils/raSyncEngine'
+import { invalidateCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -11,5 +12,10 @@ export default defineEventHandler(async (event) => {
   }
 
   const success = deleteCustomEvent(id)
+  if (success) {
+    invalidateCache('events')
+    invalidateCache('ra-events')
+  }
+
   return { ok: success }
 })

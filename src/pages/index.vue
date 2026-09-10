@@ -35,8 +35,8 @@
           <NuxtLink to="/pizzeria" class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]">
             {{ t('nav.pizzeria') }}
           </NuxtLink>
-          <NuxtLink to="/order" class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]">
-            {{ t('home.menuOrderCta') }}
+          <NuxtLink to="/club" class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]">
+            {{ t('nav.club') }}
           </NuxtLink>
         </div>
       </div>

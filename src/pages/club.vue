@@ -3,9 +3,9 @@
     <!-- ===== Immersive Hero (distinct from rest of site) ===== -->
     <section class="relative h-[88vh] min-h-[560px] flex items-end overflow-hidden">
       <img
-        :src="'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1600&q=80'"
-        alt="Kader club"
-        class="absolute inset-0 w-full h-full object-cover opacity-40"
+        :src="'/images/instagram/ig_img_10.jpg'"
+        alt="Kader club atmosphere"
+        class="absolute inset-0 w-full h-full object-cover opacity-50"
       >
       <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
 
@@ -67,11 +67,11 @@
         <div class="mb-2 group">
           <div class="relative overflow-hidden rounded-3xl">
             <img
-              src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1400&q=80"
+              src="/images/instagram/ig_img_3.jpg"
               alt="Kader Basement Club"
               loading="lazy"
               decoding="async"
-              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.45] group-hover:brightness-[0.55] transition-all duration-700"
+              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.55] group-hover:brightness-[0.7] transition-all duration-700"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
 
@@ -101,11 +101,11 @@
         <div class="group">
           <div class="relative overflow-hidden rounded-3xl">
             <img
-              src="https://images.unsplash.com/photo-1571333250630-f0230c320b6d?auto=format&fit=crop&w=1400&q=80"
+              src="/images/instagram/ig_img_4.webp"
               alt="Kader Ground Floor"
               loading="lazy"
               decoding="async"
-              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.45] group-hover:brightness-[0.55] transition-all duration-700"
+              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.55] group-hover:brightness-[0.7] transition-all duration-700"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
 

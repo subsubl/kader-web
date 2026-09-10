@@ -179,17 +179,17 @@
       <div v-if="activeView === 'printed'" class="mb-20 bg-white border-2 border-gray-200 p-6 rounded-3xl shadow-xl">
         <div class="flex justify-between items-center mb-6 px-2">
           <span class="text-xs text-gray-500 font-mono uppercase tracking-wider">{{ t('pizzeria.printedCaption') }}</span>
-          <a href="/menu-a3.jpg" target="_blank" class="text-xs text-red-600 hover:underline font-bold uppercase tracking-wider">{{ t('pizzeria.openFullSize') }}</a>
+          <a href="/kader/menu.jpg" target="_blank" class="text-xs text-red-600 hover:underline font-bold uppercase tracking-wider">{{ t('pizzeria.openFullSize') }}</a>
         </div>
         <img :src="menuImageUrl" alt="Kader Grad Kodeljevo Meni A3" class="w-full h-auto rounded-2xl shadow-xl border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" @click="zoomOpen = true" />
       </div>
 
-      <!-- ===== DIGITAL INTERACTIVE MENU VIEW ===== -->
+      <!-- ===== DIGITAL INTERACTIVE MENU VIEW (1:1 with menu.jpg) ===== -->
       <div v-else class="mb-20">
-        <!-- ===== INGREDIENT PROVENANCE GUARANTEE BANNER ===== -->
-        <div class="mb-10 p-5 bg-red-600 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Ingredient provenance banner -->
+        <div class="mb-8 p-5 bg-red-600 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
           <div class="flex items-center space-x-3.5">
-            <div class="w-11 h-11 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-white text-xl">
+            <div class="w-11 h-11 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-white text-xl flex-shrink-0">
               🛡️
             </div>
             <div>
@@ -217,96 +217,256 @@
           </div>
         </div>
 
-        <!-- Category Pill Navigation -->
-        <div class="flex overflow-x-auto pb-4 mb-12 space-x-2 hide-scrollbar justify-start md:justify-center border-b-2 border-red-100">
+        <!-- Category Pill Navigation for Mobile / Filtering -->
+        <div class="flex overflow-x-auto pb-4 mb-8 space-x-2 hide-scrollbar justify-start md:justify-center border-b-2 border-red-100">
           <button
-            v-for="cat in categories"
+            v-for="cat in navCategories"
             :key="cat.id"
             @click="activeCategory = cat.id"
             :class="[
-              'px-5 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center space-x-2 min-h-[44px]',
+              'px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center space-x-2 min-h-[44px]',
               activeCategory === cat.id 
-                ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black' 
-                : 'bg-white text-gray-500 hover:bg-red-50 hover:text-red-600 border-2 border-gray-200 hover:border-red-300'
+                ? 'bg-red-600 text-white shadow-md shadow-red-600/20 font-black' 
+                : 'bg-white text-gray-700 hover:bg-red-50 hover:text-red-600 border-2 border-gray-200 hover:border-red-300'
             ]"
           >
             <span>{{ cat.icon }}</span>
-            <span>{{ catName(cat) }}</span>
+            <span>{{ cat.name }}</span>
           </button>
         </div>
 
-        <!-- Menu Categories & Grid -->
-        <div class="space-y-16">
-          <div 
-            v-for="cat in filteredCategories" 
-            :key="cat.id"
-            class="bg-white rounded-3xl p-6 md:p-10 border-2 border-gray-100 shadow-md hover:shadow-lg transition-shadow duration-300"
-          >
-            <div class="flex items-center justify-between border-b-2 border-red-100 pb-4 mb-8">
-              <div class="flex items-center space-x-4">
-                <span class="text-3xl p-2 bg-red-50 rounded-2xl border-2 border-red-100">{{ cat.icon }}</span>
-                <div>
-                  <h2 class="text-2xl md:text-3xl font-serif font-black uppercase text-gray-900 tracking-wider">{{ catName(cat) }}</h2>
-                  <p v-if="cat.subtitle" class="text-xs text-red-500 mt-1 font-medium italic">{{ cat.subtitle }}</p>
+        <!-- 1:1 DESIGNER MENU CONTAINER (Matching menu.jpg) -->
+        <div class="bg-white border-2 border-red-500 rounded-3xl shadow-2xl overflow-hidden relative">
+          <!-- Top Red & White Stripe Border -->
+          <div class="menu-stripe-border" aria-hidden="true"></div>
+
+          <!-- Main Content Inner Grid -->
+          <div class="p-6 md:p-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+
+              <!-- ===== COLUMN 1: PIZZE (1 to 13) ===== -->
+              <div v-if="activeCategory === 'all' || activeCategory === 'pizza'" class="space-y-6">
+                <div class="flex items-baseline justify-between border-b-2 border-red-600 pb-2 mb-4">
+                  <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">PIZZE</h2>
+                  <span class="text-xs font-bold text-gray-500 font-sans">Navadna/Družinska</span>
+                </div>
+
+                <div class="space-y-4">
+                  <div 
+                    v-for="item in col1Pizze" 
+                    :key="item.name"
+                    @click="openTakeawayWithItem(item)"
+                    class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                  >
+                    <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                      <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                        {{ item.name }}
+                      </h3>
+                      <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                        {{ item.price }}
+                      </span>
+                    </div>
+                    <p class="text-xs text-gray-700 leading-snug font-normal">
+                      {{ item.description }}
+                      <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Grid Items -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div 
-                v-for="item in cat.items" 
-                :key="item.name"
-                class="bg-gray-50 p-6 rounded-3xl border-2 border-gray-100 hover:border-red-300 hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-lg font-serif font-bold text-gray-900 group-hover:text-red-600 transition-colors">
-                      {{ item.name }}
-                    </h3>
-                    <span class="text-base font-mono font-bold text-red-600 ml-4 whitespace-nowrap bg-red-50 px-3 py-1 rounded-xl border-2 border-red-100">
-                      {{ item.price }}
-                    </span>
+              <!-- ===== COLUMN 2: PIZZE (14-15) + DODATKI + PANUOZZO + NAREZEK ===== -->
+              <div v-if="activeCategory === 'all' || activeCategory === 'pizza' || activeCategory === 'panuozzo' || activeCategory === 'narezek'" class="space-y-8">
+                
+                <!-- Pizze 14 & 15 -->
+                <div v-if="activeCategory === 'all' || activeCategory === 'pizza'" class="space-y-4">
+                  <div 
+                    v-for="item in col2Pizze" 
+                    :key="item.name"
+                    @click="openTakeawayWithItem(item)"
+                    class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                  >
+                    <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                      <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                        {{ item.name }}
+                      </h3>
+                      <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                        {{ item.price }}
+                      </span>
+                    </div>
+                    <p class="text-xs text-gray-700 leading-snug font-normal">
+                      {{ item.description }}
+                      <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                    </p>
                   </div>
-                  <p v-if="item.description" class="text-xs md:text-sm text-gray-500 leading-relaxed mb-4 font-light">
-                    {{ item.description }}
+
+                  <!-- Dodatki Section -->
+                  <div class="pt-4 border-t-2 border-dashed border-red-300">
+                    <div class="space-y-3">
+                      <div v-for="dodatek in dodatkiList" :key="dodatek.title" class="text-xs">
+                        <div class="flex justify-between font-bold text-black mb-0.5">
+                          <span>{{ dodatek.title }}</span>
+                          <span class="font-sans">{{ dodatek.price }}</span>
+                        </div>
+                        <p class="text-gray-600 font-normal leading-tight">{{ dodatek.items }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panuozzo Sendviči -->
+                <div v-if="activeCategory === 'all' || activeCategory === 'panuozzo'" class="space-y-4 pt-2 border-t-2 border-dashed border-red-300 lg:border-t-0">
+                  <div class="border-b-2 border-red-600 pb-2 mb-4">
+                    <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">PANUOZZO SENDVIČI</h2>
+                  </div>
+
+                  <div 
+                    v-for="item in panuozzoItems" 
+                    :key="item.name"
+                    @click="openTakeawayWithItem(item)"
+                    class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                  >
+                    <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                      <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                        {{ item.name }}
+                      </h3>
+                      <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                        {{ item.price }}
+                      </span>
+                    </div>
+                    <p v-if="item.description" class="text-xs text-gray-700 leading-snug font-normal">
+                      {{ item.description }}
+                      <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                    </p>
+                    <p v-else class="text-xs text-gray-500 font-bold">
+                      / {{ item.allergens }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Narezek -->
+                <div v-if="activeCategory === 'all' || activeCategory === 'narezek'" class="space-y-4 pt-4 border-t-2 border-dashed border-red-300">
+                  <div class="border-b-2 border-red-600 pb-2 mb-4">
+                    <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">NAREZEK</h2>
+                  </div>
+
+                  <div 
+                    v-for="item in narezekItems" 
+                    :key="item.name"
+                    @click="openTakeawayWithItem(item)"
+                    class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                  >
+                    <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                      <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                        {{ item.name }}
+                      </h3>
+                      <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                        {{ item.price }}
+                      </span>
+                    </div>
+                    <p class="text-xs text-gray-700 leading-snug font-normal">
+                      {{ item.description }}
+                      <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ===== COLUMN 3: SOLATE + QR CARD + LEGAL INFOS ===== -->
+              <div v-if="activeCategory === 'all' || activeCategory === 'solate'" class="space-y-8">
+                
+                <!-- Solate -->
+                <div class="space-y-4">
+                  <div class="border-b-2 border-red-600 pb-2 mb-4">
+                    <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">SOLATE</h2>
+                  </div>
+
+                  <div 
+                    v-for="item in solateItems" 
+                    :key="item.name"
+                    @click="openTakeawayWithItem(item)"
+                    class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                  >
+                    <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                      <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                        {{ item.name }}
+                      </h3>
+                      <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                        {{ item.price }}
+                      </span>
+                    </div>
+                    <p class="text-xs text-gray-700 leading-snug font-normal">
+                      {{ item.description }}
+                      <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Red dashed divider -->
+                <div class="border-t-2 border-dashed border-red-400"></div>
+
+                <!-- QR Code Support Box (1:1 from menu.jpg) -->
+                <div class="p-4 border-2 border-red-600 rounded-2xl bg-white flex items-center justify-between gap-3 shadow-sm">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-14 h-14 bg-red-50 p-1 border border-red-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <img src="/logo-badge.png" alt="Kader QR Code" class="w-12 h-12 object-contain" />
+                    </div>
+                    <div class="text-xs">
+                      <p class="text-gray-800 leading-snug font-medium mb-1">
+                        Hvala, ker nas podpirate tudi na spletu in s tem širite dobro besedo o naši ponudbi!
+                      </p>
+                      <p class="font-black text-red-600 uppercase tracking-wider text-xs">
+                        KADER GRAD KODELJEVO
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-3xl font-black text-red-600 font-serif flex-shrink-0 select-none">
+                    K°
+                  </div>
+                </div>
+
+                <!-- Red dashed divider -->
+                <div class="border-t-2 border-dashed border-red-400"></div>
+
+                <!-- Fine Print & Legal Notices (1:1 from menu.jpg) -->
+                <div class="space-y-2.5 text-[11px] text-red-600 font-sans leading-tight">
+                  <p class="font-medium">
+                    Bar s pogoji za živo in mehansko glasbo in ples "Restavracija Kader" z gostinskim vrtom<br />
+                    Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361
+                  </p>
+                  
+                  <div class="flex justify-between font-bold text-red-700 py-1 border-y border-red-200">
+                    <span>Cenik velja od 1.6.2026</span>
+                    <span>Cene so v € in vključujejo DDV</span>
+                  </div>
+
+                  <p class="font-normal text-gray-700">
+                    Informacije o alergenih v hrani in pijači najdete za šankom.
+                  </p>
+
+                  <p class="text-[10px] text-red-600 leading-tight italic">
+                    Osebam mlajšim od 18 let, osebam z vidnimi znaki opitosti od alkohola, osebam, za katere se domneva, da jih bodo posredovale mlajšim od 18 let je prepovedano prodajati ali nuditi alkoholne pijače, pijače, ki so jim dodane alkoholne pijače ali tobačne izdelke.
+                  </p>
+
+                  <p class="text-[10px] text-red-600 leading-tight italic">
+                    Do 10. ure dopoldan je prepovedano prodajati ali nuditi žgane pijače ter jih dodajati brezalkoholnim pijačam in vsem drugim napitkom.
                   </p>
                 </div>
 
-                <!-- Interactive Provenance Badges with Flyout Tooltips -->
-                <div v-if="item.badges && item.badges.length > 0" class="flex flex-wrap gap-1.5 my-3">
-                  <ProvenanceBadge
-                    v-for="badgeKey in item.badges"
-                    :key="badgeKey"
-                    :badge-key="badgeKey"
-                  />
-                </div>
-                <div v-else-if="item.tags && item.tags.length > 0" class="flex flex-wrap gap-1.5 my-3">
-                  <span 
-                    v-for="tag in item.tags" 
-                    :key="tag"
-                    class="px-2.5 py-0.5 bg-white text-red-600 text-[10px] font-mono font-semibold rounded-md uppercase tracking-wider border border-red-200"
-                  >
-                    {{ tag }}
-                  </span>
+                <!-- Legenda alergenov (1:1 from menu.jpg) -->
+                <div class="p-3 bg-red-50 rounded-xl border border-red-200 text-[10px] text-gray-700 font-sans leading-relaxed">
+                  <span class="font-bold text-red-600 block mb-1">Legenda alergenov:</span>
+                  <span>1 gluten | 2 raki | 3 jajca | 4 ribe | 5 soja | 6 sulfiti | 7 mleko in mlečni izdelki (vključno z laktozo) | 8 oreščki | 9 gorčica | 10 sezam | 11 mehkužci</span>
                 </div>
 
-                <!-- Item Quick Action Conversion Button -->
-                <div class="mt-4 pt-3.5 border-t-2 border-gray-100 flex items-center justify-between">
-                  <span class="text-[11px] font-mono text-gray-400">
-                    {{ cat.id === 'pizza' ? '48h testo · peč 450°C' : cat.id === 'panuozzo' ? '160g svež kruh' : 'Kader bistro' }}
-                  </span>
-                  <button
-                    type="button"
-                    @click="openTakeawayWithItem(item)"
-                    class="px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border-2 border-red-200 hover:border-red-600 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 flex items-center space-x-1.5 shadow-sm min-h-[36px]"
-                  >
-                    <span>📞</span>
-                    <span>Naroči po telefonu</span>
-                  </button>
-                </div>
               </div>
+
             </div>
+          </div>
+
+          <!-- Bottom Red & White Stripe Border + Cutlery & Chef Icons -->
+          <div class="relative">
+            <div class="menu-stripe-border" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -481,7 +641,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { PhoneIcon, CalendarDaysIcon } from '@heroicons/vue/24/outline'
 
 const { t } = useLocale()
@@ -489,7 +649,7 @@ const { siteImages, getOptImg } = useSiteImages()
 
 const activeView = ref<'digital' | 'printed'>('digital')
 const activeCategory = ref('all')
-const menuImageUrl = ref('/menu-a3.jpg')
+const menuImageUrl = ref('/kader/menu.jpg')
 const zoomOpen = ref(false)
 
 const { isModalOpen, modalTab, selectedItem, openReservation, closeReservation } = useReservationModal()
@@ -546,7 +706,7 @@ const loadMenuConfig = async () => {
     const cfg = await $fetch<{ menuImage: string }>('/api/menu-config')
     if (cfg?.menuImage) menuImageUrl.value = cfg.menuImage
   } catch (err) {
-    // fallback to local menu-a3.jpg
+    // fallback to local /kader/menu.jpg
   }
 }
 
@@ -556,313 +716,203 @@ interface MenuItem {
   name: string
   description?: string
   price: string
-  tags?: string[]
-  badges?: string[]
+  allergens?: string
 }
 
-interface Category {
-  id: string
-  name: string
-  subtitle?: string
-  icon: string
-  items: MenuItem[]
-}
+const navCategories = [
+  { id: 'all', name: 'Vse', icon: '🍽️' },
+  { id: 'pizza', name: 'Pizze', icon: '🍕' },
+  { id: 'panuozzo', name: 'Panuozzo Sendviči', icon: '🥪' },
+  { id: 'narezek', name: 'Narezek', icon: '🥩' },
+  { id: 'solate', name: 'Solate', icon: '🥗' }
+]
 
-const categories: Category[] = [
+// Column 1 Pizze (Items 1 to 13)
+const col1Pizze: MenuItem[] = [
   {
-    id: 'pizza',
-    name: 'Pice / Pizzas',
-    subtitle: 'Sveže ročno raztegnjeno testo, pečeno po italijanskem izročilu',
-    icon: '🍕',
-    items: [
-      {
-        name: 'Marg',
-        description: 'San Marzano pelati, mocarela, origano.',
-        price: '9 €',
-        tags: ['Vegetarijansko', '48h Ferment'],
-        badges: ['san-marzano', 'ferment-48h', 'vegetarijansko']
-      },
-      {
-        name: 'Bufalina',
-        description: 'San Marzano pelati, mocarela bufala D.O.P, sušeni paradižniki, sveža bazilika, grana padano, oljčno olje.',
-        price: '12 €',
-        tags: ['Bufala DOP', 'Vegetarijansko', 'Priljubljeno'],
-        badges: ['san-marzano', 'bufala', 'ferment-48h', 'olio-bio']
-      },
-      {
-        name: 'Melancan',
-        description: 'San Marzano pelati, mocarela fior di latte, sušeni paradižniki, pečeni jajčevci, bučke, Taggiasca olive, rikota.',
-        price: '12 €',
-        tags: ['Vegetarijansko'],
-        badges: ['san-marzano', 'fior-di-latte', 'vegetarijansko']
-      },
-      {
-        name: 'Klasična',
-        description: 'San Marzano pelati, mocarela fior di latte, sveži šampinjoni, dimljen kuhan pršut Praga.',
-        price: '11 €',
-        tags: ['Pršut Praga'],
-        badges: ['san-marzano', 'fior-di-latte', 'ferment-48h']
-      },
-      {
-        name: 'Peperoni',
-        description: 'San Marzano pelati, mocarela fior di latte, sveži šampinjoni, pikantna salama, pekoč preliv.',
-        price: '11 €',
-        tags: ['Pikantno'],
-        badges: ['san-marzano', 'fior-di-latte', 'pikantno']
-      },
-      {
-        name: 'Parma',
-        description: 'San Marzano pelati, mocarela bufala, rukola, parmski pršut.',
-        price: '13 €',
-        tags: ['Pršut Parma', 'Bufala DOP'],
-        badges: ['parma', 'bufala', 'san-marzano']
-      },
-      {
-        name: 'Bresaola Tartufo',
-        description: 'Tartufina krema, mocarela fior di latte, sveži šampinjoni, sušeni paradižniki, bresaola, mlada špinača, grana padano, rikota, oljčno olje.',
-        price: '14 €',
-        tags: ['Tartufi', 'Specialiteta'],
-        badges: ['specialiteta', 'fior-di-latte', 'olio-bio']
-      },
-      {
-        name: 'Tuna',
-        description: 'San Marzano pelati, mocarela fior di latte, tunina, koruza, Taggiasca olive, rdeča čebula.',
-        price: '11 €',
-        badges: ['san-marzano', 'fior-di-latte']
-      }
-    ]
+    name: 'Marinara',
+    description: 'Pelati San Marzano DOP, bazilika, origano, konfitiran česen',
+    price: '10 €',
+    allergens: '1'
   },
   {
-    id: 'panuozzo',
-    name: 'Panuozzo Sendviči',
-    subtitle: '160g sveže pečenega pica testa z bogatimi nadevi',
-    icon: '🥪',
-    items: [
-      {
-        name: 'Praga',
-        description: 'Tanke rezine dimljenega kuhanega pršuta, stracciatella, pesto rosso, rukola, Grana Padano.',
-        price: '9 €',
-        tags: ['Stracciatella'],
-        badges: ['stracciatella', 'specialiteta']
-      },
-      {
-        name: 'Mortadela',
-        description: 'Tanke rezine Mortadele D.O.P, stracciatella, pistacijina krema in mleti pistaciji.',
-        price: '9 €',
-        tags: ['Mortadela DOP', 'Pistacija', 'Priljubljeno'],
-        badges: ['mortadella', 'stracciatella', 'pistacchio']
-      },
-      {
-        name: 'Roastbeef',
-        description: 'Tanke rezine ohlajenega rostbifa, stracciatella, mlada špinača, honey mustard preliv.',
-        price: '11 €',
-        tags: ['Rostbif'],
-        badges: ['stracciatella', 'specialiteta']
-      },
-      {
-        name: 'Meatball',
-        description: 'Domače mesne kroglice, pelati, mocarela, sveža bazilika, parmezan.',
-        price: '10 €',
-        tags: ['Hišna Specialiteta'],
-        badges: ['specialiteta', 'san-marzano']
-      }
-    ]
+    name: 'Margerita',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, origano',
+    price: '11/24 €',
+    allergens: '1,7'
   },
   {
-    id: 'stews',
-    name: 'Na Žlico / Obare',
-    subtitle: 'Tradicionalne in eksotične jedi na žlico (servirano z basmati rižem)',
-    icon: '🍲',
-    items: [
-      {
-        name: 'Goveji Mafe',
-        description: 'Počasi dušena govedina v arašidovi omaki, zahodnoafriška specialiteta. Priložen basmati riž.',
-        price: '7 €',
-        tags: ['Specialiteta']
-      },
-      {
-        name: 'Vege Tajin',
-        description: 'Specialna maroška obara z gomoljnicami, suhimi marelicami, limeto in orientalskimi začimbami. Priložen basmati riž.',
-        price: '6 €',
-        tags: ['Vegansko', 'Brez glutena']
-      }
-    ]
+    name: 'Klasika',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, kuhan pršut, sveži šampinjoni, origano',
+    price: '13/31 €',
+    allergens: '1,7'
   },
   {
-    id: 'mains',
-    name: 'Glavne Jedi / Mains',
-    subtitle: 'Hišne kulinarične specialitete',
-    icon: '🍽️',
-    items: [
-      {
-        name: 'Paradižnikova Pasta',
-        description: 'Al dente sveži rezanci, domača paradižnikova omaka, stračatela burrata, pistacijev drobljenec.',
-        price: '13 €',
-        tags: ['Sveži rezanci', 'Burrata']
-      },
-      {
-        name: 'Steak Argentino',
-        description: 'Argentinski goveji steak, domači ocvrten pomfrit in argentinski čimičuri (chimichurri) preliv.',
-        price: '20 €',
-        tags: ['Premium Steak']
-      },
-      {
-        name: 'Mesni Burger',
-        description: 'Sočni polpet iz suho zorjene govedine v popečeni bombeti, serviran z domačim pomfritom.',
-        price: '12 €',
-        tags: ['Zorjena Govedina']
-      },
-      {
-        name: 'Otroški Krožnik',
-        description: 'Hrustljavi piščančji ocvrtki (pohanci) in hrustljav pomfrit.',
-        price: '9 €'
-      }
-    ]
+    name: 'Bufalina',
+    description: 'Pelati San Marzano DOP, sveža bazilika, mozzarella di bufala DOP, Grana Padano DOP, češnjev paradižnik',
+    price: '14/31 €',
+    allergens: '1,7'
   },
   {
-    id: 'salads',
-    name: 'Solate / Salads',
-    subtitle: 'Osvežilne in bogate solatne sklede',
-    icon: '🥗',
-    items: [
-      {
-        name: 'Tuna Solata',
-        description: 'Tunina, krompir, češnjevci, rdeča čebula, mešana zelena solata, Taggiasca olive in kumare.',
-        price: '9.50 €'
-      },
-      {
-        name: 'Pršut & Burrata Solata',
-        description: 'Parmski pršut, sladke hruške, mešana solata, hrustljavi orehi in stračatela burrata.',
-        price: '10 €',
-        tags: ['Pršut Parma', 'Burrata']
-      },
-      {
-        name: 'Kuskus Vege Solata',
-        description: 'Kuskus, češnjevi paradižniki, olive, kumare, rdeča čebula, čičerika in sladka paprika.',
-        price: '8.50 €',
-        tags: ['Vegetarijansko']
-      }
-    ]
+    name: 'Regina',
+    description: 'Pelati San Marzano DOP, sveža bazilika, Parmigiano Reggiano, sušeni paradižniki, stracciatella',
+    price: '14/31 €',
+    allergens: '1,7'
   },
   {
-    id: 'sides',
-    name: 'Priloge / Sides',
-    subtitle: 'Dodatki k jedem',
-    icon: '🍟',
-    items: [
-      {
-        name: 'Pomfrit',
-        description: 'Sveže ocvrten domači hrustljavi pomfrit.',
-        price: '4 €'
-      },
-      {
-        name: 'Fokača (Focaccia)',
-        description: 'Domača pečena fokača z oljčnim oljem in zelišči.',
-        price: '3.50 €',
-        tags: ['Hišni Kruh']
-      },
-      {
-        name: 'Basmati Riž',
-        description: 'Kuhan basmati riž za obare.',
-        price: '2.50 €'
-      }
-    ]
+    name: 'Bresaola',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, bresaola, mlada špinača, Grana Padano DOP, češnjev paradižnik, stracciatella, reduciran balzamični kis',
+    price: '16/37 €',
+    allergens: '1,6,7'
   },
   {
-    id: 'desserts',
-    name: 'Sladice / Desserts',
-    subtitle: 'Domače sladke dobrote',
-    icon: '🍰',
-    items: [
-      {
-        name: 'Tedenska Pita',
-        description: 'Sveže pečena sezonska sadna ali kremna pita.',
-        price: '4 €'
-      },
-      {
-        name: 'Tedenski Kolač',
-        description: 'Domači dnevni kolač.',
-        price: '3.50 €'
-      },
-      {
-        name: 'Tedenski Piškot',
-        description: 'Hrustljav domači piškot.',
-        price: '2.50 €'
-      }
-    ]
+    name: 'Krasotica',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, Grana Padano DOP, pršut, konfitiran česen, rukola',
+    price: '15/34 €',
+    allergens: '1,7'
   },
   {
-    id: 'drinks',
-    name: 'Pijača & Koktajli / Drinks',
-    subtitle: 'Osvežilne napitke, točeno pivo, vina in koktajli',
-    icon: '🍹',
-    items: [
-      {
-        name: 'Domača Limonada',
-        description: 'Sveže iztisnjena limonada (0.3l / 0.5l).',
-        price: '3.00 € / 3.50 €'
-      },
-      {
-        name: 'Domača Limonada z okusom',
-        description: 'Limonada z izbranim sadnim sirupom (0.3l / 0.5l).',
-        price: '3.30 € / 3.80 €'
-      },
-      {
-        name: 'Domači Ledeni Čaj',
-        description: 'Hišni osvežilni ledeni čaj (0.3l).',
-        price: '3.20 €'
-      },
-      {
-        name: 'Radenska',
-        description: 'Mineralna voda (0.25l).',
-        price: '2.50 €'
-      },
-      {
-        name: 'Union Pivo / Radler',
-        description: 'Točeno ali steklenica (0.5l).',
-        price: '3.50 €'
-      },
-      {
-        name: 'Reset Craft Pivo',
-        description: 'Lagersih ali Pejl Ejl (0.3l / 0.5l).',
-        price: '3.80 € / 4.50 €'
-      },
-      {
-        name: 'Hišno Vino (Belo / Rdeče)',
-        description: 'Kakovostno odprto vino (0.1l).',
-        price: '2.20 €'
-      },
-      {
-        name: 'Spritz (Aperol / Campari / Limoncello)',
-        description: 'Osvežilen italijanski spritz aperitiv.',
-        price: '6.00 €'
-      },
-      {
-        name: 'Hišni Koktajli',
-        description: 'Honey Deuce, Negroni, Moscow Mule ali Po meri.',
-        price: '7.50 €'
-      }
-    ]
+    name: 'Peperoni',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, pikantna salama, rdeča čebula',
+    price: '14/32 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Kalabria',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, \'nduja, marinirane artičoke, sušeni paradižniki, rukola, Grana Padano DOP',
+    price: '15/32 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Arrotolata',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, panceta arrotolata, mlada špinača, dimljena rikota',
+    price: '15/32 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Tuna',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, tuna, rdeča čebula, olive taggiasce',
+    price: '14/31 €',
+    allergens: '1,4,7'
+  },
+  {
+    name: 'Ortolana',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, bučke, melancani, šampinjoni, rukola, Grana Padano DOP',
+    price: '14/29 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Sataraša',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, peperonata, konfitiran česen, rukola, dimljena rikota',
+    price: '14/29 €',
+    allergens: '1,7'
   }
 ]
 
-const filteredCategories = computed(() => {
-  if (activeCategory.value === 'all') {
-    return categories
+// Column 2 Pizze (Items 14 & 15)
+const col2Pizze: MenuItem[] = [
+  {
+    name: 'Tartufina',
+    description: 'Pelati San Marzano DOP, mozzarella fior di latte, šampinjoni, tartufata, rukola, stracciatella, Grana Padano DOP',
+    price: '14/31 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Vegana',
+    description: 'Pelati San Marzano DOP, sveža bazilika, sicilijanska caponata, sušeni paradižnik, mlada špinača, rukola, olive taggiasche',
+    price: '14/29 €',
+    allergens: '1'
   }
-  return categories.filter(c => c.id === activeCategory.value)
-})
+]
 
-// Map category id → translation key
-const CATEGORY_KEYS: Record<string, string> = {
-  pizza: 'pizzeria.catPizza',
-  panuozzo: 'pizzeria.catPanuozzo',
-  stews: 'pizzeria.catStews',
-  mains: 'pizzeria.catMains',
-  salads: 'pizzeria.catSalads',
-  sides: 'pizzeria.catSides',
-  desserts: 'pizzeria.catDesserts',
-  drinks: 'pizzeria.catDrinks'
-}
-const catName = (cat: Category) => (CATEGORY_KEYS[cat.id] ? t(CATEGORY_KEYS[cat.id]) : cat.name)
+// Extra toppings
+const dodatkiList = [
+  {
+    title: 'Dodatek I',
+    price: '2.20 €',
+    items: 'Pelati, šampinjoni, rdeča čebula, jajce, sveža bazilika, koruza'
+  },
+  {
+    title: 'Dodatek II',
+    price: '3 €',
+    items: 'Mozzarella, dimljena rikota, sušeni paradižniki, Grana Padano, jajčevci, bučke, olive taggiasche, špinača, rukola, tuna, artičoke'
+  },
+  {
+    title: 'Dodatek III',
+    price: '4 €',
+    items: 'Stracciatella, kuhan pršut Praga, bresaola, pikantna salama, pršut, panceta, \'nduja, tartufata, mortadela'
+  }
+]
+
+// Panuozzo Sendviči
+const panuozzoItems: MenuItem[] = [
+  {
+    name: 'Praga',
+    description: 'Stracciatella, kuhan pršut Praga, rukola, pesto rosso, Grana Padano DOP',
+    price: '11 €',
+    allergens: '1,7,8'
+  },
+  {
+    name: 'Roastbeef',
+    description: 'Stracciatella, roastbeef, rukola, Grana Padano DOP, sveže mlet poper, gorčični preliv',
+    price: '13 €',
+    allergens: '1,7,9'
+  },
+  {
+    name: 'Mortadela',
+    description: 'Stracciatella, mortadela, pistacijev pesto',
+    price: '12 €',
+    allergens: '1,7,8'
+  },
+  {
+    name: 'Lušt\'n',
+    description: 'Mozzarella fior di latte, Lušt paradižnik, bazilika, pesto iz češnjevcev in mandlja, ekstra deviško olivno olje, solni cvet, poper, glazura balzamičnega kisa',
+    price: '12 €',
+    allergens: '1,7,8'
+  },
+  {
+    name: 'Česnov kruh s parmezanom',
+    description: '',
+    price: '7 €',
+    allergens: '1,7'
+  }
+]
+
+// Narezek
+const narezekItems: MenuItem[] = [
+  {
+    name: 'Narezek (za 2 osebi)',
+    description: 'Pršut, rolana panceta, mortadela, pikantna salama, bresaola (goveji pršut), olive taggiasce, Grana Padano DOP, focaccia z rožmarinom',
+    price: '25.90 €',
+    allergens: '1,7'
+  }
+]
+
+// Solate
+const solateItems: MenuItem[] = [
+  {
+    name: 'Mešana solata',
+    description: 'Mešana sezonska solata, češnjev paradižnik, koruza z balzamičnim kisom, olivnim oljem in kruhom',
+    price: '7.50 €',
+    allergens: '1'
+  },
+  {
+    name: 'Tuna solata',
+    description: 'Mešana sezonska solata, češnjev paradižnik, tuna, koruza, olive z jogurtovim prelivom in kruhom',
+    price: '12 €',
+    allergens: '1,4,7'
+  },
+  {
+    name: 'Buffalo solata',
+    description: 'Mešana sezonska solata, češnjev paradižnik, sušeni paradižnik, bivolja mozzarella DOP z jogurtovim prelivom in kruhom',
+    price: '13 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Solata z roastbeefom',
+    description: 'Mešana sezonska solata, tanke rezine hladnega roastbeefa, češnjev paradižnik, olive, Grana Padano DOP z gorčičnim prelivom',
+    price: '15 €',
+    allergens: '1,7,9'
+  }
+]
 </script>

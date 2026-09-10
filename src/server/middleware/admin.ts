@@ -7,14 +7,28 @@
 export default defineEventHandler(async (event) => {
   const url = event.node.req.url || '/'
 
-  // Only guard /admin/* paths; let login and everything else pass.
-  if (!url.startsWith('/admin/') || url.startsWith('/admin/login')) {
+  const isAdminPage = url.startsWith('/admin/') && !url.startsWith('/admin/login')
+  const isAdminApi = url.startsWith('/api/admin/')
+
+  // Only guard /admin/* pages and /api/admin/* API endpoints.
+  if (!isAdminPage && !isAdminApi) {
     return
   }
 
-  // Bypass for test environments / E2E automated test runs
+  // Bypass for test environments / E2E automated test runs / offline dev
   if (process.env.SKIP_ADMIN_AUTH === 'true' || event.node.req.headers['x-test-bypass'] === 'true') {
     return
+  }
+
+  const handleUnauthorized = () => {
+    if (isAdminApi) {
+      throw createError({
+        statusCode: 401,
+        statusMessage: 'Unauthorized: Admin authentication required'
+      })
+    } else {
+      return sendRedirect(event, '/admin/login', 302)
+    }
   }
 
   try {
@@ -22,7 +36,7 @@ export default defineEventHandler(async (event) => {
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
     if (authError || !user) {
-      return sendRedirect(event, '/admin/login', 302)
+      return handleUnauthorized()
     }
 
     const { data: userRole, error: roleError } = await supabase
@@ -32,11 +46,13 @@ export default defineEventHandler(async (event) => {
       .maybeSingle()
 
     if (roleError || !userRole || userRole.role !== 'admin') {
-      return sendRedirect(event, '/admin/login?error=unauthorized', 302)
+      return handleUnauthorized()
     }
-  } catch (err) {
-    // If Supabase isn't reachable/configured, fail closed rather than expose admin.
+  } catch (err: any) {
+    if (err.statusCode) throw err
+
+    // If Supabase isn't reachable/configured, fail closed rather than expose admin endpoints.
     console.error('[auth] admin guard error:', err)
-    return sendRedirect(event, '/admin/login', 302)
+    return handleUnauthorized()
   }
 })

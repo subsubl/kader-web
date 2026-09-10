@@ -22,7 +22,23 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid file payload' })
   }
 
-  const ext = path.extname(fileItem.filename).toLowerCase() || '.jpg'
+  // File size limit: 10MB
+  const MAX_FILE_SIZE = 10 * 1024 * 1024
+  if (fileItem.data.length > MAX_FILE_SIZE) {
+    throw createError({ statusCode: 400, statusMessage: 'File size exceeds maximum limit of 10MB' })
+  }
+
+  // Extension & MIME type whitelist
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.avif']
+  const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif']
+
+  const ext = path.extname(fileItem.filename).toLowerCase()
+  const mimeType = (fileItem.type || '').toLowerCase()
+
+  if (!allowedExtensions.includes(ext) || (mimeType && !allowedMimeTypes.includes(mimeType))) {
+    throw createError({ statusCode: 400, statusMessage: 'Invalid file type. Allowed formats: JPG, PNG, WebP, AVIF' })
+  }
+
   const safeHash = crypto.randomBytes(8).toString('hex')
   const newFilename = `upload_${Date.now()}_${safeHash}${ext}`
   const targetPath = path.join(UPLOAD_DIR, newFilename)

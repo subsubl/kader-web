@@ -3,6 +3,9 @@ import { getAdminSupabase } from '../utils/supabase'
 import { sendMicrogrammOrder } from '../utils/microgramm'
 
 export default defineEventHandler(async (event) => {
+  // Rate limiting: 10 orders per minute per IP
+  checkRateLimit(event, { limit: 10, windowMs: 60 * 1000, name: 'table-orders' })
+
   const body = await readBody(event)
   const { table_number, items, customer_note } = body || {}
   

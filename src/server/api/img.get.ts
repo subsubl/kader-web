@@ -54,8 +54,18 @@ export default defineEventHandler(async (event) => {
       const arrayBuf = await resp.arrayBuffer()
       inputBuffer = Buffer.from(arrayBuf)
     } else {
-      // Clean local path
+      // Clean local path & prevent directory traversal attacks
       let cleanPath = src.startsWith('/') ? src.slice(1) : src
+
+      if (cleanPath.includes('..') || cleanPath.includes('\0')) {
+        throw createError({ statusCode: 403, statusMessage: 'Forbidden: Invalid file path' })
+      }
+
+      const allowedBases = [
+        path.resolve(process.cwd(), 'src/public'),
+        path.resolve(process.cwd(), 'public'),
+        path.resolve(process.cwd(), '.output/public')
+      ]
 
       const searchPaths = [
         path.resolve(process.cwd(), 'src/public', cleanPath),
@@ -73,7 +83,11 @@ export default defineEventHandler(async (event) => {
         )
       }
 
-      let localPath = searchPaths.find(p => fs.existsSync(p))
+      let localPath = searchPaths.find(p => {
+        // Ensure resolved path stays inside one of the allowed base directories
+        const isWithinBase = allowedBases.some(base => p.startsWith(base))
+        return isWithinBase && fs.existsSync(p)
+      })
 
       if (!localPath) {
         throw new Error(`File not found: ${cleanPath}`)

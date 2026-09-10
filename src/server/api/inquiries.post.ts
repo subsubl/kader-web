@@ -14,6 +14,9 @@ const TYPE_MAP: Record<string, string> = {
 }
 
 export default defineEventHandler(async (event) => {
+  // Rate limiting: 5 requests per minute per IP
+  checkRateLimit(event, { limit: 5, windowMs: 60 * 1000, name: 'inquiries' })
+
   const body = await readBody(event).catch(() => null)
 
   if (!body || typeof body !== 'object') {

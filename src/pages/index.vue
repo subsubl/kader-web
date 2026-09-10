@@ -105,7 +105,7 @@
           </div>
           <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(239,68,68,0.1)]">
             <div class="absolute inset-0 bg-red-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?auto=format&fit=crop&w=800&q=80" alt="Basement Club" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-50 group-hover:scale-105 transition-transform duration-700">
+            <img src="/images/instagram/ig_img_3.jpg" alt="Basement Club Live Performance" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-75 group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
 
@@ -113,7 +113,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div class="h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(168,85,247,0.1)]">
             <div class="absolute inset-0 bg-purple-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" alt="2nd Floor Club" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
+            <img src="/images/instagram/ig_img_7.jpg" alt="2nd Floor Pizzeria Lounge" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
           </div>
           <div class="flex flex-col justify-center">
             <h3 class="text-purple-500 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.secondFloorSub') }}</h3>
@@ -144,7 +144,7 @@
           </div>
           <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(249,115,22,0.1)]">
             <div class="absolute inset-0 bg-orange-900/20 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img src="https://images.unsplash.com/photo-1533174000255-a63b8f20c1da?auto=format&fit=crop&w=800&q=80" alt="Summer Terrace" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-110 saturate-150 group-hover:scale-105 transition-transform duration-700">
+            <img src="/images/instagram/ig_img_5.jpg" alt="Summer Terrace Party" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
       </div>
@@ -266,18 +266,16 @@
           </a>
         </div>
 
-        <!-- Image Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Image Grid (Pure Photos Only - No Flyers or Text Posters) -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
           <a 
             v-for="(item, idx) in [
-              { src: '/images/instagram/ig_img_7.jpg', label: '🍕 Neapeljska Pica' },
-              { src: '/images/instagram/ig_img_13.jpg', label: '🥪 Mortadela & Burrata Panuozzo' },
-              { src: '/images/instagram/ig_img_5.jpg', label: '🎉 Poletna Terasa' },
-              { src: '/images/instagram/ig_img_3.jpg', label: '🎸 Koncert V Živo' },
-              { src: '/images/instagram/ig_img_6.jpg', label: '🔊 Klipsch Sound System' },
-              { src: '/images/instagram/ig_img_2.jpg', label: '📅 Septemberski Spored' },
-              { src: '/images/instagram/ig_img_8.jpg', label: '🎂 2. Rojstni Dan' },
-              { src: '/images/instagram/ig_img_11.jpg', label: '🌭 Cookout Specijal' }
+              { src: '/images/instagram/ig_img_7.jpg', label: '🍕 Neapeljska Pica z Izbrano Rukolo' },
+              { src: '/images/instagram/ig_img_13.jpg', label: '🥪 Panuozzo z Mortadelo & Burrato' },
+              { src: '/images/instagram/ig_img_5.jpg', label: '🎉 Poletna Zabava na Terasi' },
+              { src: '/images/instagram/ig_img_3.jpg', label: '🎸 Koncert v Živo pod Grajskimi Drevesi' },
+              { src: '/pizzeria-bg.jpg', label: '🍷 Neapeljski Pica Bistro Ambient' },
+              { src: '/buyout-bg.jpg', label: '🏰 Grajski Vrt Kodeljevo' }
             ]" 
             :key="idx"
             href="https://www.instagram.com/kader.lunapark/"

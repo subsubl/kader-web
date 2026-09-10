@@ -68,6 +68,9 @@
       </div>
     </section>
 
+    <!-- Inline DJ Player Component -->
+    <ClubDjPlayer />
+
     <!-- ===== The Floors ===== -->
     <section class="py-16 md:py-24 px-4 bg-gradient-to-b from-kader-black to-[#1a0506]">
       <div class="max-w-6xl mx-auto">
@@ -423,9 +426,6 @@
         </NuxtLink>
       </div>
     </section>
-
-    <!-- Floating DJ Player Component -->
-    <ClubDjPlayer />
   </div>
 </template>
 

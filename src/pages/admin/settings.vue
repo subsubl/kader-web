@@ -143,13 +143,23 @@
           <label class="text-xs font-semibold text-gray-300 uppercase tracking-wider">Primary Radio Stream URL</label>
           <input 
             type="text" 
-            v-model="radioStreamUrl"
+            v-model="audioConfig.radioStreamUrl"
             class="w-full bg-black border border-gray-700 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-red-500"
           />
           <p class="text-[11px] text-gray-500">Default: <code class="text-gray-400">https://radiomeuh.ice.infomaniak.ch/radiomeuh-128.mp3</code></p>
         </div>
 
         <div class="space-y-2">
+          <label class="text-xs font-semibold text-gray-300 uppercase tracking-wider">Club DJ Player Audio URL</label>
+          <input 
+            type="text" 
+            v-model="audioConfig.clubAudioUrl"
+            class="w-full bg-black border border-gray-700 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-red-500"
+          />
+          <p class="text-[11px] text-gray-500">MP3 or audio stream for the Club page inline player.</p>
+        </div>
+
+        <div class="space-y-2 md:col-span-2">
           <label class="text-xs font-semibold text-gray-300 uppercase tracking-wider">Station Info &amp; Website</label>
           <div class="p-3 bg-gray-800/80 border border-gray-700/80 rounded-lg flex items-center justify-between text-xs">
             <div>
@@ -168,9 +178,12 @@
         </div>
       </div>
 
-      <div class="pt-4 border-t border-gray-800 flex justify-end">
+      <div class="pt-4 border-t border-gray-800 flex justify-end gap-3">
+        <button @click="resetAudioDefaults" class="px-5 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold rounded-lg text-xs transition-colors">
+          Reset Defaults
+        </button>
         <button @click="saveMediaSettings" class="px-5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-xs transition-colors">
-          Save Radio Configuration
+          Save Audio Configuration
         </button>
       </div>
     </div>
@@ -375,13 +388,14 @@ import {
   CheckCircleIcon 
 } from '@heroicons/vue/24/outline'
 import { useCameraConfig, type CameraFeed } from '~/composables/useCameraConfig'
+import { useAudioConfig } from '~/composables/useAudioConfig'
 
 const { cameras, addCamera, updateCamera, deleteCamera, resetDefaults } = useCameraConfig()
+const { audioConfig, updateConfig: updateAudioConfig, resetDefaults: resetAudioDefaults } = useAudioConfig()
 
 const activeTab = ref<'cameras' | 'media' | 'venue' | 'notifications'>('cameras')
 const toastMessage = ref('')
 
-const radioStreamUrl = ref('https://radiomeuh.ice.infomaniak.ch/radiomeuh-128.mp3')
 const maxCapacity = ref(450)
 const warningThreshold = ref(85)
 const operatingMode = ref('club')
@@ -453,7 +467,11 @@ const handleDeleteCamera = (id: string) => {
 }
 
 const saveMediaSettings = () => {
-  showToast('Radio Meuh stream configuration updated.')
+  updateAudioConfig({
+    radioStreamUrl: audioConfig.value.radioStreamUrl,
+    clubAudioUrl: audioConfig.value.clubAudioUrl
+  })
+  showToast('Audio stream configuration updated and saved.')
 }
 
 const saveVenueSettings = () => {

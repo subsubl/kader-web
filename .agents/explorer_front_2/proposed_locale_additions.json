@@ -1,0 +1,15 @@
+{
+  "pizzeria": {
+    "craftTitle": "Obrt Testa & Peč na 450°C",
+    "craftSubtitle": "50 Top Pizza Standard · L'Arte Della Pizza",
+    "reserveTable": "Rezerviraj Mizo",
+    "orderTakeaway": "Naroči Za S Seboj",
+    "tableSuccess": "Rezervacija Zabeležena",
+    "takeawaySuccess": "Naročilo Pripravljeno",
+    "provenanceTitle": "Zaveza Pristnosti & Certificirano Poreklo",
+    "provenanceDesc": "Uporabljamo izključno certificirane italijanske sestavine (D.O.P. in I.G.P.) ter hladno stiskano ekološko oljčno olje.",
+    "cornicioneTitle": "Anatomija Popolnega Roba",
+    "maculaturaTitle": "Maculatura (Leopardji Vzorec)",
+    "digestibilityTitle": "Lahkotnost & Prebavljivost"
+  }
+}

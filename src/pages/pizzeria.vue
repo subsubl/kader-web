@@ -172,9 +172,6 @@
         </div>
       </section>
 
-      <!-- ===== "PIZZERIA CRAFT & OVEN" FEATURE SECTION ===== -->
-      <PizzeriaCraft />
-
       <!-- ===== PRINTED A3 MENU VIEW ===== -->
       <div v-if="activeView === 'printed'" class="mb-20 bg-white border-2 border-gray-200 p-6 rounded-3xl shadow-xl">
         <div class="flex justify-between items-center mb-6 px-2">

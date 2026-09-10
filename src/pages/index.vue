@@ -2,12 +2,7 @@
   <div class="min-h-screen bg-black text-white">
     <!-- Hero Section -->
     <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 px-4">
-      <div 
-        class="absolute inset-0 z-10 transition-colors duration-700 pointer-events-none"
-        :class="ambientMode === 'day' 
-          ? 'bg-gradient-to-t from-black via-red-950/20 to-black/70' 
-          : 'bg-gradient-to-t from-black via-red-950/30 to-purple-950/20'"
-      ></div>
+      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black via-red-950/20 to-black/70 pointer-events-none"></div>
       <img :src="getOptImg(siteImages.home_hero_bg, 1920, 85)" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
       
       <div class="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
@@ -16,50 +11,9 @@
         <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4 text-white uppercase">
           {{ t('hero.title') }}
         </h1>
-        <p 
-          class="text-xl md:text-2xl font-bold mb-8 tracking-widest uppercase transition-colors duration-500"
-          :class="ambientMode === 'day' ? 'text-red-500' : 'text-red-500'"
-        >
-          “{{ ambientMode === 'day' ? 'Pristna neapeljska pica & sproščeni grajski vrt' : t('hero.tagline') }}”
+        <p class="text-xl md:text-2xl font-bold mb-8 tracking-widest uppercase text-red-500">
+          “Pristna neapeljska pica & klubska kultura na gradu Kodeljevo”
         </p>
-
-        <!-- Interactive Ambient Mode Switcher (Day vs Night) -->
-        <div 
-          class="inline-flex items-center p-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 backdrop-blur-xl shadow-2xl mb-8 relative transition-all duration-500"
-          :class="ambientMode === 'day' ? 'shadow-[0_0_30px_rgba(239,68,68,0.2)]' : 'shadow-[0_0_30px_rgba(239,68,68,0.3)]'"
-          role="radiogroup"
-          aria-label="Izbira ambienta: Dnevni bistro ali Nočni klub"
-        >
-          <button
-            type="button"
-            role="radio"
-            :aria-checked="ambientMode === 'day'"
-            @click="setAmbientMode('day')"
-            class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300 min-h-[44px]"
-            :class="ambientMode === 'day' 
-              ? 'text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 shadow-lg shadow-red-950/60' 
-              : 'text-zinc-400 hover:text-zinc-200'"
-          >
-            <span class="text-base">🍕</span>
-            <span>Dnevni Bistro</span>
-            <span v-if="ambientMode === 'day'" class="w-2 h-2 rounded-full bg-red-200 animate-pulse"></span>
-          </button>
-
-          <button
-            type="button"
-            role="radio"
-            :aria-checked="ambientMode === 'night'"
-            @click="setAmbientMode('night')"
-            class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300 min-h-[44px]"
-            :class="ambientMode === 'night' 
-              ? 'text-white bg-gradient-to-r from-red-600 via-red-500 to-purple-700 shadow-lg shadow-red-950/80' 
-              : 'text-zinc-400 hover:text-zinc-200'"
-          >
-            <span class="text-base">🪩</span>
-            <span>Nočni Klub</span>
-            <span v-if="ambientMode === 'night'" class="w-2 h-2 rounded-full bg-red-200 animate-pulse"></span>
-          </button>
-        </div>
 
         <!-- Address & Contact Quick Badge -->
         <div class="bg-zinc-900/90 border border-zinc-800 backdrop-blur-md px-6 py-4 rounded-2xl mb-8 flex flex-col md:flex-row gap-4 md:gap-8 items-center text-sm text-gray-300">
@@ -74,71 +28,41 @@
           </a>
         </div>
 
-        <!-- Dynamic CTAs -->
+        <!-- Direct Navigation CTAs -->
         <div class="flex flex-wrap gap-4 justify-center w-full max-w-2xl">
           <NuxtLink 
-            v-if="ambientMode === 'day'" 
             to="/pizzeria" 
             class="px-8 py-3.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-950 text-center flex-1 min-w-[170px]"
           >
-            Pica Meni & Telefon →
+            🍕 Pica Meni & Telefon →
           </NuxtLink>
           <NuxtLink 
-            v-else 
             to="/events" 
-            class="px-8 py-3.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-950 text-center flex-1 min-w-[170px]"
+            class="px-8 py-3.5 bg-zinc-900 border border-red-500/40 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
           >
-            {{ t('hero.events') }} (RA) →
-          </NuxtLink>
-
-          <NuxtLink 
-            to="/pizzeria" 
-            class="px-8 py-3.5 bg-zinc-900 border hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
-            :class="ambientMode === 'day' ? 'border-red-500/50 text-red-200' : 'border-zinc-700'"
-          >
-            {{ t('nav.pizzeria') }}
+            🪩 Dogodki & Klub →
           </NuxtLink>
           <NuxtLink 
             to="/club" 
-            class="px-8 py-3.5 bg-zinc-900 border hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
-            :class="ambientMode === 'night' ? 'border-red-500/50 text-red-200' : 'border-zinc-700'"
+            class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
           >
-            {{ t('nav.club') }}
+            🏰 O Klubu
           </NuxtLink>
         </div>
       </div>
     </section>
 
     <!-- Dual Messaging Section -->
-    <section class="py-20 px-4 bg-zinc-950 border-y border-zinc-900 transition-colors duration-700">
+    <section class="py-20 px-4 bg-zinc-950 border-y border-zinc-900">
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
         <!-- Day Card (Pizzeria Bistro) -->
-        <div 
-          class="p-8 rounded-3xl flex flex-col justify-between transition-all duration-500"
-          :class="ambientMode === 'day' 
-            ? 'bg-gradient-to-b from-red-950/30 to-zinc-900/90 border-2 border-red-500/70 shadow-[0_0_50px_rgba(239,68,68,0.2)] scale-[1.01]' 
-            : 'bg-zinc-900/60 border border-zinc-800/80 opacity-80 hover:opacity-100 hover:border-red-800/50'"
-        >
+        <div class="p-8 rounded-3xl flex flex-col justify-between bg-gradient-to-b from-red-950/30 to-zinc-900/90 border-2 border-red-500/50 shadow-[0_0_40px_rgba(239,68,68,0.15)] hover:border-red-500 transition-all duration-300">
           <div>
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center space-x-3">
                 <span class="text-4xl">🍕</span>
                 <h2 class="text-3xl font-black uppercase text-white">{{ t('home.dayTitle') }}</h2>
               </div>
-              <span 
-                v-if="ambientMode === 'day'" 
-                class="text-[11px] font-black uppercase tracking-wider px-3 py-1 bg-red-500/20 text-red-300 border border-red-500/40 rounded-full"
-              >
-                ● Aktiven Ambient
-              </span>
-              <button 
-                v-else 
-                type="button" 
-                @click="setAmbientMode('day')" 
-                class="text-xs text-red-400 hover:underline font-bold"
-              >
-                Preklopi sem ↗
-              </button>
             </div>
             <p class="text-gray-300 text-lg mb-6 leading-relaxed">
               {{ t('home.dayP') }}
@@ -151,42 +75,20 @@
           </div>
           <NuxtLink 
             to="/pizzeria" 
-            class="inline-block text-center px-6 py-3.5 rounded-xl font-bold transition-all duration-300 min-h-[44px]"
-            :class="ambientMode === 'day' 
-              ? 'bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-950' 
-              : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'"
+            class="inline-block text-center px-6 py-3.5 rounded-xl font-bold bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-950 transition-all duration-300 min-h-[44px]"
           >
             {{ t('home.dayCta') }}
           </NuxtLink>
         </div>
 
         <!-- Night Card (Dance Club) -->
-        <div 
-          class="p-8 rounded-3xl flex flex-col justify-between transition-all duration-500"
-          :class="ambientMode === 'night' 
-            ? 'bg-gradient-to-b from-red-950/30 via-purple-950/20 to-zinc-900/90 border-2 border-red-600/70 shadow-[0_0_50px_rgba(239,68,68,0.25)] scale-[1.01]' 
-            : 'bg-zinc-900/60 border border-zinc-800/80 opacity-80 hover:opacity-100 hover:border-purple-800/50'"
-        >
+        <div class="p-8 rounded-3xl flex flex-col justify-between bg-gradient-to-b from-red-950/30 via-purple-950/20 to-zinc-900/90 border-2 border-purple-500/40 shadow-[0_0_40px_rgba(168,85,247,0.15)] hover:border-purple-500 transition-all duration-300">
           <div>
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center space-x-3">
                 <span class="text-4xl">🪩</span>
                 <h2 class="text-3xl font-black uppercase text-white">{{ t('home.nightTitle') }}</h2>
               </div>
-              <span 
-                v-if="ambientMode === 'night'" 
-                class="text-[11px] font-black uppercase tracking-wider px-3 py-1 bg-red-500/20 text-red-300 border border-red-500/40 rounded-full"
-              >
-                ● Aktiven Ambient
-              </span>
-              <button 
-                v-else 
-                type="button" 
-                @click="setAmbientMode('night')" 
-                class="text-xs text-purple-400 hover:underline font-bold"
-              >
-                Preklopi sem ↗
-              </button>
             </div>
             <p class="text-gray-300 text-lg mb-6 leading-relaxed">
               {{ t('home.nightP') }}
@@ -199,10 +101,7 @@
           </div>
           <NuxtLink 
             to="/events" 
-            class="inline-block text-center px-6 py-3.5 rounded-xl font-bold transition-all duration-300 min-h-[44px]"
-            :class="ambientMode === 'night' 
-              ? 'bg-gradient-to-r from-red-600 to-purple-700 hover:from-red-500 hover:to-purple-600 text-white shadow-lg shadow-red-950' 
-              : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'"
+            class="inline-block text-center px-6 py-3.5 rounded-xl font-bold bg-gradient-to-r from-red-600 to-purple-700 hover:from-red-500 hover:to-purple-600 text-white shadow-lg shadow-purple-950 transition-all duration-300 min-h-[44px]"
           >
             {{ t('home.nightCta') }}
           </NuxtLink>
@@ -430,49 +329,17 @@
           :items="siteImages.gallery_items"
           :initial-index="selectedImageIndex"
         />
-
-        <!-- Floating Ambient Mode Pill (Sticky on Scroll) -->
-        <aside 
-          class="fixed bottom-6 right-6 z-40 transition-all duration-500 transform"
-          :class="scrolledPastHero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'"
-        >
-          <button
-            type="button"
-            @click="toggleAmbientMode"
-            class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-zinc-950/95 border backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-105 min-h-[44px]"
-            :class="ambientMode === 'day' 
-              ? 'border-amber-500/60 text-amber-300 hover:border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.3)]' 
-              : 'border-red-500/60 text-red-300 hover:border-red-400 shadow-[0_0_25px_rgba(239,68,68,0.4)]'"
-            :aria-label="ambientMode === 'day' ? 'Preklopi na Nočni Klub' : 'Preklopi na Dnevni Bistro'"
-          >
-            <span class="text-base">{{ ambientMode === 'day' ? '☀️' : '🌙' }}</span>
-            <span class="text-xs font-black uppercase tracking-wider text-white">
-              {{ ambientMode === 'day' ? 'Dnevni Bistro' : 'Nočni Klub' }}
-            </span>
-            <span 
-              class="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold"
-              :class="ambientMode === 'day' ? 'bg-amber-500/20 text-amber-300' : 'bg-red-500/20 text-red-300'"
-            >
-              {{ ambientMode === 'day' ? 'PICA' : 'KLUB' }}
-            </span>
-          </button>
-        </aside>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { CheckIcon, MapPinIcon, PhoneIcon, MagnifyingGlassPlusIcon } from '@heroicons/vue/24/outline'
-
-export type AmbientMode = 'day' | 'night'
 
 const { locale, t } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
-
-const ambientMode = ref<AmbientMode>('day')
-const scrolledPastHero = ref(false)
 
 // Lightbox state
 const lightboxOpen = ref(false)
@@ -481,23 +348,6 @@ const selectedImageIndex = ref(0)
 const openLightbox = (index: number) => {
   selectedImageIndex.value = index
   lightboxOpen.value = true
-}
-
-const setAmbientMode = (mode: AmbientMode) => {
-  ambientMode.value = mode
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('kader_ambient_mode', mode)
-  }
-}
-
-const toggleAmbientMode = () => {
-  setAmbientMode(ambientMode.value === 'day' ? 'night' : 'day')
-}
-
-const handleScroll = () => {
-  if (typeof window !== 'undefined') {
-    scrolledPastHero.value = window.scrollY > 400
-  }
 }
 
 useHead({
@@ -576,21 +426,5 @@ const loadFeatured = async () => {
 
 onMounted(() => {
   loadFeatured()
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    const saved = localStorage.getItem('kader_ambient_mode') as AmbientMode | null
-    if (saved === 'day' || saved === 'night') {
-      ambientMode.value = saved
-    } else {
-      const hour = new Date().getHours()
-      ambientMode.value = (hour >= 8 && hour < 18) ? 'day' : 'night'
-    }
-  }
-})
-
-onUnmounted(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('scroll', handleScroll)
-  }
 })
 </script>

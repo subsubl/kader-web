@@ -56,14 +56,26 @@ export default defineEventHandler(async (event) => {
     } else {
       // Clean local path
       let cleanPath = src.startsWith('/') ? src.slice(1) : src
-      
-      // Try searching in src/public or public
-      let localPath = path.resolve(process.cwd(), 'src/public', cleanPath)
-      if (!fs.existsSync(localPath)) {
-        localPath = path.resolve(process.cwd(), 'public', cleanPath)
+
+      const searchPaths = [
+        path.resolve(process.cwd(), 'src/public', cleanPath),
+        path.resolve(process.cwd(), 'public', cleanPath),
+        path.resolve(process.cwd(), '.output/public', cleanPath)
+      ]
+
+      // If cleanPath starts with "images/", also try without "images/"
+      if (cleanPath.startsWith('images/')) {
+        const stripImages = cleanPath.slice(7)
+        searchPaths.push(
+          path.resolve(process.cwd(), 'src/public', stripImages),
+          path.resolve(process.cwd(), 'public', stripImages),
+          path.resolve(process.cwd(), '.output/public', stripImages)
+        )
       }
 
-      if (!fs.existsSync(localPath)) {
+      let localPath = searchPaths.find(p => fs.existsSync(p))
+
+      if (!localPath) {
         throw new Error(`File not found: ${cleanPath}`)
       }
 

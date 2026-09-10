@@ -101,11 +101,11 @@
         <div class="group">
           <div class="relative overflow-hidden rounded-3xl">
             <img
-              src="/images/instagram/ig_img_4.webp"
-              alt="Kader Ground Floor"
+              src="/images/instagram/ig_img_5.jpg"
+              alt="Kader Outdoor Terrace Party"
               loading="lazy"
               decoding="async"
-              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.55] group-hover:brightness-[0.7] transition-all duration-700"
+              class="w-full h-72 md:h-[440px] object-cover object-center brightness-[0.6] group-hover:brightness-[0.75] transition-all duration-700"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
 
@@ -155,11 +155,11 @@
 
           <div class="bg-white/[0.03] border border-kader-cream/10 rounded-2xl p-8">
             <img
-              :src="'https://images.unsplash.com/photo-1598387846168-20e4e45de4db?auto=format&fit=crop&w=800&q=80'"
-              alt="Klipsch La Scala systems"
+              src="/images/instagram/ig_img_6.jpg"
+              alt="Klipsch La Scala audio system at Kader"
               loading="lazy"
               decoding="async"
-              class="w-full h-64 object-cover rounded-xl mb-6"
+              class="w-full h-64 object-contain bg-black/60 p-4 rounded-xl mb-6 border border-kader-red/30"
             >
             <div v-if="showSpecs" class="space-y-3 text-sm">
               <div v-for="spec in specs" :key="spec.label" class="flex justify-between border-b border-kader-cream/10 pb-2">

@@ -269,15 +269,15 @@
         <!-- Image Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <a 
-            v-for="(img, idx) in [
-              '/images/instagram/ig_img_2.jpg',
-              '/images/instagram/ig_img_3.jpg',
-              '/images/instagram/ig_img_4.webp',
-              '/images/instagram/ig_img_5.jpg',
-              '/images/instagram/ig_img_6.jpg',
-              '/images/instagram/ig_img_8.jpg',
-              '/images/instagram/ig_img_10.jpg',
-              '/images/instagram/ig_img_12.jpg'
+            v-for="(item, idx) in [
+              { src: '/images/instagram/ig_img_7.jpg', label: '🍕 Neapeljska Pica' },
+              { src: '/images/instagram/ig_img_13.jpg', label: '🥪 Mortadela & Burrata Panuozzo' },
+              { src: '/images/instagram/ig_img_5.jpg', label: '🎉 Poletna Terasa' },
+              { src: '/images/instagram/ig_img_3.jpg', label: '🎸 Koncert V Živo' },
+              { src: '/images/instagram/ig_img_6.jpg', label: '🔊 Klipsch Sound System' },
+              { src: '/images/instagram/ig_img_2.jpg', label: '📅 Septemberski Spored' },
+              { src: '/images/instagram/ig_img_8.jpg', label: '🎂 2. Rojstni Dan' },
+              { src: '/images/instagram/ig_img_11.jpg', label: '🌭 Cookout Specijal' }
             ]" 
             :key="idx"
             href="https://www.instagram.com/kader.lunapark/"
@@ -285,12 +285,13 @@
             class="relative group aspect-square overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/50 transition-all duration-500"
           >
             <img 
-              :src="img" 
+              :src="item.src" 
               alt="Kader Lunapark Instagram photo" 
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-              <span class="text-xs font-bold text-white uppercase tracking-wider">@kader.lunapark</span>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+              <span class="text-xs font-bold text-white uppercase tracking-wider mb-0.5">{{ item.label }}</span>
+              <span class="text-[10px] text-red-400 font-mono">@kader.lunapark</span>
             </div>
           </a>
         </div>

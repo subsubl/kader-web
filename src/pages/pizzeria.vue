@@ -4,9 +4,9 @@
     <header class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-masanielli-gold/20 bg-black py-20 px-4">
       <!-- High contrast dark imagery layer -->
       <img 
-        src="/pizzeria-bg.jpg" 
-        alt="Kader Pizzeria Bistro Grad Kodeljevo" 
-        class="absolute inset-0 w-full h-full object-cover opacity-25 filter contrast-125 saturate-50 scale-105 transform transition-transform duration-1000" 
+        src="/images/instagram/ig_img_7.jpg" 
+        alt="Kader Neapolitan Pizza" 
+        class="absolute inset-0 w-full h-full object-cover opacity-35 filter contrast-125 saturate-75 scale-105 transform transition-transform duration-1000" 
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60 z-10"></div>
       
@@ -137,6 +137,28 @@
             </div>
             <div class="mt-6 pt-4 border-t border-zinc-900 text-[11px] font-mono text-masanielli-gold/70">
               Castle Garden & Bistro Bar
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Instagram Food Showcase Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+          <div class="relative overflow-hidden rounded-3xl border border-masanielli-gold/30 group shadow-2xl">
+            <img src="/images/instagram/ig_img_7.jpg" alt="Neapolitan Pizza with Prosciutto and Arugula" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+              <div>
+                <span class="text-[11px] font-mono text-masanielli-gold uppercase tracking-widest block mb-1">Sveže iz peči</span>
+                <h4 class="text-xl font-serif font-bold text-white uppercase">Neapeljska Pica z Pršutom & Rukolo</h4>
+              </div>
+            </div>
+          </div>
+          <div class="relative overflow-hidden rounded-3xl border border-masanielli-gold/30 group shadow-2xl">
+            <img src="/images/instagram/ig_img_13.jpg" alt="Panuozzo Mortadella Burrata e Pistacchio" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+              <div>
+                <span class="text-[11px] font-mono text-masanielli-gold uppercase tracking-widest block mb-1">Hišna Specialiteta</span>
+                <h4 class="text-xl font-serif font-bold text-white uppercase">Panuozzo Sendvič z Mortadelo & Burrato</h4>
+              </div>
             </div>
           </div>
         </div>

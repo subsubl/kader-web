@@ -5,7 +5,7 @@
       <div 
         class="absolute inset-0 z-10 transition-colors duration-700 pointer-events-none"
         :class="ambientMode === 'day' 
-          ? 'bg-gradient-to-t from-black via-amber-950/20 to-black/70' 
+          ? 'bg-gradient-to-t from-black via-red-950/20 to-black/70' 
           : 'bg-gradient-to-t from-black via-red-950/30 to-purple-950/20'"
       ></div>
       <img :src="getOptImg(siteImages.home_hero_bg, 1920, 85)" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
@@ -18,7 +18,7 @@
         </h1>
         <p 
           class="text-xl md:text-2xl font-bold mb-8 tracking-widest uppercase transition-colors duration-500"
-          :class="ambientMode === 'day' ? 'text-amber-400' : 'text-red-500'"
+          :class="ambientMode === 'day' ? 'text-red-500' : 'text-red-500'"
         >
           “{{ ambientMode === 'day' ? 'Pristna neapeljska pica & sproščeni grajski vrt' : t('hero.tagline') }}”
         </p>
@@ -26,7 +26,7 @@
         <!-- Interactive Ambient Mode Switcher (Day vs Night) -->
         <div 
           class="inline-flex items-center p-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 backdrop-blur-xl shadow-2xl mb-8 relative transition-all duration-500"
-          :class="ambientMode === 'day' ? 'shadow-[0_0_30px_rgba(245,158,11,0.2)]' : 'shadow-[0_0_30px_rgba(239,68,68,0.3)]'"
+          :class="ambientMode === 'day' ? 'shadow-[0_0_30px_rgba(239,68,68,0.2)]' : 'shadow-[0_0_30px_rgba(239,68,68,0.3)]'"
           role="radiogroup"
           aria-label="Izbira ambienta: Dnevni bistro ali Nočni klub"
         >
@@ -37,12 +37,12 @@
             @click="setAmbientMode('day')"
             class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-wider transition-all duration-300 min-h-[44px]"
             :class="ambientMode === 'day' 
-              ? 'text-white bg-gradient-to-r from-amber-600 via-amber-500 to-orange-600 shadow-lg shadow-amber-950/60' 
+              ? 'text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 shadow-lg shadow-red-950/60' 
               : 'text-zinc-400 hover:text-zinc-200'"
           >
             <span class="text-base">🍕</span>
             <span>Dnevni Bistro</span>
-            <span v-if="ambientMode === 'day'" class="w-2 h-2 rounded-full bg-amber-200 animate-pulse"></span>
+            <span v-if="ambientMode === 'day'" class="w-2 h-2 rounded-full bg-red-200 animate-pulse"></span>
           </button>
 
           <button
@@ -79,7 +79,7 @@
           <NuxtLink 
             v-if="ambientMode === 'day'" 
             to="/pizzeria" 
-            class="px-8 py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-950 text-center flex-1 min-w-[170px]"
+            class="px-8 py-3.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-950 text-center flex-1 min-w-[170px]"
           >
             Pica Meni & Telefon →
           </NuxtLink>
@@ -94,7 +94,7 @@
           <NuxtLink 
             to="/pizzeria" 
             class="px-8 py-3.5 bg-zinc-900 border hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
-            :class="ambientMode === 'day' ? 'border-amber-500/50 text-amber-200' : 'border-zinc-700'"
+            :class="ambientMode === 'day' ? 'border-red-500/50 text-red-200' : 'border-zinc-700'"
           >
             {{ t('nav.pizzeria') }}
           </NuxtLink>
@@ -116,8 +116,8 @@
         <div 
           class="p-8 rounded-3xl flex flex-col justify-between transition-all duration-500"
           :class="ambientMode === 'day' 
-            ? 'bg-gradient-to-b from-amber-950/30 to-zinc-900/90 border-2 border-amber-500/70 shadow-[0_0_50px_rgba(245,158,11,0.2)] scale-[1.01]' 
-            : 'bg-zinc-900/60 border border-zinc-800/80 opacity-80 hover:opacity-100 hover:border-amber-800/50'"
+            ? 'bg-gradient-to-b from-red-950/30 to-zinc-900/90 border-2 border-red-500/70 shadow-[0_0_50px_rgba(239,68,68,0.2)] scale-[1.01]' 
+            : 'bg-zinc-900/60 border border-zinc-800/80 opacity-80 hover:opacity-100 hover:border-red-800/50'"
         >
           <div>
             <div class="flex items-center justify-between mb-6">
@@ -127,7 +127,7 @@
               </div>
               <span 
                 v-if="ambientMode === 'day'" 
-                class="text-[11px] font-black uppercase tracking-wider px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full"
+                class="text-[11px] font-black uppercase tracking-wider px-3 py-1 bg-red-500/20 text-red-300 border border-red-500/40 rounded-full"
               >
                 ● Aktiven Ambient
               </span>
@@ -135,7 +135,7 @@
                 v-else 
                 type="button" 
                 @click="setAmbientMode('day')" 
-                class="text-xs text-amber-400 hover:underline font-bold"
+                class="text-xs text-red-400 hover:underline font-bold"
               >
                 Preklopi sem ↗
               </button>
@@ -144,16 +144,16 @@
               {{ t('home.dayP') }}
             </p>
             <ul class="space-y-3 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-amber-500 flex-shrink-0" /> {{ t('home.dayF1') }}</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-amber-500 flex-shrink-0" /> {{ t('home.dayF2') }}</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-amber-500 flex-shrink-0" /> {{ t('home.dayF3') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF1') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF2') }}</li>
+              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF3') }}</li>
             </ul>
           </div>
           <NuxtLink 
             to="/pizzeria" 
             class="inline-block text-center px-6 py-3.5 rounded-xl font-bold transition-all duration-300 min-h-[44px]"
             :class="ambientMode === 'day' 
-              ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-950' 
+              ? 'bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-950' 
               : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'"
           >
             {{ t('home.dayCta') }}

@@ -176,45 +176,6 @@
           </div>
         </div>
       </div>
-
-      <!-- ===== ANATOMIJA POPOLNEGA CORNICIONE-JA ===== -->
-      <div class="mt-12 bg-gradient-to-b from-red-50/60 to-white border-2 border-red-100 rounded-3xl p-6 md:p-8 shadow-md">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-          <div class="flex flex-col justify-center">
-            <span class="text-xs font-mono uppercase tracking-widest text-red-600 font-bold block mb-1">
-              Rezultat Obrti
-            </span>
-            <h4 class="text-xl md:text-2xl font-serif font-black uppercase text-gray-900">
-              Anatomija Popolnega Roba
-            </h4>
-            <p class="text-xs text-gray-600 mt-2 leading-relaxed font-light">
-              Pristna neapeljska pica ima "cornicione" — izrazito napihnjen, zračen rob z velikimi votlimi zračnimi mehurji (alveolatura), ki je zunaj nežno hrustljav, znotraj pa puhast kot oblak.
-            </p>
-          </div>
-
-          <div class="p-4 bg-white rounded-2xl border-2 border-red-100 flex flex-col justify-between shadow-sm">
-            <div>
-              <span class="text-lg">🐆</span>
-              <h5 class="font-serif font-bold text-gray-900 text-sm uppercase mt-1">Maculatura (Leopardji Vzorec)</h5>
-              <p class="text-xs text-gray-500 mt-1 font-light">
-                Drobne temne pikice na robu pričajo o visoki temperaturi peči (450°C) in popolni zrelosti testa, kjer so se sladkorji hipno karamelizirali brez grenkobe.
-              </p>
-            </div>
-            <span class="text-[10px] font-mono text-red-600 mt-3 font-bold">Temperatura šamota: 450°C – 485°C</span>
-          </div>
-
-          <div class="p-4 bg-white rounded-2xl border-2 border-red-100 flex flex-col justify-between shadow-sm">
-            <div>
-              <span class="text-lg">🍃</span>
-              <h5 class="font-serif font-bold text-gray-900 text-sm uppercase mt-1">Lahkotnost & Prebavljivost</h5>
-              <p class="text-xs text-gray-500 mt-1 font-light">
-                Zaradi 48-urne fermentacije je gluten predhodno razgrajen. Pica je izjemno lahka, ne povzroča žeje in se v želodcu ne napihuje.
-              </p>
-            </div>
-            <span class="text-[10px] font-mono text-red-600 mt-3 font-bold">0% občutka teže po obroku</span>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </template>

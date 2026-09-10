@@ -1,22 +1,22 @@
 <template>
-  <section class="my-24 relative">
+  <section class="my-24 relative bg-white">
     <!-- Subtle Background Atmosphere Glow -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(205,176,131,0.06)_0%,transparent_60%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(220,38,38,0.05)_0%,transparent_60%)] pointer-events-none"></div>
 
     <div class="relative z-10">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 px-4">
-        <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-masanielli-gold/10 border border-masanielli-gold/30 text-masanielli-gold text-[11px] font-mono font-bold uppercase tracking-[0.25em] mb-4">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-[11px] font-mono font-bold uppercase tracking-[0.25em] mb-4">
           <span>🔥</span>
           <span>50 Top Pizza Standard · L'Arte Della Pizza</span>
         </div>
-        <h2 class="text-4xl md:text-6xl font-serif font-black uppercase text-white tracking-tight leading-tight">
+        <h2 class="text-4xl md:text-6xl font-serif font-black uppercase text-gray-900 tracking-tight leading-tight">
           Obrt Testa & Peč na 450°C
         </h2>
-        <p class="text-gray-300 text-sm md:text-base font-light mt-4 leading-relaxed">
+        <p class="text-gray-600 text-sm md:text-base font-light mt-4 leading-relaxed">
           Pristna neapeljska pica ni le hrana — je živa znanost fermentacije in spoštovanje stoletnega izročila Kampanije. Vsak hlebec v grajski kuhinji zori 48 ur pri kontrolirani temperaturi in se v 90 sekundah speče v razbeljeni peči na bukova drva.
         </p>
-        <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-masanielli-gold to-transparent mx-auto mt-6"></div>
+        <div class="w-24 h-1 bg-red-600 mx-auto mt-6 rounded-full"></div>
       </div>
 
       <!-- ===== 5 INTERACTIVE CRAFT METRICS HUD ===== -->
@@ -26,33 +26,33 @@
           :key="metric.label"
           @click="activeStep = idx"
           :class="[
-            'p-5 rounded-3xl border transition-all duration-300 cursor-pointer text-center relative overflow-hidden group',
+            'p-5 rounded-3xl border-2 transition-all duration-300 cursor-pointer text-center relative overflow-hidden group shadow-sm',
             activeStep === idx 
-              ? 'bg-zinc-900 border-masanielli-gold shadow-xl shadow-masanielli-gold/10 -translate-y-1' 
-              : 'bg-zinc-950/80 border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900/50'
+              ? 'bg-red-50 border-red-600 shadow-md shadow-red-600/10 -translate-y-1' 
+              : 'bg-white border-gray-100 hover:border-red-300 hover:bg-red-50/50'
           ]"
         >
           <div class="text-2xl mb-2">{{ metric.icon }}</div>
-          <div class="font-serif font-black text-2xl md:text-3xl text-white group-hover:text-masanielli-gold transition-colors">
+          <div class="font-serif font-black text-2xl md:text-3xl text-gray-900 group-hover:text-red-600 transition-colors">
             {{ metric.value }}
           </div>
-          <div class="text-[11px] font-mono text-masanielli-gold font-bold uppercase tracking-wider mt-1">
+          <div class="text-[11px] font-mono text-red-600 font-bold uppercase tracking-wider mt-1">
             {{ metric.label }}
           </div>
-          <div class="text-[10px] text-gray-400 mt-1 font-light line-clamp-2">
+          <div class="text-[10px] text-gray-500 mt-1 font-light line-clamp-2">
             {{ metric.subtext }}
           </div>
           <div 
             v-if="activeStep === idx" 
-            class="absolute bottom-0 inset-x-0 h-1 bg-masanielli-gold"
+            class="absolute bottom-0 inset-x-0 h-1 bg-red-600"
           ></div>
         </div>
       </div>
 
       <!-- ===== INTERACTIVE 5-STEP CRAFT EXPLORER ===== -->
-      <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-6 md:p-10 shadow-2xl">
+      <div class="bg-white border-2 border-red-100 rounded-3xl p-6 md:p-10 shadow-xl">
         <!-- Step Selector Bar -->
-        <div class="flex overflow-x-auto pb-4 mb-8 space-x-2 hide-scrollbar border-b border-zinc-900">
+        <div class="flex overflow-x-auto pb-4 mb-8 space-x-2 hide-scrollbar border-b-2 border-red-100">
           <button
             v-for="(step, idx) in craftSteps"
             :key="step.number"
@@ -60,8 +60,8 @@
             :class="[
               'px-4 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 flex items-center space-x-2 min-h-[44px]',
               activeStep === idx
-                ? 'bg-masanielli-gold text-black shadow-lg shadow-masanielli-gold/20 font-black'
-                : 'bg-zinc-900 text-gray-400 hover:text-white border border-zinc-800'
+                ? 'bg-red-600 text-white shadow-lg shadow-red-600/20 font-black'
+                : 'bg-gray-50 text-gray-600 hover:bg-red-50 hover:text-red-600 border border-gray-200'
             ]"
           >
             <span>{{ step.number }}</span>
@@ -74,19 +74,19 @@
           <!-- Text Details (7 cols) -->
           <div class="lg:col-span-7 space-y-5">
             <div class="flex items-center space-x-3">
-              <span class="px-3 py-1 bg-masanielli-gold/15 border border-masanielli-gold/40 text-masanielli-gold font-mono text-xs font-bold rounded-lg uppercase tracking-widest">
+              <span class="px-3 py-1 bg-red-50 border border-red-200 text-red-600 font-mono text-xs font-bold rounded-lg uppercase tracking-widest">
                 Faza {{ currentStep.number }} / 05
               </span>
-              <span class="text-xs font-mono text-gray-400">
+              <span class="text-xs font-mono text-gray-500">
                 {{ currentStep.scientificLabel }}
               </span>
             </div>
 
-            <h3 class="text-2xl md:text-4xl font-serif font-bold text-white leading-tight">
+            <h3 class="text-2xl md:text-4xl font-serif font-bold text-gray-900 leading-tight">
               {{ currentStep.title }}
             </h3>
 
-            <p class="text-sm md:text-base text-gray-300 font-light leading-relaxed">
+            <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">
               {{ currentStep.description }}
             </p>
 
@@ -95,24 +95,24 @@
               <div 
                 v-for="(spec, sIdx) in currentStep.specs" 
                 :key="sIdx"
-                class="p-4 bg-zinc-900/80 rounded-2xl border border-zinc-800/80"
+                class="p-4 bg-red-50/60 rounded-2xl border border-red-100"
               >
-                <div class="text-xs font-mono text-masanielli-gold font-semibold uppercase tracking-wider mb-1">
+                <div class="text-xs font-mono text-red-600 font-semibold uppercase tracking-wider mb-1">
                   {{ spec.label }}
                 </div>
-                <div class="text-sm font-bold text-white">
+                <div class="text-sm font-bold text-gray-900">
                   {{ spec.value }}
                 </div>
-                <div class="text-[11px] text-gray-400 mt-1 font-light">
+                <div class="text-[11px] text-gray-500 mt-1 font-light">
                   {{ spec.desc }}
                 </div>
               </div>
             </div>
 
             <!-- Master Pizzaiolo Quote -->
-            <blockquote class="p-4 bg-masanielli-gold/5 border-l-2 border-masanielli-gold rounded-r-xl text-xs text-gray-300 italic font-serif">
+            <blockquote class="p-4 bg-red-50 border-l-4 border-red-600 rounded-r-xl text-xs text-gray-700 italic font-serif">
               “{{ currentStep.quote }}”
-              <span class="block not-italic font-mono text-[10px] text-masanielli-gold mt-1 uppercase font-bold tracking-wider">
+              <span class="block not-italic font-mono text-[10px] text-red-600 mt-1 uppercase font-bold tracking-wider">
                 — Mojster picajol Kader Grad Kodeljevo
               </span>
             </blockquote>
@@ -120,45 +120,45 @@
 
           <!-- Visual Graphic / Interactive Anatomy (5 cols) -->
           <div class="lg:col-span-5">
-            <div class="relative bg-zinc-900 border border-masanielli-gold/30 rounded-3xl p-6 shadow-2xl overflow-hidden group">
+            <div class="relative bg-red-50/40 border-2 border-red-200 rounded-3xl p-6 shadow-lg overflow-hidden group">
               <!-- Radial badge backing -->
               <div class="text-center py-6">
-                <div class="w-28 h-28 mx-auto rounded-full bg-black/60 border-2 border-masanielli-gold/50 flex flex-col items-center justify-center shadow-inner relative">
+                <div class="w-28 h-28 mx-auto rounded-full bg-white border-2 border-red-600 flex flex-col items-center justify-center shadow-md relative">
                   <span class="text-4xl select-none">{{ currentStep.heroIcon }}</span>
-                  <span class="text-[10px] font-mono text-masanielli-gold font-bold uppercase mt-1">
+                  <span class="text-[10px] font-mono text-red-600 font-bold uppercase mt-1">
                     {{ currentStep.metricHighlight }}
                   </span>
                 </div>
 
-                <h4 class="text-xl font-serif font-bold text-white mt-4 uppercase">
+                <h4 class="text-xl font-serif font-bold text-gray-900 mt-4 uppercase">
                   {{ currentStep.visualCardTitle }}
                 </h4>
-                <p class="text-xs text-gray-400 max-w-xs mx-auto mt-1 font-light">
+                <p class="text-xs text-gray-500 max-w-xs mx-auto mt-1 font-light">
                   {{ currentStep.visualCardSubtitle }}
                 </p>
               </div>
 
               <!-- Interactive Step Micro-features -->
-              <div class="space-y-2.5 pt-4 border-t border-zinc-800/80 text-xs font-mono">
+              <div class="space-y-2.5 pt-4 border-t-2 border-red-100 text-xs font-mono">
                 <div 
                   v-for="(f, fIdx) in currentStep.features" 
                   :key="fIdx"
-                  class="flex items-center justify-between p-2.5 bg-zinc-950 rounded-xl border border-zinc-800"
+                  class="flex items-center justify-between p-2.5 bg-white rounded-xl border border-gray-200 shadow-sm"
                 >
-                  <span class="text-gray-300 flex items-center gap-2">
-                    <span class="text-masanielli-gold">✔</span> {{ f.name }}
+                  <span class="text-gray-800 flex items-center gap-2">
+                    <span class="text-red-600 font-bold">✔</span> {{ f.name }}
                   </span>
-                  <span class="text-masanielli-gold font-bold">{{ f.badge }}</span>
+                  <span class="text-red-600 font-bold">{{ f.badge }}</span>
                 </div>
               </div>
 
               <!-- Next / Prev Quick Controls -->
-              <div class="flex justify-between items-center mt-6 pt-4 border-t border-zinc-800 text-xs font-mono">
+              <div class="flex justify-between items-center mt-6 pt-4 border-t-2 border-red-100 text-xs font-mono">
                 <button
                   type="button"
                   @click="prevStep"
                   :disabled="activeStep === 0"
-                  class="px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-gray-300 hover:text-white disabled:opacity-30 min-h-[36px]"
+                  class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-700 hover:bg-red-50 hover:border-red-300 disabled:opacity-30 min-h-[36px]"
                 >
                   ← Prejšnji korak
                 </button>
@@ -167,7 +167,7 @@
                   type="button"
                   @click="nextStep"
                   :disabled="activeStep === craftSteps.length - 1"
-                  class="px-3 py-1.5 rounded-lg bg-masanielli-gold text-black font-bold hover:bg-masanielli-goldLight disabled:opacity-30 min-h-[36px]"
+                  class="px-3 py-1.5 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 disabled:opacity-30 min-h-[36px]"
                 >
                   Naslednji korak →
                 </button>
@@ -178,40 +178,40 @@
       </div>
 
       <!-- ===== ANATOMIJA POPOLNEGA CORNICIONE-JA ===== -->
-      <div class="mt-12 bg-gradient-to-b from-zinc-950 to-black border border-zinc-800/80 rounded-3xl p-6 md:p-8">
+      <div class="mt-12 bg-gradient-to-b from-red-50/60 to-white border-2 border-red-100 rounded-3xl p-6 md:p-8 shadow-md">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
           <div class="flex flex-col justify-center">
-            <span class="text-xs font-mono uppercase tracking-widest text-masanielli-gold font-bold block mb-1">
+            <span class="text-xs font-mono uppercase tracking-widest text-red-600 font-bold block mb-1">
               Rezultat Obrti
             </span>
-            <h4 class="text-xl md:text-2xl font-serif font-black uppercase text-white">
+            <h4 class="text-xl md:text-2xl font-serif font-black uppercase text-gray-900">
               Anatomija Popolnega Roba
             </h4>
-            <p class="text-xs text-gray-400 mt-2 leading-relaxed font-light">
+            <p class="text-xs text-gray-600 mt-2 leading-relaxed font-light">
               Pristna neapeljska pica ima "cornicione" — izrazito napihnjen, zračen rob z velikimi votlimi zračnimi mehurji (alveolatura), ki je zunaj nežno hrustljav, znotraj pa puhast kot oblak.
             </p>
           </div>
 
-          <div class="p-4 bg-zinc-900/50 rounded-2xl border border-zinc-800 flex flex-col justify-between">
+          <div class="p-4 bg-white rounded-2xl border-2 border-red-100 flex flex-col justify-between shadow-sm">
             <div>
               <span class="text-lg">🐆</span>
-              <h5 class="font-serif font-bold text-white text-sm uppercase mt-1">Maculatura (Leopardji Vzorec)</h5>
-              <p class="text-xs text-gray-400 mt-1 font-light">
+              <h5 class="font-serif font-bold text-gray-900 text-sm uppercase mt-1">Maculatura (Leopardji Vzorec)</h5>
+              <p class="text-xs text-gray-500 mt-1 font-light">
                 Drobne temne pikice na robu pričajo o visoki temperaturi peči (450°C) in popolni zrelosti testa, kjer so se sladkorji hipno karamelizirali brez grenkobe.
               </p>
             </div>
-            <span class="text-[10px] font-mono text-masanielli-gold mt-3">Temperatura šamota: 450°C – 485°C</span>
+            <span class="text-[10px] font-mono text-red-600 mt-3 font-bold">Temperatura šamota: 450°C – 485°C</span>
           </div>
 
-          <div class="p-4 bg-zinc-900/50 rounded-2xl border border-zinc-800 flex flex-col justify-between">
+          <div class="p-4 bg-white rounded-2xl border-2 border-red-100 flex flex-col justify-between shadow-sm">
             <div>
               <span class="text-lg">🍃</span>
-              <h5 class="font-serif font-bold text-white text-sm uppercase mt-1">Lahkotnost & Prebavljivost</h5>
-              <p class="text-xs text-gray-400 mt-1 font-light">
+              <h5 class="font-serif font-bold text-gray-900 text-sm uppercase mt-1">Lahkotnost & Prebavljivost</h5>
+              <p class="text-xs text-gray-500 mt-1 font-light">
                 Zaradi 48-urne fermentacije je gluten predhodno razgrajen. Pica je izjemno lahka, ne povzroča žeje in se v želodcu ne napihuje.
               </p>
             </div>
-            <span class="text-[10px] font-mono text-masanielli-gold mt-3">0% občutka teže po obroku</span>
+            <span class="text-[10px] font-mono text-red-600 mt-3 font-bold">0% občutka teže po obroku</span>
           </div>
         </div>
       </div>

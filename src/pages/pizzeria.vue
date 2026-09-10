@@ -1,52 +1,55 @@
 <template>
-  <div class="min-h-screen bg-black text-gray-100 font-sans selection:bg-masanielli-gold selection:text-black">
-    <!-- ===== EDITORIAL HERO HEADER (Inspired by Pizzeria I Masanielli) ===== -->
-    <header class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-masanielli-gold/20 bg-black py-20 px-4">
-      <!-- High contrast dark imagery layer -->
+  <div class="min-h-screen bg-white text-gray-900 font-sans selection:bg-red-600 selection:text-white">
+    <!-- Top red stripe border (matching print menu aesthetic) -->
+    <div class="menu-stripe-border" aria-hidden="true"></div>
+
+    <!-- ===== EDITORIAL HERO HEADER (Print Menu Aesthetic) ===== -->
+    <header class="relative min-h-[70vh] flex items-center justify-center overflow-hidden border-b-2 border-red-100 bg-white py-16 px-4">
+      <!-- High contrast light imagery layer -->
       <img 
         :src="getOptImg(siteImages.pizzeria_hero_bg, 1920, 85)" 
         alt="Kader Neapolitan Pizza" 
-        class="absolute inset-0 w-full h-full object-cover opacity-35 filter contrast-125 saturate-75 scale-105 transform transition-transform duration-1000" 
+        class="absolute inset-0 w-full h-full object-cover opacity-15 filter contrast-125 saturate-75 scale-105 transform transition-transform duration-1000" 
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/95 to-white z-10"></div>
       
-      <!-- Subtle gold radial glow -->
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(205,176,131,0.08)_0%,transparent_70%)] z-10 pointer-events-none"></div>
+      <!-- Subtle red radial glow -->
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.06)_0%,transparent_70%)] z-10 pointer-events-none"></div>
 
       <div class="relative z-20 text-center max-w-4xl mx-auto px-4 flex flex-col items-center">
         <!-- Brand Crest / Tagline Badge -->
         <div class="flex flex-wrap justify-center gap-2 mb-6">
-          <span class="px-3.5 py-1 bg-masanielli-gold/10 border border-masanielli-gold/40 text-masanielli-gold text-[11px] font-bold uppercase tracking-[0.25em] rounded-full shadow-sm">
+          <span class="px-3.5 py-1 bg-red-600 text-white text-[11px] font-bold uppercase tracking-[0.25em] rounded-full shadow-sm">
             48-Urna Fermentacija
           </span>
-          <span class="px-3.5 py-1 bg-zinc-900/80 border border-zinc-700/80 text-gray-300 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+          <span class="px-3.5 py-1 bg-red-50 border border-red-200 text-red-600 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
             San Marzano D.O.P
           </span>
-          <span class="px-3.5 py-1 bg-zinc-900/80 border border-zinc-700/80 text-gray-300 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+          <span class="px-3.5 py-1 bg-red-50 border border-red-200 text-red-600 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
             Mocarela Bufala D.O.P
           </span>
-          <span class="px-3.5 py-1 bg-zinc-900/80 border border-zinc-700/80 text-gray-300 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+          <span class="px-3.5 py-1 bg-red-50 border border-red-200 text-red-600 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
             Panuozzo Sendviči
           </span>
         </div>
 
         <!-- Main Title (Serif Editorial Style) -->
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-black tracking-tight text-white mb-3 uppercase leading-[0.95]">
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-black tracking-tight text-gray-900 mb-3 uppercase leading-[0.95]">
           Pizzeria Bistro<br>
-          <span class="text-masanielli-gold font-serif italic lowercase text-4xl md:text-6xl font-normal block mt-2">di Grad Kodeljevo</span>
+          <span class="text-red-600 font-serif italic lowercase text-4xl md:text-6xl font-normal block mt-2">di Grad Kodeljevo</span>
         </h1>
 
-        <!-- Manifesto Quote (In the style of Francesco Martucci) -->
-        <p class="text-gray-300 text-sm md:text-lg max-w-2xl font-light italic mt-4 mb-8 leading-relaxed">
+        <!-- Manifesto Quote -->
+        <p class="text-gray-600 text-sm md:text-lg max-w-2xl font-light italic mt-4 mb-8 leading-relaxed">
           “Zavedanje in strast sta ključni sestavini za neapeljsko pico z močno identiteto, v kateri se prepletata izročilo Kampanije in grajski ambient.”
         </p>
 
-        <!-- Direct Action Buttons (Gold bordered, refined) -->
+        <!-- Direct Action Buttons -->
         <div class="flex flex-wrap gap-4 justify-center w-full max-w-xl">
           <button 
             type="button"
             @click="openModal('takeaway')" 
-            class="px-8 py-4 bg-masanielli-gold text-black hover:bg-masanielli-goldLight font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-masanielli-gold/10 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
+            class="px-8 py-4 bg-red-600 text-white hover:bg-red-700 font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-red-600/20 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
           >
             <PhoneIcon class="w-4 h-4 mr-2" />
             {{ t('pizzeria.pickUp') }}
@@ -54,7 +57,7 @@
           <button 
             type="button"
             @click="openModal('table')" 
-            class="px-8 py-4 bg-zinc-950 border border-masanielli-gold/40 text-masanielli-gold hover:bg-zinc-900 hover:border-masanielli-gold font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
+            class="px-8 py-4 bg-white border-2 border-red-600 text-red-600 hover:bg-red-50 font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
           >
             <CalendarDaysIcon class="w-4 h-4 mr-2" />
             {{ t('pizzeria.tableRes') }}
@@ -62,16 +65,16 @@
         </div>
 
         <!-- Digital vs Printed View Switcher -->
-        <div class="mt-10 inline-flex p-1 bg-zinc-950 border border-zinc-800 rounded-2xl">
+        <div class="mt-10 inline-flex p-1.5 bg-red-50 border-2 border-red-200 rounded-2xl shadow-sm">
           <button 
             @click="activeView = 'digital'"
-            :class="['px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300', activeView === 'digital' ? 'bg-masanielli-gold text-black shadow-lg font-black' : 'text-gray-400 hover:text-white']"
+            :class="['px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300', activeView === 'digital' ? 'bg-red-600 text-white shadow-md font-black' : 'text-gray-600 hover:text-red-600']"
           >
             {{ t('pizzeria.digitalMenu') }}
           </button>
           <button 
             @click="activeView = 'printed'"
-            :class="['px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300', activeView === 'printed' ? 'bg-masanielli-gold text-black shadow-lg font-black' : 'text-gray-400 hover:text-white']"
+            :class="['px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300', activeView === 'printed' ? 'bg-red-600 text-white shadow-md font-black' : 'text-gray-600 hover:text-red-600']"
           >
             {{ t('pizzeria.printedMenu') }}
           </button>
@@ -81,8 +84,6 @@
 
     <!-- ===== PIZZERIA WHITE SECTION (matching print menu aesthetic) ===== -->
     <div class="relative bg-white">
-      <!-- Top red stripe border (matching print menu) -->
-      <div class="menu-stripe-border" aria-hidden="true"></div>
 
     <div class="max-w-6xl mx-auto px-4 py-16">
 
@@ -150,20 +151,20 @@
 
         <!-- Real Instagram Food Showcase Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          <div class="relative overflow-hidden rounded-3xl border border-masanielli-gold/30 group shadow-2xl">
+          <div class="relative overflow-hidden rounded-3xl border-2 border-red-100 group shadow-xl">
             <img :src="getOptImg(siteImages.pizzeria_showcase_1, 800, 80)" alt="Neapolitan Pizza with Prosciutto and Arugula" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
-                <span class="text-[11px] font-mono text-masanielli-gold uppercase tracking-widest block mb-1">Sveže iz peči</span>
+                <span class="text-[11px] font-mono text-red-400 font-bold uppercase tracking-widest block mb-1">Sveže iz peči</span>
                 <h4 class="text-xl font-serif font-bold text-white uppercase">Neapeljska Pica z Pršutom & Rukolo</h4>
               </div>
             </div>
           </div>
-          <div class="relative overflow-hidden rounded-3xl border border-masanielli-gold/30 group shadow-2xl">
+          <div class="relative overflow-hidden rounded-3xl border-2 border-red-100 group shadow-xl">
             <img :src="getOptImg(siteImages.pizzeria_showcase_2, 800, 80)" alt="Panuozzo Mortadella Burrata e Pistacchio" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
-                <span class="text-[11px] font-mono text-masanielli-gold uppercase tracking-widest block mb-1">Hišna Specialiteta</span>
+                <span class="text-[11px] font-mono text-red-400 font-bold uppercase tracking-widest block mb-1">Hišna Specialiteta</span>
                 <h4 class="text-xl font-serif font-bold text-white uppercase">Panuozzo Sendvič z Mortadelo & Burrato</h4>
               </div>
             </div>
@@ -443,7 +444,7 @@
     </div><!-- end pizzeria white section -->
 
     <!-- ===== STICKY MOBILE ACTION BAR ===== -->
-    <div class="fixed bottom-safe left-4 right-4 z-40 md:hidden bg-zinc-950/95 border border-red-500/40 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
+    <div class="fixed bottom-safe left-4 right-4 z-40 md:hidden bg-white/95 border-2 border-red-200 backdrop-blur-lg p-3 rounded-2xl shadow-2xl flex justify-between items-center">
       <a 
         href="tel:+38683836740" 
         class="flex-1 mr-2 py-3 bg-red-600 text-white rounded-xl text-[11px] font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
@@ -452,7 +453,7 @@
       </a>
       <a 
         href="tel:+38640175628" 
-        class="flex-1 ml-2 py-3 bg-zinc-900 text-red-400 border border-red-500/40 rounded-xl text-[11px] font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
+        class="flex-1 ml-2 py-3 bg-white text-red-600 border-2 border-red-600 rounded-xl text-[11px] font-black uppercase text-center flex items-center justify-center min-h-[44px] touch-target-min"
       >
         <CalendarDaysIcon class="w-4 h-4 mr-1.5" /> Rezervacije (+386 40 175 628)
       </a>

@@ -4,9 +4,9 @@
     <!-- ===== Hero ===== -->
     <section class="relative h-[70vh] min-h-[480px] flex items-end overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=80"
-        alt="Grad Kodeljevo private hire"
-        class="absolute inset-0 w-full h-full object-cover opacity-35"
+        src="/images/instagram/ig_img_5.jpg"
+        alt="Grad Kodeljevo private hire terrace party"
+        class="absolute inset-0 w-full h-full object-cover opacity-45 filter contrast-110 saturate-90"
       >
       <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
       <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 md:pb-20 w-full">
@@ -57,11 +57,11 @@
             </li>
           </ol>
         </div>
-        <div class="rounded-3xl overflow-hidden">
+        <div class="rounded-3xl overflow-hidden border border-kader-red/30 shadow-2xl">
           <img
-            src="https://images.unsplash.com/photo-1561489396-888724a1543d?auto=format&fit=crop&w=1000&q=80"
-            alt="Event at Grad Kodeljevo"
-            class="w-full h-80 md:h-96 object-cover"
+            src="/images/instagram/ig_img_3.jpg"
+            alt="Live Event at Grad Kodeljevo"
+            class="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-700"
           >
         </div>
       </section>
@@ -119,6 +119,54 @@
             <button @click="scrollToForm" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Real Venue & Catering Photo Showcase ===== -->
+      <section class="pb-20 md:pb-24">
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">Vzdušje & Katering</p>
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-12 uppercase">Utrinki Z Zasebnih Dogodkov</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
+            <img src="/images/instagram/ig_img_5.jpg" alt="Zasebna zabava na poletni terasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Terasa & Poletni Vrt</span>
+                <h4 class="text-base font-bold text-white uppercase">Zabave Na Prostem</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
+            <img src="/images/instagram/ig_img_7.jpg" alt="Neapeljske pice na zasebnem dogodku" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Topli Katering</span>
+                <h4 class="text-base font-bold text-white uppercase">Sveže Pečene Pice</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
+            <img src="/images/instagram/ig_img_13.jpg" alt="Panuozzo sendviči za katering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Finger Food</span>
+                <h4 class="text-base font-bold text-white uppercase">Grajski Panuozzo</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
+            <img src="/images/instagram/ig_img_3.jpg" alt="Živa glasba in nastopi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+              <div>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Oder & Glasba</span>
+                <h4 class="text-base font-bold text-white uppercase">Koncerti & DJ Nastopi</h4>
+              </div>
+            </div>
           </div>
         </div>
       </section>

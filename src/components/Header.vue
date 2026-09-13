@@ -9,11 +9,9 @@
         </div>
         
         <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
-          <NuxtLink to="/" class="hover:text-red-500 transition-colors duration-300 py-2 border-b-2 border-transparent" active-class="text-red-500 font-bold border-red-500">{{ t('nav.home') }}</NuxtLink>
           <NuxtLink to="/pizzeria" class="hover:text-red-500 transition-colors duration-300 py-2 border-b-2 border-transparent" active-class="text-red-500 font-bold border-red-500">{{ t('nav.pizzeria') }}</NuxtLink>
           <NuxtLink to="/club" class="hover:text-red-500 transition-colors duration-300 py-2 border-b-2 border-transparent" active-class="text-red-500 font-bold border-red-500">{{ t('nav.events') }}</NuxtLink>
           <NuxtLink to="/buyouts" class="hover:text-red-500 transition-colors duration-300 py-2 border-b-2 border-transparent" active-class="text-red-500 font-bold border-red-500">{{ t('nav.buyouts') }}</NuxtLink>
-          <NuxtLink to="/shop" class="hover:text-red-500 transition-colors duration-300 py-2 border-b-2 border-transparent" active-class="text-red-500 font-bold border-red-500">{{ t('nav.shop') }}</NuxtLink>
         </nav>
         
         <div class="flex items-center space-x-3">
@@ -57,11 +55,9 @@
       >
         <div v-show="mobileMenuOpen" class="md:hidden py-4 border-t border-zinc-800/80 bg-black/95">
           <div class="flex flex-col space-y-1 text-base font-semibold">
-            <NuxtLink to="/" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" active-class="text-red-500 font-bold bg-zinc-900/90" @click="mobileMenuOpen = false">{{ t('nav.home') }}</NuxtLink>
             <NuxtLink to="/pizzeria" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" active-class="text-red-500 font-bold bg-zinc-900/90" @click="mobileMenuOpen = false">{{ t('nav.pizzeria') }}</NuxtLink>
             <NuxtLink to="/club" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" active-class="text-red-500 font-bold bg-zinc-900/90" @click="mobileMenuOpen = false">{{ t('nav.events') }}</NuxtLink>
             <NuxtLink to="/buyouts" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" active-class="text-red-500 font-bold bg-zinc-900/90" @click="mobileMenuOpen = false">{{ t('nav.buyouts') }}</NuxtLink>
-            <NuxtLink to="/shop" class="hover:text-red-500 hover:bg-zinc-900/80 rounded-xl px-4 py-3 transition-colors" active-class="text-red-500 font-bold bg-zinc-900/90" @click="mobileMenuOpen = false">{{ t('nav.shop') }}</NuxtLink>
           </div>
         </div>
       </Transition>

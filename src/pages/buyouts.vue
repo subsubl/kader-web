@@ -369,7 +369,7 @@ const venueSchema = computed(() => ({
       '@type': ['LocalBusiness', 'EventVenue'],
       '@id': 'https://www.kader.si/buyouts#venue',
       'name': 'Kader Grad Kodeljevo — Najem Prostora',
-      'alternateName': 'Dvorec Grad Kodeljevo — Prizorišče & Zasebni Najem',
+      'alternateName': 'Dvorec Grad Kodeljevo — Prizorišče & Najem',
       'description': t('buyouts.pageDesc') || 'Zgodovinski baročni dvorec iz 17. stoletja z letnim vrtom, klubskim obokom in celovito gostinsko ter avdio ponudbo za poroke, poslovna srečanja in zasebne zabave v Ljubljani.',
       'url': 'https://www.kader.si/buyouts',
       'telephone': CANONICAL_CONTACTS.reservationsPhone,

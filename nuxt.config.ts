@@ -34,6 +34,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/events': { redirect: { to: '/club', statusCode: 301 } },
+    '/pizzeria': { redirect: { to: '/', statusCode: 301 } },
     '/admin/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/api/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
   },

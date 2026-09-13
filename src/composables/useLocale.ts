@@ -57,7 +57,7 @@ const sl: Dict = {
     "pizzeria": "Pizzeria",
     "club": "Klub",
     "events": "Dogodki",
-    "buyouts": "Zasebni najem",
+    "buyouts": "Najem",
     "shop": "Trgovina",
     "admin": "Admin"
   },
@@ -200,10 +200,10 @@ const sl: Dict = {
       "ogDescription": "Prihajajoči glasbeni dogodki, DJ nastopi in klubski večeri na Gradu Kodeljevo."
     },
     "buyouts": {
-      "title": "Zasebni Najem & Poroke — Najem Prostora Grad Kodeljevo | Kader",
+      "title": "Najem & Poroke — Najem Prostora Grad Kodeljevo | Kader",
       "desc": "Organizirajte vašo poroko, rojstni dan ali poslovni dogodek v edinstvenem baročnem ambientu Gradu Kodeljevo. Preverite pakete najema in pošljite povpraševanje.",
       "description": "Organizirajte vašo poroko, rojstni dan ali poslovni dogodek v edinstvenem baročnem ambientu Gradu Kodeljevo. Preverite pakete najema in pošljite povpraševanje.",
-      "ogTitle": "Zasebni Najem & Poroke — Najem Prostora Grad Kodeljevo",
+      "ogTitle": "Najem & Poroke — Najem Prostora Grad Kodeljevo",
       "ogDesc": "Ekskluziven najem letnega vrta in klubskih prostorov Gradu Kodeljevo za poroke, zabave in poslovna srečanja.",
       "ogDescription": "Ekskluziven najem letnega vrta in klubskih prostorov Gradu Kodeljevo za poroke, zabave in poslovna srečanja."
     },
@@ -444,7 +444,7 @@ const sl: Dict = {
     "noNights": "Trenutno ni razpisanih klubskih noči.",
     "newLineups": "Program se sinhronizira avtomatsko.",
     "tickets": "Vstopnice →",
-    "privateHire": "Zasebni najem",
+    "privateHire": "Najem",
     "takeoverTitle": "Najem",
     "takeoverP": "Na voljo za zasebne dogodke.",
     "bookVenue": "Rezerviraj",
@@ -562,7 +562,7 @@ const sl: Dict = {
     "loadEventsError": "Dogodkov trenutno ni mogoče naložiti. Poskusite znova."
   },
   "buyouts": {
-    "pageTitle": "Zasebni Najem",
+    "pageTitle": "Najem",
     "pageDesc": "Grad Kodeljevo je na voljo za zasebne dogodke.",
     "heroAlt": "Zasebna zabava na terasi gradu Kodeljevo",
     "bookingImgAlt": "Dogodek v živo na gradu Kodeljevo",

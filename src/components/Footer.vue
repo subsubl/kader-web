@@ -51,7 +51,7 @@
         <div>
           <h3 class="text-lg font-bold mb-4 text-white">{{ t('footer.quickLinks') }}</h3>
           <ul class="space-y-2 text-sm">
-            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.pizzeria') }}</NuxtLink></li>
+            <li><NuxtLink to="/" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.pizzeria') }}</NuxtLink></li>
             <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.events') }}</NuxtLink></li>
             <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.buyouts') }}</NuxtLink></li>
           </ul>

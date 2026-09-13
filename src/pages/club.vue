@@ -24,11 +24,6 @@
       </div>
     </section>
 
-    <!-- Bespoke Klipsch Audiophile Sound Experience Player -->
-    <div class="max-w-6xl mx-auto px-4 py-4 relative z-20">
-      <ClubDjPlayer />
-    </div>
-
     <!-- ===== Consolidated Events Experience (Prihajajoči Dogodki) - MOVED TO TOP ===== -->
     <section id="events" class="py-16 md:py-24 px-4 bg-[#120506]">
       <div class="max-w-6xl mx-auto">

@@ -533,7 +533,7 @@ const staffOptions = ref<Array<{ id: string; email: string; name: string }>>([])
 
 onMounted(async () => {
   try {
-    const res = await $fetch<Array<{ id: string; email: string; name: string }>>('/api/admin/staff')
+    const res = (await $fetch('/api/admin/staff')) as Array<{ id: string; email: string; name: string }>
     staffOptions.value = res || []
   } catch {
     staffOptions.value = []

@@ -1,40 +1,40 @@
-# Implementation & Verification Plan: Kader Frontend Elevation
+# Project Orchestration Plan: Kader i18n & Club/Events Consolidation
 
-## Objectives & Scope
-Elevate Kader frontend (`index.vue`, `pizzeria.vue`, `club.vue`, `buyouts.vue`) to match 50 Top Pizza and Berlin Techno Club (Berghain, Tresor, Watergate, RSO) world-class standards.
+## Executive Objective
+Deliver full requirements from ORIGINAL_REQUEST.md:
+1. R1: Expand i18n to Polish (pl), Czech (cs), Spanish (es) across all ~938 leaf keys with 100% key parity, updating useLocale.ts, Header.vue, and nuxt.config.ts.
+2. R2: Merge /events into /club page, remove sound system & floors sections, retain culture/safety & door rules/FAQ, embed interactive events experience, update navigation & redirect.
+3. R3: Automated verification & build integrity (typecheck, build, 100% dictionary parity audit, club page rendering).
 
-## Requirements Breakdown
-- **R1: Interactive Day/Night Mode Switcher & Home Page Elevation (`src/pages/index.vue`)**
-  - Ambient mode toggle (Day: Pizzeria Bistro, Night: Dance Club).
-  - Ambient color shifts, lighting accents, hero dynamic elements, quick navigation.
-  - Interactive full-screen Image Lightbox modal for "KADER V SLIKAH" gallery with smooth transitions, keyboard ESC navigation, and zoom.
+## Phased Workflow & Milestones
 
-- **R2: World-Class Neapolitan Pizzeria Showcase (`src/pages/pizzeria.vue`)**
-  - Ingredient Provenance Badges (San Marzano DOP, Fior di Latte, 48h Fermentation, Bufala Campana DOP).
-  - Interactive Table Reservation & Takeaway Quick-Modal triggering directly from menu items and header CTAs.
-  - "Pizzeria Craft & Oven" interactive feature section showcasing 48h dough preparation, hydration, 450°C wood oven heat.
+### Phase 1: Exploration & Architecture Analysis (M1)
+- Dispatch Explorers to analyze:
+  - Exact key catalog of existing dictionaries (`sl`, `en`, `de`, `fr`, `it`, `sr`, `nl`) in `src/composables/useLocale.ts`.
+  - Structure and components in `src/pages/club.vue` and `src/pages/events.vue`.
+  - Navigation references in `Header.vue`, `Footer.vue`, and any router / middleware files.
+  - Test suites and build configuration.
+- Outcome: Structured analysis of leaf keys, dictionary extraction/generation strategy, and club page component integration strategy.
 
-- **R3: Berlin Club & Nightlife Experience (`src/pages/club.vue`)**
-  - Floating / embedded DJ Mix & Sound Preview Player with play/pause, simulated/audio waveforms, audio tracks, track progress.
-  - Enhanced Resident Advisor (RA) lineup cards with artist tags, event countdown timers, direct RA ticket purchase CTAs.
-  - Interactive Door Policy & Venue FAQ Accordion (dress code, photo policy, safer spaces).
+### Phase 2: Implementation of R1 - i18n Expansion (M2)
+- Worker writes full translations for Polish (`pl`), Czech (`cs`), and Spanish (`es`) matching all leaf keys in `src/composables/useLocale.ts`.
+- Worker updates `SUPPORTED_LOCALES`, `Locale`, `localeLabels`, `dictionaries`, `flatDictionaries`.
+- Worker updates `src/components/Header.vue` (language dropdown, flags, labels) and `nuxt.config.ts` (`hreflang` alternate links).
+- Reviewers and Challengers verify key parity, translation completeness, and absence of hardcoded English/Slovenian fallbacks in new dictionaries.
 
-- **R4: Buyouts / Private Hire Polish & Layout Refinement (`src/pages/buyouts.vue`)**
-  - Refined visuals, booking flow, package selection, mobile responsiveness.
+### Phase 3: Implementation of R2 - Merge /events into /club (M3)
+- Worker modifies `src/pages/club.vue`:
+  - Removes Sound System ("Klipsch La Scala") and Floors 01/02 sections.
+  - Retains Club Culture / Safety and Door Rules & FAQ sections.
+  - Embeds interactive Events features: Upcoming RA Events grid, detail modal with ticket purchase/Pretix integration, past events archive, category filters, calendar view.
+- Worker implements clean redirect from `/events` to `/club` (e.g., in `src/pages/events.vue` or route middleware) and updates navigation links in `Header.vue`, `Footer.vue`, and anywhere else linking to `/events`.
+- Reviewers and Challengers verify UI rendering, interaction flows, and routing.
 
-- **R5: Verification & Build Integrity**
-  - `npm run build` exits with 0 errors.
-  - 100% responsive across mobile (<640px), tablet (768px-1024px), desktop (>1024px).
-  - Reviewer adversarial audit & Forensic integrity verification.
-
-## Execution Strategy
-1. **Exploration & Architectural Design**:
-   - Dispatch Explorers with `modern-web-guidance` skill to analyze existing components, find optimal modern CSS/Vue patterns (dialog/modal, audio API, state transitions).
-2. **Implementation**:
-   - Worker implements Milestone 1, 2, 3, 4 with modern design system, verified build output.
-3. **Review & Empirical Challenge**:
-   - Independent Reviewers inspect code quality, responsiveness, accessibility.
-   - Challengers execute automated DOM/headless browser or build/script assertions.
-4. **Forensic Integrity Audit**:
-   - `teamwork_preview_auditor` performs systematic integrity forensic checks.
-5. **Sentinel Notification & Victory Audit Trigger**.
+### Phase 4: Full Verification, Hardening & Audit (M4)
+- Worker / Tester runs:
+  - `npm run typecheck`
+  - `npm run build`
+  - Dictionary parity test script verifying all 10 locales have identical key sets.
+  - Headless/rendering test checking `/club` page sections and `/events` redirect.
+- Forensic Auditor (`teamwork_preview_auditor`) performs integrity check (no dummy translations, no hardcoded bypasses).
+- Final review gate and report to Sentinel.

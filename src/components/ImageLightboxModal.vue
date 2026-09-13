@@ -13,7 +13,7 @@
         class="fixed inset-0 z-[100] flex flex-col justify-between bg-black/95 backdrop-blur-2xl text-white select-none overflow-hidden"
         role="dialog"
         aria-modal="true"
-        aria-label="Kader Galerija Slik"
+        :aria-label="t('lightbox.galleryAria')"
         @click="onBackdropClick"
         @touchstart="onTouchStart"
         @touchend="onTouchEnd"
@@ -43,8 +43,8 @@
               type="button"
               @click="close"
               class="w-11 h-11 rounded-full bg-zinc-900/80 hover:bg-red-600/90 border border-zinc-700/80 hover:border-red-500 text-zinc-300 hover:text-white flex items-center justify-center transition-all min-h-[44px] min-w-[44px]"
-              aria-label="Zapri galerijo (Esc)"
-              title="Zapri (Esc)"
+              :aria-label="t('lightbox.closeAria')"
+              :title="t('lightbox.closeTitle')"
             >
               <XMarkIcon class="w-6 h-6" />
             </button>
@@ -58,8 +58,8 @@
             type="button"
             @click.stop="prev"
             class="absolute left-2 md:left-6 z-20 w-12 h-12 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/80 text-white flex items-center justify-center transition-all hover:scale-110 shadow-xl min-h-[44px] min-w-[44px]"
-            aria-label="Prejšnja slika (Leva puščica)"
-            title="Prejšnja (←)"
+            :aria-label="t('lightbox.prevAria')"
+            :title="t('lightbox.prevTitle')"
           >
             <ChevronLeftIcon class="w-6 h-6" />
           </button>
@@ -81,8 +81,8 @@
             type="button"
             @click.stop="next"
             class="absolute right-2 md:right-6 z-20 w-12 h-12 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/80 text-white flex items-center justify-center transition-all hover:scale-110 shadow-xl min-h-[44px] min-w-[44px]"
-            aria-label="Naslednja slika (Desna puščica)"
-            title="Naslednja (→)"
+            :aria-label="t('lightbox.nextAria')"
+            :title="t('lightbox.nextTitle')"
           >
             <ChevronRightIcon class="w-6 h-6" />
           </button>
@@ -95,7 +95,7 @@
               {{ currentItem.label }}
             </h3>
             <p class="text-xs text-zinc-400 font-medium">
-              Grad Kodeljevo · Ulica Carla Benza 20, Ljubljana
+              {{ t('lightbox.venueAddress') }}
             </p>
           </div>
 
@@ -108,7 +108,7 @@
               @click="goTo(idx)"
               class="relative flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden border transition-all duration-300 min-h-[44px] min-w-[44px]"
               :class="idx === currentIndex ? 'border-red-500 scale-105 ring-2 ring-red-500/50' : 'border-zinc-800 opacity-50 hover:opacity-100 hover:border-zinc-600'"
-              :aria-label="`Prikaži sliko ${idx + 1}: ${item.label}`"
+              :aria-label="t('lightbox.showImageAria', { n: idx + 1, label: item.label })"
             >
               <img :src="getOptImg(item.src, 120, 70, 'webp')" :alt="item.label" class="w-full h-full object-cover" />
             </button>

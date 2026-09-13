@@ -1,34 +1,27 @@
-# Progress: Kader Frontend Elevation & Redesign
+# Progress & Liveness Tracker
 
-Last visited: 2026-09-10T19:00:20+02:00
+## Current Status
+Last visited: 2026-09-12T09:40:15Z
+- [x] Initial setup: ORIGINAL_REQUEST.md, BRIEFING.md, PROJECT.md, plan.md created
+- [x] Milestone 1: Exploration & Architecture Analysis
+  - [x] Dispatch Explorers for i18n structure and club/events pages
+  - [x] Synthesize exploration findings (938 leaf keys, 100% baseline parity, exact section ranges identified, 301 redirect architecture designed)
+- [x] Milestone 2: R1 - i18n Expansion (pl, cs, es)
+  - [x] Worker implementation: 10 locales, 938 keys (100% parity), useLocale.ts, Header.vue, nuxt.config.ts
+  - [x] Automated verification with scripts/verify_i18n_parity.mjs passed
+  - [x] Typecheck & build passed
+- [x] Milestone 3: R2 - Merge /events into /club & Simplify Sections
+  - [x] Worker implementation: club.vue overhaul, event components integration, nav updates, redirect
+  - [x] Automated verification with scripts/verify_club_consolidation.mjs passed (17/17 checks)
+  - [x] Typecheck & build passed
+- [x] Milestone 4: R3 - Verification, Parity Audit, Build Integrity & Forensic Audit
+  - [x] Dispatch Reviewers (reviewer_1, reviewer_2) - both APPROVED
+  - [x] Dispatch Challengers (challenger_1, challenger_2) - 100% assertions passed
+  - [x] Dispatch Forensic Auditor (auditor_1) - CLEAN verdict
+  - [x] Quality polish & XSS immunity applied (worker_polish)
+  - [x] Full Gate passed: 100% parity, 17/17 consolidation checks, typecheck 0 errors, SSR build 0 errors
+- [x] Completion report to Sentinel
 
 ## Iteration Status
-Current iteration: 1 / 32
-
-## Milestones
-- [x] Milestone 1: Interactive Day/Night Mode Switcher & Home Page Elevation (`index.vue`)
-  - [x] Explorer Front 1 completed (`1fff6697-583d-4e4d-a2ca-b4f8c67de7da`)
-  - [x] Worker implemented `ImageLightboxModal.vue` & `index.vue` Day/Night ambient mode (`1e61bbdc-60a3-477b-855d-66a3594b47d2`)
-  - [x] Reviewer 1 PASS / APPROVE (`04f31484-971d-41e0-8f52-dfbf94ce26ab`)
-  - [/] Challenger 1 empirical testing
-- [x] Milestone 2: World-Class Neapolitan Pizzeria Showcase (`pizzeria.vue`)
-  - [x] Explorer Front 2 completed (`aafde075-fbd8-4c05-944f-db75e427fa2c`)
-  - [x] Worker implemented `ProvenanceBadge.vue`, `ReservationModal.vue`, `useReservationModal.ts`, `PizzeriaCraft.vue`, and updated `pizzeria.vue` (`1e61bbdc-60a3-477b-855d-66a3594b47d2`)
-  - [x] Reviewer 1 PASS / APPROVE (`04f31484-971d-41e0-8f52-dfbf94ce26ab`)
-  - [/] Challenger 1 empirical testing
-- [x] Milestone 3: Berlin Club & Nightlife Experience (`club.vue`)
-  - [x] Explorer Front 3 completed (`cab1edde-d2ed-4ffd-927c-66f49ee9ee4e`)
-  - [x] Worker implemented `ClubDjPlayer.vue`, dynamic countdown timer, RA card grid, and door policy accordion (`1e61bbdc-60a3-477b-855d-66a3594b47d2`)
-  - [x] Reviewer 2 PASS / APPROVE (`9e80c8f4-209e-43de-a64f-a2b5fd06cb59`)
-  - [/] Challenger 2 empirical testing
-- [x] Milestone 4: Buyouts / Private Hire Polish & Layout Refinement (`buyouts.vue`)
-  - [x] Explorer Front 3 analysis completed
-  - [x] Worker implemented plan selector prefill, club takeover banner, getOptImg (`1e61bbdc-60a3-477b-855d-66a3594b47d2`)
-  - [x] Reviewer 2 PASS / APPROVE (`9e80c8f4-209e-43de-a64f-a2b5fd06cb59`)
-  - [/] Challenger 2 empirical testing
-- [x] Milestone 5: Verification, Build Integrity & Forensic Audit
-  - [x] Both Reviewers 1 & 2 returned PASS verdicts
-  - [x] Challenger 1 PASS (37/37 empirical tests passed, typecheck & build clean)
-  - [x] Challenger 2 PASS (34/34 empirical tests passed, responsive audit, typecheck & build clean)
-  - [x] Forensic Auditor CLEAN (0 integrity violations, 100% acceptance criteria satisfied, typecheck & build clean)
-  - [x] Gate evaluation passed (All 4 criteria satisfied)
+Current iteration: 4 / 32
+Milestone: Complete

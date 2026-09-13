@@ -1,6 +1,26 @@
 {
-  "lastSyncedAt": "2026-09-10T19:46:20.406Z",
+  "lastSyncedAt": "2026-09-13T10:05:10.766Z",
   "events": [
+    {
+      "ra_id": 2535267,
+      "title": "Simply Life",
+      "date": "2026-09-18T16:00:00.000Z",
+      "start_time": "2026-09-18T16:00:00.000Z",
+      "end_time": "2026-09-19T03:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/cf1be0e0856e619647db239126bb4ab09fc13896.jpg",
+      "ra_url": "https://ra.co/events/2535267",
+      "lineup": "<artist id=\"102102\">Simm.</artist> \nMuk\n<artist id=\"128754\">Urban Ground</artist> \nThe Peachez\nMadamTuSo\nmscln",
+      "artists": [
+        "Simm.",
+        "Urban Ground"
+      ],
+      "genres": [
+        "House",
+        "Electronica"
+      ],
+      "updated_at": "2026-09-13T10:05:10.766Z"
+    },
     {
       "ra_id": 2518874,
       "title": "Kader 2nd Anniversary",
@@ -22,7 +42,7 @@
         "House",
         "Electro"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 1786575219474,
@@ -87,7 +107,7 @@
         "Techno",
         "Disco"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2470385,
@@ -107,7 +127,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2459500,
@@ -127,7 +147,7 @@
         "Trance",
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2423257,
@@ -145,7 +165,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2380705,
@@ -167,7 +187,7 @@
       "genres": [
         "Electronica"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2376045,
@@ -188,7 +208,7 @@
         "Techno",
         "Psytrance"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2358620,
@@ -208,7 +228,7 @@
         "Trance",
         "Bass"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2337425,
@@ -225,7 +245,7 @@
         "Techno",
         "Bass"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2328830,
@@ -244,7 +264,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2204667,
@@ -267,7 +287,7 @@
         "House",
         "Electronica"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2090095,
@@ -287,7 +307,7 @@
         "Trance",
         "Techno"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2061817,
@@ -309,7 +329,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 2030471,
@@ -329,7 +349,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 1909999,
@@ -347,7 +367,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.406Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 1885731,
@@ -368,7 +388,7 @@
         "Techno",
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.405Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 1849697,
@@ -387,7 +407,7 @@
       "genres": [
         "House"
       ],
-      "updated_at": "2026-09-10T19:46:20.405Z"
+      "updated_at": "2026-09-13T10:05:10.765Z"
     },
     {
       "ra_id": 539712,
@@ -410,7 +430,7 @@
         "Some1Else"
       ],
       "genres": [],
-      "updated_at": "2026-09-10T19:46:20.335Z"
+      "updated_at": "2026-09-13T10:05:10.705Z"
     },
     {
       "ra_id": 485105,
@@ -432,7 +452,7 @@
         "Schrauff"
       ],
       "genres": [],
-      "updated_at": "2026-09-10T19:46:20.335Z"
+      "updated_at": "2026-09-13T10:05:10.705Z"
     }
   ]
 }

@@ -146,7 +146,7 @@ async function load() {
   loading.value = true
   loadError.value = ''
   try {
-    data.value = await $fetch<Analytics>('/api/admin/analytics')
+    data.value = (await $fetch('/api/admin/analytics')) as Analytics
   } catch (err: any) {
     console.error('Failed to load analytics:', err)
     loadError.value = err?.statusCode === 403 || err?.statusCode === 401

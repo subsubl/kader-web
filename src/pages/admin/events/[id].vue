@@ -202,8 +202,8 @@ const saving = ref(false)
 const loadEventToEdit = async () => {
   if (!isEdit.value) return
   try {
-    const allEvents = await $fetch<any[]>('/api/ra-events?scope=all')
-    const target = allEvents.find((e) => String(e.ra_id) === String(eventId))
+    const allEvents = (await $fetch('/api/ra-events?scope=all')) as any[]
+    const target = allEvents.find((e: any) => String(e.ra_id) === String(eventId))
     if (target) {
       form.value.ra_id = target.ra_id
       form.value.title = target.title || ''
@@ -228,7 +228,7 @@ const save = async () => {
   saving.value = true
 
   try {
-    const res = await $fetch<{ ok: boolean; event: any }>('/api/admin/events', {
+    const res = (await $fetch('/api/admin/events', {
       method: 'POST',
       body: {
         ra_id: form.value.ra_id,
@@ -245,7 +245,7 @@ const save = async () => {
         ra_url: form.value.ticket_provider === 'ra' ? form.value.ticket_url : null,
         lineup: form.value.lineup
       }
-    })
+    })) as { ok: boolean; event: any }
 
     if (res?.ok) {
       successMsg.value = 'Dogodek uspešno shranjen! Preusmerjam...'

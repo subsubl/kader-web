@@ -72,6 +72,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useLocale } from '~/composables/useLocale'
+
+const { t } = useLocale()
 
 export type BadgeKey =
   | 'san-marzano'
@@ -246,29 +249,46 @@ const BADGE_REGISTRY: Record<string, BadgeDef> = {
 
 const badgeInfo = computed<BadgeDef>(() => {
   const normKey = props.badgeKey.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '')
-  // Exact or fuzzy match
-  if (BADGE_REGISTRY[normKey]) return BADGE_REGISTRY[normKey]
-  if (normKey.includes('marzano')) return BADGE_REGISTRY['san-marzano']
-  if (normKey.includes('bufala')) return BADGE_REGISTRY['bufala']
-  if (normKey.includes('fior') || normKey.includes('latte')) return BADGE_REGISTRY['fior-di-latte']
-  if (normKey.includes('ferment') || normKey.includes('48h')) return BADGE_REGISTRY['ferment-48h']
-  if (normKey.includes('mortadela') || normKey.includes('mortadella')) return BADGE_REGISTRY['mortadella']
-  if (normKey.includes('pistac') || normKey.includes('bronte')) return BADGE_REGISTRY['pistacchio']
-  if (normKey.includes('olj') || normKey.includes('bio')) return BADGE_REGISTRY['olio-bio']
-  if (normKey.includes('parma') || normKey.includes('pršut parma')) return BADGE_REGISTRY['parma']
-  if (normKey.includes('stracciatella') || normKey.includes('burrata')) return BADGE_REGISTRY['stracciatella']
-  if (normKey.includes('vege')) return BADGE_REGISTRY['vegetarijansko']
-  if (normKey.includes('pikant')) return BADGE_REGISTRY['pikantno']
+  let baseDef: BadgeDef
+  if (BADGE_REGISTRY[normKey]) baseDef = BADGE_REGISTRY[normKey]
+  else if (normKey.includes('marzano')) baseDef = BADGE_REGISTRY['san-marzano']
+  else if (normKey.includes('bufala')) baseDef = BADGE_REGISTRY['bufala']
+  else if (normKey.includes('fior') || normKey.includes('latte')) baseDef = BADGE_REGISTRY['fior-di-latte']
+  else if (normKey.includes('ferment') || normKey.includes('48h')) baseDef = BADGE_REGISTRY['ferment-48h']
+  else if (normKey.includes('mortadela') || normKey.includes('mortadella')) baseDef = BADGE_REGISTRY['mortadella']
+  else if (normKey.includes('pistac') || normKey.includes('bronte')) baseDef = BADGE_REGISTRY['pistacchio']
+  else if (normKey.includes('olj') || normKey.includes('bio')) baseDef = BADGE_REGISTRY['olio-bio']
+  else if (normKey.includes('parma') || normKey.includes('pršut parma')) baseDef = BADGE_REGISTRY['parma']
+  else if (normKey.includes('stracciatella') || normKey.includes('burrata')) baseDef = BADGE_REGISTRY['stracciatella']
+  else if (normKey.includes('vege')) baseDef = BADGE_REGISTRY['vegetarijansko']
+  else if (normKey.includes('pikant')) baseDef = BADGE_REGISTRY['pikantno']
+  else {
+    baseDef = {
+      key: 'specialiteta',
+      shortName: props.badgeKey,
+      cert: 'PREMIUM',
+      icon: '✦',
+      title: props.badgeKey,
+      origin: t('provenance.badges.fallback.origin') !== 'provenance.badges.fallback.origin' ? t('provenance.badges.fallback.origin') : 'Izbrane Sestavine',
+      category: 'craft',
+      description: t('provenance.badges.fallback.description') !== 'provenance.badges.fallback.description' ? t('provenance.badges.fallback.description') : 'Vrhunska sestavina, pripravljena po tradicionalnih kulinaričnih postopkih.'
+    }
+  }
+
+  const k = baseDef.key
+  const transShort = t(`provenance.badges.${k}.shortName`)
+  const transTitle = t(`provenance.badges.${k}.title`)
+  const transOrigin = t(`provenance.badges.${k}.origin`)
+  const transDesc = t(`provenance.badges.${k}.description`)
+  const transFact = t(`provenance.badges.${k}.fact`)
 
   return {
-    key: 'specialiteta',
-    shortName: props.badgeKey,
-    cert: 'PREMIUM',
-    icon: '✦',
-    title: props.badgeKey,
-    origin: 'Izbrane Sestavine',
-    category: 'craft',
-    description: 'Vrhunska sestavina, pripravljena po tradicionalnih kulinaričnih postopkih.'
+    ...baseDef,
+    shortName: transShort !== `provenance.badges.${k}.shortName` ? transShort : baseDef.shortName,
+    title: transTitle !== `provenance.badges.${k}.title` ? transTitle : baseDef.title,
+    origin: transOrigin !== `provenance.badges.${k}.origin` ? transOrigin : baseDef.origin,
+    description: transDesc !== `provenance.badges.${k}.description` ? transDesc : baseDef.description,
+    fact: transFact !== `provenance.badges.${k}.fact` ? transFact : baseDef.fact
   }
 })
 

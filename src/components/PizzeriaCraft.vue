@@ -8,13 +8,13 @@
       <div class="text-center max-w-3xl mx-auto mb-16 px-4">
         <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-[11px] font-mono font-bold uppercase tracking-[0.25em] mb-4">
           <span>🔥</span>
-          <span>50 Top Pizza Standard · L'Arte Della Pizza</span>
+          <span>{{ t('craft.standardBadge') }}</span>
         </div>
         <h2 class="text-4xl md:text-6xl font-serif font-black uppercase text-gray-900 tracking-tight leading-tight">
-          Obrt Testa & Peč na 450°C
+          {{ t('craft.mainHeading') }}
         </h2>
         <p class="text-gray-600 text-sm md:text-base font-light mt-4 leading-relaxed">
-          Pristna neapeljska pica ni le hrana — je živa znanost fermentacije in spoštovanje stoletnega izročila Kampanije. Vsak hlebec v grajski kuhinji zori 48 ur pri kontrolirani temperaturi in se v 90 sekundah speče v razbeljeni peči na bukova drva.
+          {{ t('craft.mainDescription') }}
         </p>
         <div class="w-24 h-1 bg-red-600 mx-auto mt-6 rounded-full"></div>
       </div>
@@ -75,7 +75,7 @@
           <div class="lg:col-span-7 space-y-5">
             <div class="flex items-center space-x-3">
               <span class="px-3 py-1 bg-red-50 border border-red-200 text-red-600 font-mono text-xs font-bold rounded-lg uppercase tracking-widest">
-                Faza {{ currentStep.number }} / 05
+                {{ t('craft.phaseBadge', { n: currentStep.number }) }}
               </span>
               <span class="text-xs font-mono text-gray-500">
                 {{ currentStep.scientificLabel }}
@@ -113,7 +113,7 @@
             <blockquote class="p-4 bg-red-50 border-l-4 border-red-600 rounded-r-xl text-xs text-gray-700 italic font-serif">
               “{{ currentStep.quote }}”
               <span class="block not-italic font-mono text-[10px] text-red-600 mt-1 uppercase font-bold tracking-wider">
-                — Mojster picajol Kader Grad Kodeljevo
+                {{ t('craft.pizzaioloQuoteAttribution') }}
               </span>
             </blockquote>
           </div>
@@ -160,7 +160,7 @@
                   :disabled="activeStep === 0"
                   class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-700 hover:bg-red-50 hover:border-red-300 disabled:opacity-30 min-h-[36px]"
                 >
-                  ← Prejšnji korak
+                  {{ t('craft.prevStep') }}
                 </button>
                 <span class="text-gray-500">{{ activeStep + 1 }} / 5</span>
                 <button
@@ -169,7 +169,7 @@
                   :disabled="activeStep === craftSteps.length - 1"
                   class="px-3 py-1.5 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 disabled:opacity-30 min-h-[36px]"
                 >
-                  Naslednji korak →
+                  {{ t('craft.nextStep') }}
                 </button>
               </div>
             </div>
@@ -182,154 +182,156 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useLocale } from '~/composables/useLocale'
 
+const { t } = useLocale()
 const activeStep = ref(0)
 
-const craftMetrics = [
+const craftMetrics = computed(() => [
   {
     icon: '🔥',
     value: '450°C',
-    label: 'Peč na Drva',
-    subtext: 'Zidana kupola na bukov les za bliskovito peko'
+    label: t('craft.m1Label'),
+    subtext: t('craft.m1Sub')
   },
   {
     icon: '💧',
     value: '72%',
-    label: 'Hidracija',
-    subtext: 'Visok delež vode za maksimalno mehkobo'
+    label: t('craft.m2Label'),
+    subtext: t('craft.m2Sub')
   },
   {
     icon: '⏳',
-    value: '48 Ur',
-    label: 'Fermentacija',
-    subtext: 'Dvodnevno kontrolirano hladno zorenje pri 4°C'
+    value: t('craft.m3Val'),
+    label: t('craft.m3Label'),
+    subtext: t('craft.m3Sub')
   },
   {
     icon: '⚡',
-    value: '90 Sek',
-    label: 'Čas Peke',
-    subtext: 'Hipna peka ohrani svežino pelatov in sira'
+    value: t('craft.m4Val'),
+    label: t('craft.m4Label'),
+    subtext: t('craft.m4Sub')
   },
   {
     icon: '🌾',
     value: 'Caputo 00',
-    label: 'Moka Poreklo',
-    subtext: 'Mleta v Neaplju z visoko elastičnostjo (W 300)'
+    label: t('craft.m5Label'),
+    subtext: t('craft.m5Sub')
   }
-]
+])
 
-const craftSteps = [
+const craftSteps = computed(() => [
   {
     number: '01',
-    tabTitle: 'Moka Caputo & Kvas',
-    scientificLabel: 'Zrnata sestava & naravni kvas',
-    title: 'Italijanska Moka Caputo Tipo "00" & Minimalen Kvas',
-    description: 'Osnova našega testa je legendarna moka Mulino Caputo iz Neaplja z visoko vsebnostjo beljakovin in močjo W 300. Uporabljamo izredno majhno količino svežega kvasa (< 0.1%), saj okus gradi čas in ne kvasovke.',
+    tabTitle: t('craft.step1Tab'),
+    scientificLabel: t('craft.step1Sci'),
+    title: t('craft.step1Title'),
+    description: t('craft.step1Desc'),
     heroIcon: '🌾',
     metricHighlight: 'Caputo Tipo 00',
-    visualCardTitle: 'Moka & Kvas',
-    visualCardSubtitle: 'Pristna zrnata struktura iz Neaplja',
+    visualCardTitle: t('craft.step1CardTitle'),
+    visualCardSubtitle: t('craft.step1CardSub'),
     specs: [
-      { label: 'Moč Moke (W-indeks)', value: 'W 280 – 320', desc: 'Močna glutenska mreža za ujetje plinov' },
-      { label: 'Razmerje P/L', value: '0.50 – 0.60', desc: 'Popolno ravnovesje med elastičnostjo in raztegljivostjo' }
+      { label: t('craft.step1Spec1Label'), value: 'W 280 – 320', desc: t('craft.step1Spec1Desc') },
+      { label: t('craft.step1Spec2Label'), value: '0.50 – 0.60', desc: t('craft.step1Spec2Desc') }
     ],
     features: [
-      { name: '100% Neapeljsko mletje', badge: 'Caputo Pizzeria' },
-      { name: 'Nizka vsebnost kvasa', badge: '< 0.1%' },
-      { name: 'Piranska morska sol', badge: 'Čista sol' }
+      { name: t('craft.step1Feat1Name'), badge: 'Caputo Pizzeria' },
+      { name: t('craft.step1Feat2Name'), badge: '< 0.1%' },
+      { name: t('craft.step1Feat3Name'), badge: t('craft.step1Feat3Badge') }
     ],
-    quote: 'Dobra pica se začne z razumevanjem zrnja. Prava moka omogoča testu, da diha.'
+    quote: t('craft.step1Quote')
   },
   {
     number: '02',
-    tabTitle: '72% Visoka Hidracija',
-    scientificLabel: 'Vezava vode & struktura',
-    title: 'Izjemno Mehko Testo z Visokim Deležem Vode',
-    description: 'Medtem ko klasične industrijske pice uporabljajo le 50–55% hidracijo, pri Kaderju testo mešamo z natanko 70% do 72% čiste filtrirane vode. Visoka hidracija ustvari zračne komore (alveole), ki testu dajejo svilnato, zračno in peresno lahko strukturo.',
+    tabTitle: t('craft.step2Tab'),
+    scientificLabel: t('craft.step2Sci'),
+    title: t('craft.step2Title'),
+    description: t('craft.step2Desc'),
     heroIcon: '💧',
     metricHighlight: '72% H₂O',
-    visualCardTitle: 'Hidracija Testa',
-    visualCardSubtitle: 'Zračnost in peresna lahkost',
+    visualCardTitle: t('craft.step2CardTitle'),
+    visualCardSubtitle: t('craft.step2CardSub'),
     specs: [
-      { label: 'Delež Tekočine', value: '720 ml na 1 kg moke', desc: 'Skoraj dvakrat več kot pri običajnih picah' },
-      { label: 'Temperatura Vode', value: '14°C – 16°C', desc: 'Nadzor trenja pri počasnem spiralnem mešanju' }
+      { label: t('craft.step2Spec1Label'), value: '720 ml / 1 kg', desc: t('craft.step2Spec1Desc') },
+      { label: t('craft.step2Spec2Label'), value: '14°C – 16°C', desc: t('craft.step2Spec2Desc') }
     ],
     features: [
-      { name: 'Počasno spiralno gnetenje', badge: '20 minut' },
-      { name: 'Rahlost sredice', badge: 'Puhasta' },
-      { name: 'Elastičnost mehurčkov', badge: 'Popolna' }
+      { name: t('craft.step2Feat1Name'), badge: t('craft.step2Feat1Badge') },
+      { name: t('craft.step2Feat2Name'), badge: t('craft.step2Feat2Badge') },
+      { name: t('craft.step2Feat3Name'), badge: t('craft.step2Feat3Badge') }
     ],
-    quote: 'Voda v testu pomeni življenje. Več vode pomeni več mehkobe in manj ogljikovih hidratov na grižljaj.'
+    quote: t('craft.step2Quote')
   },
   {
     number: '03',
-    tabTitle: '48h Hladno Zorenje',
-    scientificLabel: 'Maturacija & encimska razgradnja',
-    title: '48-Urna Kontrolirana Hladna Fermentacija pri 4°C',
-    description: 'Hlebčki testa počivajo natanko 48 ur v posebni hladilni komori. V tem času encimi (amilaze in proteaze) kompleksne škrobe in beljakovine razgradijo v enostavne sladkorje in aminokisline. Testo je "predhodno prebavljeno", zato vas po obroku nikoli ne bo tiščalo v želodcu.',
+    tabTitle: t('craft.step3Tab'),
+    scientificLabel: t('craft.step3Sci'),
+    title: t('craft.step3Title'),
+    description: t('craft.step3Desc'),
     heroIcon: '⏳',
     metricHighlight: '48 Ur / 4°C',
-    visualCardTitle: 'Maturacija',
-    visualCardSubtitle: 'Encimsko zorenje brez naglice',
+    visualCardTitle: t('craft.step3CardTitle'),
+    visualCardSubtitle: t('craft.step3CardSub'),
     specs: [
-      { label: 'Temperatura Komore', value: '4°C – 6°C', desc: 'Upočasnjeno delovanje kvasovk za razvoj arom' },
-      { label: 'Glikemični Vpliv', value: 'Bistveno nižji', desc: 'Kompleksni škrobi so že razgrajeni' }
+      { label: t('craft.step3Spec1Label'), value: '4°C – 6°C', desc: t('craft.step3Spec1Desc') },
+      { label: t('craft.step3Spec2Label'), value: 'Low GI', desc: t('craft.step3Spec2Desc') }
     ],
     features: [
-      { name: 'Razvoj mlečne kisline', badge: 'Bogata aroma' },
-      { name: 'Nič napihnjenosti', badge: 'Lahka prebava' },
-      { name: 'Naravna zračnost', badge: 'Alveoli' }
+      { name: t('craft.step3Feat1Name'), badge: t('craft.step3Feat1Badge') },
+      { name: t('craft.step3Feat2Name'), badge: t('craft.step3Feat2Badge') },
+      { name: t('craft.step3Feat3Name'), badge: t('craft.step3Feat3Badge') }
     ],
-    quote: 'Čas je tista sestavina, ki je ne morete kupiti ali pospešiti. Po 48 urah testo dobi pravo dušo.'
+    quote: t('craft.step3Quote')
   },
   {
     number: '04',
-    tabTitle: 'Schiaffo Napoletano',
-    scientificLabel: 'Ročno raztegovanje brez orodja',
-    title: 'Tehnika "Schiaffo": Ročno Raztegovanje Brez Valjarja',
-    description: 'Pravi neapeljski picopek nikoli ne uporablja valjarja! Z značilnimi ritmičnimi gibi dlani in tehnike "schiaffo" (neapeljski klofutanec) picopek zrak iz sredice nežno potisne navzven v rob. Sredica ostane tanka (2 mm), rob pa postane visok in zračen.',
+    tabTitle: t('craft.step4Tab'),
+    scientificLabel: t('craft.step4Sci'),
+    title: t('craft.step4Title'),
+    description: t('craft.step4Desc'),
     heroIcon: '👐',
     metricHighlight: '0% Valjar',
-    visualCardTitle: 'Ročna Obrt',
-    visualCardSubtitle: 'Schiaffo napoletano tehnika',
+    visualCardTitle: t('craft.step4CardTitle'),
+    visualCardSubtitle: t('craft.step4CardSub'),
     specs: [
-      { label: 'Debelina Sredice', value: '2 – 3 mm', desc: 'Mehka, voljna in upogljiva "a portafoglio"' },
-      { label: 'Višina Roba (Cornicione)', value: '20 – 30 mm', desc: 'Napihnjen in votel zračni mehur' }
+      { label: t('craft.step4Spec1Label'), value: '2 – 3 mm', desc: t('craft.step4Spec1Desc') },
+      { label: t('craft.step4Spec2Label'), value: '20 – 30 mm', desc: t('craft.step4Spec2Desc') }
     ],
     features: [
-      { name: '100% Ročno oblikovano', badge: 'Brez strojev' },
-      { name: 'Ohranitev ujetega plina', badge: 'CO₂ mehurji' },
-      { name: 'Neapeljska tradicija', badge: 'UNESCO kultura' }
+      { name: t('craft.step4Feat1Name'), badge: t('craft.step4Feat1Badge') },
+      { name: t('craft.step4Feat2Name'), badge: t('craft.step4Feat2Badge') },
+      { name: t('craft.step4Feat3Name'), badge: t('craft.step4Feat3Badge') }
     ],
-    quote: 'Z rokami se začuti napetost testa. Z valjarjem bi uničili vse mehurčke, ki so nastajali dva dni.'
+    quote: t('craft.step4Quote')
   },
   {
     number: '05',
-    tabTitle: '450°C Peč na Drva',
-    scientificLabel: 'Termodinamični šok & maculatura',
-    title: '450°C Krušna Peč: 60 do 90 Sekund Ognjenega Krsta',
-    description: 'Naša zidana kupolasta peč se kuri z izbranimi bukovimi drvmi, ki dosegajo temperaturo med 450°C in 485°C. Zaradi ekstremne vročine in šamotnega dna Biscotto se pica speče v zgolj 60 do 90 sekundah. Pelati ohranijo svežo sadno kislost, mocarela se stopi v kremo, rob pa dobi znamenite leopardje pike.',
+    tabTitle: t('craft.step5Tab'),
+    scientificLabel: t('craft.step5Sci'),
+    title: t('craft.step5Title'),
+    description: t('craft.step5Desc'),
     heroIcon: '🔥',
     metricHighlight: '450°C / 90s',
-    visualCardTitle: 'Krušna Peč',
-    visualCardSubtitle: 'Biscotto šamot in bukov plamen',
+    visualCardTitle: t('craft.step5CardTitle'),
+    visualCardSubtitle: t('craft.step5CardSub'),
     specs: [
-      { label: 'Čas Peke', value: '60 – 90 sekund', desc: 'Bliskovita toplotna obdelava ohrani hranila' },
-      { label: 'Gorivo', value: 'Suhi bukov les', desc: 'Čist plamen brez smol za pristno dimno noto' }
+      { label: t('craft.step5Spec1Label'), value: '60 – 90 s', desc: t('craft.step5Spec1Desc') },
+      { label: t('craft.step5Spec2Label'), value: 'Fagus sylvatica', desc: t('craft.step5Spec2Desc') }
     ],
     features: [
-      { name: 'Šamotna podlaga', badge: 'Biscotto' },
-      { name: 'Leopardji vzorec', badge: 'Maculatura' },
-      { name: 'Svežina nadeva', badge: '100% sočnost' }
+      { name: t('craft.step5Feat1Name'), badge: 'Biscotto' },
+      { name: t('craft.step5Feat2Name'), badge: 'Maculatura' },
+      { name: t('craft.step5Feat3Name'), badge: t('craft.step5Feat3Badge') }
     ],
-    quote: 'Devetdeset sekund v 450 stopinjah. Vse sestavine zaživijo hkrati — sir se stopi, a se ne prismodi.'
+    quote: t('craft.step5Quote')
   }
-]
+])
 
-const currentStep = computed(() => craftSteps[activeStep.value] || craftSteps[0])
+const currentStep = computed(() => craftSteps.value[activeStep.value] || craftSteps.value[0])
 
 const nextStep = () => {
-  if (activeStep.value < craftSteps.length - 1) {
+  if (activeStep.value < craftSteps.value.length - 1) {
     activeStep.value++
   }
 }

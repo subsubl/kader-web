@@ -31,7 +31,7 @@ const defaultImages: SiteImagesConfig = {
   pizzeria_showcase_1: '/images/instagram/ig_img_7.jpg',
   pizzeria_showcase_2: '/images/instagram/ig_img_13.jpg',
 
-  club_hero_bg: '/images/instagram/ig_img_10.jpg',
+  club_hero_bg: '/images/club-red-hero.jpg',
   club_floor1_bg: '/images/instagram/ig_img_3.jpg',
   club_floor2_bg: '/images/instagram/ig_img_5.jpg',
   club_sound_system: '/images/instagram/ig_img_6.jpg',
@@ -55,7 +55,7 @@ const isLoaded = ref(false)
 export function useSiteImages() {
   const loadSiteImages = async () => {
     try {
-      const data = await $fetch<SiteImagesConfig>('/api/site-images')
+      const data = (await $fetch('/api/site-images')) as SiteImagesConfig
       if (data) {
         siteImagesState.value = { ...defaultImages, ...data }
         isLoaded.value = true

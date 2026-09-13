@@ -1,46 +1,71 @@
-# BRIEFING — 2026-09-10T17:26:20+02:00
+# BRIEFING — 2026-09-12T09:38:20Z
 
 ## Mission
-Adversarial empirical verification of Milestones 3 & 4 (Club, DJ Player, RA Countdown, Door Policy, Buyouts) and cross-viewport responsiveness.
+Adversarially stress-test and empirically verify the club & events consolidation and redirection across static code, runtime contracts, 301 redirection, SSR compatibility, production bundle, and corner cases.
 
 ## 🔒 My Identity
-- Archetype: empirical challenger
+- Archetype: empirical-challenger
 - Roles: critic, specialist
 - Working directory: /home/ator/Kader/.agents/challenger_2
-- Original parent: d08eaf82-76c4-4726-8597-a8b69ffd24bc
-- Milestone: Milestones 3 & 4 Verification + Viewport Validation
+- Original parent: db2f800b-c333-4d3b-a658-9cfa6a7d5ab5
+- Milestone: M4 (Verification & Auditing)
 - Instance: 2 of 2
 
 ## 🔒 Key Constraints
 - Review-only — do NOT modify implementation code
-- Verification must be empirical: write and execute tests
-- No source code, tests, or data files in .agents/ (only metadata)
-- CODE_ONLY network mode: no external web requests
+- Report all failures as findings with empirical reproduction
+- Do not trust claims or logs from worker; run independent verification scripts
 
 ## Current Parent
-- Conversation ID: d08eaf82-76c4-4726-8597-a8b69ffd24bc
-- Updated: not yet
+- Conversation ID: db2f800b-c333-4d3b-a658-9cfa6a7d5ab5
+- Updated: 2026-09-12T09:38:20Z
 
 ## Review Scope
-- **Files to review**: `src/pages/club.vue`, `src/components/ClubDjPlayer.vue`, `src/composables/useLocale.ts`, `src/pages/buyouts.vue`, `src/pages/index.vue`, `src/pages/pizzeria.vue`
-- **Interface contracts**: Verification criteria from USER_REQUEST
-- **Review criteria**: DSP math, countdown timing & edge cases, door policy accessibility & i18n, buyouts state & validation, cross-viewport responsiveness, clean build
+- **Files to review**:
+  - `src/pages/club.vue`
+  - `src/pages/events.vue`
+  - `nuxt.config.ts`
+  - `src/components/Header.vue`
+  - `src/components/Footer.vue`
+  - `src/pages/index.vue`
+  - `public/sitemap.xml`
+- **Interface contracts**:
+  - `/home/ator/Kader/.agents/orchestrator/PROJECT.md`
+- **Review criteria**:
+  - Complete absence of Floors 01/02 and Sound System (Klipsch specs) sections and state
+  - Culture/Safety and Door Rules FAQ accordion present, functional, accessible
+  - Interactive events experience in club.vue: upcoming grid, countdown banner, detail modal (PretixWidget + ticket fallbacks), past events archive, JSON-LD schema
+  - 301 redirection: nuxt.config.ts routeRules redirect (/events -> /club with 301), src/pages/events.vue redirect stub with query/hash preservation
+  - Navigation links: Header.vue, Footer.vue, index.vue, and sitemap.xml clean of stale /events links
+  - Production bundle rendering / SSR compatibility: `npm run typecheck`, `npm run build`
 
 ## Attack Surface
-- **Hypotheses tested**: [TBD]
-- **Vulnerabilities found**: [TBD]
-- **Untested angles**: [TBD]
+- **Hypotheses tested**:
+  - Absence of Floors 01/02 and Sound System specs: Verified 100% absent in AST and SSR HTML.
+  - Door policy 6 pillars: Verified present, accessible, and reactive.
+  - Interactive events integration: Verified countdown, cards, modal, PretixWidget, past archive, schema.
+  - 301 redirection: Verified via live HTTP server requests with /events, /events/, /events?query, /events#hash.
+  - Navigation links: Header, Footer, Index, Sitemap confirmed free of /events links.
+  - i18n parity: All 82 `t(...)` keys used in club.vue exist in all 10 locales.
+- **Vulnerabilities found**:
+  - [Medium] `displayEvents` uses `clubEvents` (pre-filters techno/house) instead of `events.value`, preventing non-club/live events from rendering and causing false fallback to mock `curatedEvents`.
+  - [Medium] `cleanLineup` uses naive single-pass regex replace with `v-html`, vulnerable to nested tag evasion (`<scri<script>pt>`).
+  - [Low-Medium] Nuxt concurrent build race condition during parallel dev/build executions.
+  - [Low] Residual `kader.si/events` string in `src/pages/admin/events/index.vue`.
+- **Untested angles**:
+  - Live external Pretix webhook delivery (restricted due to CODE_ONLY environment).
 
 ## Loaded Skills
-- **Source**: /home/ator/.gemini/config/plugins/modern-web-guidance-plugin/skills/modern-web-guidance/SKILL.md
-- **Local copy**: /home/ator/Kader/.agents/challenger_2/modern_web_guidance_SKILL.md
-- **Core methodology**: Search and retrieve modern frontend best practices
+- None required for review-only role.
 
 ## Key Decisions Made
-- Placed test script in `scripts/verify_m3_m4.mjs` per repository conventions and rule against source/tests in `.agents/`.
+- Implemented two independent automated test runners: `stress_test_club.mjs` (24 static, i18n parity, and logic checks) and `test_ssr_server.mjs` (12 live HTTP server checks against compiled Nitro SSR production bundle).
 
 ## Artifact Index
-- /home/ator/Kader/.agents/challenger_2/ORIGINAL_REQUEST.md — Initial user dispatch request
-- /home/ator/Kader/.agents/challenger_2/BRIEFING.md — Persistent context and memory
-- /home/ator/Kader/.agents/challenger_2/progress.md — Liveness heartbeat and progress log
-- /home/ator/Kader/.agents/challenger_2/handoff.md — Final handoff report
+- `/home/ator/Kader/.agents/challenger_2/ORIGINAL_REQUEST.md` — Original task request
+- `/home/ator/Kader/.agents/challenger_2/BRIEFING.md` — Agent briefing & situational awareness
+- `/home/ator/Kader/.agents/challenger_2/progress.md` — Progress log & heartbeat
+- `/home/ator/Kader/.agents/challenger_2/stress_test_club.mjs` — Independent adversarial test suite (24 checks)
+- `/home/ator/Kader/.agents/challenger_2/test_ssr_server.mjs` — Live Nitro SSR HTTP test suite (12 checks)
+- `/home/ator/Kader/.agents/challenger_2/challenge.md` — Detailed adversarial challenge report
+- `/home/ator/Kader/.agents/challenger_2/handoff.md` — 5-component hard handoff report

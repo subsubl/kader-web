@@ -276,10 +276,10 @@ const handleUpload = async (slotKey: keyof typeof form, event: Event) => {
   formData.append('file', input.files[0])
 
   try {
-    const res = await $fetch<{ ok: boolean; url: string }>('/api/admin/site-images-upload', {
+    const res = (await $fetch('/api/admin/site-images-upload', {
       method: 'POST',
       body: formData
-    })
+    })) as { ok: boolean; url: string }
     if (res && res.url) {
       (form as any)[slotKey] = res.url
     }
@@ -296,10 +296,10 @@ const uploadGalleryItem = async (idx: number, event: Event) => {
   formData.append('file', input.files[0])
 
   try {
-    const res = await $fetch<{ ok: boolean; url: string }>('/api/admin/site-images-upload', {
+    const res = (await $fetch('/api/admin/site-images-upload', {
       method: 'POST',
       body: formData
-    })
+    })) as { ok: boolean; url: string }
     if (res && res.url) {
       form.gallery_items[idx].src = res.url
     }
@@ -325,10 +325,10 @@ const saveAll = async () => {
   saveSuccess.value = false
 
   try {
-    const res = await $fetch<{ ok: boolean }>('/api/admin/site-images', {
+    const res = (await $fetch('/api/admin/site-images', {
       method: 'PUT',
       body: form
-    })
+    })) as { ok: boolean }
     if (res && res.ok) {
       saveSuccess.value = true
       await loadSiteImages()

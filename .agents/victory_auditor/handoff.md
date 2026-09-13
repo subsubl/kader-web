@@ -1,73 +1,114 @@
-# Handoff Report — Victory Auditor
+# Victory Audit Handoff Report: Kader i18n & Club/Events Consolidation
+
+**Auditor**: Victory Auditor
+**Date**: 2026-09-12
+**Scope**: Independent post-victory audit of `/home/ator/Kader` against `/home/ator/Kader/.agents/ORIGINAL_REQUEST.md` (R1, R2, R3)
+**Status**: Complete — Hard Handoff
+
+---
 
 ## 1. Observation
-1. **Request & Timeline**:
-   - `/home/ator/Kader/.agents/ORIGINAL_REQUEST.md` under timestamp `2026-09-10T15:05:18Z` specifies requirements R1 (Day/Night switcher & gallery lightbox), R2 (Neapolitan pizzeria showcase, provenance badges, reservation & takeaway quick-modal, craft/oven section), R3 (Berlin club experience, DJ mix sound preview player, RA cards with countdown/ticket CTAs, door policy & FAQ accordion), and R4 (Verification & build integrity).
-   - Git log commits: `15239f97d0a9bbdcda3cbeeaeb1f95aceef65e8f` at `Thu Sep 10 18:57:45 2026 +0200` committed pizzeria white menu styling, buyouts layout, and locale additions.
-   - Working tree modifications in `src/pages/index.vue` (+290 lines) and `src/pages/club.vue` (+417 lines), along with untracked components `ClubDjPlayer.vue`, `ImageLightboxModal.vue`, `PizzeriaCraft.vue`, `ProvenanceBadge.vue`, `ReservationModal.vue`, and composable `useReservationModal.ts`.
-2. **Integrity & Source Code Analysis**:
-   - `src/components/ImageLightboxModal.vue`: Implements real touch swipe physics (`Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)`), keyboard listeners for Escape/ArrowLeft/ArrowRight, filmstrip navigation, and body scroll lock (`document.body.style.overflow = 'hidden'`).
-   - `src/components/ProvenanceBadge.vue`: Contains 9 certified Italian origin badges (San Marzano D.O.P., Bufala Campana D.O.P., Fior di Latte, 48h Ferment, Mortadella I.G.P., Pistacchio Verde di Bronte D.O.P., Bio Oljčno Olje, Prosciutto di Parma D.O.P., Stracciatella di Puglia) with interactive hover/click flyout tooltips.
-   - `src/components/ReservationModal.vue`: Contains dual Table Reservation and Takeaway Order state machines, dynamic cart calculation (`cartTotal`), price parser (`parsePrice`), timeslot array (`12:00` to `21:30`), guest clamping (`1..25`), reference generators (`KDR-REZ-XXXX`, `KDR-PICK-XXXX`), and direct phone links.
-   - `src/components/ClubDjPlayer.vue`: Genuine Web Audio API DSP synthesis engine using `AudioContext`, oscillators, biquad filters (145Hz->38Hz kick sweep, 55Hz sawtooth sub-bass with 115Hz filter, white-noise buffer with 7500Hz highpass filter for hi-hats), lookahead scheduler (25ms cycle, 150ms horizon), and 18-bar procedural visualizer.
-   - `src/pages/club.vue`: 6-pillar Berlin door policy accordion with CSS grid row transition (`0fr` -> `1fr`), RA lineup cards with artist tags, real-time countdown timer to next event with live clock calculation, and direct ticket links.
-   - `src/pages/buyouts.vue`: Plan selector pre-fills guest count (100, 200, 300) and customized message for Basic, Premium, Luxury, and Club Takeover (Klipsch sound system specs).
-3. **Independent Empirical & Compilation Verification**:
-   - Command `node scripts/verify_m1_m2_empirical.mjs`:
-     ```
-     TEST RESULTS SUMMARY:
-       Total Tests Run:  37
-       Passed Tests:     37
-       Failed Tests:     0
-     ✔ VERDICT: PASS (All 37 tests passed cleanly with 0 regressions)
-     ```
-   - Command `node scripts/verify_m3_m4_empirical.mjs`:
-     ```
-     TEST SUMMARY: 34 PASSED, 0 FAILED
-     ALL VERIFICATIONS PASSED WITH 0 ERRORS.
-     ```
-   - Command `npx nuxi typecheck`:
-     ```
-     ◆  Type check passed in 7456ms.
-     ```
-   - Command `npm run build`:
-     ```
-     ✔ Client built in 7893ms
-     ✔ You can preview this build using node .output/server/index.mjs
-     ✨ Build complete!
-     ```
-   - Command local HTTP SSR smoke test:
-     ```
-     HTTP Smoke Test Results: [
-       { status: 200, length: 202892, title: 'Kader Grad Kodeljevo — Pizza bistro in plesni bar Ljubljana' },
-       { status: 200, length: 293526, title: 'Kader - Pizza bistro in plesni bar na gradu Kodeljevo' },
-       { status: 200, length: 203817, title: 'Kader - Pizza bistro in plesni bar na gradu Kodeljevo' },
-       { status: 200, length: 192248, title: 'Kader - Pizza bistro in plesni bar na gradu Kodeljevo' }
-     ]
-     ```
+
+Direct observations and execution outputs obtained independently with zero shared context from the implementation swarm:
+
+### 1.1 Timeline & Provenance (Phase A)
+- Timestamp chronology across git and agent progress logs:
+  * Explorers (`explorer_1`, `explorer_2`, `explorer_3`): 11:19 - 11:22 UTC
+  * Worker M2 (`useLocale.ts` i18n expansion): 11:30 - 11:31 UTC
+  * Worker M3 (`club.vue` & redirection consolidation): 11:35 - 11:37 UTC
+  * Reviewers (`reviewer_1`, `reviewer_2`): 11:41 - 11:43 UTC
+  * Challengers & Auditor (`challenger_1`, `challenger_2`, `auditor_1`): 11:44 UTC
+  * Worker Polish (hardening `cleanLineup` XSS immunity and `displayEvents` filter): 11:45 - 11:46 UTC
+  * Orchestrator victory claim: 11:47 UTC
+- No anomalous timestamp clustering or pre-populated fake test logs were observed.
+
+### 1.2 Forensic Integrity Checks (Phase B)
+- **Authenticity of Translation Dictionaries**:
+  * `src/composables/useLocale.ts` expanded from 7 locales to 10 locales (`sl`, `en`, `de`, `fr`, `it`, `sr`, `nl`, `pl`, `cs`, `es`).
+  * Polish (`pl`), Czech (`cs`), and Spanish (`es`) dictionaries contain full native translations (e.g., PL: "Miejsce", "Wydarzenia", "Zamów i odbierz"; CS: "Místo", "Události", "Objednat a vyzvednout"; ES: "El Espacio", "Eventos", "Pedir y recoger").
+  * Diacritic distribution verified authentic across languages (e.g. Polish `ą`, `ę`, `ł`, `ń`, `ó`, `ś`, `ź`, `ż`; Czech `ě`, `š`, `č`, `ř`, `ž`, `ý`, `á`, `í`, `é`, `ů`; Spanish `á`, `é`, `í`, `ó`, `ú`, `ñ`, `¿`, `¡`).
+  * No placeholder strings, mock text, or English fallbacks in leaf values.
+- **AST / Content Pruning in `src/pages/club.vue`**:
+  * Removed Sound System section: `showSpecs`, `soundSpecs`, `club.theSound`, `club.soundTitle` are completely absent.
+  * Removed Floors section: `<!-- ===== The Floors ===== -->`, `FLOOR 01: BASEMENT`, and `club.floorsTitle` are completely absent.
+  * Retained Door Rules & FAQ: 6 pillars present in `faqItems` (photo, dress, age, safer, payment, sound), responsive accordion with ARIA attributes.
+  * Embedded complete events experience: live countdown banner, category filter tabs, upcoming RA events grid, detail modal with `PretixWidget`, past events archive, and JSON-LD structured data.
+
+### 1.3 Independent Execution Results (Phase C)
+- **Static Typings**:
+  * Command: `npm run typecheck`
+  * Result: `Type check passed in 7930ms.` (Exit code: 0, 0 errors).
+- **Production Build**:
+  * Command: `npm run build`
+  * Result: Built Vite SSR server and Nitro server cleanly into `.output/server/index.mjs` (Total bundle size: 25.4 MB; Exit code: 0).
+- **Independent 10-Locale Key Parity Verification**:
+  * Command: `node scripts/independent_victory_audit.mjs`
+  * Baseline keys (`sl`): 938 keys.
+  * Locales evaluated: `sl`, `en`, `de`, `fr`, `it`, `sr`, `nl`, `pl`, `cs`, `es`.
+  * Results per locale:
+    * `sl`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `en`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `de`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `fr`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `it`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `sr`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `nl`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `pl`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `cs`: 938 keys, 0 missing, 0 extra, 0 empty
+    * `es`: 938 keys, 0 missing, 0 extra, 0 empty
+  * Parity: **100.0%** across all 10 locales.
+  * Parameter signatures: 8/8 parameterized keys match exactly across all 10 locales.
+- **Live Nitro SSR Loopback HTTP Verification**:
+  * Tested live HTTP request `GET /events`: HTTP 301, `Location: /club`.
+  * Tested live HTTP request `GET /events?tag=techno&month=10`: HTTP 301, `Location: /club?tag=techno&month=10`.
+  * Tested live HTTP request `GET /club`: HTTP 200, HTML size 186,753 bytes, verified presence of events markup and absence of old sound system / floors sections.
+
+---
 
 ## 2. Logic Chain
-1. Requirement R1 demanded an interactive Day/Night mode switcher on `index.vue` and an Image Lightbox modal. Observation 2 confirms authentic client-time heuristics, localStorage persistence, ambient styling, dynamic CTAs, and a complete lightbox component.
-2. Requirement R2 demanded world-class Neapolitan pizzeria showcase, provenance badges, reservation & takeaway quick-modal, and artisanal craft/oven section. Observation 2 confirms `ProvenanceBadge.vue` (9 certified badges with tooltips), `ReservationModal.vue` + `useReservationModal.ts` (dual booking/cart flows), and `PizzeriaCraft.vue` (5-metric HUD and 5-phase dough explorer).
-3. Requirement R3 demanded Berlin club experience, floating DJ mix player, RA cards with countdown/tickets, and door policy accordion. Observation 2 confirms `ClubDjPlayer.vue` (genuine Web Audio DSP engine), RA cards with countdown, and 6-pillar accordion.
-4. Requirement R4 demanded build integrity without errors and responsive design. Observation 3 confirms 71/71 empirical tests pass, `npx nuxi typecheck` passes with 0 errors, `npm run build` exits 0, and all routes serve valid 200 OK SSR HTML.
-5. All observations confirm genuine implementation without facades or cheating shortcuts.
+
+1. **Independent Empirical Verification**:
+   The auditor independently built the project, ran Nuxt typechecking, evaluated the entire dictionary graph with custom Node verification scripts, and booted the production Nitro server to issue live loopback HTTP requests. Every test executed from scratch with zero reliance on cached outputs.
+
+2. **Integrity & Rigor**:
+   All 10 language dictionaries exhibit 100.0% structural key parity (938/938 keys) with zero empty strings, fully preserved interpolation parameters, and authentic regional phrasing.
+
+3. **Requirement Conformance**:
+   - R1: `pl`, `cs`, and `es` are fully integrated into composables, UI components, HTML alternates, and dictionaries.
+   - R2: `/club` has been simplified by excising sound system specs and floor sections while embedding the full interactive events lineup, modal, Pretix widget, and past archive. Dual-tier 301 redirection cleanly forwards `/events` to `/club` preserving query strings and hash anchors.
+   - R3: Typecheck and build compile cleanly into a working production SSR artifact.
+
+---
 
 ## 3. Caveats
-- AudioContext autoplay policy requires initial user interaction (`togglePlay()`), which is properly handled in `ClubDjPlayer.vue` via `audioCtx.state === 'suspended'` check and user click event.
+
+- **External Live Payment Gateways**: Verification tested widget embedding and fallback URLs locally; actual live transactions with external payment processors (Pretix / Olaii) were not executed.
 - No other caveats.
 
+---
+
 ## 4. Conclusion
-The implementation team's victory claim is authentic, genuine, fully functional, and verified with zero discrepancies.
-**Final Verdict: VICTORY CONFIRMED.**
+
+The claim of victory by the Project Orchestrator is fully verified, authentic, and empirically validated.
+
+**VERDICT: VICTORY CONFIRMED**
+
+---
 
 ## 5. Verification Method
-To independently replicate:
+
+To independently reproduce the Victory Audit findings:
+
 ```bash
-cd /home/ator/Kader
-node scripts/verify_m1_m2_empirical.mjs
-node scripts/verify_m3_m4_empirical.mjs
-npx nuxi typecheck
+# 1. Typecheck
+npm run typecheck
+
+# 2. Production Build
 npm run build
+
+# 3. Independent 10-Locale Parity & Live Server HTTP Verification
+node scripts/independent_victory_audit.mjs
+
+# 4. Architectural Checks
+node scripts/verify_club_consolidation.mjs
 ```
-Invalidation condition: Any test failure, compilation error, or regression in user journeys R1–R4.

@@ -1,23 +1,27 @@
-## 2026-09-10T15:21:31Z
-You are Reviewer 1 for the Kader Frontend Elevation project.
-Your working directory is /home/ator/Kader/.agents/reviewer_1.
-Your mission is to perform an objective and adversarial review of Milestones 1 and 2:
-- R1: Interactive Day/Night Mode Switcher & Home Page Elevation (`src/pages/index.vue`, `src/components/ImageLightboxModal.vue`)
-- R2: World-Class Neapolitan Pizzeria Showcase (`src/pages/pizzeria.vue`, `src/components/ProvenanceBadge.vue`, `src/components/ReservationModal.vue`, `src/components/PizzeriaCraft.vue`, `src/composables/useReservationModal.ts`)
+## 2026-09-12T09:38:02Z
 
-Files to examine:
-- /home/ator/Kader/.agents/worker_frontend/handoff.md
-- /home/ator/Kader/src/pages/index.vue
-- /home/ator/Kader/src/components/ImageLightboxModal.vue
-- /home/ator/Kader/src/pages/pizzeria.vue
-- /home/ator/Kader/src/components/ProvenanceBadge.vue
-- /home/ator/Kader/src/components/ReservationModal.vue
-- /home/ator/Kader/src/components/PizzeriaCraft.vue
-- /home/ator/Kader/src/composables/useReservationModal.ts
+You are Reviewer 1 reviewing Milestone 2 and Milestone 3 implementations.
+Working directory: /home/ator/Kader/.agents/reviewer_1
+Project root: /home/ator/Kader
+Scope document: /home/ator/Kader/.agents/orchestrator/PROJECT.md
+Worker handoffs to inspect:
+- /home/ator/Kader/.agents/worker_m2/handoff.md
+- /home/ator/Kader/.agents/worker_m3/handoff.md
 
-Review Criteria:
-1. Correctness: Does the Day/Night switcher work cleanly with state persistence and visual shift? Does the image lightbox modal support opening on image click, keyboard navigation (ESC, arrows), mobile swipe, filmstrip, and body scroll locking?
-2. 50 Top Pizza Standards: Are ingredient provenance badges authentic (DOP, IGP, BIO) with interactive tooltips? Does the reservation/takeaway modal support both table booking and takeaway ordering with calculation, reference codes, and direct call shortcuts? Does `PizzeriaCraft` properly showcase 48h fermentation, 450°C wood oven, and dough anatomy?
-3. Code Quality & Robustness: Are components clean, accessible, and reactive? Any edge cases, missing props, or styling bugs?
-4. Verification: Run `npm run build` and `npx nuxi typecheck` to verify zero compiler errors.
-5. Deliverable: Write a comprehensive review report to `/home/ator/Kader/.agents/reviewer_1/handoff.md` with your verdict (PASS / VETO) and send a message back to the orchestrator.
+Tasks:
+1. Examine code diffs and modified files:
+   - src/composables/useLocale.ts
+   - nuxt.config.ts
+   - src/pages/club.vue
+   - src/pages/events.vue
+   - src/components/Header.vue
+   - src/components/Footer.vue
+   - src/pages/index.vue
+   - src/public/sitemap.xml
+2. Run builds and tests:
+   - npm run typecheck
+   - npm run build
+   - node scripts/verify_i18n_parity.mjs
+   - node scripts/verify_club_consolidation.mjs
+3. Verify code quality, TypeScript type safety, absence of dead code or syntax regressions, and SSR bundle integrity.
+4. Record your detailed review findings in /home/ator/Kader/.agents/reviewer_1/review.md and provide a clear handoff with your verdict (APPROVED or CHANGES_REQUESTED) in /home/ator/Kader/.agents/reviewer_1/handoff.md. Send a completion message when finished.

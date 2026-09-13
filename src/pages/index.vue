@@ -1,430 +1,910 @@
 <template>
-  <div class="min-h-screen bg-black text-white">
-    <!-- Hero Section -->
-    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 px-4">
-      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black via-red-950/20 to-black/70 pointer-events-none"></div>
-      <img :src="getOptImg(siteImages.home_hero_bg, 1920, 85)" alt="Grad Kodeljevo Castle" class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
+  <div class="min-h-screen bg-white text-gray-900 font-sans selection:bg-red-600 selection:text-white">
+    <!-- Top red stripe border (matching print menu aesthetic) -->
+    <div class="menu-stripe-border" aria-hidden="true"></div>
+
+    <!-- ===== EDITORIAL HERO HEADER (Print Menu Aesthetic) ===== -->
+    <header class="relative min-h-[70vh] flex items-center justify-center overflow-hidden border-b-2 border-red-100 bg-white py-16 px-4">
+      <!-- High contrast light imagery layer -->
+      <img 
+        :src="getOptImg(siteImages.pizzeria_hero_bg, 1920, 85)" 
+        :alt="t('pizzeria.heroAlt')" 
+        fetchpriority="high"
+        class="absolute inset-0 w-full h-full object-cover opacity-15 filter contrast-125 saturate-75 scale-105 transform transition-transform duration-1000" 
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/95 to-white z-10"></div>
       
-      <div class="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
-        <img src="/logo-banner.png" alt="Kader Grad Kodeljevo Logo" class="h-24 md:h-32 object-contain mb-8 drop-shadow-[0_0_25px_rgba(239,68,68,0.5)] animate-fade-in" />
-        
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4 text-white uppercase">
-          {{ t('hero.title') }}
+      <!-- Subtle red radial glow -->
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.06)_0%,transparent_70%)] z-10 pointer-events-none"></div>
+
+      <div class="relative z-20 text-center max-w-4xl mx-auto px-4 flex flex-col items-center">
+        <!-- Brand Crest / Tagline Badge -->
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+          <span class="px-3.5 py-1 bg-red-600 text-white text-[11px] font-bold uppercase tracking-[0.25em] rounded-full shadow-sm">
+            {{ t('pizzeria.fermentation') }}
+          </span>
+          <span class="px-3.5 py-1 bg-red-50 border border-red-200 text-red-600 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+            {{ t('pizzeria.sanMarzano') }}
+          </span>
+          <span class="px-3.5 py-1 bg-red-50 border border-red-200 text-red-600 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+            {{ t('pizzeria.bufala') }}
+          </span>
+          <span class="px-3.5 py-1 bg-red-50 border border-red-200 text-red-600 text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+            {{ t('pizzeria.panuozzoBadge') }}
+          </span>
+        </div>
+
+        <!-- Main Title (Serif Editorial Style) -->
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-black tracking-tight text-gray-900 mb-3 uppercase leading-[0.95]">
+          {{ t('pizzeria.titleMain') }}<br>
+          <span class="text-red-600 font-serif italic lowercase text-4xl md:text-6xl font-normal block mt-2">{{ t('pizzeria.titleSub') }}</span>
         </h1>
-        <p class="text-xl md:text-2xl font-bold mb-8 tracking-widest uppercase text-red-500">
-          “Pristna neapeljska pica & klubska kultura na gradu Kodeljevo”
+
+        <!-- Manifesto Quote -->
+        <p class="text-gray-600 text-sm md:text-lg max-w-2xl font-light italic mt-4 mb-8 leading-relaxed">
+          {{ t('pizzeria.manifesto') }}
         </p>
 
-        <!-- Address & Contact Quick Badge -->
-        <div class="bg-zinc-900/90 border border-zinc-800 backdrop-blur-md px-6 py-4 rounded-2xl mb-8 flex flex-col md:flex-row gap-4 md:gap-8 items-center text-sm text-gray-300">
-          <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="flex items-center hover:text-red-400 transition-colors">
-            <MapPinIcon class="w-5 h-5 text-red-500 mr-2 flex-shrink-0" />
-            <span>{{ t('hero.address') }}</span>
+        <!-- Direct Action Buttons -->
+        <div class="flex flex-wrap gap-4 justify-center w-full max-w-xl">
+          <button 
+            type="button"
+            @click="openModal('takeaway')" 
+            class="px-8 py-4 bg-red-600 text-white hover:bg-red-700 font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-red-600/20 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
+          >
+            <PhoneIcon class="w-4 h-4 mr-2" />
+            {{ t('pizzeria.pickUp') }}
+          </button>
+          <button 
+            type="button"
+            @click="openModal('table')" 
+            class="px-8 py-4 bg-white border-2 border-red-600 text-red-600 hover:bg-red-50 font-bold text-xs uppercase tracking-[0.2em] rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center min-h-[48px] flex-1 min-w-[200px] cursor-pointer"
+          >
+            <CalendarDaysIcon class="w-4 h-4 mr-2" />
+            {{ t('pizzeria.tableRes') }}
+          </button>
+        </div>
+
+        <!-- Address & Contact Quick Info Badge -->
+        <div class="mt-8 bg-red-50/90 border border-red-200 backdrop-blur-md px-6 py-3.5 rounded-2xl flex flex-col sm:flex-row gap-3 sm:gap-6 items-center text-xs font-medium text-gray-800 shadow-sm">
+          <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-red-600 transition-colors">
+            <MapPinIcon class="w-4 h-4 text-red-600 mr-2 flex-shrink-0" />
+            <span>Ulica Carla Benza 20, 1000 Ljubljana</span>
           </a>
-          <span class="hidden md:inline text-zinc-700">|</span>
-          <a href="tel:+38683836740" class="flex items-center hover:text-red-400 transition-colors font-bold text-white">
-            <PhoneIcon class="w-5 h-5 text-red-500 mr-2 flex-shrink-0" />
+          <span class="hidden sm:inline text-red-300">|</span>
+          <a href="tel:+38683836740" class="flex items-center hover:text-red-600 transition-colors font-bold text-gray-900">
+            <PhoneIcon class="w-4 h-4 text-red-600 mr-2 flex-shrink-0" />
             <span>{{ t('hero.orders') }}: +386 83 836 740</span>
           </a>
         </div>
-
-        <!-- Direct Navigation CTAs -->
-        <div class="flex flex-wrap gap-4 justify-center w-full max-w-2xl">
-          <NuxtLink 
-            to="/pizzeria" 
-            class="px-8 py-3.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-red-950 text-center flex-1 min-w-[170px]"
-          >
-            🍕 Pica Meni & Telefon →
-          </NuxtLink>
-          <NuxtLink 
-            to="/events" 
-            class="px-8 py-3.5 bg-zinc-900 border border-red-500/40 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
-          >
-            🪩 Dogodki & Klub →
-          </NuxtLink>
-          <NuxtLink 
-            to="/club" 
-            class="px-8 py-3.5 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[150px]"
-          >
-            🏰 O Klubu
-          </NuxtLink>
-        </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Dual Messaging Section -->
-    <section class="py-20 px-4 bg-zinc-950 border-y border-zinc-900">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
-        <!-- Day Card (Pizzeria Bistro) -->
-        <div class="p-8 rounded-3xl flex flex-col justify-between bg-gradient-to-b from-red-950/30 to-zinc-900/90 border-2 border-red-500/50 shadow-[0_0_40px_rgba(239,68,68,0.15)] hover:border-red-500 transition-all duration-300">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <div class="flex items-center space-x-3">
-                <span class="text-4xl">🍕</span>
-                <h2 class="text-3xl font-black uppercase text-white">{{ t('home.dayTitle') }}</h2>
+    <!-- ===== PIZZERIA WHITE SECTION (matching print menu aesthetic) ===== -->
+    <div class="relative bg-white">
+      <div class="max-w-6xl mx-auto px-4 py-16">
+
+        <!-- ===== DIGITAL INTERACTIVE MENU VIEW (1:1 with menu.jpg) ===== -->
+        <div class="mb-20">
+          <!-- 1:1 DESIGNER MENU CONTAINER (Matching menu.jpg) -->
+          <div class="bg-white border-2 border-red-500 rounded-3xl shadow-2xl overflow-hidden relative">
+            <!-- Top Red & White Stripe Border -->
+            <div class="menu-stripe-border" aria-hidden="true"></div>
+
+            <!-- Main Content Inner Grid -->
+            <div class="p-6 md:p-10">
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+
+                <!-- ===== COLUMN 1: PIZZE (1 to 13) ===== -->
+                <div class="space-y-6">
+                  <div class="flex items-baseline justify-between border-b-2 border-red-600 pb-2 mb-4">
+                    <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">{{ t('pizzeria.colPizzaTitle') }}</h2>
+                    <span class="text-xs font-bold text-gray-500 font-sans">{{ t('pizzeria.regularFamily') }}</span>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div 
+                      v-for="item in col1Pizze" 
+                      :key="item.name"
+                      @click="openTakeawayWithItem(item)"
+                      class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                    >
+                      <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                        <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                          {{ item.name }}
+                        </h3>
+                        <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                          {{ item.price }}
+                        </span>
+                      </div>
+                      <p class="text-xs text-gray-700 leading-snug font-normal">
+                        {{ item.description }}
+                        <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ===== COLUMN 2: PIZZE (14-15) + DODATKI + PANUOZZO + NAREZEK ===== -->
+                <div class="space-y-8">
+                  
+                  <!-- Pizze 14 & 15 -->
+                  <div class="space-y-4">
+                    <div 
+                      v-for="item in col2Pizze" 
+                      :key="item.name"
+                      @click="openTakeawayWithItem(item)"
+                      class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                    >
+                      <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                        <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                          {{ item.name }}
+                        </h3>
+                        <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                          {{ item.price }}
+                        </span>
+                      </div>
+                      <p class="text-xs text-gray-700 leading-snug font-normal">
+                        {{ item.description }}
+                        <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                      </p>
+                    </div>
+
+                    <!-- Dodatki Section -->
+                    <div class="pt-4 border-t-2 border-dashed border-red-300">
+                      <div class="space-y-3">
+                        <div v-for="dodatek in dodatkiList" :key="dodatek.title" class="text-xs">
+                          <div class="flex justify-between font-bold text-black mb-0.5">
+                            <span>{{ dodatek.title }}</span>
+                            <span class="font-sans">{{ dodatek.price }}</span>
+                          </div>
+                          <p class="text-gray-600 font-normal leading-tight">{{ dodatek.items }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Panuozzo Sendviči -->
+                  <div class="space-y-4 pt-2 border-t-2 border-dashed border-red-300 lg:border-t-0">
+                    <div class="border-b-2 border-red-600 pb-2 mb-4">
+                      <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">{{ t('pizzeria.colPanuozzoTitle') }}</h2>
+                    </div>
+
+                    <div 
+                      v-for="item in panuozzoItems" 
+                      :key="item.name"
+                      @click="openTakeawayWithItem(item)"
+                      class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                    >
+                      <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                        <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                          {{ item.name }}
+                        </h3>
+                        <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                          {{ item.price }}
+                        </span>
+                      </div>
+                      <p v-if="item.description" class="text-xs text-gray-700 leading-snug font-normal">
+                        {{ item.description }}
+                        <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                      </p>
+                      <p v-else class="text-xs text-gray-500 font-bold">
+                        / {{ item.allergens }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Narezek -->
+                  <div class="space-y-4 pt-4 border-t-2 border-dashed border-red-300">
+                    <div class="border-b-2 border-red-600 pb-2 mb-4">
+                      <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">{{ t('pizzeria.colNarezekTitle') }}</h2>
+                    </div>
+
+                    <div 
+                      v-for="item in narezekItems" 
+                      :key="item.name"
+                      @click="openTakeawayWithItem(item)"
+                      class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                    >
+                      <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                        <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                          {{ item.name }}
+                        </h3>
+                        <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                          {{ item.price }}
+                        </span>
+                      </div>
+                      <p class="text-xs text-gray-700 leading-snug font-normal">
+                        {{ item.description }}
+                        <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- ===== COLUMN 3: SOLATE + QR CARD + LEGAL INFOS ===== -->
+                <div class="space-y-8">
+                  
+                  <!-- Solate -->
+                  <div class="space-y-4">
+                    <div class="border-b-2 border-red-600 pb-2 mb-4">
+                      <h2 class="text-3xl font-black uppercase tracking-tight text-black font-sans">{{ t('pizzeria.colSaladsTitle') }}</h2>
+                    </div>
+
+                    <div 
+                      v-for="item in solateItems" 
+                      :key="item.name"
+                      @click="openTakeawayWithItem(item)"
+                      class="group cursor-pointer p-2 -mx-2 rounded-xl hover:bg-red-50/70 transition-colors"
+                    >
+                      <div class="flex justify-between items-baseline gap-2 mb-0.5">
+                        <h3 class="text-base font-bold text-black group-hover:text-red-600 transition-colors">
+                          {{ item.name }}
+                        </h3>
+                        <span class="text-base font-bold text-black font-sans whitespace-nowrap">
+                          {{ item.price }}
+                        </span>
+                      </div>
+                      <p class="text-xs text-gray-700 leading-snug font-normal">
+                        {{ item.description }}
+                        <span class="text-xs font-bold text-gray-500 ml-1">/ {{ item.allergens }}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Red dashed divider -->
+                  <div class="border-t-2 border-dashed border-red-400"></div>
+
+                  <!-- QR Code Support Box (1:1 from menu.jpg) -->
+                  <div class="p-4 border-2 border-red-600 rounded-2xl bg-white flex items-center justify-between gap-3 shadow-sm">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-14 h-14 bg-red-50 p-1 border border-red-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <img src="/logo-badge.png" :alt="t('pizzeria.qrAlt')" class="w-12 h-12 object-contain" />
+                      </div>
+                      <div class="text-xs">
+                        <p class="text-gray-800 leading-snug font-medium mb-1">
+                          {{ t('pizzeria.qrText') }}
+                        </p>
+                        <p class="font-black text-red-600 uppercase tracking-wider text-xs">
+                          {{ t('pizzeria.brandCastle') }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-black text-red-600 font-serif flex-shrink-0 select-none">
+                      K°
+                    </div>
+                  </div>
+
+                  <!-- Red dashed divider -->
+                  <div class="border-t-2 border-dashed border-red-400"></div>
+
+                  <!-- Fine Print & Legal Notices (1:1 from menu.jpg) -->
+                  <div class="space-y-2.5 text-[11px] text-red-600 font-sans leading-tight">
+                    <p class="font-medium">
+                      {{ t('pizzeria.legalBarConditions') }}<br />
+                      {{ t('pizzeria.legalCompanyLine') }}
+                    </p>
+                    
+                    <div class="flex justify-between font-bold text-red-700 py-1 border-y border-red-200">
+                      <span>{{ t('pizzeria.priceListValidFrom') }}</span>
+                      <span>{{ t('pizzeria.pricesVat') }}</span>
+                    </div>
+
+                    <p class="font-normal text-gray-700">
+                      {{ t('pizzeria.allergenBarInfo') }}
+                    </p>
+
+                    <p class="text-[10px] text-red-600 leading-tight italic">
+                      {{ t('pizzeria.alcoholLawWarning') }}
+                    </p>
+
+                    <p class="text-[10px] text-red-600 leading-tight italic">
+                      {{ t('pizzeria.spiritsMorningLawWarning') }}
+                    </p>
+                  </div>
+
+                  <!-- Legenda alergenov (1:1 from menu.jpg) -->
+                  <div class="p-3 bg-red-50 rounded-xl border border-red-200 text-[10px] text-gray-700 font-sans leading-relaxed">
+                    <span class="font-bold text-red-600 block mb-1">{{ t('pizzeria.allergenLegendTitle') }}</span>
+                    <span>{{ t('pizzeria.allergenLegendText') }}</span>
+                  </div>
+
+                </div>
+
               </div>
             </div>
-            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
-              {{ t('home.dayP') }}
-            </p>
-            <ul class="space-y-3 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF1') }}</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF2') }}</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-red-500 flex-shrink-0" /> {{ t('home.dayF3') }}</li>
-            </ul>
-          </div>
-          <NuxtLink 
-            to="/pizzeria" 
-            class="inline-block text-center px-6 py-3.5 rounded-xl font-bold bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-950 transition-all duration-300 min-h-[44px]"
-          >
-            {{ t('home.dayCta') }}
-          </NuxtLink>
-        </div>
 
-        <!-- Night Card (Dance Club) -->
-        <div class="p-8 rounded-3xl flex flex-col justify-between bg-gradient-to-b from-red-950/30 via-purple-950/20 to-zinc-900/90 border-2 border-purple-500/40 shadow-[0_0_40px_rgba(168,85,247,0.15)] hover:border-purple-500 transition-all duration-300">
-          <div>
-            <div class="flex items-center justify-between mb-6">
-              <div class="flex items-center space-x-3">
-                <span class="text-4xl">🪩</span>
-                <h2 class="text-3xl font-black uppercase text-white">{{ t('home.nightTitle') }}</h2>
-              </div>
-            </div>
-            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
-              {{ t('home.nightP') }}
-            </p>
-            <ul class="space-y-3 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> {{ t('home.nightF1') }}</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> {{ t('home.nightF2') }}</li>
-              <li class="flex items-center"><CheckIcon class="w-5 h-5 mr-3 text-purple-500 flex-shrink-0" /> {{ t('home.nightF3') }}</li>
-            </ul>
-          </div>
-          <NuxtLink 
-            to="/events" 
-            class="inline-block text-center px-6 py-3.5 rounded-xl font-bold bg-gradient-to-r from-red-600 to-purple-700 hover:from-red-500 hover:to-purple-600 text-white shadow-lg shadow-purple-950 transition-all duration-300 min-h-[44px]"
-          >
-            {{ t('home.nightCta') }}
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
-
-    <!-- The Club Experience -->
-    <section class="py-16 md:py-24 px-4 bg-black border-b border-zinc-900 content-visibility-auto">
-      <div class="max-w-6xl mx-auto space-y-20 md:space-y-32">
-        <!-- Basement Segment -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div class="order-2 md:order-1 flex flex-col justify-center">
-            <h3 class="text-red-600 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.basementSub') }}</h3>
-            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-4 md:mb-6">{{ t('home.basementTitle') }}</h2>
-            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
-              {{ t('home.basementDesc') }}
-            </p>
-            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl inline-block max-w-sm">
-              <h4 class="text-white font-bold mb-1.5 flex items-center"><span class="text-red-500 mr-2">🔊</span> {{ t('home.basementSoundTitle') }}</h4>
-              <p class="text-gray-400 text-sm leading-snug">{{ t('home.basementSoundDesc') }}</p>
-            </div>
-          </div>
-          <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(239,68,68,0.1)]">
-            <div class="absolute inset-0 bg-red-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img :src="getOptImg(siteImages.home_basement_bg, 1200, 80)" alt="Basement Club Live Performance" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-75 group-hover:scale-105 transition-transform duration-700">
-          </div>
-        </div>
-
-        <!-- 2nd Floor Segment -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div class="h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(168,85,247,0.1)]">
-            <div class="absolute inset-0 bg-purple-900/30 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img :src="getOptImg(siteImages.home_second_floor_bg, 1200, 80)" alt="2nd Floor Pizzeria Lounge" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-125 saturate-110 group-hover:scale-105 transition-transform duration-700">
-          </div>
-          <div class="flex flex-col justify-center">
-            <h3 class="text-purple-500 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.secondFloorSub') }}</h3>
-            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-4 md:mb-6">{{ t('home.secondFloorTitle') }}</h2>
-            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
-              {{ t('home.secondFloorDesc') }}
-            </p>
-            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl inline-block max-w-sm">
-              <h4 class="text-white font-bold mb-1.5 flex items-center"><span class="text-purple-500 mr-2">🔊</span> {{ t('home.secondFloorSoundTitle') }}</h4>
-              <p class="text-gray-400 text-sm leading-snug">{{ t('home.secondFloorSoundDesc') }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Summer Outdoor Segment -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div class="order-2 md:order-1 flex flex-col justify-center">
-            <h3 class="text-orange-500 font-bold uppercase tracking-widest text-sm mb-2">{{ t('home.terraceSub') }}</h3>
-            <h2 class="text-3xl md:text-5xl font-black uppercase text-white mb-4 md:mb-6">{{ t('home.terraceTitle') }}</h2>
-            <p class="text-gray-300 text-base md:text-lg mb-6 leading-relaxed">
-              {{ t('home.terraceDesc') }}
-            </p>
-            <ul class="space-y-3 mb-8 text-sm text-gray-300">
-              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30 flex-shrink-0"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF1') }}</li>
-              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30 flex-shrink-0"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF2') }}</li>
-              <li class="flex items-center"><span class="w-8 h-8 rounded-full bg-orange-900/30 flex items-center justify-center mr-4 text-orange-500 border border-orange-500/30 flex-shrink-0"><CheckIcon class="w-4 h-4" /></span> {{ t('home.terraceF3') }}</li>
-            </ul>
-          </div>
-          <div class="order-1 md:order-2 h-64 md:h-[450px] rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group shadow-[0_0_50px_rgba(249,115,22,0.1)]">
-            <div class="absolute inset-0 bg-orange-900/20 mix-blend-multiply z-10 transition-opacity group-hover:opacity-50"></div>
-            <img :src="getOptImg(siteImages.home_terrace_bg, 1200, 80)" alt="Summer Terrace Party" loading="lazy" decoding="async" class="w-full h-full object-cover filter contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-700">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Events (RA Integration) -->
-    <section class="py-16 md:py-20 px-4 bg-black content-visibility-auto">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-black uppercase text-center mb-12">{{ t('home.upcomingTitle') }}</h2>
-
-        <!-- Loading -->
-        <div v-if="loading" class="flex items-center justify-center py-16 text-gray-400">
-          <svg class="animate-spin h-10 w-10 text-red-500" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-        </div>
-
-        <!-- Error -->
-        <div v-else-if="loadError" class="bg-zinc-900 rounded-xl p-10 text-center border border-zinc-800">
-          <p class="text-gray-400 mb-4">{{ loadError }}</p>
-          <button @click="loadFeatured" class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors min-h-[44px]">
-            {{ t('home.retry') }}
-          </button>
-        </div>
-
-        <!-- Empty -->
-        <div v-else-if="featuredEvents.length === 0" class="bg-zinc-900 rounded-xl p-10 text-center border border-zinc-800">
-          <p class="text-gray-400 mb-2">{{ t('home.noEvents') }}</p>
-          <p class="text-sm text-gray-500">{{ t('home.noEvents2') }}</p>
-        </div>
-
-        <!-- Events grid -->
-        <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div v-for="event in featuredEvents" :key="event.id" class="bg-zinc-900 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl border border-zinc-800 transition-all duration-300 hover:border-red-900/50 flex flex-col">
-            <div class="relative aspect-[16/9] overflow-hidden">
-              <img :src="getOptImg(event.image || fallbackImage, 600, 80)" :alt="event.title" loading="lazy" decoding="async" class="w-full h-full object-cover" @error="onImageError">
-              <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{{ event.typeLabel }}</div>
-            </div>
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 class="text-xl font-bold mb-2 text-white">{{ event.title }}</h3>
-                <p class="text-xs text-gray-400 mb-4">{{ event.dateLabel }}</p>
-                <p class="text-sm text-gray-300 mb-4 line-clamp-3">{{ event.description }}</p>
-              </div>
-              <a :href="event.ra_url" target="_blank" rel="noopener" class="text-red-500 hover:text-red-400 text-sm font-bold inline-flex items-center min-h-[44px]">
-                {{ t('home.viewRA') }}
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Real Google Working Hours & Map Banner -->
-    <section class="py-16 px-4 bg-zinc-950 border-t border-zinc-900">
-      <div class="max-w-6xl mx-auto bg-zinc-900 border border-zinc-800 rounded-3xl p-8 md:p-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <span class="text-xs font-bold text-red-500 uppercase tracking-widest block mb-2">{{ t('home.visitLabel') }}</span>
-            <h2 class="text-3xl font-black text-white mb-6 uppercase">{{ t('home.visitTitle') }}</h2>
-            <p class="text-gray-400 mb-6 leading-relaxed">
-              {{ t('home.visitP', { food: '(+386 83 836 740)', table: '(+386 40 175 628)' }) }}
-            </p>
-            <div class="flex space-x-4">
-              <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-lg transition-colors">
-                {{ t('home.openMaps') }}
-              </a>
+            <!-- Bottom Red & White Stripe Border + Cutlery & Chef Icons -->
+            <div class="relative">
+              <div class="menu-stripe-border" aria-hidden="true"></div>
             </div>
           </div>
 
-          <div class="bg-black/60 p-6 rounded-2xl border border-zinc-800">
-            <h3 class="text-lg font-bold text-white mb-4 border-b border-zinc-800 pb-2">{{ t('home.hoursTitle') }}</h3>
-            <div class="space-y-3 text-sm">
-              <div class="flex justify-between text-gray-300">
-                <span>{{ t('home.monWed') }}</span>
-                <span class="font-bold text-white">09:00 – 22:00</span>
-              </div>
-              <div class="flex justify-between text-gray-300">
-                <span>{{ t('home.thu') }}</span>
-                <span class="font-bold text-white">09:00 – 01:00</span>
-              </div>
-              <div class="flex justify-between text-gray-300">
-                <span>{{ t('home.fri') }}</span>
-                <span class="font-bold text-red-400">09:00 – 05:00</span>
-              </div>
-              <div class="flex justify-between text-gray-300">
-                <span>{{ t('home.sat') }}</span>
-                <span class="font-bold text-white">09:00 – 01:00</span>
-              </div>
-              <div class="flex justify-between text-gray-300">
-                <span>{{ t('home.sun') }}</span>
-                <span class="font-bold text-white">09:00 – 20:00</span>
-              </div>
-            </div>
-            <p class="text-xs text-gray-500 mt-4 italic">{{ t('footer.kitchenNote') }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Instagram Feed & Gallery Section ===== -->
-    <section class="py-20 px-4 bg-black border-t border-zinc-900">
-      <div class="max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div>
-            <div class="flex items-center space-x-2 text-red-500 font-mono text-xs uppercase tracking-widest mb-3">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-              <span>@kader.lunapark</span>
-            </div>
-            <h2 class="text-3xl md:text-5xl font-black uppercase text-white tracking-tight">Kader V Slikah</h2>
-          </div>
-          <a 
-            href="https://www.instagram.com/kader.lunapark/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="mt-4 md:mt-0 inline-flex items-center px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-red-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all duration-300"
-          >
-            Sledi na Instagramu →
-          </a>
-        </div>
-
-        <!-- Image Grid (Interactive Lightbox Triggers) -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          <button 
-            v-for="(item, idx) in siteImages.gallery_items" 
-            :key="idx"
-            type="button"
-            @click="openLightbox(idx)"
-            class="relative group aspect-square overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-red-600/60 transition-all duration-500 text-left focus:outline-none focus:ring-2 focus:ring-red-500 cursor-zoom-in"
-            :aria-label="`Poglej sliko v polni velikosti: ${item.label}`"
-          >
-            <img 
-              :src="getOptImg(item.src, 640, 80)" 
-              :alt="item.label" 
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-            />
-            <!-- Hover Glass Overlay with Zoom Icon & Label -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
-              <div class="flex justify-end">
-                <span class="w-9 h-9 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white border border-white/20 shadow-lg">
-                  <MagnifyingGlassPlusIcon class="w-5 h-5" />
-                </span>
+          <!-- Ingredient provenance banner (below the menu) -->
+          <div class="mt-8 p-5 bg-red-600 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-11 h-11 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-white text-xl flex-shrink-0">
+                🛡️
               </div>
               <div>
-                <span class="text-xs font-bold text-white uppercase tracking-wider block mb-1">{{ item.label }}</span>
-                <span class="text-[10px] text-red-400 font-mono flex items-center gap-1">
-                  <span>Odpri v polni resoluciji</span>
-                  <span>↗</span>
-                </span>
+                <h4 class="text-sm md:text-base font-serif font-black text-white uppercase tracking-wider">
+                  {{ t('pizzeria.provenanceTitle') }}
+                </h4>
+                <p class="text-xs text-red-100 font-light">
+                  {{ t('pizzeria.provenanceDesc') }}
+                </p>
               </div>
             </div>
-          </button>
+            <div class="flex flex-wrap gap-2 text-[10px] font-mono">
+              <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+                🍅 SAN MARZANO D.O.P.
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+                🐃 BUFALA CAMPANA D.O.P.
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+                🥓 MORTADELLA I.G.P.
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
+                🌿 BIO EXTRA VERGINE
+              </span>
+            </div>
+          </div>
         </div>
 
-        <!-- Lightbox Modal Instance -->
-        <ImageLightboxModal
-          v-model="lightboxOpen"
-          :items="siteImages.gallery_items"
-          :initial-index="selectedImageIndex"
-        />
+        <!-- ===== "ZAČUTITE OBRT" / PHILOSOPHY CARDS (I Masanielli Style) ===== -->
+        <section class="mb-20">
+          <div class="text-center mb-12">
+            <span class="text-xs uppercase tracking-[0.3em] text-red-600 font-semibold block mb-2">{{ t('pizzeria.philoSubtitle') }}</span>
+            <h2 class="text-3xl md:text-5xl font-serif font-black uppercase text-gray-900 tracking-tight">{{ t('pizzeria.philoTitle') }}</h2>
+            <div class="w-16 h-1 bg-red-600 mx-auto mt-4"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
+              <div>
+                <span class="font-mono text-xs text-red-600 block mb-3 font-bold">{{ t('pizzeria.card1Tag') }}</span>
+                <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">{{ t('pizzeria.card1Title') }}</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  {{ t('pizzeria.card1Desc') }}
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
+                {{ t('pizzeria.card1Footer') }}
+              </div>
+            </div>
+
+            <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
+              <div>
+                <span class="font-mono text-xs text-red-600 block mb-3 font-bold">{{ t('pizzeria.card2Tag') }}</span>
+                <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">{{ t('pizzeria.card2Title') }}</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  {{ t('pizzeria.card2Desc') }}
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
+                {{ t('pizzeria.card2Footer') }}
+              </div>
+            </div>
+
+            <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
+              <div>
+                <span class="font-mono text-xs text-red-600 block mb-3 font-bold">{{ t('pizzeria.card3Tag') }}</span>
+                <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">{{ t('pizzeria.card3Title') }}</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  {{ t('pizzeria.card3Desc') }}
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
+                {{ t('pizzeria.card3Footer') }}
+              </div>
+            </div>
+
+            <div class="bg-white border-2 border-red-100 rounded-3xl p-6 flex flex-col justify-between hover:border-red-400 hover:shadow-lg transition-all duration-500 group shadow-md">
+              <div>
+                <span class="font-mono text-xs text-red-600 block mb-3 font-bold">{{ t('pizzeria.card4Tag') }}</span>
+                <h3 class="text-lg font-serif font-bold text-gray-900 mb-2 uppercase group-hover:text-red-600 transition-colors">{{ t('pizzeria.card4Title') }}</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  {{ t('pizzeria.card4Desc') }}
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-red-100 text-[11px] font-mono text-red-500">
+                {{ t('pizzeria.card4Footer') }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Instagram Food Showcase Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            <div class="relative overflow-hidden rounded-3xl border-2 border-red-100 group shadow-xl">
+              <img :src="getOptImg(siteImages.pizzeria_showcase_1, 800, 80)" :alt="t('pizzeria.showcase1Alt')" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+                <div>
+                  <span class="text-[11px] font-mono text-red-400 font-bold uppercase tracking-widest block mb-1">{{ t('pizzeria.freshFromOven') }}</span>
+                  <h4 class="text-xl font-serif font-bold text-white uppercase">{{ t('pizzeria.pizzaShowcaseTitle') }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="relative overflow-hidden rounded-3xl border-2 border-red-100 group shadow-xl">
+              <img :src="getOptImg(siteImages.pizzeria_showcase_2, 800, 80)" :alt="t('pizzeria.showcase2Alt')" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
+                <div>
+                  <span class="text-[11px] font-mono text-red-400 font-bold uppercase tracking-widest block mb-1">{{ t('pizzeria.houseSpecialty') }}</span>
+                  <h4 class="text-xl font-serif font-bold text-white uppercase">{{ t('pizzeria.panuozzoShowcaseTitle') }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 4-COLUMN ESSENTIAL INFO BLOCK (Dove, Come, Orari, Reviews) ===== -->
+        <section class="mt-20 bg-white border-2 border-gray-100 rounded-3xl p-8 md:p-12 shadow-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center md:text-left">
+            
+            <!-- Dove / Kje -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-100 text-red-600 flex items-center justify-center mb-4 text-xl">
+                📍
+              </div>
+              <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">{{ t('pizzeria.colLocTitle') }}</h4>
+              <p class="text-xs text-gray-500 leading-relaxed">
+                Grad Kodeljevo<br />
+                <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="text-red-600 hover:underline font-medium">Ulica Carla Benza 20</a><br />
+                1000 Ljubljana, Slovenija
+              </p>
+            </div>
+
+            <!-- Come / Kontakt -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-100 text-red-600 flex items-center justify-center mb-4 text-xl">
+                📞
+              </div>
+              <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">{{ t('pizzeria.colContactTitle') }}</h4>
+              <p class="text-xs text-gray-500 leading-relaxed mb-2">
+                <strong class="text-gray-700">{{ t('pizzeria.colContactTakeaway') }}</strong><br />
+                <a href="tel:+38683836740" class="text-red-600 hover:underline font-mono text-sm">+386 83 836 740</a>
+              </p>
+              <p class="text-xs text-gray-500 leading-relaxed">
+                <strong class="text-gray-700">{{ t('pizzeria.colContactTable') }}</strong><br />
+                <a href="tel:+38640175628" class="text-red-600 hover:underline font-mono text-sm">+386 40 175 628</a>
+              </p>
+            </div>
+
+            <!-- Orari / Delovni Čas -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-2xl bg-red-50 border-2 border-red-100 text-red-600 flex items-center justify-center mb-4 text-xl">
+                ⏰
+              </div>
+              <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">{{ t('pizzeria.colHoursTitle') }}</h4>
+              <div class="text-xs text-gray-500 space-y-1">
+                <p><strong class="text-gray-700">{{ t('home.monWed') }}:</strong> 09:00 – 22:00</p>
+                <p><strong class="text-gray-700">{{ t('home.thu') }}:</strong> 09:00 – 01:00</p>
+                <p><strong class="text-gray-700">{{ t('home.fri') }}:</strong> 09:00 – 05:00</p>
+                <p><strong class="text-gray-700">{{ t('home.sat') }}:</strong> 09:00 – 01:00</p>
+                <p><strong class="text-gray-700">{{ t('home.sun') }}:</strong> 09:00 – 20:00</p>
+                <p class="text-[11px] text-red-500 italic mt-2">{{ t('footer.kitchenNote') }}</p>
+              </div>
+            </div>
+
+            <!-- Certificazioni / Rating -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-2xl bg-yellow-50 border-2 border-yellow-100 text-yellow-500 flex items-center justify-center mb-4 text-xl">
+                ⭐
+              </div>
+              <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">{{ t('pizzeria.colRatingTitle') }}</h4>
+              <div class="flex items-center space-x-1 text-yellow-500 mb-2">
+                <span class="text-2xl font-black text-gray-900 mr-1 font-mono">4.8</span>
+                <span>★★★★★</span>
+              </div>
+              <p class="text-xs text-gray-500 leading-relaxed mb-3">
+                {{ t('pizzeria.colRatingDesc') }}
+              </p>
+              <a 
+                href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" 
+                target="_blank" 
+                rel="noopener"
+                class="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-red-700 transition-colors"
+              >
+                {{ t('pizzeria.colRatingWrite') }}
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===== GOOGLE VERIFIED REVIEWS SECTION ===== -->
+        <section class="mt-16 bg-white rounded-3xl p-8 md:p-10 border-2 border-gray-100 shadow-md">
+          <div class="text-center mb-10">
+            <span class="text-xs uppercase tracking-[0.3em] text-red-600 font-semibold block mb-2">{{ t('pizzeria.reviewsGuestSubtitle') }}</span>
+            <h2 class="text-3xl font-serif font-bold text-gray-900 uppercase">{{ t('pizzeria.reviewsTitle') }}</h2>
+            <div class="w-16 h-1 bg-red-600 mx-auto mt-4"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div 
+              v-for="rev in googleReviews" 
+              :key="rev.author" 
+              class="bg-gray-50 p-6 rounded-2xl border-2 border-gray-100 hover:border-red-200 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-red-50 border-2 border-red-100 text-red-600 font-bold flex items-center justify-center text-sm shadow-md font-serif">
+                      {{ rev.author.charAt(0) }}
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-gray-900 text-sm flex items-center">
+                        {{ rev.author }}
+                        <span class="ml-1 text-xs text-blue-500" :title="t('pizzeria.googleVerified')">✓</span>
+                      </h3>
+                      <span class="text-xs text-gray-400 font-mono">{{ rev.date }}</span>
+                    </div>
+                  </div>
+                  <div class="flex text-yellow-500 text-sm">
+                    ★★★★★
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 leading-relaxed italic mb-4 font-light">
+                  "{{ rev.text }}"
+                </p>
+              </div>
+              
+              <div class="pt-3 border-t-2 border-gray-100 flex justify-between items-center text-[11px] text-gray-400 font-mono">
+                <span>{{ t('pizzeria.googleVerified') }}</span>
+                <span class="text-red-500 font-medium">👍 {{ rev.likes }} {{ t('pizzeria.recs') }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Allergen Footnote -->
+        <div class="mt-12 text-center text-xs text-gray-400 space-y-2">
+          <p class="font-medium text-gray-500">{{ t('pizzeria.allergenNote') }}</p>
+          <p>{{ t('pizzeria.companyLine') }}</p>
+        </div>
+
       </div>
-    </section>
+
+      <!-- Bottom red stripe border (matching print menu) -->
+      <div class="menu-stripe-border" aria-hidden="true"></div>
+    </div><!-- end pizzeria white section -->
+
+    <!-- Table Reservation & Takeaway Modal Instance -->
+    <ReservationModal
+      :is-open="isModalOpen"
+      :initial-tab="modalTab"
+      :preselected-item="selectedItem"
+      @close="closeReservation"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { CheckIcon, MapPinIcon, PhoneIcon, MagnifyingGlassPlusIcon } from '@heroicons/vue/24/outline'
+import { PhoneIcon, CalendarDaysIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 
-const { locale, t } = useLocale()
+const { t, locale } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
 
-// Lightbox state
-const lightboxOpen = ref(false)
-const selectedImageIndex = ref(0)
-
-const openLightbox = (index: number) => {
-  selectedImageIndex.value = index
-  lightboxOpen.value = true
-}
+const pizzeriaSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'PizzaRestaurant',
+  '@id': 'https://www.kader.si/#restaurant',
+  'name': 'Pizzeria Bistro Kader Grad Kodeljevo',
+  'description': t('pizzeria.manifesto'),
+  'inLanguage': locale.value,
+  'url': 'https://www.kader.si/',
+  'telephone': '+38683836740',
+  'priceRange': '$$',
+  'servesCuisine': ['Neapolitan Pizza', 'Italian', 'Panuozzo', 'Salads'],
+  'address': {
+    '@type': 'PostalAddress',
+    'streetAddress': 'Ulica Carla Benza 20',
+    'addressLocality': 'Ljubljana',
+    'postalCode': '1000',
+    'addressCountry': 'SI'
+  },
+  'geo': {
+    '@type': 'GeoCoordinates',
+    'latitude': 46.0515,
+    'longitude': 14.5361
+  },
+  'hasMenu': 'https://www.kader.si/',
+  'image': 'https://www.kader.si/logo-banner.png'
+}))
 
 useHead({
-  title: 'Kader Grad Kodeljevo — Pizza bistro in plesni bar Ljubljana',
-  meta: [
-    { name: 'description', content: 'Pizza bistro in plesni bar na gradu Kodeljevo. Pizzeria podnevi in klubska kultura ponoči v Ljubljani.' },
-    { property: 'og:title', content: 'Kader Grad Kodeljevo' },
-    { property: 'og:image', content: '/logo-badge.png' }
+  title: computed(() => t('seo.pizzeria.title')),
+  link: [
+    { rel: 'canonical', href: 'https://www.kader.si/' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(pizzeriaSchema.value))
+    }
   ]
 })
 
-interface PublicEvent {
-  ra_id: number
-  title: string
-  date: string
-  start_time: string | null
-  end_time: string | null
-  cost: number | null
-  flyer_url: string | null
-  ra_url: string | null
-  lineup: string | null
-  artists: string[]
-  genres: string[]
+useSeoMeta({
+  title: computed(() => t('seo.pizzeria.title')),
+  description: computed(() => t('seo.pizzeria.description')),
+  ogTitle: computed(() => t('seo.pizzeria.ogTitle')),
+  ogDescription: computed(() => t('seo.pizzeria.ogDescription')),
+  ogImage: 'https://www.kader.si/logo-banner.png',
+  ogUrl: 'https://www.kader.si/',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: computed(() => t('seo.pizzeria.ogTitle')),
+  twitterDescription: computed(() => t('seo.pizzeria.ogDescription')),
+  twitterImage: 'https://www.kader.si/logo-banner.png'
+})
+
+const activeCategory = ref('all')
+const menuImageUrl = ref('/kader/menu.jpg')
+
+const { isModalOpen, modalTab, selectedItem, openReservation, closeReservation } = useReservationModal()
+
+const openModal = (tab: 'table' | 'takeaway') => {
+  openReservation(tab)
 }
 
-interface FeaturedEvent {
-  id: number
-  title: string
-  description: string
-  image: string
-  dateLabel: string
-  typeLabel: string
-  ra_url: string
+const openTakeawayWithItem = (item: { name: string; price: string }) => {
+  openReservation('takeaway', item)
 }
 
-const fallbackImage = 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80'
+const googleReviews = computed(() => [
+  {
+    author: t('pizzeria.rev1_author'),
+    date: t('pizzeria.rev1_date'),
+    text: t('pizzeria.rev1_text'),
+    likes: 14
+  },
+  {
+    author: t('pizzeria.rev2_author'),
+    date: t('pizzeria.rev2_date'),
+    text: t('pizzeria.rev2_text'),
+    likes: 19
+  },
+  {
+    author: t('pizzeria.rev3_author'),
+    date: t('pizzeria.rev3_date'),
+    text: t('pizzeria.rev3_text'),
+    likes: 11
+  },
+  {
+    author: t('pizzeria.rev4_author'),
+    date: t('pizzeria.rev4_date'),
+    text: t('pizzeria.rev4_text'),
+    likes: 16
+  },
+  {
+    author: t('pizzeria.rev5_author'),
+    date: t('pizzeria.rev5_date'),
+    text: t('pizzeria.rev5_text'),
+    likes: 8
+  },
+  {
+    author: t('pizzeria.rev6_author'),
+    date: t('pizzeria.rev6_date'),
+    text: t('pizzeria.rev6_text'),
+    likes: 12
+  }
+])
 
-const loading = ref(true)
-const loadError = ref('')
-const events = ref<PublicEvent[]>([])
-
-const featuredEvents = computed<FeaturedEvent[]>(() =>
-  events.value.slice(0, 3).map((e) => ({
-    id: e.ra_id,
-    title: e.title,
-    description: e.artists?.length ? `${t('home.featuredBy')}${e.artists.join(', ')}` : t('home.fallbackDesc'),
-    image: e.flyer_url || fallbackImage,
-    dateLabel: new Date(e.date).toLocaleDateString(locale.value === 'sl' ? 'sl-SI' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-    typeLabel: (e.genres?.[0] || 'Klub'),
-    ra_url: e.ra_url || 'https://ra.co/clubs/78778'
-  }))
-)
-
-const onImageError = (e: Event) => {
-  const img = e.currentTarget as HTMLImageElement | null
-  if (img) img.src = fallbackImage
-}
-
-const loadFeatured = async () => {
-  loading.value = true
-  loadError.value = ''
+const loadMenuConfig = async () => {
   try {
-    const data = await $fetch<PublicEvent[]>('/api/ra-events?scope=upcoming')
-    events.value = (data || []).map((e: any) => ({
-      ...e,
-      artists: Array.isArray(e.artists) ? e.artists : [],
-      genres: Array.isArray(e.genres) ? e.genres : []
-    }))
-  } catch (err: any) {
-    console.error('Failed to load events:', err)
-    loadError.value = 'Trenutno ni bilo mogoče naložiti prihajajočih dogodkov.'
-  } finally {
-    loading.value = false
+    const cfg = await $fetch('/api/menu-config') as { menuImage?: string }
+    if (cfg?.menuImage) menuImageUrl.value = cfg.menuImage
+  } catch (err) {
+    // fallback to local /kader/menu.jpg
   }
 }
 
-onMounted(() => {
-  loadFeatured()
-})
+onMounted(loadMenuConfig)
+
+interface MenuItem {
+  name: string
+  description?: string
+  price: string
+  allergens?: string
+}
+
+const navCategories = computed(() => [
+  { id: 'all', name: t('pizzeria.catAll'), icon: '🍽️' },
+  { id: 'pizza', name: t('pizzeria.catPizza'), icon: '🍕' },
+  { id: 'panuozzo', name: t('pizzeria.catPanuozzo'), icon: '🥪' },
+  { id: 'narezek', name: t('pizzeria.catNarezek'), icon: '🥩' },
+  { id: 'solate', name: t('pizzeria.catSalads'), icon: '🥗' }
+])
+
+// Column 1 Pizze (Items 1 to 13)
+const col1Pizze = computed<MenuItem[]>(() => [
+  {
+    name: 'Marinara',
+    description: t('pizzeria.m_marinara_desc'),
+    price: '10 €',
+    allergens: '1'
+  },
+  {
+    name: 'Margerita',
+    description: t('pizzeria.m_margerita_desc'),
+    price: '11/24 €',
+    allergens: '1,7'
+  },
+  {
+    name: t('pizzeria.m_klasika_name'),
+    description: t('pizzeria.m_klasika_desc'),
+    price: '13/31 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Bufalina',
+    description: t('pizzeria.m_bufalina_desc'),
+    price: '14/31 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Regina',
+    description: t('pizzeria.m_regina_desc'),
+    price: '14/31 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Bresaola',
+    description: t('pizzeria.m_bresaola_desc'),
+    price: '16/37 €',
+    allergens: '1,6,7'
+  },
+  {
+    name: t('pizzeria.m_krasotica_name'),
+    description: t('pizzeria.m_krasotica_desc'),
+    price: '15/34 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Peperoni',
+    description: t('pizzeria.m_peperoni_desc'),
+    price: '14/32 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Kalabria',
+    description: t('pizzeria.m_kalabria_desc'),
+    price: '15/32 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Arrotolata',
+    description: t('pizzeria.m_arrotolata_desc'),
+    price: '15/32 €',
+    allergens: '1,7'
+  },
+  {
+    name: 'Tuna',
+    description: t('pizzeria.m_tuna_desc'),
+    price: '14/31 €',
+    allergens: '1,4,7'
+  },
+  {
+    name: 'Ortolana',
+    description: t('pizzeria.m_ortolana_desc'),
+    price: '14/29 €',
+    allergens: '1,7'
+  },
+  {
+    name: t('pizzeria.m_satarasa_name'),
+    description: t('pizzeria.m_satarasa_desc'),
+    price: '14/29 €',
+    allergens: '1,7'
+  }
+])
+
+// Column 2 Pizze (Items 14 & 15)
+const col2Pizze = computed<MenuItem[]>(() => [
+  {
+    name: 'Tartufina',
+    description: t('pizzeria.m_tartufina_desc'),
+    price: '14/31 €',
+    allergens: '1,7'
+  },
+  {
+    name: t('pizzeria.m_vegana_name'),
+    description: t('pizzeria.m_vegana_desc'),
+    price: '14/29 €',
+    allergens: '1'
+  }
+])
+
+// Extra toppings
+const dodatkiList = computed(() => [
+  {
+    title: t('pizzeria.m_dodatek1_title'),
+    price: '2.20 €',
+    items: t('pizzeria.m_dodatek1_items')
+  },
+  {
+    title: t('pizzeria.m_dodatek2_title'),
+    price: '3 €',
+    items: t('pizzeria.m_dodatek2_items')
+  },
+  {
+    title: t('pizzeria.m_dodatek3_title'),
+    price: '4 €',
+    items: t('pizzeria.m_dodatek3_items')
+  }
+])
+
+// Panuozzo Sendviči
+const panuozzoItems = computed<MenuItem[]>(() => [
+  {
+    name: 'Praga',
+    description: t('pizzeria.m_panPraga_desc'),
+    price: '11 €',
+    allergens: '1,7,8'
+  },
+  {
+    name: 'Roastbeef',
+    description: t('pizzeria.m_panRoastbeef_desc'),
+    price: '13 €',
+    allergens: '1,7,9'
+  },
+  {
+    name: 'Mortadela',
+    description: t('pizzeria.m_panMortadela_desc'),
+    price: '12 €',
+    allergens: '1,7,8'
+  },
+  {
+    name: 'Lušt\'n',
+    description: t('pizzeria.m_panLustn_desc'),
+    price: '12 €',
+    allergens: '1,7,8'
+  },
+  {
+    name: t('pizzeria.m_panGarlicBread_name'),
+    description: '',
+    price: '7 €',
+    allergens: '1,7'
+  }
+])
+
+// Narezek
+const narezekItems = computed<MenuItem[]>(() => [
+  {
+    name: t('pizzeria.m_narezek_name'),
+    description: t('pizzeria.m_narezek_desc'),
+    price: '25.90 €',
+    allergens: '1,7'
+  }
+])
+
+// Solate
+const solateItems = computed<MenuItem[]>(() => [
+  {
+    name: t('pizzeria.m_salMesana_name'),
+    description: t('pizzeria.m_salMesana_desc'),
+    price: '7.50 €',
+    allergens: '1'
+  },
+  {
+    name: t('pizzeria.m_salTuna_name'),
+    description: t('pizzeria.m_salTuna_desc'),
+    price: '12 €',
+    allergens: '1,4,7'
+  },
+  {
+    name: t('pizzeria.m_salBuffalo_name'),
+    description: t('pizzeria.m_salBuffalo_desc'),
+    price: '13 €',
+    allergens: '1,7'
+  },
+  {
+    name: t('pizzeria.m_salRoastbeef_name'),
+    description: t('pizzeria.m_salRoastbeef_desc'),
+    price: '15 €',
+    allergens: '1,7,9'
+  }
+])
 </script>

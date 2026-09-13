@@ -14,8 +14,8 @@
     <noscript>
       <div class="pretix-widget">
         <div class="pretix-widget-info-message">
-          JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
-          please <a target="_blank" :href="event" rel="noopener">click here</a>.
+          {{ t('pretix.noJsNotice') }}
+          <a target="_blank" :href="event" rel="noopener">{{ t('pretix.clickHere') }}</a>.
         </div>
       </div>
     </noscript>
@@ -23,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useLocale()
+
 const props = defineProps<{
   /** Full event shop URL, e.g. https://pretix.eu/myorg/my-event/ (trailing slash) */
   event: string

@@ -4,26 +4,25 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center space-x-3 mb-4">
-            <img src="/logo-badge.png" alt="Kader Logo" class="w-10 h-10 object-contain rounded-md" />
+            <img src="/logo-badge.png" :alt="t('footer.logoAlt')" class="w-10 h-10 object-contain rounded-md" />
             <span class="text-xl font-black tracking-wider text-white">KADER</span>
           </div>
           <p class="text-sm text-gray-400 mb-4">{{ t('footer.tagline') }}</p>
           <div class="text-xs text-gray-500 space-y-1">
             <p><strong>Kader d.o.o.</strong></p>
             <p>Ulica Carla Benza 20, 1000 Ljubljana</p>
-            <p>Davčna št.: SI45321361</p>
+            <p>{{ t('footer.taxIdLabel') }} {{ t('footer.taxId') }}</p>
           </div>
         </div>
         
         <div>
           <h3 class="text-lg font-bold mb-4 text-white">{{ t('footer.quickLinks') }}</h3>
           <ul class="space-y-2 text-sm">
-            <li><NuxtLink to="/" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Home</NuxtLink></li>
-            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Pizzeria</NuxtLink></li>
-            <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Klub / Club</NuxtLink></li>
-            <li><NuxtLink to="/events" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Dogodki / Events</NuxtLink></li>
-            <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Zasebni Najem / Buyouts</NuxtLink></li>
-            <li><NuxtLink to="/shop" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Trgovina / Shop</NuxtLink></li>
+            <li><NuxtLink to="/" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.home') }}</NuxtLink></li>
+            <li><NuxtLink to="/pizzeria" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.pizzeria') }}</NuxtLink></li>
+            <li><NuxtLink to="/club" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.events') }}</NuxtLink></li>
+            <li><NuxtLink to="/buyouts" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.buyouts') }}</NuxtLink></li>
+            <li><NuxtLink to="/shop" class="text-gray-400 hover:text-red-500 transition-colors duration-300">{{ t('nav.shop') }}</NuxtLink></li>
           </ul>
         </div>
         
@@ -32,7 +31,7 @@
           <ul class="space-y-3 text-sm text-gray-400">
             <li class="flex items-start">
               <MapPinIcon class="w-5 h-5 mr-2 mt-0.5 text-red-500 flex-shrink-0" />
-              <span>Ulica Carla Benza 20,<br />1000 Ljubljana (Grad Kodeljevo)</span>
+              <span>Ulica Carla Benza 20,<br />1000 Ljubljana ({{ t('footer.addressCastle') }})</span>
             </li>
             <li class="flex items-center">
               <PhoneIcon class="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
@@ -52,36 +51,36 @@
         </div>
         
         <div>
-          <h3 class="text-lg font-bold mb-4 text-white">Delovni Čas (Google)</h3>
+          <h3 class="text-lg font-bold mb-4 text-white">{{ t('footer.hours') }}</h3>
           <ul class="space-y-2 text-xs text-gray-400">
             <li class="flex justify-between border-b border-gray-800 pb-1">
-              <span>Ponedeljek – Sreda</span>
+              <span>{{ t('home.monWed') }}</span>
               <span class="text-white font-medium">09:00 – 22:00</span>
             </li>
             <li class="flex justify-between border-b border-gray-800 pb-1">
-              <span>Četrtek</span>
+              <span>{{ t('home.thu') }}</span>
               <span class="text-white font-medium">09:00 – 01:00</span>
             </li>
             <li class="flex justify-between border-b border-gray-800 pb-1">
-              <span>Petek</span>
+              <span>{{ t('home.fri') }}</span>
               <span class="text-white font-medium">09:00 – 05:00</span>
             </li>
             <li class="flex justify-between border-b border-gray-800 pb-1">
-              <span>Sobota</span>
+              <span>{{ t('home.sat') }}</span>
               <span class="text-white font-medium">09:00 – 01:00</span>
             </li>
             <li class="flex justify-between pb-1">
-              <span>Nedelja</span>
+              <span>{{ t('home.sun') }}</span>
               <span class="text-white font-medium">09:00 – 20:00</span>
             </li>
           </ul>
-          <p class="text-[11px] text-gray-500 mt-3 italic">* Kuhinja obratuje od 12:00 do 22:00</p>
+          <p class="text-[11px] text-gray-500 mt-3 italic">{{ t('footer.kitchenNote') }}</p>
         </div>
       </div>
       
       <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-        <p>&copy; {{ new Date().getFullYear() }} Kader Grad Kodeljevo. Vse pravice pridržane.</p>
-        <p class="mt-2 md:mt-0">Cenik velja od 06.09.2024. Cene so v € in vključujejo DDV.</p>
+        <p>&copy; {{ new Date().getFullYear() }} Kader Grad Kodeljevo. {{ t('footer.rights') }}</p>
+        <p class="mt-2 md:mt-0">{{ t('footer.priceNote') }}</p>
       </div>
     </div>
   </footer>

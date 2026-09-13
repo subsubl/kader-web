@@ -322,8 +322,8 @@ const completedCount = computed(() => displayedTasks.value.filter((t) => t.is_co
 const fetchTasks = async () => {
   loading.value = true
   try {
-    const todayData = await $fetch<TaskItem[]>('/api/admin/tasks')
-    const masterData = await $fetch<TaskItem[]>('/api/admin/tasks?all=true')
+    const todayData = (await $fetch('/api/admin/tasks')) as TaskItem[]
+    const masterData = (await $fetch('/api/admin/tasks?all=true')) as TaskItem[]
     todayTasks.value = todayData || []
     allTasks.value = masterData || []
   } catch (err: any) {

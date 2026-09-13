@@ -1,2 +1,2 @@
 # Reviewer 1 Workspace
-Review of Milestones 1 & 2 (Home Page, Lightbox, Pizzeria Showcase, Modals).
+Assigned: Independent Code & Build Review for M2 & M3

@@ -1,44 +1,36 @@
-# Project: Kader Frontend Elevation & Redesign
+# Project: Kader i18n & Club/Events Consolidation
 
 ## Architecture
-- Framework: Nuxt 3 with Vue 3 (Composition API `<script setup lang="ts">`)
-- Styling: Tailwind CSS (@nuxtjs/tailwindcss), Heroicons (@heroicons/vue), custom Masanielli gold & Kader red/cream palettes
-- State / Stores: Pinia, VueUse (@vueuse/nuxt), useLocale, useSiteImages
-- Media & Audio: Local/remote assets, Sharp image optimization pipeline (`/api/img`), HTML5 Audio API for club DJ preview player
-- Pages:
-  - `src/pages/index.vue`: Dual Day/Night identity, castle hero, gallery with full-screen lightbox modal
-  - `src/pages/pizzeria.vue`: 50 Top Pizza standard, ingredient provenance badges, quick-modal for reservations & takeaway, craft & oven section
-  - `src/pages/club.vue`: Berlin club experience (Berghain/Tresor style), floating/embedded DJ mix sound preview player, RA lineup cards with countdowns & ticket CTAs, door policy & FAQ accordion
-  - `src/pages/buyouts.vue`: Private hire, inquiry form, showcase
-- Global components: `src/components/Header.vue`, `src/components/Footer.vue`
+- Framework: Nuxt 3 (SSR + Vue 3 + TypeScript + TailwindCSS)
+- Internationalization: `src/composables/useLocale.ts`
+  - Current supported locales: `sl`, `en`, `de`, `fr`, `it`, `sr`, `nl`
+  - Target locales: add `pl`, `cs`, `es` (total 10 locales)
+  - Dictionary structure: nested objects flattened with dot-notation cache, dual interpolation `{param}` & `{{param}}`
+  - Integration points:
+    - `src/composables/useLocale.ts` (SUPPORTED_LOCALES, Locale type, localeLabels, dictionary definitions, flatDictionaries)
+    - `src/components/Header.vue` (language selector dropdown, flags, labels)
+    - `nuxt.config.ts` (hreflang meta tags for SEO alternate links)
+- Club & Events Architecture:
+  - `src/pages/club.vue`: Currently has hero, culture/safety, sound system ("Klipsch La Scala"), floors 01/02, door rules & FAQ.
+  - `src/pages/events.vue`: Contains upcoming RA events grid, event detail modal with ticket purchase/Pretix integration, past events archive, category filters, calendar view.
+  - Requirement: Merge interactive events experience into `/club`, remove sound system and floors sections, retain culture/safety and door rules/FAQ.
+  - Navigation / Routing: Clean redirect `/events` -> `/club`, update links in `Header.vue` and `Footer.vue` to point to `/club` seamlessly.
+- Verification & Test Suite:
+  - Automated verification: `npm run typecheck`, `npm run build`, dictionary key parity audit (all 10 languages matching exactly 100%), club page rendering & route redirect verification.
 
 ## Milestones
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
-| 1 | Day/Night Ambient Mode & Gallery Lightbox Modal | Interactive Day (Bistro) vs Night (Club) ambient toggle on `index.vue`, smooth lighting/accent shifts, full-screen image lightbox modal for "Kader V Slikah" | none | DONE |
-| 2 | World-Class Neapolitan Pizzeria Showcase | `pizzeria.vue`: Ingredient Provenance Badges (San Marzano DOP, Fior di Latte, 48h Fermentation), quick-modal for table reservations & takeaway orders, artisanal craft & oven feature section | M1 | DONE |
-| 3 | Berlin Club & Nightlife Experience | `club.vue`: Floating/embedded DJ mix & sound preview player (play/pause/track controls), enhanced RA lineup cards with artist tags & countdown timers & ticket CTAs, door policy & FAQ accordion | M2 | DONE |
-| 4 | Buyouts & Responsive Polish | `buyouts.vue`: Visual elevation, cross-links, mobile/tablet/desktop responsive layout audit | M3 | DONE |
-| 5 | Verification, Build Integrity & Forensic Audit | `npm run build` (0 errors), cross-viewport responsiveness, challenger verification, forensic integrity audit | M1-M4 | DONE |
+| M1 | Exploration & Architecture Mapping | Inspect useLocale.ts keys, Header.vue, nuxt.config.ts, club.vue, events.vue, Pretix/ticket modal dependencies | none | DONE |
+| M2 | R1: i18n Expansion (pl, cs, es) | Full dictionary generation for ~938 leaf keys with 100% key parity, useLocale.ts update, Header.vue & nuxt.config.ts updates | M1 | DONE |
+| M3 | R2: Merge /events into /club | Remove sound/floors, integrate interactive events grid, detail modal, past archive, update Header/Footer nav & redirect | M1 | DONE |
+| M4 | R3: Verification & Auditing | Run typecheck, production build, key parity validator script, visual/component rendering audit, forensic integrity checks | M2, M3 | DONE |
 
-## Interface Contracts & Features
-### Day/Night Mode Switcher (`index.vue`)
-- Ambient state toggle (Day: warm amber/terracotta/gold bistro lighting, Night: moody red/purple neon club lighting).
-- Synchronizes hero badge, dual-messaging highlights, and background glow effects.
-- Full-screen lightbox modal: click gallery image -> opens accessible modal with backdrop blur, keyboard ESC close, prev/next navigation, high-res image view.
-
-### Pizzeria Elevation (`pizzeria.vue`)
-- Ingredient badges: DOP certified markers (San Marzano D.O.P, Fior di Latte, 48h Fermentacija, Bufala Campana) on pizza menu cards.
-- Quick Reservation & Takeaway modal: interactive modal popup with tabs for "Miza (Table)" and "Za S Seboj (Takeaway)", phone quick-dial, date/time/guest count selection, and instant confirmation.
-- Craft & Oven section: visual step-by-step dough preparation, hydration metrics, wood-fired oven temperatures (450°C), artisanal heritage.
-
-### Club & Sound Experience (`club.vue`)
-- Floating / sticky DJ mix audio player with tracks, play/pause, scrub bar, waveform animation, volume/mute.
-- RA lineup cards: dynamic countdown timer to next event, artist tags, direct RA ticket link CTAs with external indicator.
-- Door policy & FAQ accordion: expandable FAQ covering dress code, photo policy ("No Photo Policy" sticker aesthetic), age limit, awareness team, payment methods.
-
-## Code Layout
-- Pages: `src/pages/`
-- Components: `src/components/` (modal components, audio player, badges)
-- Composables: `src/composables/`
-- Assets: `public/`, `public/images/`
+## Interface Contracts
+### useLocale.ts ↔ Components
+- `SUPPORTED_LOCALES`: `['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es'] as const`
+- `localeLabels`: Record<Locale, { label: string; name: string; native: string; flag: string }>
+- `flatDictionaries`: Record<Locale, Record<string, string>> with identical key sets across all 10 locales.
+### /club page ↔ Event components / state
+- Events grid, detail modal, ticket integration, filter tabs, past archive must render without errors.
+- Redirect `/events` -> `/club` (SSR 301/302 redirect via route middleware or page redirect).

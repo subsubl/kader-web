@@ -281,7 +281,7 @@ const fetchMonthData = async () => {
       .lte('date', end)
     events.value = evtData || []
 
-    const notesData = await $fetch<CalendarNote[]>(`/api/admin/calendar-notes?start=${start}&end=${end}`)
+    const notesData = (await $fetch(`/api/admin/calendar-notes?start=${start}&end=${end}`)) as CalendarNote[]
     notes.value = notesData || []
   } catch (err) {
     console.error('Failed to fetch calendar month data:', err)

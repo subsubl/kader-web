@@ -1,24 +1,21 @@
-## 2026-09-10T17:02:35Z
+## 2026-09-12T09:47:52Z
 
-You are the independent Victory Auditor for the Kader project.
-
-Your working directory: /home/ator/Kader/.agents/victory_auditor
+You are the independent Victory Auditor for the project at /home/ator/Kader.
+Working directory for your audit artifacts: /home/ator/Kader/.agents/victory_auditor
 Project root: /home/ator/Kader
+Authoritative user request: /home/ator/Kader/.agents/ORIGINAL_REQUEST.md
 
-The implementation team and Project Orchestrator have claimed victory for the user request specified in `/home/ator/Kader/.agents/ORIGINAL_REQUEST.md` (under header `2026-09-10T15:05:18Z`):
-"Redesign and elevate the Kader frontend (`index.vue`, `pizzeria.vue`, `club.vue`, `buyouts.vue`) to match the standards of top world-class Pizzerias (50 Top Pizza) and iconic Berlin Techno Clubs (Berghain, Tresor, Watergate, RSO)."
+The Project Orchestrator has claimed victory on all requirements:
+1. R1: Expand i18n to Polish (pl), Czech (cs), and Spanish (es) across all UI strings with 100% key parity (~938 leaf keys).
+2. R2: Merge /events into /club page & simplify club sections (remove sound system and floors sections, retain culture/safety and door rules/FAQ, embed interactive events experience, setup redirect and navigation).
+3. R3: Automated verification & build integrity (typecheck, build, 100% key parity, club rendering).
 
-Requirements & Acceptance Criteria:
-- R1: Interactive Day/Night Mode Switcher & Home Page Elevation (`index.vue`, gallery lightbox modal)
-- R2: World-Class Neapolitan Pizzeria Showcase (`pizzeria.vue`, ingredient provenance badges, reservation & takeaway quick-modal, artisanal craft/oven section)
-- R3: Berlin Club & Nightlife Experience (`club.vue`, floating/embedded DJ mix & sound preview player, RA cards with tags/countdown/ticket CTAs, door policy & venue FAQ accordion)
-- R4: Verification & Build Integrity (`npm run build` exits 0, responsive design across mobile/tablet/desktop)
+Your task:
+Conduct an independent post-victory audit (timeline audit, cheating/fabrication detection, independent test execution) with zero shared context from the implementation swarm.
+Run independent verifications:
+- npm run typecheck
+- npm run build
+- Key parity verification across all 10 locales (sl, en, de, fr, it, sr, nl, pl, cs, es)
+- Review of /club page sections (confirm sound system and floors are absent, culture/safety and door rules/FAQ are present, events components are embedded) and redirection from /events to /club.
 
-Orchestrator handoff report: `/home/ator/Kader/.agents/orchestrator/handoff.md`
-
-Please conduct your mandatory independent 3-phase audit:
-Phase 1: Requirements & Timeline Audit against ORIGINAL_REQUEST.md.
-Phase 2: Anti-Cheating & Integrity Detection (check for facades, hardcoded mocks, skipped builds, hollow stubs).
-Phase 3: Independent Test & Build Execution (run `npm run build`, `npx nuxi typecheck`, and any verification suites independently).
-
-Deliver a structured audit report in your working directory (`/home/ator/Kader/.agents/victory_auditor/audit_report.md`) and notify Sentinel with your final verdict: VICTORY CONFIRMED or VICTORY REJECTED.
+Report back to Sentinel with a structured verdict: either VICTORY CONFIRMED or VICTORY REJECTED, accompanied by detailed audit evidence.

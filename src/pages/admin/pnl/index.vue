@@ -214,10 +214,10 @@ const form = ref({
 })
 
 const fetchReports = async () => {
-  const { data } = await $fetch<any>('/api/admin/pnl')
+  const { data } = (await $fetch('/api/admin/pnl')) as any
   // $fetch returns directly what api sends
   if (data) reports.value = data
-  else reports.value = await $fetch<any>('/api/admin/pnl')
+  else reports.value = (await $fetch('/api/admin/pnl')) as any
 }
 
 const fetchEvents = async () => {

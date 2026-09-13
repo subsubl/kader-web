@@ -108,7 +108,7 @@ const formatDate = (d: string) => new Date(d).toLocaleDateString('sl-SI', { day:
 const loadEvents = async () => {
   loading.value = true
   try {
-    const data = await $fetch<RaEvent[]>('/api/ra-events?scope=all')
+    const data = (await $fetch('/api/ra-events?scope=all')) as RaEvent[]
     events.value = data || []
   } catch (err: any) {
     console.error('Failed to load RA events:', err)
@@ -122,7 +122,7 @@ const syncNow = async () => {
   syncError.value = false
   syncMessage.value = ''
   try {
-    const res = await $fetch<{ ok: boolean; synced: number }>('/api/admin/sync-ra', { method: 'POST' })
+    const res = (await $fetch('/api/admin/sync-ra', { method: 'POST' })) as { ok: boolean; synced: number }
     syncMessage.value = `Synced ${res.synced} events from Resident Advisor.`
     await loadEvents()
   } catch (err: any) {
@@ -138,10 +138,10 @@ const savePretix = async (event: RaEvent) => {
   syncError.value = false
   syncMessage.value = ''
   try {
-    const res = await $fetch<{ ok: boolean; pretix_event_url: string | null }>('/api/admin/ra-events', {
+    const res = (await $fetch('/api/admin/ra-events', {
       method: 'PUT',
       body: { ra_id: event.ra_id, pretix_event_url: event.pretix_event_url || '' }
-    })
+    })) as { ok: boolean; pretix_event_url: string | null }
     if (res.ok) {
       event.pretix_event_url = res.pretix_event_url
       syncMessage.value = 'Pretix widget URL saved.'

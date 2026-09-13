@@ -486,7 +486,7 @@ const microgrammTesting = ref(false)
 const testMicrogramm = async () => {
   microgrammTesting.value = true
   try {
-    const result = await $fetch<{ ok: boolean; message: string }>('/api/admin/microgramm-test', { method: 'POST' })
+    const result = (await $fetch('/api/admin/microgramm-test', { method: 'POST' })) as { ok: boolean; message: string }
     microgrammStatus.value = result.ok ? 'connected' : 'error'
     microgrammStatusMessage.value = result.message
     showToast(result.message)

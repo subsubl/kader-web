@@ -33,8 +33,8 @@
             type="button"
             @click="prevTrack"
             class="p-1.5 text-kader-cream/60 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
-            title="Prejšnji miks"
-            aria-label="Prejšnji miks"
+            :title="t('player.prevTrack')"
+            :aria-label="t('player.prevTrack')"
           >
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
           </button>
@@ -42,8 +42,8 @@
             type="button"
             @click="nextTrack"
             class="p-1.5 text-kader-cream/60 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
-            title="Naslednji miks"
-            aria-label="Naslednji miks"
+            :title="t('player.nextTrack')"
+            :aria-label="t('player.nextTrack')"
           >
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="m6 18 8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
           </button>
@@ -59,8 +59,8 @@
             type="button"
             @click="togglePlay"
             class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-kader-red hover:bg-red-600 text-white flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(237,34,36,0.6)] active:scale-95 transition-all cursor-pointer"
-            :title="isPlaying ? 'Premor' : 'Predvajaj zvok'"
-            :aria-label="isPlaying ? 'Premor' : 'Predvajaj zvok'"
+            :title="isPlaying ? t('player.pause') : t('player.play')"
+            :aria-label="isPlaying ? t('player.pause') : t('player.play')"
           >
             <svg v-if="isPlaying" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>
             <svg v-else class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -94,7 +94,7 @@
               v-model.number="currentTime"
               @input="onScrub"
               @change="onScrubEnd"
-              aria-label="Časovnica predvajanja"
+              :aria-label="t('player.timeline')"
               class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-kader-red group-hover:h-2 transition-all"
             />
           </div>
@@ -106,8 +106,8 @@
             type="button"
             @click="toggleMute"
             class="p-1.5 text-kader-cream/70 hover:text-white rounded transition-colors cursor-pointer"
-            :title="isMuted ? 'Vklopi zvok' : 'Utišaj'"
-            :aria-label="isMuted ? 'Vklopi zvok' : 'Utišaj'"
+            :title="isMuted ? t('player.unmute') : t('player.mute')"
+            :aria-label="isMuted ? t('player.unmute') : t('player.mute')"
           >
             <svg v-if="isMuted || volume === 0" class="w-4 h-4 text-kader-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
             <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
@@ -120,9 +120,9 @@
             step="0.05"
             v-model.number="volume"
             @input="updateVolume"
-            aria-label="Glasnost"
+            :aria-label="t('player.volume')"
             class="w-16 md:w-20 h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-kader-red"
-            title="Glasnost"
+            :title="t('player.volume')"
           />
           <span class="text-[10px] font-mono text-kader-cream/40 uppercase tracking-wider hidden sm:inline">KLIPSCH</span>
         </div>
@@ -143,33 +143,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useAudioConfig } from '~/composables/useAudioConfig'
+import { useLocale } from '~/composables/useLocale'
 
+const { t } = useLocale()
 const { audioConfig } = useAudioConfig()
 
-const tracks = ref([
+const tracks = computed(() => [
   {
     title: 'Kader Vault Session #01',
-    curator: 'Resident Selector',
-    tag: 'Hypnotic Techno',
+    curator: t('player.residentSelector'),
+    tag: t('player.hypnoticTechno'),
     url: audioConfig.value.clubAudioUrl
   },
   {
     title: 'Basement Sub-Bass Session',
-    curator: 'Klipsch Acoustic Cut',
-    tag: 'Industrial Minimal',
+    curator: t('player.acousticCut'),
+    tag: t('player.industrialMinimal'),
     url: 'https://cdn.pixabay.com/audio/2022/10/25/audio_946777651a.mp3'
   }
 ])
 
-// Watch for admin config changes and update the first track
-watch(() => audioConfig.value.clubAudioUrl, (newUrl) => {
-  tracks.value[0].url = newUrl
-})
-
 const currentTrackIndex = ref(0)
-const currentTrack = ref(tracks.value[0])
+const currentTrack = computed(() => tracks.value[currentTrackIndex.value] || tracks.value[0])
 const isPlaying = ref(false)
 const currentTime = ref(0)
 const duration = ref(0)
@@ -226,7 +223,7 @@ const nextTrack = () => {
 }
 
 const switchTrack = (idx: number) => {
-  currentTrack.value = tracks.value[idx]
+  currentTrackIndex.value = idx
   currentTime.value = 0
   if (audioEl.value) {
     audioEl.value.src = currentTrack.value.url

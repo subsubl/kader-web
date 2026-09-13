@@ -1,21 +1,22 @@
-## 2026-09-10T15:21:32Z
-You are Reviewer 2 for the Kader Frontend Elevation project.
-Your working directory is /home/ator/Kader/.agents/reviewer_2.
-Your mission is to perform an objective and adversarial review of Milestones 3 and 4:
-- R3: Berlin Club & Nightlife Experience (`src/pages/club.vue`, `src/components/ClubDjPlayer.vue`, `src/composables/useLocale.ts`)
-- R4: Buyouts / Private Hire Polish & Global Responsiveness (`src/pages/buyouts.vue`)
+## 2026-09-12T09:38:02Z
 
-Files to examine:
-- /home/ator/Kader/.agents/worker_frontend/handoff.md
-- /home/ator/Kader/src/pages/club.vue
-- /home/ator/Kader/src/components/ClubDjPlayer.vue
-- /home/ator/Kader/src/composables/useLocale.ts
-- /home/ator/Kader/src/pages/buyouts.vue
+You are Reviewer 2 reviewing Milestone 2 and Milestone 3 against user acceptance criteria.
+Working directory: /home/ator/Kader/.agents/reviewer_2
+Project root: /home/ator/Kader
+Scope document: /home/ator/Kader/.agents/orchestrator/PROJECT.md
+Requirements document: /home/ator/Kader/.agents/ORIGINAL_REQUEST.md
+Worker handoffs to inspect:
+- /home/ator/Kader/.agents/worker_m2/handoff.md
+- /home/ator/Kader/.agents/worker_m3/handoff.md
 
-Review Criteria:
-1. Berlin Club Standards (Berghain/Tresor): Does `ClubDjPlayer.vue` implement genuine Web Audio API sound synthesis (4/4 techno beat, sub-bass rumble, hi-hats), animated 18-bar equalizer, track switcher, volume/mute, and minimize/expand capsule?
-2. RA Integration & Countdowns: Does `club.vue` render a dark techno card grid with flyer images, genre badges, direct RA ticket purchase CTAs, and a live dynamic countdown timer banner updating in real-time?
-3. Door Policy Accordion: Does the 6-item Berlin Door Policy accordion cover No-Photo (stickers on camera), dress code, 18+ ID, safer spaces, and free earplugs, with smooth CSS grid transitions?
-4. Buyouts Polish: Are all showcase images optimized via `getOptImg`? Does clicking package tiers pre-fill guest count and message? Is the Club Takeover cross-link banner present? Are form inputs accessible?
-5. Verification: Run `npm run build` to confirm 0 compilation errors.
-6. Deliverable: Write a comprehensive review report to `/home/ator/Kader/.agents/reviewer_2/handoff.md` with your verdict (PASS / VETO) and send a message back to the orchestrator.
+Tasks:
+1. Audit against all acceptance criteria in ORIGINAL_REQUEST.md:
+   - R1: Expand i18n to Polish (pl), Czech (cs), and Spanish (es). Verify SUPPORTED_LOCALES, Locale type, localeLabels. Verify all 938 leaf keys have full genuine translations with 100% key parity across all 10 languages (sl, en, de, fr, it, sr, nl, pl, cs, es). Verify Header.vue and nuxt.config.ts.
+   - R2: Club page simplification: Sound system ("Klipsch La Scala") and Floors 01/02 sections removed. Culture/safety and door rules/FAQ retained. Complete interactive events experience embedded (upcoming grid, detail modal with Pretix/ticket fallbacks, past archive). Clean 301 redirect from /events to /club, navigation links consolidated to /club.
+   - R3: Automated verification: npm run typecheck, npm run build, 100% dictionary key parity audit, /club page rendering.
+2. Execute validation commands:
+   - npm run typecheck
+   - npm run build
+   - node scripts/verify_i18n_parity.mjs
+   - node scripts/verify_club_consolidation.mjs
+3. Provide your verdict (APPROVED or CHANGES_REQUESTED) with detailed evidence in /home/ator/Kader/.agents/reviewer_2/review.md and handoff in /home/ator/Kader/.agents/reviewer_2/handoff.md. Send a completion message when finished.

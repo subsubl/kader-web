@@ -3,7 +3,7 @@
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
       <div>
         <h1 class="text-3xl font-bold text-white">Upravljanje dogodkov</h1>
-        <p class="text-gray-400 mt-1 text-sm">Dodajte nove dogodke ali urejajte obstoječe za prikaz na kader.si/events</p>
+        <p class="text-gray-400 mt-1 text-sm">Dodajte nove dogodke ali urejajte obstoječe za prikaz na kader.si/club</p>
       </div>
       <div class="flex gap-3">
         <button 
@@ -139,7 +139,7 @@ const formatDate = (d: string) => new Date(d).toLocaleDateString('sl-SI', {
 const loadEvents = async () => {
   loading.value = true
   try {
-    const data = await $fetch<EventRecord[]>('/api/ra-events?scope=all')
+    const data = (await $fetch('/api/ra-events?scope=all')) as EventRecord[]
     events.value = data || []
   } catch (err: any) {
     console.error('Failed to load events:', err)

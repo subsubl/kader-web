@@ -5,7 +5,8 @@
     <section class="relative h-[70vh] min-h-[480px] flex items-end overflow-hidden">
       <img
         :src="getOptImg(siteImages.buyouts_hero_bg, 1920, 85)"
-        alt="Grad Kodeljevo private hire terrace party"
+        :alt="t('buyouts.heroAlt')"
+        fetchpriority="high"
         class="absolute inset-0 w-full h-full object-cover opacity-45 filter contrast-110 saturate-90"
       >
       <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
@@ -60,7 +61,7 @@
         <div class="rounded-3xl overflow-hidden border border-kader-red/30 shadow-2xl">
           <img
             :src="getOptImg(siteImages.buyouts_booking_bg, 1000, 80)"
-            alt="Live Event at Grad Kodeljevo"
+            :alt="t('buyouts.bookingImgAlt')"
             class="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-700"
           >
         </div>
@@ -82,7 +83,7 @@
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.standardSound') }}</li>
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.basicDecor') }}</li>
             </ul>
-            <button @click="selectPlan('Basic Paket', 100)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
+            <button @click="selectPlan(t('buyouts.basic'), 100)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
@@ -99,7 +100,7 @@
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.elegantDecor') }}</li>
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.specialistLighting') }}</li>
             </ul>
-            <button @click="selectPlan('Premium Paket', 200)" class="w-full py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
+            <button @click="selectPlan(t('buyouts.premium'), 200)" class="w-full py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
@@ -116,7 +117,7 @@
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.personalizedService') }}</li>
               <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.exclusiveAccess') }}</li>
             </ul>
-            <button @click="selectPlan('Luxury Paket', 300)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
+            <button @click="selectPlan(t('buyouts.luxury'), 300)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
               {{ t('buyouts.contactUs') }}
             </button>
           </div>
@@ -131,34 +132,33 @@
             <div class="lg:col-span-8">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-kader-red/20 border border-kader-red/40 text-kader-red text-xs font-mono font-bold uppercase tracking-wider mb-4">
                 <span class="w-2 h-2 rounded-full bg-kader-red animate-ping"></span>
-                Ekskluzivni Klubski Takeover · Klipsch Sound System
+                {{ t('buyouts.takeoverPill') }}
               </div>
               <h3 class="text-2xl md:text-4xl font-black uppercase text-white tracking-tight mb-4">
-                Zasebna Klubska Noč: Grad Kodeljevo Vault
+                {{ t('buyouts.takeoverHeading') }}
               </h3>
               <p class="text-kader-cream/80 text-sm md:text-base leading-relaxed mb-6 max-w-2xl">
-                Iščete prostor za nepozaben zasebni elektronski dogodek, rojstnodnevni rave ali ekskluzivni afterparty? 
-                Zagotovite si celoten klubski obok s surovim opečnatim ambientom, profesionalnim ozvočenjem <strong>Klipsch La Scala</strong>, klubsko osvetlitvijo, DJ kabino in izkušenim tonskim mojstrom.
+                {{ t('buyouts.takeoverText') }}
               </p>
               <div class="flex flex-wrap gap-4 text-xs font-mono text-kader-cream/60">
-                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> Klipsch La Scala Sound</span>
-                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> DJ Oprema (CDJ-3000 / DJM-A9)</span>
-                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> Zasebni Bar & Varnostna Služba</span>
-                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> Akustična Zaščita & Do 300 Oseb</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> {{ t('buyouts.takeoverF1') }}</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> {{ t('buyouts.takeoverF2') }}</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> {{ t('buyouts.takeoverF3') }}</span>
+                <span class="flex items-center gap-1.5"><span class="text-kader-red">✓</span> {{ t('buyouts.takeoverF4') }}</span>
               </div>
             </div>
             <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
               <button
-                @click="selectPlan('Klubski Takeover (Klipsch Sound System)', 300)"
+                @click="selectPlan(t('buyouts.takeoverTierName'), 300)"
                 class="w-full py-4 px-6 bg-kader-red hover:bg-kader-cream hover:text-kader-black text-kader-cream rounded-xl font-black text-xs uppercase tracking-widest text-center transition-all duration-300 shadow-lg shadow-kader-red/20"
               >
-                Izberi Klubski Takeover →
+                {{ t('buyouts.takeoverCta') }}
               </button>
               <NuxtLink
                 to="/club"
                 class="w-full py-3.5 px-6 border border-kader-red/40 hover:border-kader-red hover:bg-kader-red/10 text-kader-cream/80 hover:text-white rounded-xl font-bold text-xs uppercase tracking-wider text-center transition-all duration-300"
               >
-                Razišči Klub & Akustiko ↗
+                {{ t('buyouts.takeoverExploreClub') }}
               </NuxtLink>
             </div>
           </div>
@@ -167,46 +167,46 @@
 
       <!-- ===== Real Venue & Catering Photo Showcase ===== -->
       <section class="pb-20 md:pb-24">
-        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">Vzdušje & Katering</p>
-        <h2 class="text-3xl md:text-5xl font-black text-center mb-12 uppercase">Utrinki Z Zasebnih Dogodkov</h2>
+        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('buyouts.showcaseSubtitle') }}</p>
+        <h2 class="text-3xl md:text-5xl font-black text-center mb-12 uppercase">{{ t('buyouts.showcaseTitle') }}</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_5.jpg', 600, 80)" alt="Zasebna zabava na poletni terasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_5.jpg', 600, 80)" :alt="t('buyouts.showcase1Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
-                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Terasa & Poletni Vrt</span>
-                <h4 class="text-base font-bold text-white uppercase">Zabave Na Prostem</h4>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase1Tag') }}</span>
+                <h4 class="text-base font-bold text-white uppercase">{{ t('buyouts.showcase1Title') }}</h4>
               </div>
             </div>
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_7.jpg', 600, 80)" alt="Neapeljske pice na zasebnem dogodku" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_7.jpg', 600, 80)" :alt="t('buyouts.showcase2Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
-                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Topli Katering</span>
-                <h4 class="text-base font-bold text-white uppercase">Sveže Pečene Pice</h4>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase2Tag') }}</span>
+                <h4 class="text-base font-bold text-white uppercase">{{ t('buyouts.showcase2Title') }}</h4>
               </div>
             </div>
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_13.jpg', 600, 80)" alt="Panuozzo sendviči za katering" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_13.jpg', 600, 80)" :alt="t('buyouts.showcase3Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
-                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Finger Food</span>
-                <h4 class="text-base font-bold text-white uppercase">Grajski Panuozzo</h4>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase3Tag') }}</span>
+                <h4 class="text-base font-bold text-white uppercase">{{ t('buyouts.showcase3Title') }}</h4>
               </div>
             </div>
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_3.jpg', 600, 80)" alt="Živa glasba in nastopi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_3.jpg', 600, 80)" :alt="t('buyouts.showcase4Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
-                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">Oder & Glasba</span>
-                <h4 class="text-base font-bold text-white uppercase">Koncerti & DJ Nastopi</h4>
+                <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase4Tag') }}</span>
+                <h4 class="text-base font-bold text-white uppercase">{{ t('buyouts.showcase4Title') }}</h4>
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@
                   :aria-invalid="!!fieldErrors.name"
                   aria-describedby="name-error"
                   :class="inputClass('name')"
-                  placeholder="Janez Novak"
+                  :placeholder="t('buyouts.placeholderName')"
                 >
                 <p v-if="fieldErrors.name" id="name-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.name }}</p>
               </div>
@@ -259,7 +259,7 @@
                   :aria-invalid="!!fieldErrors.email"
                   aria-describedby="email-error"
                   :class="inputClass('email')"
-                  placeholder="janez@example.com"
+                  :placeholder="t('buyouts.placeholderEmail')"
                 >
                 <p v-if="fieldErrors.email" id="email-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.email }}</p>
               </div>
@@ -275,7 +275,7 @@
                 :aria-invalid="!!fieldErrors.phone"
                 aria-describedby="phone-error"
                 :class="inputClass('phone')"
-                placeholder="+386 40 123 456"
+                :placeholder="t('buyouts.placeholderPhone')"
               >
               <p v-if="fieldErrors.phone" id="phone-error" role="alert" class="mt-1 text-xs text-kader-red">{{ fieldErrors.phone }}</p>
             </div>
@@ -353,8 +353,59 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 
-const { t } = useLocale()
+const { t, locale } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
+
+const venueSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'EventVenue',
+  '@id': 'https://www.kader.si/buyouts#venue',
+  'name': 'Kader Grad Kodeljevo — Najem Prostora',
+  'description': t('buyouts.pageDesc'),
+  'inLanguage': locale.value,
+  'url': 'https://www.kader.si/buyouts',
+  'address': {
+    '@type': 'PostalAddress',
+    'streetAddress': 'Kobalarjeva ulica 20',
+    'addressLocality': 'Ljubljana',
+    'postalCode': '1000',
+    'addressCountry': 'SI'
+  },
+  'geo': {
+    '@type': 'GeoCoordinates',
+    'latitude': 46.0515,
+    'longitude': 14.5361
+  },
+  'maximumAttendeeCapacity': 500,
+  'image': 'https://www.kader.si/logo-banner.png'
+}))
+
+useHead({
+  title: computed(() => t('seo.buyouts.title')),
+  link: [
+    { rel: 'canonical', href: 'https://www.kader.si/buyouts' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(venueSchema.value))
+    }
+  ]
+})
+
+useSeoMeta({
+  title: computed(() => t('seo.buyouts.title')),
+  description: computed(() => t('seo.buyouts.description')),
+  ogTitle: computed(() => t('seo.buyouts.ogTitle')),
+  ogDescription: computed(() => t('seo.buyouts.ogDescription')),
+  ogImage: 'https://www.kader.si/logo-banner.png',
+  ogUrl: 'https://www.kader.si/buyouts',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: computed(() => t('seo.buyouts.ogTitle')),
+  twitterDescription: computed(() => t('seo.buyouts.ogDescription')),
+  twitterImage: 'https://www.kader.si/logo-banner.png'
+})
 
 const eventTypesList = [
   { key: 'weddings', index: '01', titleKey: 'buyouts.weddings', descKey: 'buyouts.weddingsDesc' },
@@ -379,8 +430,8 @@ const inquiryForm = reactive({
 
 const selectPlan = (tierName: string, guestCount: number) => {
   inquiryForm.guests = guestCount
-  inquiryForm.message = `Zanimam se za paket ${tierName} (do ${guestCount} oseb). Prosimo za ponudbo in razpoložljivost.`
-  if (tierName.includes('Klubski Takeover')) {
+  inquiryForm.message = t('buyouts.inquiryMessagePrefill', { tier: tierName, guests: guestCount, tierName, guestCount })
+  if (tierName === t('buyouts.takeoverTierName') || tierName.includes('Takeover')) {
     inquiryForm.eventType = 'private-party'
   }
   scrollToForm()
@@ -431,10 +482,10 @@ const submitInquiry = async () => {
 
   submitting.value = true
   try {
-    const res = await $fetch<{ ok: boolean; id: string }>('/api/inquiries', {
+    const res = (await $fetch('/api/inquiries', {
       method: 'POST',
       body: { ...inquiryForm }
-    })
+    })) as { ok?: boolean; id?: string }
     if (res?.ok) {
       submitState.value = 'success'
     } else {

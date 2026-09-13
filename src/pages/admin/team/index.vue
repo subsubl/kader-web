@@ -223,7 +223,7 @@ const form = ref({
 const fetchTeam = async () => {
   loading.value = true
   try {
-    const data = await $fetch<TeamMember[]>('/api/admin/team')
+    const data = (await $fetch('/api/admin/team')) as TeamMember[]
     team.value = data || []
   } catch (err: any) {
     console.error('Failed to fetch team members:', err)

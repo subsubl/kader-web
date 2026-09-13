@@ -35,10 +35,10 @@
                   :id="activeTab === 'table' ? 'modal-table-title' : 'modal-takeaway-title'"
                   class="text-xl md:text-2xl font-serif font-black uppercase text-gray-900 tracking-wide"
                 >
-                  {{ activeTab === 'table' ? 'Rezervacija Mize' : 'Naročilo Za S Seboj' }}
+                  {{ activeTab === 'table' ? t('reservation.modalTitleTable') : t('reservation.modalTitleTakeaway') }}
                 </h3>
                 <p class="text-xs text-red-600 font-mono tracking-wider font-semibold">
-                  Kader Grad Kodeljevo · Telefonska Naročila & Rezervacije
+                  {{ t('reservation.modalSubtitle') }}
                 </p>
               </div>
             </div>
@@ -46,7 +46,7 @@
             <button
               type="button"
               @click="closeModal"
-              aria-label="Zapri okno"
+              :aria-label="t('reservation.closeModalAria')"
               class="w-10 h-10 rounded-xl bg-red-50 border border-red-200 text-gray-600 hover:text-red-600 hover:bg-red-100 transition-colors flex items-center justify-center min-h-[44px] min-w-[44px]"
             >
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@
                 ]"
               >
                 <span>🛍️</span>
-                <span>Naročilo Pice</span>
+                <span>{{ t('reservation.tabTakeaway') }}</span>
               </button>
 
               <button
@@ -83,28 +83,18 @@
                 ]"
               >
                 <span>📅</span>
-                <span>Rezervacija Mize</span>
+                <span>{{ t('reservation.tabTable') }}</span>
               </button>
             </div>
           </div>
 
           <!-- ==================== TAB: TAKEAWAY (NAROČILA PICE) ==================== -->
           <div v-if="activeTab === 'takeaway'" class="p-6 space-y-5">
-            <!-- Notice Box -->
-            <div class="p-4 bg-red-50/60 border-2 border-red-100 rounded-2xl text-center space-y-2">
-              <div class="w-12 h-12 bg-white border border-red-300 text-red-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-sm">
-                📞
-              </div>
-              <h4 class="text-lg font-serif font-bold text-gray-900 uppercase">Naročila sprejemamo po telefonu</h4>
-              <p class="text-xs text-gray-600 leading-relaxed max-w-md mx-auto">
-                Za naročilo pice in hrano za s seboj nas pokličite direktno na telefonsko številko picerije. Naročila in pripravljeni prevzemi potekajo izključno preko telefonskega klica.
-              </p>
-            </div>
 
             <!-- Preselected Item Context if opened from a specific pizza item -->
             <div v-if="preselectedItem && preselectedItem.name" class="p-4 bg-white border-2 border-red-500 rounded-2xl flex items-center justify-between shadow-sm">
               <div>
-                <span class="text-gray-500 block text-[10px] uppercase font-mono">Izbrana jed iz menija:</span>
+                <span class="text-gray-500 block text-[10px] uppercase font-mono">{{ t('reservation.preselectedItemLabel') }}</span>
                 <span class="text-red-600 font-serif font-black text-base uppercase">{{ preselectedItem.name }}</span>
               </div>
               <span class="text-red-600 font-bold text-sm bg-red-50 px-3 py-1.5 rounded-xl border border-red-200 font-sans">
@@ -115,57 +105,38 @@
             <!-- Direct Call CTA Button -->
             <a
               href="tel:+38683836740"
-              class="w-full py-4 px-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-serif font-black text-sm uppercase tracking-[0.15em] transition-all duration-300 shadow-xl shadow-red-600/20 flex items-center justify-center space-x-3 group min-h-[52px]"
+              class="w-full py-4 px-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-mono font-black text-xl tracking-wider transition-all duration-300 shadow-xl shadow-red-600/20 flex items-center justify-center min-h-[52px]"
             >
-              <span class="text-xl group-hover:scale-110 transition-transform">📞</span>
-              <span>Pokliči za Naročilo: +386 83 836 740</span>
+              +386 83 836 740
             </a>
 
             <!-- Info Grid -->
             <div class="grid grid-cols-2 gap-3 text-xs font-mono">
               <div class="p-3 bg-red-50/60 border border-red-100 rounded-xl">
-                <span class="text-gray-500 block text-[10px] uppercase">Delovni čas kuhinje:</span>
-                <span class="text-gray-900 font-bold">12:00 – 22:00</span>
+                <span class="text-gray-500 block text-[10px] uppercase">{{ t('reservation.kitchenHoursLabel') }}</span>
+                <span class="text-gray-900 font-bold">{{ t('reservation.kitchenHoursValue') }}</span>
               </div>
               <div class="p-3 bg-red-50/60 border border-red-100 rounded-xl">
-                <span class="text-gray-500 block text-[10px] uppercase">Prevzemno mesto:</span>
-                <span class="text-gray-900 font-bold">Grad Kodeljevo (Benza 20)</span>
+                <span class="text-gray-500 block text-[10px] uppercase">{{ t('reservation.pickupLocationLabel') }}</span>
+                <span class="text-gray-900 font-bold">{{ t('reservation.pickupLocationValue') }}</span>
               </div>
             </div>
           </div>
 
           <!-- ==================== TAB: TABLE RESERVATION (REZERVACIJA MIZE) ==================== -->
           <div v-else class="p-6 space-y-5">
-            <!-- Notice Box -->
-            <div class="p-4 bg-red-50/60 border-2 border-red-100 rounded-2xl text-center space-y-2">
-              <div class="w-12 h-12 bg-white border border-red-300 text-red-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-sm">
-                📞
-              </div>
-              <h4 class="text-lg font-serif font-bold text-gray-900 uppercase">Rezervacije sprejemamo po telefonu</h4>
-              <p class="text-xs text-gray-600 leading-relaxed max-w-md mx-auto">
-                Za rezervacijo mize v restavraciji ali na poletnem grajskem vrtu nas pokličite na telefonsko številko za rezervacije.
-              </p>
-            </div>
-
             <!-- Direct Call CTA Button -->
             <a
               href="tel:+38640175628"
-              class="w-full py-4 px-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-serif font-black text-sm uppercase tracking-[0.15em] transition-all duration-300 shadow-xl shadow-red-600/20 flex items-center justify-center space-x-3 group min-h-[52px]"
+              class="w-full py-4 px-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-mono font-black text-xl tracking-wider transition-all duration-300 shadow-xl shadow-red-600/20 flex items-center justify-center min-h-[52px]"
             >
-              <span class="text-xl group-hover:scale-110 transition-transform">📞</span>
-              <span>Pokliči za Rezervacijo: +386 40 175 628</span>
+              +386 40 175 628
             </a>
 
             <!-- Info Grid -->
-            <div class="grid grid-cols-2 gap-3 text-xs font-mono">
-              <div class="p-3 bg-red-50/60 border border-red-100 rounded-xl">
-                <span class="text-gray-500 block text-[10px] uppercase">Telefon rezervacije:</span>
-                <span class="text-gray-900 font-bold">+386 40 175 628</span>
-              </div>
-              <div class="p-3 bg-red-50/60 border border-red-100 rounded-xl">
-                <span class="text-gray-500 block text-[10px] uppercase">Lokacija:</span>
-                <span class="text-gray-900 font-bold">Grad Kodeljevo, Ljubljana</span>
-              </div>
+            <div class="p-3 bg-red-50/60 border border-red-100 rounded-xl text-xs font-mono">
+              <span class="text-gray-500 block text-[10px] uppercase">{{ t('reservation.locationLabel') }}</span>
+              <span class="text-gray-900 font-bold">{{ t('reservation.locationValue') }}</span>
             </div>
           </div>
 
@@ -176,7 +147,7 @@
               @click="closeModal"
               class="px-6 py-2.5 bg-white border border-gray-200 hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors min-h-[40px]"
             >
-              Zapri
+              {{ t('reservation.close') }}
             </button>
           </div>
 
@@ -188,6 +159,9 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useLocale } from '~/composables/useLocale'
+
+const { t } = useLocale()
 
 const props = defineProps<{
   isOpen: boolean

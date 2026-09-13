@@ -6,6 +6,7 @@
         :src="siteImages.club_hero_bg || '/images/club-red-hero.jpg'"
         :alt="t('club.heroAlt')"
         fetchpriority="high"
+        decoding="async"
         class="absolute inset-0 w-full h-full object-cover object-[center_35%] scale-110 opacity-85 transition-transform duration-700"
       >
       <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/40 to-black/30"></div>
@@ -22,6 +23,11 @@
         </p>
       </div>
     </section>
+
+    <!-- Bespoke Klipsch Audiophile Sound Experience Player -->
+    <div class="max-w-6xl mx-auto px-4 py-4 relative z-20">
+      <ClubDjPlayer />
+    </div>
 
     <!-- ===== Consolidated Events Experience (Prihajajoči Dogodki) - MOVED TO TOP ===== -->
     <section id="events" class="py-16 md:py-24 px-4 bg-[#120506]">
@@ -264,6 +270,10 @@
                 <img
                   :src="pastEv.flyer_url || fallbackImage"
                   :alt="pastEv.title"
+                  loading="lazy"
+                  decoding="async"
+                  width="48"
+                  height="48"
                   class="w-12 h-12 rounded-xl object-cover flex-shrink-0 border border-kader-cream/10"
                   @error="onImageError"
                 >
@@ -401,6 +411,7 @@
             <img
               :src="selectedEvent.flyer_url || fallbackImage"
               :alt="selectedEvent.title"
+              decoding="async"
               class="w-full h-auto max-h-80 object-contain"
               @error="onImageError"
             >
@@ -492,7 +503,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, reactive, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useLocale } from '~/composables/useLocale'
+import { useSiteImages } from '~/composables/useSiteImages'
+import { usePageSeo, EXACT_GEO, CANONICAL_ADDRESS, CANONICAL_CONTACTS } from '~/composables/usePageSeo'
 
 const { locale, t } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
@@ -609,7 +623,7 @@ const displayEvents = computed<ClubEvent[]>(() => {
   return list
 })
 
-// Structured Data Schema Markup (NightClub + EventSeries @graph)
+// Structured Data Schema Markup (NightClub + Dynamic Events)
 const clubSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@graph': [
@@ -617,89 +631,116 @@ const clubSchema = computed(() => ({
       '@type': 'NightClub',
       '@id': 'https://www.kader.si/club#club',
       'name': 'Club Kader Grad Kodeljevo',
-      'description': t('club.heroTagline'),
-      'inLanguage': locale.value,
+      'alternateName': 'Kader Electronic Music Club',
+      'description': t('club.heroTagline') || 'Intimni kletni klub in plesišče z avdiofilskim ozvočenjem Klipsch La Scala AL6, zvočno izoliranim obokom in izbranim programom elektronske glasbe.',
       'url': 'https://www.kader.si/club',
-      'address': {
-        '@type': 'PostalAddress',
-        'streetAddress': 'Kobalarjeva ulica 20',
-        'addressLocality': 'Ljubljana',
-        'postalCode': '1000',
-        'addressCountry': 'SI'
-      },
+      'telephone': CANONICAL_CONTACTS.reservationsPhone,
+      'priceRange': '€€',
+      'currenciesAccepted': 'EUR',
+      'paymentAccepted': 'Cash, Credit Card, Contactless, Apple Pay, Google Pay',
+      'address': CANONICAL_ADDRESS,
       'geo': {
         '@type': 'GeoCoordinates',
-        'latitude': 46.0515,
-        'longitude': 14.5361
+        'latitude': EXACT_GEO.latitude,
+        'longitude': EXACT_GEO.longitude
       },
-      'image': 'https://www.kader.si/logo-banner.png'
+      'hasMap': CANONICAL_CONTACTS.googleMapsUrl,
+      'image': [
+        'https://www.kader.si/logo-banner.png',
+        'https://www.kader.si/hero-bg.jpg'
+      ],
+      'maximumAttendeeCapacity': 300,
+      'openingHoursSpecification': [
+        {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Friday', 'Saturday'],
+          'opens': '23:00',
+          'closes': '05:00',
+          'description': 'Klubske noči & elektronski dogodki'
+        }
+      ],
+      'amenityFeature': [
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Audiophile Sound System',
+          'value': 'Klipsch La Scala AL6 3-way fully horn-loaded system with QUAD Class A and CREST C12 amplification'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Acoustic Vault',
+          'value': 'Stone vaulted basement with custom acoustic dampening and low illumination'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'No Photo Policy',
+          'value': 'Camera lens stickers provided at entry; strict privacy and freedom on the dancefloor'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Hearing Protection',
+          'value': 'Free high-fidelity earplugs available at all bars'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Awareness Team',
+          'value': 'Active on-site Safer Spaces awareness team'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Supervised Cloakroom',
+          'value': 'Secure wardrobe service available throughout the night'
+        }
+      ]
     },
-    {
-      '@type': 'EventSeries',
-      '@id': 'https://www.kader.si/club#events',
-      'name': 'Dogodki Club Kader Grad Kodeljevo',
-      'description': t('events.pageDesc'),
-      'inLanguage': locale.value,
-      'url': 'https://www.kader.si/club',
+    ...(displayEvents.value || []).slice(0, 5).map((e: any) => ({
+      '@type': 'Event',
+      '@id': `https://www.kader.si/club#event-${e.ra_id || e.id || String(e.title).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+      'name': e.title,
+      'description': e.lineup ? cleanLineup(e.lineup) : (e.artists?.length ? `Nastopajo: ${e.artists.join(', ')}` : t('club.heroTagline')),
+      'startDate': e.date,
+      'endDate': e.end_time || e.date,
+      'url': e.ra_url || 'https://www.kader.si/club',
+      'eventStatus': 'https://schema.org/EventScheduled',
+      'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+      'image': [e.flyer_url || 'https://www.kader.si/logo-banner.png'],
       'location': {
         '@type': 'Place',
-        'name': 'Club Kader',
-        'address': {
-          '@type': 'PostalAddress',
-          'streetAddress': 'Kobalarjeva ulica 20',
-          'addressLocality': 'Ljubljana',
-          'postalCode': '1000',
-          'addressCountry': 'SI'
+        'name': 'Club Kader (Grad Kodeljevo)',
+        'address': CANONICAL_ADDRESS,
+        'geo': {
+          '@type': 'GeoCoordinates',
+          'latitude': EXACT_GEO.latitude,
+          'longitude': EXACT_GEO.longitude
         }
       },
-      'event': (displayEvents.value || []).map(e => ({
-        '@type': 'Event',
-        'name': e.title,
-        'startDate': e.date,
-        'url': e.ra_url || 'https://www.kader.si/club',
-        'eventStatus': 'https://schema.org/EventScheduled',
-        'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
-        'location': {
-          '@type': 'Place',
-          'name': 'Club Kader',
-          'address': {
-            '@type': 'PostalAddress',
-            'streetAddress': 'Kobalarjeva ulica 20',
-            'addressLocality': 'Ljubljana',
-            'postalCode': '1000',
-            'addressCountry': 'SI'
-          }
-        }
-      }))
-    }
+      'organizer': {
+        '@type': 'Organization',
+        'name': 'Club Kader Grad Kodeljevo',
+        'url': 'https://www.kader.si'
+      },
+      'performer': (e.artists || []).map((art: string) => ({
+        '@type': 'PerformingGroup',
+        'name': art
+      })),
+      'offers': {
+        '@type': 'Offer',
+        'name': 'Vstopnica za dogodek',
+        'price': typeof e.cost === 'number' ? String(e.cost) : '12.00',
+        'priceCurrency': 'EUR',
+        'availability': 'https://schema.org/InStock',
+        'url': e.ticket_url || e.ra_url || 'https://ra.co/clubs/78778'
+      }
+    }))
   ]
 }))
 
-useHead({
-  title: computed(() => t('seo.club.title')),
-  link: [
-    { rel: 'canonical', href: 'https://www.kader.si/club' }
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify(clubSchema.value))
-    }
-  ]
-})
-
-useSeoMeta({
-  title: computed(() => t('seo.club.title')),
-  description: computed(() => t('seo.club.description')),
-  ogTitle: computed(() => t('seo.club.ogTitle')),
-  ogDescription: computed(() => t('seo.club.ogDescription')),
-  ogImage: 'https://www.kader.si/logo-banner.png',
-  ogUrl: 'https://www.kader.si/club',
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: computed(() => t('seo.club.ogTitle')),
-  twitterDescription: computed(() => t('seo.club.ogDescription')),
-  twitterImage: 'https://www.kader.si/logo-banner.png'
+usePageSeo({
+  path: '/club',
+  titleKey: 'seo.club.title',
+  descKey: 'seo.club.description',
+  ogTitleKey: 'seo.club.ogTitle',
+  ogDescKey: 'seo.club.ogDescription',
+  schema: clubSchema
 })
 
 // Door Policy FAQ Accordion State (Retained 6 Pillars)
@@ -864,6 +905,13 @@ const loadPastEvents = async () => {
   }
 }
 
+// Modal body scroll lock management
+watch(selectedEvent, (val) => {
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = val ? 'hidden' : ''
+  }
+})
+
 // Lifecycle Hooks
 onMounted(() => {
   if (typeof window !== 'undefined') {
@@ -881,6 +929,9 @@ onBeforeUnmount(() => {
   }
   if (countdownInterval) {
     clearInterval(countdownInterval)
+  }
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = ''
   }
 })
 </script>

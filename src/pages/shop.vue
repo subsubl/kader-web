@@ -38,49 +38,51 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useLocale } from '~/composables/useLocale'
+import { usePageSeo, EXACT_GEO, CANONICAL_ADDRESS, CANONICAL_CONTACTS } from '~/composables/usePageSeo'
 
 const { t, locale } = useLocale()
 const config = useRuntimeConfig()
+
 const shopUrl = computed(() => {
-  const pretixBase = (config.public.pretixUrl as string || 'http://192.168.64.147').replace(/\/$/, '')
+  const pretixBase = (config.public.pretixUrl as string || 'https://pretix.eu').replace(/\/$/, '')
   return `${pretixBase}/kader/merch/`
 })
 
 const shopSchema = computed(() => ({
   '@context': 'https://schema.org',
-  '@type': 'Store',
-  '@id': 'https://www.kader.si/shop#store',
-  'name': 'Uradna Trgovina Kader Grad Kodeljevo',
-  'description': t('shop.desc'),
-  'inLanguage': locale.value,
-  'url': 'https://www.kader.si/shop',
-  'image': 'https://www.kader.si/logo-banner.png'
-}))
-
-useHead({
-  title: computed(() => t('seo.shop.title')),
-  link: [
-    { rel: 'canonical', href: 'https://www.kader.si/shop' }
-  ],
-  script: [
+  '@graph': [
     {
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify(shopSchema.value))
+      '@type': 'Store',
+      '@id': 'https://www.kader.si/shop#store',
+      'name': 'Uradna Trgovina Kader Grad Kodeljevo',
+      'description': t('shop.desc') || 'Uradni izdelki Kader Grad Kodeljevo: majice, kape in modni dodatki z možnostjo spletnega naročila ali osebnega prevzema v gradu.',
+      'url': 'https://www.kader.si/shop',
+      'telephone': CANONICAL_CONTACTS.takeawayPhone,
+      'currenciesAccepted': 'EUR',
+      'priceRange': '€€',
+      'address': CANONICAL_ADDRESS,
+      'geo': {
+        '@type': 'GeoCoordinates',
+        'latitude': EXACT_GEO.latitude,
+        'longitude': EXACT_GEO.longitude
+      },
+      'image': [
+        'https://www.kader.si/logo-banner.png'
+      ],
+      'parentOrganization': {
+        '@id': 'https://www.kader.si/#venue'
+      }
     }
   ]
-})
+}))
 
-useSeoMeta({
-  title: computed(() => t('seo.shop.title')),
-  description: computed(() => t('seo.shop.description')),
-  ogTitle: computed(() => t('seo.shop.ogTitle')),
-  ogDescription: computed(() => t('seo.shop.ogDescription')),
-  ogImage: 'https://www.kader.si/logo-banner.png',
-  ogUrl: 'https://www.kader.si/shop',
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: computed(() => t('seo.shop.ogTitle')),
-  twitterDescription: computed(() => t('seo.shop.ogDescription')),
-  twitterImage: 'https://www.kader.si/logo-banner.png'
+usePageSeo({
+  path: '/shop',
+  titleKey: 'seo.shop.title',
+  descKey: 'seo.shop.description',
+  ogTitleKey: 'seo.shop.ogTitle',
+  ogDescKey: 'seo.shop.ogDescription',
+  schema: shopSchema
 })
 </script>

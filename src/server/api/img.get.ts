@@ -11,6 +11,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import sharp from 'sharp'
+import { createApiTranslator } from '../utils/locale'
 
 const CACHE_DIR = path.resolve(process.cwd(), '.data/img-cache')
 
@@ -39,16 +40,16 @@ function matchesIfNoneMatch(ifNoneMatchHeader: string | undefined | null, curren
 /**
  * Validates remote image URLs to protect against SSRF attacks.
  */
-function validateRemoteUrl(urlStr: string): URL {
+function validateRemoteUrl(urlStr: string, t?: (key: string, p?: any) => string): URL {
   let parsedUrl: URL
   try {
     parsedUrl = new URL(urlStr)
   } catch {
-    throw createError({ statusCode: 400, statusMessage: 'Invalid image URL' })
+    throw createError({ statusCode: 400, statusMessage: t ? t('img.errInvalidUrl') : 'Invalid image URL' })
   }
 
   if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
-    throw createError({ statusCode: 400, statusMessage: 'Invalid protocol: Only HTTP and HTTPS are allowed' })
+    throw createError({ statusCode: 400, statusMessage: t ? t('img.errInvalidProtocol') : 'Invalid protocol: Only HTTP and HTTPS are allowed' })
   }
 
   const hostname = parsedUrl.hostname.toLowerCase()
@@ -69,13 +70,14 @@ function validateRemoteUrl(urlStr: string): URL {
   }
 
   if (isPrivateOrInternal(hostname)) {
-    throw createError({ statusCode: 403, statusMessage: 'Forbidden: Access to private network addresses is prohibited' })
+    throw createError({ statusCode: 403, statusMessage: t ? t('img.errPrivateNetwork') : 'Forbidden: Access to private network addresses is prohibited' })
   }
 
   return parsedUrl
 }
 
 export default defineEventHandler(async (event) => {
+  const { t, locale } = createApiTranslator(event)
   const query = getQuery(event)
 
   // 1. Parameter extraction & normalization (support both src and url alias)
@@ -83,7 +85,7 @@ export default defineEventHandler(async (event) => {
   const src = (typeof rawSrc === 'string' ? rawSrc : '').trim()
 
   if (!src) {
-    throw createError({ statusCode: 400, statusMessage: 'Image src or url parameter is required' })
+    throw createError({ statusCode: 400, statusMessage: t('img.errParamRequired') })
   }
 
   // Width parsing with NaN guard
@@ -145,7 +147,7 @@ export default defineEventHandler(async (event) => {
     }
 
     if (cleanPath.includes('..') || cleanPath.includes('\0')) {
-      throw createError({ statusCode: 403, statusMessage: 'Forbidden: Invalid file path' })
+      throw createError({ statusCode: 403, statusMessage: t('img.errInvalidPath') })
     }
 
     const allowedBases = [
@@ -175,7 +177,7 @@ export default defineEventHandler(async (event) => {
     }) ?? null
 
     if (!localPath) {
-      throw createError({ statusCode: 404, statusMessage: `File not found: ${cleanPath}` })
+      throw createError({ statusCode: 404, statusMessage: t('img.errFileNotFound', { path: cleanPath }) })
     }
 
     const stat = fs.statSync(localPath)
@@ -215,13 +217,17 @@ export default defineEventHandler(async (event) => {
   }
 
   // 5. Single-Flight Transformation Coalescing
-  let transformPromise = inflightTransformations.get(hashKey)
+  const inflightKey = `${hashKey}:${locale}`
+  let transformPromise = inflightTransformations.get(inflightKey)
   if (!transformPromise) {
     transformPromise = (async () => {
       try {
+        let remoteUrlObj: URL | null = null
+        if (isRemote) {
+          remoteUrlObj = validateRemoteUrl(src, t)
+        }
         let input: string | Buffer
         if (isRemote) {
-          validateRemoteUrl(src)
           const resp = await fetch(src, {
             signal: AbortSignal.timeout(8000),
             headers: {
@@ -270,11 +276,11 @@ export default defineEventHandler(async (event) => {
 
         return outputBuffer
       } finally {
-        inflightTransformations.delete(hashKey)
+        inflightTransformations.delete(inflightKey)
       }
     })()
 
-    inflightTransformations.set(hashKey, transformPromise)
+    inflightTransformations.set(inflightKey, transformPromise)
   }
 
   try {
@@ -285,7 +291,7 @@ export default defineEventHandler(async (event) => {
     console.error('[api/img] Error processing image:', src, err?.message || err)
     throw createError({
       statusCode: err.statusCode || 404,
-      statusMessage: `Could not process image: ${err?.message || 'Unknown error'}`
+      statusMessage: t('img.errProcessFailed', { error: err?.message || 'Unknown error' })
     })
   }
 })

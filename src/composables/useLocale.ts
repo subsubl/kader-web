@@ -89,13 +89,13 @@ const sl: Dict = {
     "logoAlt": "Kader logotip",
     "locationSub": "Grad Kodeljevo",
     "addressCastle": "Grad Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana (Grad Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana (Grad Kodeljevo)"
   },
   "hero": {
     "title": "Grad Kodeljevo",
     "tagline": "Pizza bistro in bar na gradu Kodeljevo",
     "quote": "Pristna neapeljska pica & klubska kultura na gradu Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana",
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana",
     "orders": "Naročila",
     "menu": "Poglej Meni",
     "events": "Dogodki",
@@ -146,7 +146,7 @@ const sl: Dict = {
     "viewRA": "Več o dogodku (RA) →",
     "visitLabel": "Lokacija & Obratovalni Čas",
     "visitTitle": "Obiščite Nas",
-    "visitP": "Ulica Carla Benza 20 v Ljubljani. Naročila hrane: {{food}} ; Rezervacije miz: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 v Ljubljani. Naročila hrane: {{food}} ; Rezervacije miz: {{table}}.",
     "openMaps": "Odpri Google Maps ↗",
     "hoursTitle": "Delovni Čas (Google)",
     "monWed": "Ponedeljek – Sreda",
@@ -218,7 +218,7 @@ const sl: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizza bistro in bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Ljubljana • Kuhinja 12:00 – 22:00",
+    "locationLine": "Koblarjeva ulica 34, 1000 Ljubljana • Kuhinja 12:00 – 22:00",
     "pickUp": "Naročim in pridem iskat",
     "tableRes": "Rezervacije miz",
     "digitalMenu": "Digitalni Meni",
@@ -297,7 +297,7 @@ const sl: Dict = {
     "qrThanks": "Hvala, ker nas podpirate!",
     "legalNotice": "Pravno obvestilo o poslovanju",
     "legalBarConditions": "Bar s pogoji za živo in mehansko glasbo in ples \"Restavracija Kader\" z gostinskim vrtom",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Cenik velja od 1.6.2026",
     "priceValidFrom": "Cenik velja od 1.6.2026",
     "pricesVat": "Vse cene so v evrih (€) in vključujejo DDV.",
@@ -310,7 +310,7 @@ const sl: Dict = {
     "allergenLegendTitle": "Legenda alergenov:",
     "allergenLegendText": "1 gluten | 2 raki | 3 jajca | 4 ribe | 5 soja | 6 sulfiti | 7 mleko in mlečni izdelki (vključno z laktozo) | 8 oreščki | 9 gorčica | 10 sezam | 11 mehkužci",
     "colLocTitle": "Dove / Lokacija",
-    "colLocAddress": "Grad Kodeljevo, Ulica Carla Benza 20, 1000 Ljubljana, Slovenija",
+    "colLocAddress": "Grad Kodeljevo, Koblarjeva ulica 34, 1000 Ljubljana, Slovenija",
     "colContactTitle": "Naročila & Mize",
     "colContactTakeaway": "Hrana za s seboj:",
     "colContactTable": "Rezervacije miz:",
@@ -546,7 +546,7 @@ const sl: Dict = {
     "raPage": "Resident Advisor stran",
     "ticketsHeader": "Vstopnice",
     "admissionHeader": "Vstopnina",
-    "modalLocation": "Kader Grad Kodeljevo — Ulica Carla Benza 20, Ljubljana",
+    "modalLocation": "Kader Grad Kodeljevo — Koblarjeva ulica 34, Ljubljana",
     "lineupHeading": "Nastopajoči",
     "ticketsHeading": "Vstopnice",
     "ticketPriceLabel": "Vstopnina",
@@ -770,7 +770,7 @@ const sl: Dict = {
     "prevTitle": "Prejšnja (←)",
     "nextAria": "Naslednja slika (Desna puščica)",
     "nextTitle": "Naslednja (→)",
-    "venueAddress": "Grad Kodeljevo · Ulica Carla Benza 20, Ljubljana",
+    "venueAddress": "Grad Kodeljevo · Koblarjeva ulica 34, Ljubljana",
     "showImageAria": "Prikaži sliko {{n}}: {{label}}",
     "thumbnailAria": "Prikaži sliko {{n}}: {{label}}"
   },
@@ -1116,13 +1116,13 @@ const en: Dict = {
     "logoAlt": "Kader logo",
     "locationSub": "Kodeljevo Castle",
     "addressCastle": "Kodeljevo Castle",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana (Kodeljevo Castle)"
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana (Kodeljevo Castle)"
   },
   "hero": {
     "title": "Grad Kodeljevo",
     "tagline": "Pizza bistro and bar at Grad Kodeljevo",
     "quote": "Authentic Neapolitan pizza & club culture at Grad Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana",
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana",
     "orders": "Orders",
     "menu": "View Menu",
     "events": "Events",
@@ -1173,7 +1173,7 @@ const en: Dict = {
     "viewRA": "More about the event (RA) →",
     "visitLabel": "Location & Opening Times",
     "visitTitle": "Visit Us",
-    "visitP": "Ulica Carla Benza 20 in Ljubljana. Food orders: {{food}} ; Table bookings: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 in Ljubljana. Food orders: {{food}} ; Table bookings: {{table}}.",
     "openMaps": "Open Google Maps ↗",
     "hoursTitle": "Opening Hours (Google)",
     "monWed": "Monday – Wednesday",
@@ -1245,7 +1245,7 @@ const en: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizza bistro and bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Ljubljana • Kitchen 12:00 – 22:00",
+    "locationLine": "Koblarjeva ulica 34, 1000 Ljubljana • Kitchen 12:00 – 22:00",
     "pickUp": "Order & pick up",
     "tableRes": "Table reservations",
     "digitalMenu": "Digital Menu",
@@ -1324,7 +1324,7 @@ const en: Dict = {
     "qrThanks": "Thank you for your support!",
     "legalNotice": "Legal business disclosure",
     "legalBarConditions": "Bar with live and mechanical music and dancing \"Restaurant Kader\" with garden",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Price list valid from 1 June 2026",
     "priceValidFrom": "Price list valid from 1 June 2026",
     "pricesVat": "All prices are in Euros (€) and include VAT.",
@@ -1337,7 +1337,7 @@ const en: Dict = {
     "allergenLegendTitle": "Allergen guide:",
     "allergenLegendText": "1 gluten | 2 crustaceans | 3 eggs | 4 fish | 5 soy | 6 sulphites | 7 milk & dairy (incl. lactose) | 8 tree nuts | 9 mustard | 10 sesame | 11 molluscs",
     "colLocTitle": "Where / Location",
-    "colLocAddress": "Grad Kodeljevo, Ulica Carla Benza 20, 1000 Ljubljana, Slovenia",
+    "colLocAddress": "Grad Kodeljevo, Koblarjeva ulica 34, 1000 Ljubljana, Slovenia",
     "colContactTitle": "Orders & Tables",
     "colContactTakeaway": "Takeaway food:",
     "colContactTable": "Table bookings:",
@@ -1573,7 +1573,7 @@ const en: Dict = {
     "raPage": "Resident Advisor page",
     "ticketsHeader": "Tickets",
     "admissionHeader": "Admission",
-    "modalLocation": "Kader Grad Kodeljevo — Ulica Carla Benza 20, Ljubljana",
+    "modalLocation": "Kader Grad Kodeljevo — Koblarjeva ulica 34, Ljubljana",
     "lineupHeading": "Lineup",
     "ticketsHeading": "Tickets",
     "ticketPriceLabel": "Admission",
@@ -1797,7 +1797,7 @@ const en: Dict = {
     "prevTitle": "Previous (←)",
     "nextAria": "Next image (Right arrow)",
     "nextTitle": "Next (→)",
-    "venueAddress": "Grad Kodeljevo · Ulica Carla Benza 20, Ljubljana",
+    "venueAddress": "Grad Kodeljevo · Koblarjeva ulica 34, Ljubljana",
     "showImageAria": "Show image {{n}}: {{label}}",
     "thumbnailAria": "Show image {{n}}: {{label}}"
   },
@@ -2143,13 +2143,13 @@ const de: Dict = {
     "logoAlt": "Kader Logo",
     "locationSub": "Schloss Kodeljevo",
     "addressCastle": "Schloss Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana (Schloss Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana (Schloss Kodeljevo)"
   },
   "hero": {
     "title": "Schloss Kodeljevo",
     "tagline": "Pizzeria-Bistro und Bar im Schloss Kodeljevo",
     "quote": "Authentische neapolitanische Pizza & Clubkultur im Schloss Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana",
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana",
     "orders": "Bestellungen",
     "menu": "Speisekarte",
     "events": "Events",
@@ -2200,7 +2200,7 @@ const de: Dict = {
     "viewRA": "Mehr zum Event auf RA →",
     "visitLabel": "Standort & Öffnungszeiten",
     "visitTitle": "Besuchen Sie Uns",
-    "visitP": "Ulica Carla Benza 20 in Ljubljana. Essensbestellungen: {{food}} ; Tischreservierungen: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 in Ljubljana. Essensbestellungen: {{food}} ; Tischreservierungen: {{table}}.",
     "openMaps": "Google Maps öffnen ↗",
     "hoursTitle": "Öffnungszeiten (Google)",
     "monWed": "Montag – Mittwoch",
@@ -2272,7 +2272,7 @@ const de: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizzeria-Bistro und Bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Ljubljana • Küche 12:00 – 22:00 Uhr",
+    "locationLine": "Koblarjeva ulica 34, 1000 Ljubljana • Küche 12:00 – 22:00 Uhr",
     "pickUp": "Bestellen & abholen",
     "tableRes": "Tischreservierung",
     "digitalMenu": "Digitale Speisekarte",
@@ -2351,7 +2351,7 @@ const de: Dict = {
     "qrThanks": "Vielen Dank für Ihre Unterstützung!",
     "legalNotice": "Rechtlicher Hinweis",
     "legalBarConditions": "Bar mit Live- und Unterhaltungsmusik sowie Tanz „Restaurant Kader“ mit Gastgarten",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Preisliste gültig ab 01.06.2026",
     "priceValidFrom": "Preisliste gültig ab 01.06.2026",
     "pricesVat": "Alle Preise in Euro (€) inklusive Mehrwertsteuer.",
@@ -2364,7 +2364,7 @@ const de: Dict = {
     "allergenLegendTitle": "Allergen-Legende:",
     "allergenLegendText": "1 Gluten | 2 Krebstiere | 3 Eier | 4 Fisch | 5 Soja | 6 Sulfite | 7 Milch & Laktose | 8 Schalenfrüchte | 9 Senf | 10 Sesam | 11 Weichtiere",
     "colLocTitle": "Wo / Standort",
-    "colLocAddress": "Schloss Kodeljevo, Ulica Carla Benza 20, 1000 Ljubljana, Slowenien",
+    "colLocAddress": "Schloss Kodeljevo, Koblarjeva ulica 34, 1000 Ljubljana, Slowenien",
     "colContactTitle": "Bestellungen & Tische",
     "colContactTakeaway": "Speisen zum Mitnehmen:",
     "colContactTable": "Tischreservierungen:",
@@ -2600,7 +2600,7 @@ const de: Dict = {
     "raPage": "Resident Advisor Seite",
     "ticketsHeader": "Tickets",
     "admissionHeader": "Eintritt",
-    "modalLocation": "Kader Schloss Kodeljevo — Ulica Carla Benza 20, Ljubljana",
+    "modalLocation": "Kader Schloss Kodeljevo — Koblarjeva ulica 34, Ljubljana",
     "lineupHeading": "Lineup",
     "ticketsHeading": "Tickets",
     "ticketPriceLabel": "Eintritt",
@@ -2824,7 +2824,7 @@ const de: Dict = {
     "prevTitle": "Vorheriges (←)",
     "nextAria": "Nächstes Bild (Pfeiltaste rechts)",
     "nextTitle": "Nächstes (→)",
-    "venueAddress": "Schloss Kodeljevo · Ulica Carla Benza 20, Ljubljana",
+    "venueAddress": "Schloss Kodeljevo · Koblarjeva ulica 34, Ljubljana",
     "showImageAria": "Bild {{n}} anzeigen: {{label}}",
     "thumbnailAria": "Bild {{n}} anzeigen: {{label}}"
   },
@@ -3170,13 +3170,13 @@ const fr: Dict = {
     "logoAlt": "Logo Kader",
     "locationSub": "Château Kodeljevo",
     "addressCastle": "Château Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana (Château Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana (Château Kodeljevo)"
   },
   "hero": {
     "title": "Château Kodeljevo",
     "tagline": "Bistro pizzeria et bar au château Kodeljevo",
     "quote": "Véritable pizza napolitaine & culture club au château Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana",
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana",
     "orders": "Commandes",
     "menu": "Voir le Menu",
     "events": "Événements",
@@ -3227,7 +3227,7 @@ const fr: Dict = {
     "viewRA": "Détails sur RA →",
     "visitLabel": "Accès & Horaires",
     "visitTitle": "Nous Rendre Visite",
-    "visitP": "Ulica Carla Benza 20 à Ljubljana. Commandes : {{food}} ; Réservations : {{table}}.",
+    "visitP": "Koblarjeva ulica 34 à Ljubljana. Commandes : {{food}} ; Réservations : {{table}}.",
     "openMaps": "Ouvrir Google Maps ↗",
     "hoursTitle": "Horaires d'Ouverture (Google)",
     "monWed": "Lundi – Mercredi",
@@ -3299,7 +3299,7 @@ const fr: Dict = {
   },
   "pizzeria": {
     "tagline": "Bistro pizzeria et bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Ljubljana • Cuisine 12h00 – 22h00",
+    "locationLine": "Koblarjeva ulica 34, 1000 Ljubljana • Cuisine 12h00 – 22h00",
     "pickUp": "Commander et emporter",
     "tableRes": "Réservations de tables",
     "digitalMenu": "Menu Digital",
@@ -3378,7 +3378,7 @@ const fr: Dict = {
     "qrThanks": "Merci de votre soutien !",
     "legalNotice": "Mentions légales",
     "legalBarConditions": "Bar avec musique live et enregistrée et danse « Restaurant Kader » avec terrasse",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Tarifs valables à partir du 01/06/2026",
     "priceValidFrom": "Tarifs valables à partir du 01/06/2026",
     "pricesVat": "Tous les prix sont en euros (€) et comprennent la TVA.",
@@ -3391,7 +3391,7 @@ const fr: Dict = {
     "allergenLegendTitle": "Guide des allergènes :",
     "allergenLegendText": "1 gluten | 2 crustacés | 3 œufs | 4 poissons | 5 soja | 6 sulfites | 7 lait & lactose | 8 fruits à coque | 9 moutarde | 10 sésame | 11 mollusques",
     "colLocTitle": "Où / Emplacement",
-    "colLocAddress": "Château Kodeljevo, Ulica Carla Benza 20, 1000 Ljubljana, Slovénie",
+    "colLocAddress": "Château Kodeljevo, Koblarjeva ulica 34, 1000 Ljubljana, Slovénie",
     "colContactTitle": "Commandes & Tables",
     "colContactTakeaway": "Plats à emporter :",
     "colContactTable": "Réservation de tables :",
@@ -3627,7 +3627,7 @@ const fr: Dict = {
     "raPage": "Page Resident Advisor",
     "ticketsHeader": "Billets",
     "admissionHeader": "Entrée",
-    "modalLocation": "Kader Château Kodeljevo — Ulica Carla Benza 20, Ljubljana",
+    "modalLocation": "Kader Château Kodeljevo — Koblarjeva ulica 34, Ljubljana",
     "lineupHeading": "Programmation",
     "ticketsHeading": "Billets",
     "ticketPriceLabel": "Tarif d'entrée",
@@ -3851,7 +3851,7 @@ const fr: Dict = {
     "prevTitle": "Précédent (←)",
     "nextAria": "Image suivante (Flèche droite)",
     "nextTitle": "Suivant (→)",
-    "venueAddress": "Château Kodeljevo · Ulica Carla Benza 20, Ljubljana",
+    "venueAddress": "Château Kodeljevo · Koblarjeva ulica 34, Ljubljana",
     "showImageAria": "Afficher l'image {{n}} : {{label}}",
     "thumbnailAria": "Afficher l'image {{n}} : {{label}}"
   },
@@ -4197,13 +4197,13 @@ const it: Dict = {
     "logoAlt": "Logo Kader",
     "locationSub": "Castello Kodeljevo",
     "addressCastle": "Castello Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Lubiana (Castello Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Lubiana (Castello Kodeljevo)"
   },
   "hero": {
     "title": "Castello Kodeljevo",
     "tagline": "Pizza bistro e bar al Castello Kodeljevo",
     "quote": "Autentica pizza napoletana & cultura club al castello Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Lubiana",
+    "address": "Koblarjeva ulica 34, 1000 Lubiana",
     "orders": "Ordini",
     "menu": "Consulta Menu",
     "events": "Eventi",
@@ -4254,7 +4254,7 @@ const it: Dict = {
     "viewRA": "Dettagli su RA →",
     "visitLabel": "Posizione & Orari",
     "visitTitle": "Vieni a Trovarci",
-    "visitP": "Ulica Carla Benza 20 a Lubiana. Ordini cibo: {{food}} ; Prenotazioni tavoli: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 a Lubiana. Ordini cibo: {{food}} ; Prenotazioni tavoli: {{table}}.",
     "openMaps": "Apri Google Maps ↗",
     "hoursTitle": "Orari di Apertura (Google)",
     "monWed": "Lunedì – Mercoledì",
@@ -4326,7 +4326,7 @@ const it: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizza bistro e bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Lubiana • Cucina 12:00 – 22:00",
+    "locationLine": "Koblarjeva ulica 34, 1000 Lubiana • Cucina 12:00 – 22:00",
     "pickUp": "Ordina e ritira",
     "tableRes": "Prenotazione tavoli",
     "digitalMenu": "Menu Digitale",
@@ -4405,7 +4405,7 @@ const it: Dict = {
     "qrThanks": "Grazie del vostro sostegno!",
     "legalNotice": "Note legali",
     "legalBarConditions": "Bar autorizzato per musica dal vivo, registrata e ballo \"Ristorante Kader\" con giardino",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Listino prezzi valido dal 01/06/2026",
     "priceValidFrom": "Listino prezzi valido dal 01/06/2026",
     "pricesVat": "Tutti i prezzi sono espressi in Euro (€) e sono comprensivi di IVA.",
@@ -4418,7 +4418,7 @@ const it: Dict = {
     "allergenLegendTitle": "Legenda allergeni:",
     "allergenLegendText": "1 glutine | 2 crostacei | 3 uova | 4 pesce | 5 soia | 6 solfiti | 7 latte e lattosio | 8 frutta a guscio | 9 senape | 10 sesamo | 11 molluschi",
     "colLocTitle": "Dove / Posizione",
-    "colLocAddress": "Castello Kodeljevo, Ulica Carla Benza 20, 1000 Lubiana, Slovenia",
+    "colLocAddress": "Castello Kodeljevo, Koblarjeva ulica 34, 1000 Lubiana, Slovenia",
     "colContactTitle": "Ordini & Tavoli",
     "colContactTakeaway": "Cibo da asporto:",
     "colContactTable": "Prenotazione tavoli:",
@@ -4654,7 +4654,7 @@ const it: Dict = {
     "raPage": "Pagina Resident Advisor",
     "ticketsHeader": "Biglietti",
     "admissionHeader": "Ingresso",
-    "modalLocation": "Kader Castello Kodeljevo — Ulica Carla Benza 20, Lubiana",
+    "modalLocation": "Kader Castello Kodeljevo — Koblarjeva ulica 34, Lubiana",
     "lineupHeading": "Lineup",
     "ticketsHeading": "Biglietti",
     "ticketPriceLabel": "Prezzo ingresso",
@@ -4878,7 +4878,7 @@ const it: Dict = {
     "prevTitle": "Precedente (←)",
     "nextAria": "Immagine successiva (Freccia destra)",
     "nextTitle": "Successiva (→)",
-    "venueAddress": "Castello Kodeljevo · Ulica Carla Benza 20, Lubiana",
+    "venueAddress": "Castello Kodeljevo · Koblarjeva ulica 34, Lubiana",
     "showImageAria": "Mostra immagine {{n}}: {{label}}",
     "thumbnailAria": "Mostra immagine {{n}}: {{label}}"
   },
@@ -5224,13 +5224,13 @@ const sr: Dict = {
     "logoAlt": "Kader logo",
     "locationSub": "Dvorac Kodeljevo",
     "addressCastle": "Dvorac Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana (Dvorac Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana (Dvorac Kodeljevo)"
   },
   "hero": {
     "title": "Dvorac Kodeljevo",
     "tagline": "Pica bistro i bar u Dvorcu Kodeljevo",
     "quote": "Autentična napolitanska pica i klupska kultura u dvorcu Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana",
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana",
     "orders": "Porudžbine",
     "menu": "Pogledaj Meni",
     "events": "Događaji",
@@ -5281,7 +5281,7 @@ const sr: Dict = {
     "viewRA": "Više o događaju (RA) →",
     "visitLabel": "Lokacija & Radno Vreme",
     "visitTitle": "Posetite Nas",
-    "visitP": "Ulica Carla Benza 20 u Ljubljani. Porudžbine hrane: {{food}} ; Rezervacije stolova: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 u Ljubljani. Porudžbine hrane: {{food}} ; Rezervacije stolova: {{table}}.",
     "openMaps": "Otvori Google Mape ↗",
     "hoursTitle": "Radno Vreme (Google)",
     "monWed": "Ponedeljak – Sreda",
@@ -5353,7 +5353,7 @@ const sr: Dict = {
   },
   "pizzeria": {
     "tagline": "Pica bistro i bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Ljubljana • Kuhinja 12:00 – 22:00",
+    "locationLine": "Koblarjeva ulica 34, 1000 Ljubljana • Kuhinja 12:00 – 22:00",
     "pickUp": "Naruči i preuzmi",
     "tableRes": "Rezervacije stolova",
     "digitalMenu": "Digitalni Meni",
@@ -5432,7 +5432,7 @@ const sr: Dict = {
     "qrThanks": "Hvala na vašoj podršci!",
     "legalNotice": "Pravno obaveštenje",
     "legalBarConditions": "Bar sa uslovima za živu i mehaničku muziku i ples \"Restoran Kader\" sa baštom",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Cenovnik važi od 01.06.2026.",
     "priceValidFrom": "Cenovnik važi od 01.06.2026.",
     "pricesVat": "Sve cene su u evrima (€) i uključuju PDV.",
@@ -5445,7 +5445,7 @@ const sr: Dict = {
     "allergenLegendTitle": "Legenda alergena:",
     "allergenLegendText": "1 gluten | 2 ljuskari | 3 jaja | 4 riba | 5 soja | 6 sulfiti | 7 mleko i laktoza | 8 orašasti plodovi | 9 senf | 10 susam | 11 mekušci",
     "colLocTitle": "Gde / Lokacija",
-    "colLocAddress": "Dvorac Kodeljevo, Ulica Carla Benza 20, 1000 Ljubljana, Slovenija",
+    "colLocAddress": "Dvorac Kodeljevo, Koblarjeva ulica 34, 1000 Ljubljana, Slovenija",
     "colContactTitle": "Porudžbine i Stolovi",
     "colContactTakeaway": "Hrana za poneti:",
     "colContactTable": "Rezervacije stolova:",
@@ -5681,7 +5681,7 @@ const sr: Dict = {
     "raPage": "Resident Advisor stranica",
     "ticketsHeader": "Ulaznice",
     "admissionHeader": "Ulaz",
-    "modalLocation": "Kader Dvorac Kodeljevo — Ulica Carla Benza 20, Ljubljana",
+    "modalLocation": "Kader Dvorac Kodeljevo — Koblarjeva ulica 34, Ljubljana",
     "lineupHeading": "Izvođači",
     "ticketsHeading": "Ulaznice",
     "ticketPriceLabel": "Cena ulaza",
@@ -5905,7 +5905,7 @@ const sr: Dict = {
     "prevTitle": "Prethodna (←)",
     "nextAria": "Sledeća slika (Desna strelica)",
     "nextTitle": "Sledeća (→)",
-    "venueAddress": "Dvorac Kodeljevo · Ulica Carla Benza 20, Ljubljana",
+    "venueAddress": "Dvorac Kodeljevo · Koblarjeva ulica 34, Ljubljana",
     "showImageAria": "Prikaži sliku {{n}}: {{label}}",
     "thumbnailAria": "Prikaži sliku {{n}}: {{label}}"
   },
@@ -6251,13 +6251,13 @@ const nl: Dict = {
     "logoAlt": "Kader logo",
     "locationSub": "Kasteel Kodeljevo",
     "addressCastle": "Kasteel Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana (Kasteel Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana (Kasteel Kodeljevo)"
   },
   "hero": {
     "title": "Kasteel Kodeljevo",
     "tagline": "Pizzabistro en bar in Kasteel Kodeljevo",
     "quote": "Authentieke Napolitaanse pizza & clubcultuur in Kasteel Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Ljubljana",
+    "address": "Koblarjeva ulica 34, 1000 Ljubljana",
     "orders": "Bestellingen",
     "menu": "Bekijk Menu",
     "events": "Evenementen",
@@ -6308,7 +6308,7 @@ const nl: Dict = {
     "viewRA": "Meer over het event op RA →",
     "visitLabel": "Locatie & Openingstijden",
     "visitTitle": "Bezoek Ons",
-    "visitP": "Ulica Carla Benza 20 in Ljubljana. Eten bestellen: {{food}} ; Tafel reserveren: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 in Ljubljana. Eten bestellen: {{food}} ; Tafel reserveren: {{table}}.",
     "openMaps": "Open Google Maps ↗",
     "hoursTitle": "Openingstijden (Google)",
     "monWed": "Maandag – Woensdag",
@@ -6380,7 +6380,7 @@ const nl: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizzabistro en bar",
-    "locationLine": "Ulica Carla Benza 20, 1000 Ljubljana • Keuken 12:00 – 22:00",
+    "locationLine": "Koblarjeva ulica 34, 1000 Ljubljana • Keuken 12:00 – 22:00",
     "pickUp": "Bestellen & afhalen",
     "tableRes": "Tafelreserveringen",
     "digitalMenu": "Digitaal Menu",
@@ -6459,7 +6459,7 @@ const nl: Dict = {
     "qrThanks": "Bedankt voor uw steun!",
     "legalNotice": "Wettelijke vermelding",
     "legalBarConditions": "Bar met live- en mechanische muziek en dans \"Restaurant Kader\" met terras",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Ljubljana, SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Ljubljana, SI45321361",
     "priceListValidFrom": "Prijslijst geldig vanaf 01-06-2026",
     "priceValidFrom": "Prijslijst geldig vanaf 01-06-2026",
     "pricesVat": "Alle prijzen zijn in Euro (€) en inclusief btw.",
@@ -6472,7 +6472,7 @@ const nl: Dict = {
     "allergenLegendTitle": "Allergenenlegenda:",
     "allergenLegendText": "1 gluten | 2 schaaldieren | 3 eieren | 4 vis | 5 soja | 6 sulfieten | 7 melk & lactose | 8 noten | 9 mosterd | 10 sesam | 11 weekdieren",
     "colLocTitle": "Waar / Locatie",
-    "colLocAddress": "Kasteel Kodeljevo, Ulica Carla Benza 20, 1000 Ljubljana, Slovenië",
+    "colLocAddress": "Kasteel Kodeljevo, Koblarjeva ulica 34, 1000 Ljubljana, Slovenië",
     "colContactTitle": "Bestellingen & Tafels",
     "colContactTakeaway": "Eten afhalen:",
     "colContactTable": "Tafelreserveringen:",
@@ -6708,7 +6708,7 @@ const nl: Dict = {
     "raPage": "Resident Advisor pagina",
     "ticketsHeader": "Tickets",
     "admissionHeader": "Toegang",
-    "modalLocation": "Kader Kasteel Kodeljevo — Ulica Carla Benza 20, Ljubljana",
+    "modalLocation": "Kader Kasteel Kodeljevo — Koblarjeva ulica 34, Ljubljana",
     "lineupHeading": "Lineup",
     "ticketsHeading": "Tickets",
     "ticketPriceLabel": "Toegangsprijs",
@@ -6932,7 +6932,7 @@ const nl: Dict = {
     "prevTitle": "Vorige (←)",
     "nextAria": "Volgende afbeelding (Pijl rechts)",
     "nextTitle": "Volgende (→)",
-    "venueAddress": "Kasteel Kodeljevo · Ulica Carla Benza 20, Ljubljana",
+    "venueAddress": "Kasteel Kodeljevo · Koblarjeva ulica 34, Ljubljana",
     "showImageAria": "Toon afbeelding {{n}}: {{label}}",
     "thumbnailAria": "Toon afbeelding {{n}}: {{label}}"
   },
@@ -7278,13 +7278,13 @@ const pl: Dict = {
     "logoAlt": "Logo Kader",
     "locationSub": "Zamek Kodeljevo",
     "addressCastle": "Zamek Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Lublana (Zamek Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Lublana (Zamek Kodeljevo)"
   },
   "hero": {
     "title": "Zamek Kodeljevo",
     "tagline": "Bistro pizzowe i bar w Zamku Kodeljevo",
     "quote": "Autentyczna pizza neapolitańska i kultura klubowa w Zamku Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Lublana",
+    "address": "Koblarjeva ulica 34, 1000 Lublana",
     "orders": "Zamówienia",
     "menu": "Zobacz menu",
     "events": "Wydarzenia",
@@ -7335,7 +7335,7 @@ const pl: Dict = {
     "viewRA": "Więcej o wydarzeniu (RA) →",
     "visitLabel": "Lokalizacja i godziny otwarcia",
     "visitTitle": "Odwiedź nas",
-    "visitP": "Ulica Carla Benza 20 w Lublanie. Zamówienia jedzenia: {{food}} ; Rezerwacja stolików: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 w Lublanie. Zamówienia jedzenia: {{food}} ; Rezerwacja stolików: {{table}}.",
     "openMaps": "Otwórz w Google Maps ↗",
     "hoursTitle": "Godziny otwarcia (Google)",
     "monWed": "Poniedziałek – Środa",
@@ -7407,7 +7407,7 @@ const pl: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizza bistro i bar w Zamku Kodeljevo",
-    "locationLine": "Ulica Carla Benza 20, 1000 Lublana",
+    "locationLine": "Koblarjeva ulica 34, 1000 Lublana",
     "pickUp": "Zamów i odbierz:",
     "tableRes": "Rezerwacje stolików:",
     "digitalMenu": "Menu cyfrowe",
@@ -7417,7 +7417,7 @@ const pl: Dict = {
     "zoomedAlt": "Menu Kader Grad Kodeljevo powiększone",
     "allergenNote": "Wszystkie ceny zawierają podatek VAT. Informacje o alergenach dostępne u obsługi.",
     "hoursNote": "Kuchnia czynna: 12:00 – 22:00",
-    "companyLine": "Kader d.o.o. · Ulica Carla Benza 20, 1000 Lublana · NIP: SI45321361",
+    "companyLine": "Kader d.o.o. · Koblarjeva ulica 34, 1000 Lublana · NIP: SI45321361",
     "catPizza": "Pizze",
     "catPanuozzo": "Kanapki Panuozzo",
     "catStews": "Dania Jednogarnkowe",
@@ -7486,7 +7486,7 @@ const pl: Dict = {
     "qrThanks": "Dziękujemy za wsparcie!",
     "legalNotice": "Informacje prawne i rejestrowe",
     "legalBarConditions": "Lokal gastronomiczny z muzyką mechaniczną i na żywo „Restauracja Kader”, zarejestrowany zgodnie z przepisami.",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Lublana, NIP: SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Lublana, NIP: SI45321361",
     "priceListValidFrom": "Cennik obowiązuje od 1 czerwca 2026",
     "priceValidFrom": "Cennik obowiązuje od 1 czerwca 2026",
     "pricesVat": "Wszystkie ceny podane są w euro (€) i zawierają podatek VAT.",
@@ -7499,7 +7499,7 @@ const pl: Dict = {
     "allergenLegendTitle": "Wykaz alergenów:",
     "allergenLegendText": "1 gluten | 2 skorupiaki | 3 jaja | 4 ryby | 5 soja | 6 mleko | 7 orzechy | 8 seler | 9 gorczyca | 10 sezam | 11 dwutlenek siarki | 12 łubin | 13 mięczaki",
     "colLocTitle": "Gdzie / Lokalizacja",
-    "colLocAddress": "Zamek Kodeljevo, Ulica Carla Benza 20, 1000 Lublana, Słowenia",
+    "colLocAddress": "Zamek Kodeljevo, Koblarjeva ulica 34, 1000 Lublana, Słowenia",
     "colContactTitle": "Zamówienia i Stoliki",
     "colContactTakeaway": "Jedzenie na wynos:",
     "colContactTable": "Rezerwacje stolików:",
@@ -7735,7 +7735,7 @@ const pl: Dict = {
     "raPage": "Strona Resident Advisor",
     "ticketsHeader": "Bilety",
     "admissionHeader": "Wstęp",
-    "modalLocation": "Kader Zamek Kodeljevo — Ulica Carla Benza 20, Lublana",
+    "modalLocation": "Kader Zamek Kodeljevo — Koblarjeva ulica 34, Lublana",
     "lineupHeading": "Line-up",
     "ticketsHeading": "Bilety",
     "ticketPriceLabel": "Wstęp",
@@ -7959,7 +7959,7 @@ const pl: Dict = {
     "prevTitle": "Poprzednie (←)",
     "nextAria": "Następne zdjęcie (Strzałka w prawo)",
     "nextTitle": "Następne (→)",
-    "venueAddress": "Zamek Kodeljevo · Ulica Carla Benza 20, Lublana",
+    "venueAddress": "Zamek Kodeljevo · Koblarjeva ulica 34, Lublana",
     "showImageAria": "Pokaż zdjęcie {{n}}: {{label}}",
     "thumbnailAria": "Pokaż zdjęcie {{n}}: {{label}}"
   },
@@ -8305,13 +8305,13 @@ const cs: Dict = {
     "logoAlt": "Logo Kader",
     "locationSub": "Hrad Kodeljevo",
     "addressCastle": "Hrad Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Lublaň (Hrad Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Lublaň (Hrad Kodeljevo)"
   },
   "hero": {
     "title": "Hrad Kodeljevo",
     "tagline": "Pizza bistro a bar na Hradě Kodeljevo",
     "quote": "Autentická neapolská pizza a klubová kultura na Hradě Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Lublaň",
+    "address": "Koblarjeva ulica 34, 1000 Lublaň",
     "orders": "Objednávky",
     "menu": "Zobrazit menu",
     "events": "Události",
@@ -8362,7 +8362,7 @@ const cs: Dict = {
     "viewRA": "Více o události (RA) →",
     "visitLabel": "Lokalita a otevírací doba",
     "visitTitle": "Navštivte nás",
-    "visitP": "Ulica Carla Benza 20 v Lublani. Objednávky jídla: {{food}} ; Rezervace stolů: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 v Lublani. Objednávky jídla: {{food}} ; Rezervace stolů: {{table}}.",
     "openMaps": "Otevřít v Google Maps ↗",
     "hoursTitle": "Otevírací doba (Google)",
     "monWed": "Pondělí – Středa",
@@ -8434,7 +8434,7 @@ const cs: Dict = {
   },
   "pizzeria": {
     "tagline": "Pizza bistro a bar na Hradě Kodeljevo",
-    "locationLine": "Ulica Carla Benza 20, 1000 Lublaň",
+    "locationLine": "Koblarjeva ulica 34, 1000 Lublaň",
     "pickUp": "Objednat a vyzvednout:",
     "tableRes": "Rezervace stolů:",
     "digitalMenu": "Digitální menu",
@@ -8444,7 +8444,7 @@ const cs: Dict = {
     "zoomedAlt": "Menu Kader Hrad Kodeljevo zvětšené",
     "allergenNote": "Všechny ceny jsou uvedeny včetně DPH. Informace o alergenech vám ochotně sdělí obsluha.",
     "hoursNote": "Provoz kuchyně: 12:00 – 22:00",
-    "companyLine": "Kader d.o.o. · Ulica Carla Benza 20, 1000 Lublaň · DIČ: SI45321361",
+    "companyLine": "Kader d.o.o. · Koblarjeva ulica 34, 1000 Lublaň · DIČ: SI45321361",
     "catPizza": "Pizzy",
     "catPanuozzo": "Sendviče Panuozzo",
     "catStews": "Polévky a Teplá Jídla",
@@ -8513,7 +8513,7 @@ const cs: Dict = {
     "qrThanks": "Děkujeme za vaši přízeň!",
     "legalNotice": "Zákonné a provozní informace",
     "legalBarConditions": "Pohostinské zařízení s reprodukovanou a živou hudbou „Restaurace Kader”, řádně registrované.",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Lublaň, DIČ: SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Lublaň, DIČ: SI45321361",
     "priceListValidFrom": "Ceník platný od 1. června 2026",
     "priceValidFrom": "Ceník platný od 1. června 2026",
     "pricesVat": "Všechny ceny jsou uvedeny v eurech (€) a zahrnují DPH.",
@@ -8526,7 +8526,7 @@ const cs: Dict = {
     "allergenLegendTitle": "Přehled alergenů:",
     "allergenLegendText": "1 lepek | 2 korýši | 3 vejce | 4 ryby | 5 sója | 6 mléko | 7 skořápkové plody | 8 celer | 9 hořčice | 10 sezam | 11 oxid siřičitý | 12 vlčí bob | 13 měkkýši",
     "colLocTitle": "Kde / Lokalita",
-    "colLocAddress": "Hrad Kodeljevo, Ulica Carla Benza 20, 1000 Lublaň, Slovinsko",
+    "colLocAddress": "Hrad Kodeljevo, Koblarjeva ulica 34, 1000 Lublaň, Slovinsko",
     "colContactTitle": "Objednávky a Rezervace",
     "colContactTakeaway": "Jídlo s sebou:",
     "colContactTable": "Rezervace stolů:",
@@ -8762,7 +8762,7 @@ const cs: Dict = {
     "raPage": "Stránka na Resident Advisor",
     "ticketsHeader": "Vstupenky",
     "admissionHeader": "Vstupné",
-    "modalLocation": "Kader Hrad Kodeljevo — Ulica Carla Benza 20, Lublaň",
+    "modalLocation": "Kader Hrad Kodeljevo — Koblarjeva ulica 34, Lublaň",
     "lineupHeading": "Line-up",
     "ticketsHeading": "Vstupenky",
     "ticketPriceLabel": "Vstupné",
@@ -8986,7 +8986,7 @@ const cs: Dict = {
     "prevTitle": "Předchozí (←)",
     "nextAria": "Další obrázek (Šipka vpravo)",
     "nextTitle": "Další (→)",
-    "venueAddress": "Hrad Kodeljevo · Ulica Carla Benza 20, Lublaň",
+    "venueAddress": "Hrad Kodeljevo · Koblarjeva ulica 34, Lublaň",
     "showImageAria": "Zobrazit obrázek {{n}}: {{label}}",
     "thumbnailAria": "Zobrazit obrázek {{n}}: {{label}}"
   },
@@ -9332,13 +9332,13 @@ const es: Dict = {
     "logoAlt": "Logotipo de Kader",
     "locationSub": "Castillo Kodeljevo",
     "addressCastle": "Castillo Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Liubliana (Castillo Kodeljevo)"
+    "address": "Koblarjeva ulica 34, 1000 Liubliana (Castillo Kodeljevo)"
   },
   "hero": {
     "title": "Castillo Kodeljevo",
     "tagline": "Bistró de pizza y bar en el Castillo Kodeljevo",
     "quote": "Auténtica pizza napolitana y cultura de club en el Castillo Kodeljevo",
-    "address": "Ulica Carla Benza 20, 1000 Liubliana",
+    "address": "Koblarjeva ulica 34, 1000 Liubliana",
     "orders": "Pedidos",
     "menu": "Ver menú",
     "events": "Eventos",
@@ -9389,7 +9389,7 @@ const es: Dict = {
     "viewRA": "Más detalles del evento (RA) →",
     "visitLabel": "Ubicación y horarios",
     "visitTitle": "Visítanos",
-    "visitP": "Ulica Carla Benza 20 en Liubliana. Pedidos de comida: {{food}} ; Reservas de mesa: {{table}}.",
+    "visitP": "Koblarjeva ulica 34 en Liubliana. Pedidos de comida: {{food}} ; Reservas de mesa: {{table}}.",
     "openMaps": "Abrir en Google Maps ↗",
     "hoursTitle": "Horario de apertura (Google)",
     "monWed": "Lunes – Miércoles",
@@ -9461,7 +9461,7 @@ const es: Dict = {
   },
   "pizzeria": {
     "tagline": "Bistró de pizza y bar en el Castillo Kodeljevo",
-    "locationLine": "Ulica Carla Benza 20, 1000 Liubliana",
+    "locationLine": "Koblarjeva ulica 34, 1000 Liubliana",
     "pickUp": "Pedir y recoger:",
     "tableRes": "Reservas de mesa:",
     "digitalMenu": "Carta digital",
@@ -9471,7 +9471,7 @@ const es: Dict = {
     "zoomedAlt": "Carta de Kader Castillo Kodeljevo ampliada",
     "allergenNote": "Todos los precios incluyen IVA. Consulta la información sobre alérgenos con nuestro personal.",
     "hoursNote": "Cocina abierta: 12:00 – 22:00",
-    "companyLine": "Kader d.o.o. · Ulica Carla Benza 20, 1000 Liubliana · NIF: SI45321361",
+    "companyLine": "Kader d.o.o. · Koblarjeva ulica 34, 1000 Liubliana · NIF: SI45321361",
     "catPizza": "Pizzas",
     "catPanuozzo": "Sándwiches Panuozzo",
     "catStews": "Guisos y Platos de Cuchara",
@@ -9540,7 +9540,7 @@ const es: Dict = {
     "qrThanks": "¡Gracias por vuestro apoyo!",
     "legalNotice": "Información legal y fiscal",
     "legalBarConditions": "Establecimiento de hostelería con música en vivo y ambiente «Restaurante Kader», debidamente inscrito.",
-    "legalCompanyLine": "Kader d.o.o., Ulica Carla Benza 20, 1000 Liubliana, NIF: SI45321361",
+    "legalCompanyLine": "Kader d.o.o., Koblarjeva ulica 34, 1000 Liubliana, NIF: SI45321361",
     "priceListValidFrom": "Lista de precios válida desde el 1 de junio de 2026",
     "priceValidFrom": "Lista de precios válida desde el 1 de junio de 2026",
     "pricesVat": "Todos los precios se expresan en euros (€) e incluyen IVA.",
@@ -9553,7 +9553,7 @@ const es: Dict = {
     "allergenLegendTitle": "Guía de alérgenos:",
     "allergenLegendText": "1 gluten | 2 crustáceos | 3 huevos | 4 pescado | 5 soja | 6 lácteos | 7 frutos de cáscara | 8 apio | 9 mostaza | 10 sésamo | 11 sulfitos | 12 altramuces | 13 moluscos",
     "colLocTitle": "Dónde / Ubicación",
-    "colLocAddress": "Castillo Kodeljevo, Ulica Carla Benza 20, 1000 Liubliana, Eslovenia",
+    "colLocAddress": "Castillo Kodeljevo, Koblarjeva ulica 34, 1000 Liubliana, Eslovenia",
     "colContactTitle": "Pedidos y Reservas",
     "colContactTakeaway": "Comida para llevar:",
     "colContactTable": "Reserva de mesas:",
@@ -9789,7 +9789,7 @@ const es: Dict = {
     "raPage": "Página de Resident Advisor",
     "ticketsHeader": "Entradas",
     "admissionHeader": "Admisión",
-    "modalLocation": "Kader Castillo Kodeljevo — Ulica Carla Benza 20, Liubliana",
+    "modalLocation": "Kader Castillo Kodeljevo — Koblarjeva ulica 34, Liubliana",
     "lineupHeading": "Cartel",
     "ticketsHeading": "Entradas",
     "ticketPriceLabel": "Entrada",
@@ -10013,7 +10013,7 @@ const es: Dict = {
     "prevTitle": "Anterior (←)",
     "nextAria": "Imagen siguiente (Flecha derecha)",
     "nextTitle": "Siguiente (→)",
-    "venueAddress": "Castillo Kodeljevo · Ulica Carla Benza 20, Liubliana",
+    "venueAddress": "Castillo Kodeljevo · Koblarjeva ulica 34, Liubliana",
     "showImageAria": "Mostrar imagen {{n}}: {{label}}",
     "thumbnailAria": "Mostrar imagen {{n}}: {{label}}"
   },
@@ -10344,9 +10344,20 @@ export const flatDictionaries: Record<Locale, Record<string, string>> = {
 const STORAGE_KEY = 'kader-lang'
 
 export function useLocale() {
+  // Check route query parameter (?lang=) during SSR or client setup
+  let queryLang: string | undefined
+  try {
+    const route = useRoute()
+    const raw = route?.query?.lang
+    const item = Array.isArray(raw) ? raw[0] : raw
+    queryLang = typeof item === 'string' ? item.trim().toLowerCase() : undefined
+  } catch {
+    // Ignore route access before context is ready
+  }
+
   // SSR Cookie synchronization (1-year persistence)
   const cookie = (useCookie as unknown as UseCookieFn)<Locale>(STORAGE_KEY, {
-    default: () => DEFAULT_LOCALE,
+    default: () => (isSupportedLocale(queryLang) ? queryLang : DEFAULT_LOCALE),
     maxAge: 60 * 60 * 24 * 365,
     sameSite: 'lax',
     path: '/'
@@ -10354,6 +10365,10 @@ export function useLocale() {
 
   // Request-isolated / hydration-safe reactive state
   const locale = (useState as unknown as UseStateFn)<Locale>('locale', () => {
+    if (isSupportedLocale(queryLang)) {
+      cookie.value = queryLang
+      return queryLang
+    }
     const cookieVal = cookie.value
     return isSupportedLocale(cookieVal) ? cookieVal : DEFAULT_LOCALE
   })
@@ -10361,10 +10376,17 @@ export function useLocale() {
   // Client-side synchronization on mount
   if (import.meta.client) {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('kader-locale')
-      if (isSupportedLocale(stored) && stored !== locale.value) {
-        locale.value = stored
-        cookie.value = stored
+      if (isSupportedLocale(queryLang) && queryLang !== locale.value) {
+        locale.value = queryLang
+        cookie.value = queryLang
+        localStorage.setItem(STORAGE_KEY, queryLang)
+        localStorage.setItem('kader-locale', queryLang)
+      } else {
+        const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('kader-locale')
+        if (isSupportedLocale(stored) && stored !== locale.value && !isSupportedLocale(queryLang)) {
+          locale.value = stored
+          cookie.value = stored
+        }
       }
       if (typeof document !== 'undefined' && document.documentElement) {
         document.documentElement.lang = locale.value

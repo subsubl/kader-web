@@ -27,24 +27,15 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600;700;900&display=swap' },
-        { rel: 'alternate', hreflang: 'sl', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'en', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'de', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'fr', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'it', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'sr', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'nl', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'pl', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'cs', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'es', href: 'https://www.kader.si/' },
-        { rel: 'alternate', hreflang: 'x-default', href: 'https://www.kader.si/' }
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600;700;900&display=swap' }
       ],
       htmlAttrs: { lang: 'sl', class: 'dark' }
     }
   },
   routeRules: {
-    '/events': { redirect: { to: '/club', statusCode: 301 } }
+    '/events': { redirect: { to: '/club', statusCode: 301 } },
+    '/admin/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/api/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
   },
   css: ['~/assets/styles/main.css'],
   runtimeConfig: {

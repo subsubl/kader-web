@@ -1,40 +1,39 @@
-# Project Orchestration Plan: Kader i18n & Club/Events Consolidation
+# Execution Plan: Kader Full-Site Audit, SEO/GEO & Dual-Language Backend
 
-## Executive Objective
-Deliver full requirements from ORIGINAL_REQUEST.md:
-1. R1: Expand i18n to Polish (pl), Czech (cs), Spanish (es) across all ~938 leaf keys with 100% key parity, updating useLocale.ts, Header.vue, and nuxt.config.ts.
-2. R2: Merge /events into /club page, remove sound system & floors sections, retain culture/safety & door rules/FAQ, embed interactive events experience, update navigation & redirect.
-3. R3: Automated verification & build integrity (typecheck, build, 100% dictionary parity audit, club page rendering).
+## Phase 1: Exploration & Forensic Mapping (Milestone 5)
+- **Explorer 1 (UI, Components & Performance)**:
+  - Working directory: `/home/ator/Kader/.agents/explorer_audit_1`
+  - Scope: Inspect all public pages (`/`, `/pizzeria`, `/club`, `/buyouts`, `/shop`) and shared components (`Header.vue`, `Footer.vue`, modals, grids).
+  - Check for broken links, responsive layout glitches (mobile/tablet/desktop), spacing inconsistencies.
+  - Inspect asset loading, image lazy-loading attributes (`loading="lazy"`, `decoding="async"`), and font display (`font-display: swap`).
+  - Output: `/home/ator/Kader/.agents/explorer_audit_1/ui_performance_audit.md`
+- **Explorer 2 (SEO, Metadata & GEO Structured Data)**:
+  - Working directory: `/home/ator/Kader/.agents/explorer_audit_2`
+  - Scope: Audit current page title tags, meta descriptions, OpenGraph meta, Twitter cards, hreflang annotations, canonical URLs across all pages and `nuxt.config.ts`.
+  - Design complete Schema.org JSON-LD structured data for `Restaurant`, `NightClub`, `Event`, and `LocalBusiness` featuring exact GEO coordinates (`46.0494, 14.5367` for Grad Kodeljevo, Ljubljana, Slovenia).
+  - Output: `/home/ator/Kader/.agents/explorer_audit_2/seo_geo_schema_plan.md`
+- **Explorer 3 (Backend Dual-Language API Architecture)**:
+  - Working directory: `/home/ator/Kader/.agents/explorer_audit_3`
+  - Scope: Inspect all backend API endpoints (`src/server/api/inquiries.post.ts`, `src/server/api/table-orders.post.ts`, `src/server/api/menu-config.get.ts`, `src/server/api/events.get.ts`, `src/server/api/ra-events.get.ts`, etc.).
+  - Design query parameter (`?lang=sl|en`) and `Accept-Language` header resolution mechanism.
+  - Map out localized validation error messages, status responses, and notes in Slovenian (`sl`) and English (`en`).
+  - Output: `/home/ator/Kader/.agents/explorer_audit_3/backend_i18n_plan.md`
 
-## Phased Workflow & Milestones
+## Phase 2: Implementation (Milestone 6)
+- **Worker (Full Implementation)**:
+  - Working directory: `/home/ator/Kader/.agents/worker_audit_1`
+  - Implement UI fixes, broken link repairs, responsive layout polish.
+  - Implement SEO meta tags, OpenGraph, Twitter cards, canonicals, hreflang across all pages.
+  - Implement rich Schema.org JSON-LD structured data with GEO coordinates (46.0494, 14.5367).
+  - Implement backend localization helper and update API handlers (`inquiries.post.ts`, `table-orders.post.ts`, `menu-config.get.ts`, etc.) for dual-language sl & en responses.
+  - Optimize client asset loading, image lazy-loading, and font display.
+  - Run `npm run typecheck` and `npm run build`.
+  - Output: `/home/ator/Kader/.agents/worker_audit_1/implementation_report.md`
 
-### Phase 1: Exploration & Architecture Analysis (M1)
-- Dispatch Explorers to analyze:
-  - Exact key catalog of existing dictionaries (`sl`, `en`, `de`, `fr`, `it`, `sr`, `nl`) in `src/composables/useLocale.ts`.
-  - Structure and components in `src/pages/club.vue` and `src/pages/events.vue`.
-  - Navigation references in `Header.vue`, `Footer.vue`, and any router / middleware files.
-  - Test suites and build configuration.
-- Outcome: Structured analysis of leaf keys, dictionary extraction/generation strategy, and club page component integration strategy.
-
-### Phase 2: Implementation of R1 - i18n Expansion (M2)
-- Worker writes full translations for Polish (`pl`), Czech (`cs`), and Spanish (`es`) matching all leaf keys in `src/composables/useLocale.ts`.
-- Worker updates `SUPPORTED_LOCALES`, `Locale`, `localeLabels`, `dictionaries`, `flatDictionaries`.
-- Worker updates `src/components/Header.vue` (language dropdown, flags, labels) and `nuxt.config.ts` (`hreflang` alternate links).
-- Reviewers and Challengers verify key parity, translation completeness, and absence of hardcoded English/Slovenian fallbacks in new dictionaries.
-
-### Phase 3: Implementation of R2 - Merge /events into /club (M3)
-- Worker modifies `src/pages/club.vue`:
-  - Removes Sound System ("Klipsch La Scala") and Floors 01/02 sections.
-  - Retains Club Culture / Safety and Door Rules & FAQ sections.
-  - Embeds interactive Events features: Upcoming RA Events grid, detail modal with ticket purchase/Pretix integration, past events archive, category filters, calendar view.
-- Worker implements clean redirect from `/events` to `/club` (e.g., in `src/pages/events.vue` or route middleware) and updates navigation links in `Header.vue`, `Footer.vue`, and anywhere else linking to `/events`.
-- Reviewers and Challengers verify UI rendering, interaction flows, and routing.
-
-### Phase 4: Full Verification, Hardening & Audit (M4)
-- Worker / Tester runs:
-  - `npm run typecheck`
-  - `npm run build`
-  - Dictionary parity test script verifying all 10 locales have identical key sets.
-  - Headless/rendering test checking `/club` page sections and `/events` redirect.
-- Forensic Auditor (`teamwork_preview_auditor`) performs integrity check (no dummy translations, no hardcoded bypasses).
-- Final review gate and report to Sentinel.
+## Phase 3: Multi-Dimensional Verification & Integrity Audit (Milestone 7)
+- **Reviewer 1**: Code architecture, build integrity, SSR compliance, and performance verification.
+- **Reviewer 2**: Requirements verification (R1 UI fixes, R2 SEO & GEO JSON-LD, R3 backend dual-language, R4 performance).
+- **Challenger 1**: Adversarial API testing (query param `?lang=sl` vs `?lang=en`, Accept-Language header, fallback behavior, malformed payloads).
+- **Challenger 2**: Adversarial SEO & JSON-LD validation (schema syntax, GEO coordinates precision, required Schema.org fields, SSR head rendering).
+- **Forensic Auditor**: Authentic implementation verification, cheating checks, hardcoded response detection, facade checks.
+- Gate evaluation: 100% checks passing -> Report Victory to Sentinel.

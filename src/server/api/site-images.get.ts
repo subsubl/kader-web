@@ -2,8 +2,36 @@ import { defineEventHandler } from 'h3'
 import path from 'node:path'
 import { handleCachedJsonRequest } from '../utils/cache'
 import { readJson } from '../utils/fileStore'
+import { resolveApiLocale } from '../utils/locale'
 
 const CONFIG_FILE = path.resolve(process.cwd(), '.data/site_images.json')
+
+const GALLERY_TRANSLATIONS: Record<string, { sl: string; en: string }> = {
+  '/images/instagram/ig_img_7.jpg': {
+    sl: '🍕 Neapeljska Pica z Izbrano Rukolo',
+    en: '🍕 Neapolitan Pizza with Fresh Rocket'
+  },
+  '/images/instagram/ig_img_13.jpg': {
+    sl: '🥪 Panuozzo z Mortadelo & Burrato',
+    en: '🥪 Panuozzo with Mortadella & Burrata'
+  },
+  '/images/instagram/ig_img_5.jpg': {
+    sl: '🎉 Poletna Zabava na Terasi',
+    en: '🎉 Summer Party on the Castle Terrace'
+  },
+  '/images/instagram/ig_img_3.jpg': {
+    sl: '🎸 Koncert v Živo pod Grajskimi Drevesi',
+    en: '🎸 Live Concert under Castle Trees'
+  },
+  '/pizzeria-bg.jpg': {
+    sl: '🍷 Neapeljski Pica Bistro Ambient',
+    en: '🍷 Neapolitan Pizza Bistro Ambiance'
+  },
+  '/buyout-bg.jpg': {
+    sl: '🏰 Grajski Vrt Kodeljevo',
+    en: '🏰 Grad Kodeljevo Castle Garden'
+  }
+}
 
 export const defaultSiteImages = {
   home_hero_bg: '/hero-bg.jpg',
@@ -33,15 +61,36 @@ export const defaultSiteImages = {
   ]
 }
 
+function getLocalizedGallery(locale: 'sl' | 'en', items: Array<{ src: string; label: string }>) {
+  return items.map((item) => {
+    const trans = GALLERY_TRANSLATIONS[item.src]
+    return {
+      src: item.src,
+      label: trans ? trans[locale] : item.label
+    }
+  })
+}
+
 export default defineEventHandler(async (event) => {
+  const locale = resolveApiLocale(event)
+
+  const localizedDefault = {
+    ...defaultSiteImages,
+    gallery_items: getLocalizedGallery(locale, defaultSiteImages.gallery_items)
+  }
+
   return handleCachedJsonRequest(event, {
-    key: 'site-images',
+    key: `site-images:${locale}`,
     maxAge: 3600,
     staleWhileRevalidate: 86400,
     fetcher: async () => {
       const data = await readJson<Record<string, any>>(CONFIG_FILE, {})
-      return { ...defaultSiteImages, ...data }
+      const merged = { ...defaultSiteImages, ...data }
+      return {
+        ...merged,
+        gallery_items: getLocalizedGallery(locale, merged.gallery_items || defaultSiteImages.gallery_items)
+      }
     },
-    fallback: defaultSiteImages
+    fallback: localizedDefault
   })
 })

@@ -2,18 +2,19 @@
   <div class="min-h-screen bg-kader-black text-kader-cream">
 
     <!-- ===== Hero ===== -->
-    <section class="relative h-[70vh] min-h-[480px] flex items-end overflow-hidden">
+    <section class="relative h-[38vh] min-h-[280px] md:min-h-[340px] flex items-center overflow-hidden">
       <img
-        :src="getOptImg(siteImages.buyouts_hero_bg, 1920, 85)"
+        :src="getOptImg(siteImages.buyouts_hero_bg, 1920, 90)"
         :alt="t('buyouts.heroAlt')"
         fetchpriority="high"
-        class="absolute inset-0 w-full h-full object-cover opacity-45 filter contrast-110 saturate-90"
+        decoding="async"
+        class="absolute inset-0 w-full h-full object-cover object-[center_35%] scale-110 opacity-80 transition-transform duration-700"
       >
-      <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/60 to-transparent"></div>
-      <div class="relative z-10 max-w-6xl mx-auto px-4 pb-16 md:pb-20 w-full">
-        <p class="text-xs md:text-sm uppercase tracking-[0.35em] mb-4 text-kader-red font-semibold">{{ t('club.privateHire') }}</p>
-        <h1 class="text-5xl md:text-8xl font-black leading-[0.92] mb-6 uppercase">{{ t('buyouts.pageTitle') }}</h1>
-        <p class="text-lg md:text-2xl max-w-2xl text-kader-cream/80">{{ t('buyouts.pageDesc') }}</p>
+      <div class="absolute inset-0 bg-gradient-to-t from-kader-black via-kader-black/40 to-black/30"></div>
+      <div class="relative z-10 max-w-6xl mx-auto px-4 py-6 md:py-8 w-full">
+        <p class="text-xs md:text-sm uppercase tracking-[0.35em] mb-2 text-kader-red font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">{{ t('club.privateHire') }}</p>
+        <h1 class="text-4xl md:text-6xl font-black leading-tight mb-3 uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] [text-shadow:_0_4px_20px_rgb(0_0_0_/_90%)]">{{ t('buyouts.pageTitle') }}</h1>
+        <p class="text-sm md:text-lg max-w-2xl text-kader-cream/90 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">{{ t('buyouts.pageDesc') }}</p>
       </div>
     </section>
 
@@ -62,6 +63,8 @@
           <img
             :src="getOptImg(siteImages.buyouts_booking_bg, 1000, 80)"
             :alt="t('buyouts.bookingImgAlt')"
+            loading="lazy"
+            decoding="async"
             class="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-700"
           >
         </div>
@@ -172,7 +175,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_5.jpg', 600, 80)" :alt="t('buyouts.showcase1Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_5.jpg', 600, 80)" :alt="t('buyouts.showcase1Alt')" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase1Tag') }}</span>
@@ -182,7 +185,7 @@
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_7.jpg', 600, 80)" :alt="t('buyouts.showcase2Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_7.jpg', 600, 80)" :alt="t('buyouts.showcase2Alt')" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase2Tag') }}</span>
@@ -192,7 +195,7 @@
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_13.jpg', 600, 80)" :alt="t('buyouts.showcase3Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_13.jpg', 600, 80)" :alt="t('buyouts.showcase3Alt')" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase3Tag') }}</span>
@@ -202,7 +205,7 @@
           </div>
 
           <div class="relative overflow-hidden rounded-3xl border border-kader-red/20 group shadow-2xl h-80">
-            <img :src="getOptImg('/images/instagram/ig_img_3.jpg', 600, 80)" :alt="t('buyouts.showcase4Alt')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg('/images/instagram/ig_img_3.jpg', 600, 80)" :alt="t('buyouts.showcase4Alt')" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[10px] font-mono text-kader-red uppercase tracking-widest block mb-1">{{ t('buyouts.showcase4Tag') }}</span>
@@ -351,60 +354,98 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
+import { useLocale } from '~/composables/useLocale'
+import { useSiteImages } from '~/composables/useSiteImages'
+import { usePageSeo, EXACT_GEO, CANONICAL_ADDRESS, CANONICAL_CONTACTS } from '~/composables/usePageSeo'
 
 const { t, locale } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
 
 const venueSchema = computed(() => ({
   '@context': 'https://schema.org',
-  '@type': 'EventVenue',
-  '@id': 'https://www.kader.si/buyouts#venue',
-  'name': 'Kader Grad Kodeljevo — Najem Prostora',
-  'description': t('buyouts.pageDesc'),
-  'inLanguage': locale.value,
-  'url': 'https://www.kader.si/buyouts',
-  'address': {
-    '@type': 'PostalAddress',
-    'streetAddress': 'Kobalarjeva ulica 20',
-    'addressLocality': 'Ljubljana',
-    'postalCode': '1000',
-    'addressCountry': 'SI'
-  },
-  'geo': {
-    '@type': 'GeoCoordinates',
-    'latitude': 46.0515,
-    'longitude': 14.5361
-  },
-  'maximumAttendeeCapacity': 500,
-  'image': 'https://www.kader.si/logo-banner.png'
-}))
-
-useHead({
-  title: computed(() => t('seo.buyouts.title')),
-  link: [
-    { rel: 'canonical', href: 'https://www.kader.si/buyouts' }
-  ],
-  script: [
+  '@graph': [
     {
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify(venueSchema.value))
+      '@type': ['LocalBusiness', 'EventVenue'],
+      '@id': 'https://www.kader.si/buyouts#venue',
+      'name': 'Kader Grad Kodeljevo — Najem Prostora',
+      'alternateName': 'Dvorec Grad Kodeljevo — Prizorišče & Zasebni Najem',
+      'description': t('buyouts.pageDesc') || 'Zgodovinski baročni dvorec iz 17. stoletja z letnim vrtom, klubskim obokom in celovito gostinsko ter avdio ponudbo za poroke, poslovna srečanja in zasebne zabave v Ljubljani.',
+      'url': 'https://www.kader.si/buyouts',
+      'telephone': CANONICAL_CONTACTS.reservationsPhone,
+      'email': CANONICAL_CONTACTS.email,
+      'priceRange': '€€€',
+      'currenciesAccepted': 'EUR',
+      'paymentAccepted': 'Bank Transfer, Credit Card, Cash',
+      'address': CANONICAL_ADDRESS,
+      'geo': {
+        '@type': 'GeoCoordinates',
+        'latitude': EXACT_GEO.latitude,
+        'longitude': EXACT_GEO.longitude
+      },
+      'hasMap': CANONICAL_CONTACTS.googleMapsUrl,
+      'image': [
+        'https://www.kader.si/logo-banner.png',
+        'https://www.kader.si/buyout-bg.jpg',
+        'https://www.kader.si/hero-bg.jpg'
+      ],
+      'maximumAttendeeCapacity': 500,
+      'amenityFeature': [
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Historical Castle Architecture',
+          'value': '17th-century baroque manor (Codelli estate) and historic courtyard'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Castle Garden & Terrace',
+          'value': 'Expansive outdoor summer garden accommodating 100 to 300 guests'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Professional Audio & Stage',
+          'value': 'Audiophile Klipsch La Scala AL6 club sound system and CDJ-3000 / DJM-A9 setup'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'In-house Gourmet Catering',
+          'value': 'Neapolitan pizza oven, freshly baked Panuozzo sandwiches, charcuterie, and signature cocktail bar'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Dedicated Parking',
+          'value': 'Free on-site parking for event attendees'
+        },
+        {
+          '@type': 'LocationFeatureSpecification',
+          'name': 'Security & Wardrobe',
+          'value': 'Dedicated event security personnel and staffed cloakroom'
+        }
+      ],
+      'potentialAction': {
+        '@type': 'CommunicateAction',
+        'target': {
+          '@type': 'EntryPoint',
+          'urlTemplate': 'https://www.kader.si/buyouts#inquiry-form',
+          'inLanguage': locale.value,
+          'actionPlatform': [
+            'http://schema.org/DesktopWebPlatform',
+            'http://schema.org/MobileWebPlatform'
+          ]
+        },
+        'name': 'Oddaj povpraševanje za najem dvorca'
+      }
     }
   ]
-})
+}))
 
-useSeoMeta({
-  title: computed(() => t('seo.buyouts.title')),
-  description: computed(() => t('seo.buyouts.description')),
-  ogTitle: computed(() => t('seo.buyouts.ogTitle')),
-  ogDescription: computed(() => t('seo.buyouts.ogDescription')),
-  ogImage: 'https://www.kader.si/logo-banner.png',
-  ogUrl: 'https://www.kader.si/buyouts',
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: computed(() => t('seo.buyouts.ogTitle')),
-  twitterDescription: computed(() => t('seo.buyouts.ogDescription')),
-  twitterImage: 'https://www.kader.si/logo-banner.png'
+usePageSeo({
+  path: '/buyouts',
+  titleKey: 'seo.buyouts.title',
+  descKey: 'seo.buyouts.description',
+  ogTitleKey: 'seo.buyouts.ogTitle',
+  ogDescKey: 'seo.buyouts.ogDescription',
+  schema: venueSchema
 })
 
 const eventTypesList = [

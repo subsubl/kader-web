@@ -1,4 +1,5 @@
 import { H3Event, createError, getRequestHeader } from 'h3'
+import { resolveApiLocale, apiMessages } from './locale'
 
 interface RateLimitStore {
   count: number
@@ -50,9 +51,11 @@ export function checkRateLimit(
   record.count += 1
 
   if (record.count > options.limit) {
+    const locale = resolveApiLocale(event)
+    const msg = apiMessages[locale]?.common?.rateLimitExceeded || 'Too Many Requests: Please wait before trying again.'
     throw createError({
       statusCode: 429,
-      statusMessage: 'Too Many Requests: Please wait before trying again.'
+      statusMessage: msg
     })
   }
 }

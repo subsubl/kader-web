@@ -31,7 +31,7 @@
     >
       <div
         v-if="isOpen"
-        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3.5 bg-zinc-950/95 border border-masanielli-gold/40 rounded-2xl shadow-2xl z-50 text-left backdrop-blur-xl pointer-events-auto"
+        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 max-w-[calc(100vw-2rem)] p-3.5 bg-zinc-950/95 border border-masanielli-gold/40 rounded-2xl shadow-2xl z-50 text-left backdrop-blur-xl pointer-events-auto"
       >
         <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-2">
           <div class="flex items-center space-x-1.5">

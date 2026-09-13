@@ -1,27 +1,43 @@
-# Sentinel Handoff Report
+# Sentinel Handoff Report — Full-Site Audit & Backend Dual-Language Implementation
 
 ## Observation
-The user requested expanding Kader's multi-language internationalization system to support Polish (`pl`), Czech (`cs`), and Spanish (`es`) across all UI strings (~938 leaf keys) with 100% key parity, merging the `/events` page functionality directly into `/club`, simplifying venue sections (removing sound system and floor blueprint sections while preserving culture/safety and door rules/FAQ), updating navigation and 301 redirection, and ensuring typecheck and SSR build pass without errors.
-
-The Project Orchestrator was dispatched, coordinated four milestones (Exploration, i18n expansion, club page consolidation, and multi-agent audits), and claimed victory. Sentinel then dispatched an independent Victory Auditor with zero shared implementation context to conduct a rigorous 3-phase audit (timeline analysis, forensic cheating detection, and independent test suite execution).
+- The user requested a full-site audit and optimization across all pages (`/`, `/pizzeria`, `/club`, `/buyouts`) and shared components, rich Schema.org JSON-LD structured data with precise GEO coordinates (`46.0494, 14.5367` for Grad Kodeljevo, Ljubljana, Slovenia), backend dual-language (`sl` & `en`) support across API handlers (`/api/inquiries`, `/api/table-orders`, `/api/menu-config`, etc.), and performance/build verification.
+- Project Orchestrator (`77a5f91c-5a62-40ce-83f3-6c6a8a1de936`) orchestrated the full lifecycle:
+  - M5: Exploration & Mapping (UI/Performance, SEO/GEO Schema, Backend i18n).
+  - M6: Implementation of R1, R2, R3, R4 by specialized workers.
+  - M7: Multi-agent verification (Reviewer 1 APPROVED, Reviewer 2 APPROVED, Challenger 1 73/73 PASSED, Challenger 2 298/298 PASSED, Forensic Auditor CLEAN).
+  - Edge-case hardening: canonical address Koblarjeva ulica 34, RFC 9110 Accept-Language parameter whitespace trimming, integer guest count validation, 429 and image transform localization.
+- Upon victory claim, an independent Victory Auditor (`0464d86c-017a-46f2-813f-4a43bed9acec`) was dispatched.
 
 ## Logic Chain
-1. **User Request Intake**: Verbatim request captured in `/home/ator/Kader/.agents/ORIGINAL_REQUEST.md`.
-2. **Orchestration**: Orchestrator managed explorer agents, worker agents, reviewer agents, and challenger agents.
-3. **i18n Expansion (R1)**: `src/composables/useLocale.ts`, `nuxt.config.ts`, and `Header.vue` were expanded to include `pl`, `cs`, and `es`. 100% parity was achieved across all 938 leaf keys (9,380 total keys across 10 languages) with native translations and preserved parameter tokens.
-4. **Club & Events Consolidation (R2)**: `src/pages/club.vue` was refactored to remove sound system specs and floor blueprints, while embedding the full interactive events suite (upcoming events grid, countdown banner, category filters, detail modal with PretixWidget, and past archive). Dual-tier 301 redirection from `/events` to `/club` was established.
-5. **Mandatory Victory Audit (R3 & Sentinel Policy)**: Independent Victory Auditor executed `npm run typecheck`, `npm run build`, `scripts/verify_i18n_parity.mjs`, `scripts/verify_club_consolidation.mjs`, and live HTTP loopback tests on the Nitro SSR bundle. All tests passed with 0 errors. The Victory Auditor returned `VERDICT: VICTORY CONFIRMED`.
+1. User request was logged verbatim to `/home/ator/Kader/.agents/ORIGINAL_REQUEST.md`.
+2. Active monitoring crons tracked progress and liveness.
+3. Orchestration swarm executed requirements R1 through R4 with strict verification gates.
+4. Independent 3-phase Victory Audit independently executed:
+   - `npm run typecheck` -> 0 errors.
+   - `npm run build` -> Clean Nitro SSR compilation into `.output/server` (25.1 MB).
+   - Independent probe suite: 17/17 passed.
+   - Internationalization parity: 10/10 locales passed (938/938 keys per language, 100.0% parity).
+   - API dual-language verification: 22/22 passed.
+   - SEO & GEO schema validation: 14/14 passed.
+   - Adversarial SEO tests: 298/298 passed.
+   - Polish edge cases: 11/11 passed.
+5. Victory Auditor issued `VERDICT: VICTORY CONFIRMED`.
 
 ## Caveats
-- Production deployments will automatically respect the Nitro route rule 301 redirect from `/events` to `/club`.
-- Static site generators (if switched from SSR) should ensure the `pages/events.vue` redirect stub is preserved.
+- Runtime deployment requires environment variables (e.g. Supabase, Resend, Turnstile) configured per `.env.example` if connecting to live third-party services in production.
+- Client browsers will utilize the language preference via query param (`?lang=sl|en`) or `Accept-Language` headers, defaulting gracefully to Slovenian (`sl`).
 
 ## Conclusion
-All requirements and acceptance criteria have been fully met, empirically verified, and independently audited. Project execution is complete with confirmed victory.
+- All acceptance criteria are satisfied with zero regressions and zero compromises.
+- Project lifecycle successfully concluded with independent verification.
 
 ## Verification Method
-- `npm run typecheck`: Passed with 0 errors.
-- `npm run build`: Compiled production Nitro SSR server bundle cleanly (`.output/server/index.mjs`).
-- `node scripts/verify_i18n_parity.mjs`: 100.0% key parity across all 10 locales (938 leaf keys, 0 missing, 0 empty).
-- `node scripts/verify_club_consolidation.mjs`: 17/17 checks passed for venue simplification and events embedding.
-- Live HTTP SSR curl test: `GET /events` returned HTTP 301 to `/club`; `GET /club` returned HTTP 200 with full events and culture content.
+- `npm run typecheck` (passed, 0 errors).
+- `npm run build` (passed, compiled to `.output/server`).
+- `node scripts/verify_api_i18n.mjs` (passed, 22/22).
+- `node scripts/verify_seo_geo_schema.mjs` (passed, 14/14).
+- `node scripts/verify_i18n_parity.mjs` (passed, 10/10 locales, 938 keys/locale).
+- `node scripts/test_polish_edge_cases.mjs` (passed, 11/11).
+- `node .agents/challenger_audit_2/test_adversarial_seo.mjs` (passed, 298/298).
+- `node scripts/independent_audit_probe_v2.mjs` (passed, 17/17).

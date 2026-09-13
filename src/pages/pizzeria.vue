@@ -10,6 +10,7 @@
         :src="getOptImg(siteImages.pizzeria_hero_bg, 1920, 85)" 
         :alt="t('pizzeria.heroAlt')" 
         fetchpriority="high"
+        decoding="async"
         class="absolute inset-0 w-full h-full object-cover opacity-15 filter contrast-125 saturate-75 scale-105 transform transition-transform duration-1000" 
       />
       <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/95 to-white z-10"></div>
@@ -69,7 +70,7 @@
         <div class="mt-8 bg-red-50/90 border border-red-200 backdrop-blur-md px-6 py-3.5 rounded-2xl flex flex-col sm:flex-row gap-3 sm:gap-6 items-center text-xs font-medium text-gray-800 shadow-sm">
           <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-red-600 transition-colors">
             <MapPinIcon class="w-4 h-4 text-red-600 mr-2 flex-shrink-0" />
-            <span>Ulica Carla Benza 20, 1000 Ljubljana</span>
+            <span>Koblarjeva ulica 34, 1000 Ljubljana</span>
           </a>
           <span class="hidden sm:inline text-red-300">|</span>
           <a href="tel:+38683836740" class="flex items-center hover:text-red-600 transition-colors font-bold text-gray-900">
@@ -261,7 +262,7 @@
                 <div class="p-4 border-2 border-red-600 rounded-2xl bg-white flex items-center justify-between gap-3 shadow-sm">
                   <div class="flex items-center space-x-3">
                     <div class="w-14 h-14 bg-red-50 p-1 border border-red-200 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <img src="/logo-badge.png" :alt="t('pizzeria.qrAlt')" class="w-12 h-12 object-contain" />
+                      <img src="/logo-badge.png" :alt="t('pizzeria.qrAlt')" loading="lazy" decoding="async" width="48" height="48" class="w-12 h-12 object-contain" />
                     </div>
                     <div class="text-xs">
                       <p class="text-gray-800 leading-snug font-medium mb-1">
@@ -338,21 +339,17 @@
             </div>
           </div>
           <div class="flex flex-wrap gap-2 text-[10px] font-mono">
-            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
-              🍅 SAN MARZANO D.O.P.
-            </span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
-              🐃 BUFALA CAMPANA D.O.P.
-            </span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
-              🥓 MORTADELLA I.G.P.
-            </span>
-            <span class="px-2.5 py-1 rounded-lg bg-white/20 border border-white/40 text-white font-bold">
-              🌿 BIO EXTRA VERGINE
-            </span>
+            <ProvenanceBadge badge-key="san-marzano" />
+            <ProvenanceBadge badge-key="bufala" />
+            <ProvenanceBadge badge-key="mortadella" />
+            <ProvenanceBadge badge-key="olio-bio" />
+            <ProvenanceBadge badge-key="ferment-48h" />
           </div>
         </div>
       </div>
+
+      <!-- ===== INTERACTIVE CRAFT HUD ===== -->
+      <PizzeriaCraft class="my-16" />
 
       <!-- ===== "ZAČUTITE OBRT" / PHILOSOPHY CARDS (I Masanielli Style) ===== -->
       <section class="mb-20">
@@ -419,16 +416,16 @@
         <!-- Real Instagram Food Showcase Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           <div class="relative overflow-hidden rounded-3xl border-2 border-red-100 group shadow-xl">
-            <img :src="getOptImg(siteImages.pizzeria_showcase_1, 800, 80)" :alt="t('pizzeria.showcase1Alt')" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg(siteImages.pizzeria_showcase_1, 800, 80)" :alt="t('pizzeria.showcase1Alt')" loading="lazy" decoding="async" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[11px] font-mono text-red-400 font-bold uppercase tracking-widest block mb-1">{{ t('pizzeria.freshFromOven') }}</span>
-                <h4 class="text-xl font-serif font-bold text-white uppercase">{{ t('pizzeria.pizzaShowcaseTitle') }}</h4>
+                <p class="text-sm font-serif font-black text-white uppercase tracking-wider">{{ t('pizzeria.handCrafted') }}</p>
               </div>
             </div>
           </div>
           <div class="relative overflow-hidden rounded-3xl border-2 border-red-100 group shadow-xl">
-            <img :src="getOptImg(siteImages.pizzeria_showcase_2, 800, 80)" :alt="t('pizzeria.showcase2Alt')" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+            <img :src="getOptImg(siteImages.pizzeria_showcase_2, 800, 80)" :alt="t('pizzeria.showcase2Alt')" loading="lazy" decoding="async" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex items-end p-6">
               <div>
                 <span class="text-[11px] font-mono text-red-400 font-bold uppercase tracking-widest block mb-1">{{ t('pizzeria.houseSpecialty') }}</span>
@@ -451,7 +448,7 @@
             <h4 class="font-serif font-bold text-gray-900 text-lg uppercase mb-2">{{ t('pizzeria.colLocTitle') }}</h4>
             <p class="text-xs text-gray-500 leading-relaxed">
               Grad Kodeljevo<br />
-              <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="text-red-600 hover:underline font-medium">Ulica Carla Benza 20</a><br />
+              <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" class="text-red-600 hover:underline font-medium">Koblarjeva ulica 34</a><br />
               1000 Ljubljana, Slovenija
             </p>
           </div>
@@ -571,17 +568,6 @@
       <div class="menu-stripe-border" aria-hidden="true"></div>
     </div><!-- end pizzeria white section -->
 
-    <!-- Lightbox Modal for Menu Image -->
-    <Teleport to="body">
-      <div 
-        v-if="zoomOpen" 
-        class="fixed inset-0 z-[100] bg-black bg-opacity-95 flex items-center justify-center p-4 cursor-zoom-out"
-        @click="zoomOpen = false"
-      >
-        <img :src="menuImageUrl" :alt="t('pizzeria.zoomedAlt')" class="max-w-full max-h-full object-contain rounded-2xl border border-zinc-800">
-      </div>
-    </Teleport>
-
     <!-- Table Reservation & Takeaway Modal Instance -->
     <ReservationModal
       :is-open="isModalOpen"
@@ -595,68 +581,139 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { PhoneIcon, CalendarDaysIcon, MapPinIcon } from '@heroicons/vue/24/outline'
+import { useLocale } from '~/composables/useLocale'
+import { useSiteImages } from '~/composables/useSiteImages'
+import { useReservationModal } from '~/composables/useReservationModal'
+import { usePageSeo, EXACT_GEO, CANONICAL_ADDRESS, CANONICAL_CONTACTS } from '~/composables/usePageSeo'
 
 const { t, locale } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
 
 const pizzeriaSchema = computed(() => ({
   '@context': 'https://schema.org',
-  '@type': 'PizzaRestaurant',
-  '@id': 'https://www.kader.si/pizzeria#restaurant',
-  'name': 'Pizzeria Bistro Kader Grad Kodeljevo',
-  'description': t('pizzeria.manifesto'),
-  'inLanguage': locale.value,
-  'url': 'https://www.kader.si/pizzeria',
-  'telephone': '+38683836740',
-  'priceRange': '$$',
-  'servesCuisine': ['Neapolitan Pizza', 'Italian', 'Panuozzo', 'Salads'],
-  'address': {
-    '@type': 'PostalAddress',
-    'streetAddress': 'Kobalarjeva ulica 20',
-    'addressLocality': 'Ljubljana',
-    'postalCode': '1000',
-    'addressCountry': 'SI'
-  },
-  'geo': {
-    '@type': 'GeoCoordinates',
-    'latitude': 46.0515,
-    'longitude': 14.5361
-  },
-  'hasMenu': 'https://www.kader.si/pizzeria',
-  'image': 'https://www.kader.si/logo-banner.png'
-}))
-
-useHead({
-  title: computed(() => t('seo.pizzeria.title')),
-  link: [
-    { rel: 'canonical', href: 'https://www.kader.si/pizzeria' }
-  ],
-  script: [
+  '@graph': [
     {
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify(pizzeriaSchema.value))
+      '@type': ['Restaurant', 'PizzaRestaurant'],
+      '@id': 'https://www.kader.si/pizzeria#restaurant',
+      'name': 'Pizzeria Bistro Kader',
+      'alternateName': 'Kader Pizza Bistro Grad Kodeljevo',
+      'description': t('pizzeria.manifesto') || 'Pristna neapeljska pica z 48-urno fermentacijo testa, San Marzano D.O.P., mocarela di bufala in domači Panuozzo sendviči v ambientu Gradu Kodeljevo.',
+      'url': 'https://www.kader.si/pizzeria',
+      'telephone': CANONICAL_CONTACTS.takeawayPhone,
+      'priceRange': '€€',
+      'servesCuisine': [
+        'Neapolitan Pizza',
+        'Italian',
+        'Panuozzo',
+        'Mediterranean',
+        'Salads'
+      ],
+      'currenciesAccepted': 'EUR',
+      'paymentAccepted': 'Cash, Credit Card, Debit Card, Contactless, Apple Pay, Google Pay',
+      'acceptsReservations': true,
+      'address': CANONICAL_ADDRESS,
+      'geo': {
+        '@type': 'GeoCoordinates',
+        'latitude': EXACT_GEO.latitude,
+        'longitude': EXACT_GEO.longitude
+      },
+      'hasMap': CANONICAL_CONTACTS.googleMapsUrl,
+      'image': [
+        'https://www.kader.si/logo-banner.png',
+        'https://www.kader.si/pizzeria-bg.jpg',
+        'https://www.kader.si/menu-a3.jpg'
+      ],
+      'hasMenu': 'https://www.kader.si/pizzeria',
+      'menu': 'https://www.kader.si/pizzeria',
+      'openingHoursSpecification': [
+        {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          'opens': '12:00',
+          'closes': '22:00',
+          'description': 'Kuhinja / Pizzeria obratovalni čas'
+        },
+        {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday'],
+          'opens': '09:00',
+          'closes': '22:00',
+          'description': 'Bistro & Kavarna bar'
+        },
+        {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Thursday', 'Saturday'],
+          'opens': '09:00',
+          'closes': '01:00',
+          'description': 'Bistro & Nočni bar'
+        },
+        {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Friday'],
+          'opens': '09:00',
+          'closes': '05:00',
+          'description': 'Bistro & Klubska noč'
+        },
+        {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': ['Sunday'],
+          'opens': '09:00',
+          'closes': '20:00',
+          'description': 'Nedeljski grajski vrt'
+        }
+      ],
+      'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': '4.8',
+        'reviewCount': '120',
+        'bestRating': '5',
+        'worstRating': '1'
+      },
+      'potentialAction': [
+        {
+          '@type': 'ReserveAction',
+          'target': {
+            '@type': 'EntryPoint',
+            'urlTemplate': 'tel:+38640175628',
+            'inLanguage': locale.value,
+            'actionPlatform': [
+              'http://schema.org/DesktopWebPlatform',
+              'http://schema.org/MobileWebPlatform'
+            ]
+          },
+          'result': {
+            '@type': 'FoodEstablishmentReservation',
+            'name': 'Rezervacija mize'
+          }
+        },
+        {
+          '@type': 'OrderAction',
+          'target': {
+            '@type': 'EntryPoint',
+            'urlTemplate': 'tel:+38683836740',
+            'inLanguage': locale.value,
+            'actionPlatform': [
+              'http://schema.org/DesktopWebPlatform',
+              'http://schema.org/MobileWebPlatform'
+            ]
+          },
+          'deliveryMethod': 'http://purl.org/goodrelations/v1#DeliveryModePickUp'
+        }
+      ]
     }
   ]
+}))
+
+usePageSeo({
+  path: '/pizzeria',
+  titleKey: 'seo.pizzeria.title',
+  descKey: 'seo.pizzeria.description',
+  ogTitleKey: 'seo.pizzeria.ogTitle',
+  ogDescKey: 'seo.pizzeria.ogDescription',
+  schema: pizzeriaSchema
 })
 
-useSeoMeta({
-  title: computed(() => t('seo.pizzeria.title')),
-  description: computed(() => t('seo.pizzeria.description')),
-  ogTitle: computed(() => t('seo.pizzeria.ogTitle')),
-  ogDescription: computed(() => t('seo.pizzeria.ogDescription')),
-  ogImage: 'https://www.kader.si/logo-banner.png',
-  ogUrl: 'https://www.kader.si/pizzeria',
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: computed(() => t('seo.pizzeria.ogTitle')),
-  twitterDescription: computed(() => t('seo.pizzeria.ogDescription')),
-  twitterImage: 'https://www.kader.si/logo-banner.png'
-})
-
-const activeView = ref<'digital' | 'printed'>('digital')
-const activeCategory = ref('all')
 const menuImageUrl = ref('/kader/menu.jpg')
-const zoomOpen = ref(false)
 
 const { isModalOpen, modalTab, selectedItem, openReservation, closeReservation } = useReservationModal()
 
@@ -724,14 +781,6 @@ interface MenuItem {
   price: string
   allergens?: string
 }
-
-const navCategories = computed(() => [
-  { id: 'all', name: t('pizzeria.catAll'), icon: '🍽️' },
-  { id: 'pizza', name: t('pizzeria.catPizza'), icon: '🍕' },
-  { id: 'panuozzo', name: t('pizzeria.catPanuozzo'), icon: '🥪' },
-  { id: 'narezek', name: t('pizzeria.catNarezek'), icon: '🥩' },
-  { id: 'solate', name: t('pizzeria.catSalads'), icon: '🥗' }
-])
 
 // Column 1 Pizze (Items 1 to 13)
 const col1Pizze = computed<MenuItem[]>(() => [

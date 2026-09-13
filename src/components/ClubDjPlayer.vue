@@ -32,7 +32,7 @@
           <button
             type="button"
             @click="prevTrack"
-            class="p-1.5 text-kader-cream/60 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+            class="min-w-[44px] min-h-[44px] flex items-center justify-center text-kader-cream/60 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
             :title="t('player.prevTrack')"
             :aria-label="t('player.prevTrack')"
           >
@@ -41,7 +41,7 @@
           <button
             type="button"
             @click="nextTrack"
-            class="p-1.5 text-kader-cream/60 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+            class="min-w-[44px] min-h-[44px] flex items-center justify-center text-kader-cream/60 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
             :title="t('player.nextTrack')"
             :aria-label="t('player.nextTrack')"
           >
@@ -58,7 +58,7 @@
           <button
             type="button"
             @click="togglePlay"
-            class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-kader-red hover:bg-red-600 text-white flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(237,34,36,0.6)] active:scale-95 transition-all cursor-pointer"
+            class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-kader-red hover:bg-red-600 text-white flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(237,34,36,0.6)] active:scale-95 transition-all cursor-pointer"
             :title="isPlaying ? t('player.pause') : t('player.play')"
             :aria-label="isPlaying ? t('player.pause') : t('player.play')"
           >
@@ -105,7 +105,7 @@
           <button
             type="button"
             @click="toggleMute"
-            class="p-1.5 text-kader-cream/70 hover:text-white rounded transition-colors cursor-pointer"
+            class="min-w-[44px] min-h-[44px] flex items-center justify-center text-kader-cream/70 hover:text-white rounded transition-colors cursor-pointer"
             :title="isMuted ? t('player.unmute') : t('player.mute')"
             :aria-label="isMuted ? t('player.unmute') : t('player.mute')"
           >
@@ -182,19 +182,40 @@ const waveformBars = ref<number[]>(Array(18).fill(15))
 const animTick = ref(0)
 let animFrameId: number | null = null
 
-const updateWaveform = () => {
-  animTick.value++
-  if (isPlaying.value) {
+const startWaveformAnimation = () => {
+  if (animFrameId !== null) return
+  const loop = () => {
+    if (!isPlaying.value) {
+      animFrameId = null
+      waveformBars.value = Array(18).fill(15)
+      return
+    }
+    animTick.value++
     waveformBars.value = waveformBars.value.map((_, i) => {
       const base = 25 + ((i % 4) * 18)
       const dynamic = Math.sin(animTick.value * 0.18 + i * 0.5) * 35 + Math.random() * 25
       return Math.min(100, Math.max(15, Math.floor(base + dynamic)))
     })
-  } else {
-    waveformBars.value = waveformBars.value.map(val => Math.max(12, val * 0.9))
+    animFrameId = requestAnimationFrame(loop)
   }
-  animFrameId = requestAnimationFrame(updateWaveform)
+  animFrameId = requestAnimationFrame(loop)
 }
+
+const stopWaveformAnimation = () => {
+  if (animFrameId !== null) {
+    cancelAnimationFrame(animFrameId)
+    animFrameId = null
+  }
+  waveformBars.value = Array(18).fill(15)
+}
+
+watch(isPlaying, (playing) => {
+  if (playing) {
+    startWaveformAnimation()
+  } else {
+    stopWaveformAnimation()
+  }
+})
 
 const togglePlay = async () => {
   if (!audioEl.value) return
@@ -286,13 +307,15 @@ const formatTime = (secs: number) => {
 }
 
 onMounted(() => {
-  animFrameId = requestAnimationFrame(updateWaveform)
+  if (isPlaying.value) {
+    startWaveformAnimation()
+  }
   if (audioEl.value) {
     audioEl.value.volume = volume.value
   }
 })
 
 onBeforeUnmount(() => {
-  if (animFrameId) cancelAnimationFrame(animFrameId)
+  stopWaveformAnimation()
 })
 </script>

@@ -5,7 +5,7 @@
         <div>
           <div class="flex items-center space-x-3 mb-4">
             <img 
-              src="/logo-badge.png" 
+              :src="assetUrl('/logo-badge.png')"
               :alt="t('footer.logoAlt')" 
               loading="lazy" 
               decoding="async" 

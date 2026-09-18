@@ -62,13 +62,15 @@ export function usePageSeo(options: PageSeoOptions) {
 
   // Build 10 localized hreflang tags + x-default for the current route
   const hreflangLinks = computed(() => {
-    const links: Array<{ rel: string; hreflang: string; href: string }> = SUPPORTED_LOCALES.map((loc) => ({
+    const links: Array<{ rel: 'alternate'; hreflang: string; href: string; type: string }> = SUPPORTED_LOCALES.map((loc) => ({
       rel: 'alternate',
+      type: 'text/html',
       hreflang: loc,
       href: `${canonicalUrl}?lang=${loc}`
     }))
     links.push({
       rel: 'alternate',
+      type: 'text/html',
       hreflang: 'x-default',
       href: canonicalUrl
     })

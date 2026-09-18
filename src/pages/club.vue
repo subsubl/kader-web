@@ -3,7 +3,7 @@
     <!-- ===== Immersive Hero (distinct from rest of site) ===== -->
     <section class="relative h-[38vh] min-h-[280px] md:min-h-[340px] flex items-center overflow-hidden">
       <img
-        :src="siteImages.club_hero_bg || '/images/club-red-hero.jpg'"
+        :src="assetUrl(siteImages.club_hero_bg || '/images/club-red-hero.jpg')"
         :alt="t('club.heroAlt')"
         fetchpriority="high"
         decoding="async"
@@ -451,12 +451,6 @@
               <p class="text-sm text-zinc-300 font-mono leading-relaxed whitespace-pre-line">{{ cleanLineup(selectedEvent.lineup) }}</p>
             </div>
 
-            <!-- Pretix ticketing widget integration -->
-            <div v-if="!isPastEvent(selectedEvent) && (selectedEvent.ticket_provider === 'pretix' || selectedEvent.pretix_event_url)" class="bg-kader-cream/5 border border-kader-cream/10 p-4 rounded-2xl">
-              <h4 class="text-xs font-bold text-kader-cream/40 uppercase tracking-wider mb-3">{{ t('events.ticketsHeading') }}</h4>
-              <PretixWidget :event="selectedEvent.pretix_event_url || selectedEvent.ticket_url || ''" />
-            </div>
-
             <!-- Upcoming ticket action footer -->
             <div v-if="!isPastEvent(selectedEvent)" class="pt-4 border-t border-kader-cream/10 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
@@ -498,6 +492,7 @@
 </template>
 
 <script setup lang="ts">
+import eventSnapshot from '~/data/events.json'
 import { ref, reactive, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useLocale } from '~/composables/useLocale'
 import { useSiteImages } from '~/composables/useSiteImages'
@@ -552,53 +547,9 @@ const clubEvents = computed(() =>
   })
 )
 
-// Fallback curated lineup if RA sync is empty or loading fails
-const curatedEvents: ClubEvent[] = [
-  {
-    ra_id: 101,
-    title: 'Kader Vault: Hypnotic Techno Night',
-    date: new Date(Date.now() + 2 * 86400000 + 5 * 3600000).toISOString(),
-    start_time: '23:00',
-    end_time: '06:00',
-    flyer_url: '/images/instagram/ig_img_3.jpg',
-    ra_url: 'https://ra.co/clubs/78778',
-    cost: 12,
-    artists: ['Vault Resident', 'Berlin Guest Live', 'Sub-Acoustic'],
-    genres: ['Techno', 'Hypnotic', 'Live'],
-    ticket_provider: 'pretix',
-    pretix_event_url: 'https://pretix.eu/kader/vault-01'
-  },
-  {
-    ra_id: 102,
-    title: 'Klipsch Sound System Night: Low-End Theory',
-    date: new Date(Date.now() + 8 * 86400000 + 4 * 3600000).toISOString(),
-    start_time: '23:00',
-    end_time: '06:00',
-    flyer_url: '/images/instagram/ig_img_5.jpg',
-    ra_url: 'https://ra.co/clubs/78778',
-    cost: 10,
-    artists: ['Analog Drift', 'Modular Ritual', 'Kader Crew'],
-    genres: ['Industrial', 'Minimal', 'Electro'],
-    ticket_provider: 'olaii',
-    ticket_url: 'https://olaii.com'
-  },
-  {
-    ra_id: 103,
-    title: 'Castle Nightfall: Ambient & Deep Electronics',
-    date: new Date(Date.now() + 15 * 86400000 + 3 * 3600000).toISOString(),
-    start_time: '22:00',
-    end_time: '04:00',
-    flyer_url: '/images/instagram/ig_img_1.jpg',
-    ra_url: 'https://ra.co/clubs/78778',
-    cost: 0,
-    artists: ['Dub Techno Collective', 'Castle Acoustic Ensemble'],
-    genres: ['Dub Techno', 'Deep', 'Ambient'],
-    ticket_provider: 'free'
-  }
-]
-
+// Only the checked-in RA snapshot is displayed. No invented fallback events.
 const displayEvents = computed<ClubEvent[]>(() => {
-  let list = (events.value && events.value.length > 0) ? events.value : curatedEvents
+  let list = events.value
   if (activeCategory.value !== 'all') {
     list = list.filter(e => {
       const g = (e.genres || []).join(' ').toLowerCase()
@@ -878,7 +829,7 @@ const loadClubEvents = async () => {
   loading.value = true
   loadError.value = ''
   try {
-    const data = (await $fetch('/api/ra-events?scope=upcoming')) as ClubEvent[]
+    const data = eventSnapshot.events.filter(e => new Date(e.end_time || e.date).getTime() >= Date.now())
     events.value = (data || []).map(normalizeEvent)
   } catch (err: any) {
     console.error('Failed to load club events:', err)
@@ -891,7 +842,7 @@ const loadClubEvents = async () => {
 const loadPastEvents = async () => {
   pastLoading.value = true
   try {
-    const data = (await $fetch('/api/ra-events?scope=past')) as ClubEvent[]
+    const data = eventSnapshot.events.filter(e => new Date(e.end_time || e.date).getTime() < Date.now())
     pastEvents.value = (data || []).map(normalizeEvent)
   } catch (err: any) {
     console.error('Failed to load past RA events:', err)

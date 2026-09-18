@@ -249,7 +249,7 @@ const BADGE_REGISTRY: Record<string, BadgeDef> = {
 
 const badgeInfo = computed<BadgeDef>(() => {
   const normKey = props.badgeKey.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '')
-  let baseDef: BadgeDef
+  let baseDef: BadgeDef | undefined
   if (BADGE_REGISTRY[normKey]) baseDef = BADGE_REGISTRY[normKey]
   else if (normKey.includes('marzano')) baseDef = BADGE_REGISTRY['san-marzano']
   else if (normKey.includes('bufala')) baseDef = BADGE_REGISTRY['bufala']
@@ -275,6 +275,7 @@ const badgeInfo = computed<BadgeDef>(() => {
     }
   }
 
+  if (!baseDef) throw new Error('Missing provenance badge definition')
   const k = baseDef.key
   const transShort = t(`provenance.badges.${k}.shortName`)
   const transTitle = t(`provenance.badges.${k}.title`)

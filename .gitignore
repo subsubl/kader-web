@@ -7,6 +7,10 @@ dist/
 actionlint
 test-results/
 playwright-report/
-data/
+/data/
 .data/
-config/private.key
+.env.*
+!.env.example
+
+# build/output dir doesn't belong in repo
+dist

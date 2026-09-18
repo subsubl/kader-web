@@ -201,10 +201,12 @@ const onBackdropClick = (e: MouseEvent) => {
 let touchStartX = 0
 let touchStartY = 0
 const onTouchStart = (e: TouchEvent) => {
+  if (!e.changedTouches[0]) return
   touchStartX = e.changedTouches[0].clientX
   touchStartY = e.changedTouches[0].clientY
 }
 const onTouchEnd = (e: TouchEvent) => {
+  if (!e.changedTouches[0]) return
   const deltaX = e.changedTouches[0].clientX - touchStartX
   const deltaY = e.changedTouches[0].clientY - touchStartY
   if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {

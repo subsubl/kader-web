@@ -223,9 +223,9 @@
           <h2 class="text-3xl md:text-5xl font-black text-center mb-10 uppercase">{{ t('buyouts.getInTouch') }}</h2>
 
           <!-- Success state -->
-          <div v-if="submitState === 'success'" class="bg-kader-red/10 border border-kader-red/40 rounded-3xl p-10 text-center">
-            <h3 class="text-2xl font-black mb-3">{{ t('buyouts.inquiryReceived') }}</h3>
-            <p class="text-kader-cream/70 mb-6">{{ t('buyouts.thankYou', { name: inquiryForm.name.split(' ')[0] }) }}</p>
+          <div v-if="emailDraftOpened" class="bg-kader-red/10 border border-kader-red/40 rounded-3xl p-10 text-center">
+            <h3 class="text-2xl font-black mb-3">{{ locale === 'sl' ? 'Pošljite e-pošto' : 'Send your email' }}</h3>
+            <p class="text-kader-cream/70 mb-6">{{ locale === 'sl' ? 'Odprite e-poštni program in pošljite osnutek na info@kader.si. Spletna stran povpraševanja ni poslala.' : 'Send the draft in your email app to info@kader.si. This website has not sent your enquiry.' }}</p>
             <button @click="resetForm" class="px-6 py-2.5 border border-kader-red text-kader-cream hover:bg-kader-red rounded-xl font-bold text-sm uppercase tracking-wider transition-colors">
               {{ t('buyouts.sendAnother') }}
             </button>
@@ -343,7 +343,7 @@
             </div>
 
             <button type="submit" :disabled="submitting" class="w-full py-4 bg-kader-red hover:bg-kader-cream hover:text-kader-black disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black text-sm uppercase tracking-widest transition-all duration-300">
-              {{ submitting ? t('buyouts.submitting') : t('buyouts.submit') }}
+              {{ locale === 'sl' ? 'Pripravi e-pošto' : 'Prepare email' }}
             </button>
           </form>
         </div>
@@ -482,6 +482,7 @@ const fieldErrors = reactive<Record<string, string>>({})
 const submitState = ref<'idle' | 'success' | 'error'>('idle')
 const submitError = ref('')
 const submitting = ref(false)
+const emailDraftOpened = ref(false)
 
 const todayString = new Date().toISOString().slice(0, 10)
 
@@ -521,34 +522,14 @@ const submitInquiry = async () => {
   submitState.value = 'idle'
   if (!validate()) return
 
-  submitting.value = true
-  try {
-    const res = (await $fetch('/api/inquiries', {
-      method: 'POST',
-      body: { ...inquiryForm }
-    })) as { ok?: boolean; id?: string }
-    if (res?.ok) {
-      submitState.value = 'success'
-    } else {
-      submitError.value = t('buyouts.errGeneric')
-      submitState.value = 'error'
-    }
-  } catch (err: any) {
-    if (err?.statusCode === 422 && err?.data?.errors) {
-      Object.keys(fieldErrors).forEach(k => delete fieldErrors[k])
-      Object.assign(fieldErrors, err.data.errors)
-      submitError.value = t('buyouts.errFixFields')
-      submitState.value = 'error'
-    } else {
-      submitError.value = err?.data?.statusMessage || err?.statusMessage || t('buyouts.errNetwork')
-      submitState.value = 'error'
-    }
-  } finally {
-    submitting.value = false
-  }
+  const body = Object.entries(inquiryForm).map(([key, value]) => `${key}: ${value}`).join('\n')
+  window.location.href = `mailto:info@kader.si?subject=${encodeURIComponent('Kader — ' + inquiryForm.eventType)}&body=${encodeURIComponent(body)}`
+  // Opening an email draft is not a confirmed submission.
+  emailDraftOpened.value = true
 }
 
 const resetForm = () => {
+  emailDraftOpened.value = false
   inquiryForm.name = ''
   inquiryForm.email = ''
   inquiryForm.phone = ''

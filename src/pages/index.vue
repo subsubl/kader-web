@@ -262,7 +262,7 @@
                 <div class="p-4 border-2 border-red-600 rounded-2xl bg-white flex items-center justify-between gap-3 shadow-sm">
                   <div class="flex items-center space-x-3">
                     <div class="w-14 h-14 bg-red-50 p-1 border border-red-200 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <img src="/logo-badge.png" :alt="t('pizzeria.qrAlt')" loading="lazy" decoding="async" width="48" height="48" class="w-12 h-12 object-contain" />
+                      <img :src="assetUrl('/logo-badge.png')" :alt="t('pizzeria.qrAlt')" loading="lazy" decoding="async" width="48" height="48" class="w-12 h-12 object-contain" />
                     </div>
                     <div class="text-xs">
                       <p class="text-gray-800 leading-snug font-medium mb-1">
@@ -713,7 +713,7 @@ usePageSeo({
   schema: pizzeriaSchema
 })
 
-const menuImageUrl = ref('/kader/menu.jpg')
+const menuImageUrl = computed(() => assetUrl('/kader/menu.jpg'))
 
 const { isModalOpen, modalTab, selectedItem, openReservation, closeReservation } = useReservationModal()
 
@@ -764,16 +764,7 @@ const googleReviews = computed(() => [
   }
 ])
 
-const loadMenuConfig = async () => {
-  try {
-    const cfg = await $fetch('/api/menu-config') as { menuImage?: string }
-    if (cfg?.menuImage) menuImageUrl.value = cfg.menuImage
-  } catch (err) {
-    // fallback to local /kader/menu.jpg
-  }
-}
-
-onMounted(loadMenuConfig)
+// Menu is a checked-in static image; no runtime API is required.
 
 interface MenuItem {
   name: string

@@ -1,34 +1,28 @@
 {
-  "name": "kader-grad-kodeljevo",
+  "name": "kader-web",
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": { "node": ">=22.19.0" },
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
+    "build": "nuxt generate",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
-    "test:e2e": "playwright test",
-    "create-admin": "node scripts/create-admin.mjs",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "node scripts/test-static.mjs"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
-    "@supabase/supabase-js": "^2.116.0",
     "@vueuse/nuxt": "^14.4.0",
-    "dayjs": "^1.11.23",
-    "nuxt": "^3.15.4",
-    "pinia": "^4.0.3",
-    "sharp": "^0.35.4",
+    "nuxt": "4.5.2",
     "vue": "^3.5.42",
-    "vue-router": "^4.5.0"
+    "vue-router": "5.3.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.5.1",
-    "nuxt-icon": "^0.6.10",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.11"
   }

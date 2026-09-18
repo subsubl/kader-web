@@ -703,6 +703,7 @@ const sl: Dict = {
     "safeCheckoutText": "Hitra in varna obdelava spletnih naročil in plačil.",
     "supportTitle": "Podpora Kupcem",
     "supportText": "Za vprašanja glede izdelkov ali naročil pišite na info@kader.si."
+
   },
   "reservation": {
     "modalTitleTable": "Rezervacija Mize",
@@ -1728,8 +1729,9 @@ const en: Dict = {
     "safeCheckoutTitle": "Safe Checkout",
     "checkoutText": "Fast and secure processing of online orders and ticket payments.",
     "safeCheckoutText": "Fast and secure processing of online orders and ticket payments.",
-    "supportTitle": "Customer Support",
-    "supportText": "For questions regarding products or orders, write to info@kader.si."
+    "supportTitle": "Buyer Support",
+    "supportText": "For product or order questions, write to info@kader.si."
+
   },
   "reservation": {
     "modalTitleTable": "Table Reservation",
@@ -10416,7 +10418,7 @@ export function useLocale() {
   const toggleLocale = () => {
     const currentIndex = SUPPORTED_LOCALES.indexOf(locale.value)
     const nextIndex = (currentIndex + 1) % SUPPORTED_LOCALES.length
-    setLocale(SUPPORTED_LOCALES[nextIndex])
+    setLocale(SUPPORTED_LOCALES[nextIndex] ?? DEFAULT_LOCALE)
   }
 
   const availableLocales = computed(() => SUPPORTED_LOCALES)

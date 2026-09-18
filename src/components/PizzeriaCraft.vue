@@ -328,7 +328,11 @@ const craftSteps = computed(() => [
   }
 ])
 
-const currentStep = computed(() => craftSteps.value[activeStep.value] || craftSteps.value[0])
+const currentStep = computed(() => {
+  const step = craftSteps.value[activeStep.value] ?? craftSteps.value[0]
+  if (!step) throw new Error('At least one craft step must be configured')
+  return step
+})
 
 const nextStep = () => {
   if (activeStep.value < craftSteps.value.length - 1) {

@@ -42,5 +42,5 @@ import { useLocale, localeLabels, type Locale } from '~/composables/useLocale'
 
 const { locale, setLocale, t } = useLocale()
 
-const logoUrl = '/logo-k.jpg'
+const logoUrl = assetUrl('/logo-k.jpg')
 </script>

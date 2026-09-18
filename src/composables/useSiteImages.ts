@@ -53,21 +53,11 @@ const siteImagesState = ref<SiteImagesConfig>({ ...defaultImages })
 const isLoaded = ref(false)
 
 export function useSiteImages() {
-  const loadSiteImages = async () => {
-    try {
-      const data = (await $fetch('/api/site-images')) as SiteImagesConfig
-      if (data) {
-        siteImagesState.value = { ...defaultImages, ...data }
-        isLoaded.value = true
-      }
-    } catch (err) {
-      console.error('[useSiteImages] Failed to fetch site images config:', err)
-    }
-  }
+  const loadSiteImages = async () => { isLoaded.value = true }
 
   const getOptImg = (src: string, width = 800, quality = 80, format = 'webp') => {
     if (!src) return ''
-    return `/api/img?src=${encodeURIComponent(src)}&w=${width}&q=${quality}&format=${format}`
+    return assetUrl(src)
   }
 
   if (!isLoaded.value && typeof window !== 'undefined') {

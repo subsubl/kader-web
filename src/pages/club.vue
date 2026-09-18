@@ -843,7 +843,9 @@ const loadPastEvents = async () => {
   pastLoading.value = true
   try {
     const data = eventSnapshot.events.filter(e => new Date(e.end_time || e.date).getTime() < Date.now())
-    pastEvents.value = (data || []).map(normalizeEvent)
+    pastEvents.value = (data || [])
+      .map(normalizeEvent)
+      .sort((a, b) => new Date(b.end_time || b.date).getTime() - new Date(a.end_time || a.date).getTime())
   } catch (err: any) {
     console.error('Failed to load past RA events:', err)
   } finally {

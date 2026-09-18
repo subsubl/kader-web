@@ -6,10 +6,6 @@
     <div class="relative z-10">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 px-4">
-        <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-[11px] font-mono font-bold uppercase tracking-[0.25em] mb-4">
-          <span>🔥</span>
-          <span>{{ t('craft.standardBadge') }}</span>
-        </div>
         <h2 class="text-4xl md:text-6xl font-serif font-black uppercase text-gray-900 tracking-tight leading-tight">
           {{ t('craft.mainHeading') }}
         </h2>

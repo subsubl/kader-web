@@ -797,8 +797,6 @@ const sl: Dict = {
     "industrialMinimal": "Industrijski minimal"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Obrt Testa Tonda Romana & Peč na 375°C",
     "title": "Obrt Testa & Peč na 375°C",
     "mainDescription": "Pica v slogu Tonda Romana z rustičnim testom ni le hrana — je živa znanost fermentacije in spoštovanje klasičnih neapeljskih sestavin ter izročila Kampanije. Vsak hlebec v grajski kuhinji zori 48 ur pri kontrolirani temperaturi in se v 2 do 3 minutah speče v razbeljeni peči na bukova drva pri 375 °C.",
@@ -1825,8 +1823,6 @@ const en: Dict = {
     "industrialMinimal": "Industrial Minimal"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Tonda Romana Dough Craft & 375°C Wood-Fired Oven",
     "title": "Dough Craft & 375°C Wood-Fired Oven",
     "mainDescription": "A Tonda Romana style pizza with rustic dough is not just food — it is the living science of fermentation, using classic Neapolitan ingredients and honoring centuries of Campania tradition. Each dough ball in our castle kitchen matures for 48 hours under strictly controlled temperature and bakes in 2 to 3 minutes in a blazing 375 °C beechwood oven.",
@@ -2852,8 +2848,6 @@ const de: Dict = {
     "industrialMinimal": "Industrial Minimal"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Tonda-Romana-Teighandwerk & 375°C Holzofen",
     "title": "Teighandwerk & 375°C Holzofen",
     "mainDescription": "Eine Tonda-Romana-Pizza mit rustikalem Teig ist mehr als nur Essen – sie ist die lebendige Wissenschaft der Fermentation und der Respekt vor klassischen neapolitanischen Zutaten und der jahrhundertealten Tradition Kampaniens. Jeder Teigling reift in unserer Schlossküche 48 Stunden bei kontrollierter Temperatur und wird in 2 bis 3 Minuten im glühenden Buchenholzofen bei 375 °C gebacken.",
@@ -3879,8 +3873,6 @@ const fr: Dict = {
     "industrialMinimal": "Minimal industriel"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Art de la Pâte Tonda Romana & Four à Bois 375°C",
     "title": "Art de la Pâte & Four à Bois 375°C",
     "mainDescription": "Une pizza Tonda Romana à pâte rustique est bien plus qu'un repas — c'est la science vivante de la fermentation, avec de classiques ingrédients napolitains et le respect d'une tradition séculaire de Campanie. Chaque pâton fermente 48 heures à température contrôlée dans notre cuisine et cuit en 2 à 3 minutes dans un four au bois de hêtre à 375 °C.",
@@ -4906,8 +4898,6 @@ const it: Dict = {
     "industrialMinimal": "Minimal industriale"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Arte dell'Impasto Tonda Romana & Forno a 375°C",
     "title": "Arte dell'Impasto & Forno a 375°C",
     "mainDescription": "Una pizza Tonda Romana con impasto rustico non è semplice cibo: è la scienza viva della fermentazione, con i classici ingredienti napoletani e il rispetto per la tradizione secolare della Campania. Ogni panetto nella cucina del castello matura per 48 ore a temperatura controllata e cuoce in 2–3 minuti nel nostro forno a legna di faggio a 375 °C.",
@@ -5933,8 +5923,6 @@ const sr: Dict = {
     "industrialMinimal": "Industrijski minimal"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Zanatsko Tonda Romana Testo & Peć na 375°C",
     "title": "Zanatsko Testo & Peć na 375°C",
     "mainDescription": "Pica Tonda Romana sa rustičnim testom nije samo obrok — to je živa nauka fermentacije, uz klasične napolitanske sastojke i poštovanje vekovne tradicije Kampanije. Svaka jufka u našoj dvorskoj kuhinji zri 48 sati na kontrolisanoj temperaturi i peče se 2 do 3 minuta u peći na bukova drva na 375 °C.",
@@ -6960,8 +6948,6 @@ const nl: Dict = {
     "industrialMinimal": "Industrial Minimal"
   },
   "craft": {
-    "standardBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
-    "headerBadge": "50 Top Pizza Standard · L'Arte Della Pizza",
     "mainHeading": "Tonda Romana Deegambacht & Houtoven op 375°C",
     "title": "Deegambacht & Houtoven op 375°C",
     "mainDescription": "Een Tonda Romana-pizza met robuust deeg is niet zomaar eten — het is de levende wetenschap van fermentatie, met klassieke Napolitaanse ingrediënten en eerbied voor de eeuwenoude traditie van Campanië. Elke deegbol rijpt 48 uur onder gecontroleerde temperatuur in onze kasteelkeuken en bakt in 2 tot 3 minuten in een laaiende beukenhoutoven op 375 °C.",
@@ -7987,8 +7973,6 @@ const pl: Dict = {
     "industrialMinimal": "Minimal Industrialny"
   },
   "craft": {
-    "standardBadge": "Standard 50 Top Pizza · L'Arte Della Pizza",
-    "headerBadge": "Standard 50 Top Pizza · L'Arte Della Pizza",
     "mainHeading": "Sztuka Ciasta Tonda Romana i Piec Opalany Drewnem w 375°C",
     "title": "Sztuka Ciasta i Piec Opalany Drewnem w 375°C",
     "mainDescription": "Pizza Tonda Romana z rustykalnym ciastem to nie tylko jedzenie — to żywa nauka fermentacji, z klasycznymi neapolitańskimi składnikami i szacunkiem dla wielowiekowej tradycji Kampanii. Każda porcja ciasta w naszej zamkowej kuchni dojrzewa przez 48 godzin w ściśle kontrolowanej temperaturze i piecze się od 2 do 3 minut w rozgrzanym piecu opalanym drewnem bukowym w 375 °C.",
@@ -9014,8 +8998,6 @@ const cs: Dict = {
     "industrialMinimal": "Industriální Minimal"
   },
   "craft": {
-    "standardBadge": "Standard 50 Top Pizza · L'Arte Della Pizza",
-    "headerBadge": "Standard 50 Top Pizza · L'Arte Della Pizza",
     "mainHeading": "Řemeslné Těsto Tonda Romana a Pec na Dřevo při 375 °C",
     "title": "Řemeslné Těsto a Pec na Dřevo při 375 °C",
     "mainDescription": "Pizza Tonda Romana s rustikálním těstem není pouhé jídlo — je to živá věda o fermentaci, s klasickými neapolskými surovinami a úctou ke staleté tradici Kampánie. Každý bochánek těsta v naší hradní kuchyni zraje 48 hodin při přísně kontrolované teplotě a peče se 2 až 3 minuty v rozpálené peci na bukové dřevo při 375 °C.",
@@ -10041,8 +10023,6 @@ const es: Dict = {
     "industrialMinimal": "Minimal Industrial"
   },
   "craft": {
-    "standardBadge": "Estándar 50 Top Pizza · L'Arte Della Pizza",
-    "headerBadge": "Estándar 50 Top Pizza · L'Arte Della Pizza",
     "mainHeading": "Masa Artesanal Tonda Romana y Horno de Leña a 375 °C",
     "title": "Masa Artesanal y Horno de Leña a 375 °C",
     "mainDescription": "La auténtica pizza Tonda Romana de masa rústica no es solo comida: es la ciencia viva de la fermentación, con clásicos ingredientes napolitanos y el respeto por siglos de tradición en Campania. Cada bola de masa en la cocina de nuestro castillo madura durante 48 horas bajo una temperatura estrictamente controlada y se hornea de 2 a 3 minutos en un ardiente horno de leña de haya a 375 °C.",

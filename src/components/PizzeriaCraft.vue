@@ -190,13 +190,13 @@ const activeStep = ref(0)
 const craftMetrics = computed(() => [
   {
     icon: '🔥',
-    value: '450°C',
+    value: '375°C',
     label: t('craft.m1Label'),
     subtext: t('craft.m1Sub')
   },
   {
     icon: '💧',
-    value: '72%',
+    value: '55%',
     label: t('craft.m2Label'),
     subtext: t('craft.m2Sub')
   },
@@ -228,7 +228,7 @@ const craftSteps = computed(() => [
     title: t('craft.step1Title'),
     description: t('craft.step1Desc'),
     heroIcon: '🌾',
-    metricHighlight: 'Caputo Tipo 00',
+    metricHighlight: 'Caputo + Kamensko',
     visualCardTitle: t('craft.step1CardTitle'),
     visualCardSubtitle: t('craft.step1CardSub'),
     specs: [
@@ -249,11 +249,11 @@ const craftSteps = computed(() => [
     title: t('craft.step2Title'),
     description: t('craft.step2Desc'),
     heroIcon: '💧',
-    metricHighlight: '72% H₂O',
+    metricHighlight: '55% H₂O',
     visualCardTitle: t('craft.step2CardTitle'),
     visualCardSubtitle: t('craft.step2CardSub'),
     specs: [
-      { label: t('craft.step2Spec1Label'), value: '720 ml / 1 kg', desc: t('craft.step2Spec1Desc') },
+      { label: t('craft.step2Spec1Label'), value: '550 – 600 ml / 1 kg', desc: t('craft.step2Spec1Desc') },
       { label: t('craft.step2Spec2Label'), value: '14°C – 16°C', desc: t('craft.step2Spec2Desc') }
     ],
     features: [
@@ -291,7 +291,7 @@ const craftSteps = computed(() => [
     title: t('craft.step4Title'),
     description: t('craft.step4Desc'),
     heroIcon: '👐',
-    metricHighlight: '0% Valjar',
+    metricHighlight: 'Tonda Romana',
     visualCardTitle: t('craft.step4CardTitle'),
     visualCardSubtitle: t('craft.step4CardSub'),
     specs: [
@@ -312,11 +312,11 @@ const craftSteps = computed(() => [
     title: t('craft.step5Title'),
     description: t('craft.step5Desc'),
     heroIcon: '🔥',
-    metricHighlight: '450°C / 90s',
+    metricHighlight: '375°C / 2–3 min',
     visualCardTitle: t('craft.step5CardTitle'),
     visualCardSubtitle: t('craft.step5CardSub'),
     specs: [
-      { label: t('craft.step5Spec1Label'), value: '60 – 90 s', desc: t('craft.step5Spec1Desc') },
+      { label: t('craft.step5Spec1Label'), value: '120 – 180 s', desc: t('craft.step5Spec1Desc') },
       { label: t('craft.step5Spec2Label'), value: 'Fagus sylvatica', desc: t('craft.step5Spec2Desc') }
     ],
     features: [

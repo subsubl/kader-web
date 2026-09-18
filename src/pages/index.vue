@@ -323,28 +323,32 @@
           </div>
         </div>
 
-        <!-- Ingredient provenance banner (below the menu) -->
-        <div class="mt-8 p-5 bg-red-600 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <div class="flex items-center space-x-3.5">
-            <div class="w-11 h-11 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-white text-xl flex-shrink-0">
-              🛡️
+        <!-- Ingredient provenance banner (matching print-menu style) -->
+        <div class="mt-8 bg-white border-2 border-red-500 rounded-3xl shadow-xl overflow-hidden relative">
+          <div class="menu-stripe-border" aria-hidden="true"></div>
+          <div class="p-5 md:p-7 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-11 h-11 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 text-xl flex-shrink-0">
+                🛡️
+              </div>
+              <div>
+                <h4 class="text-sm md:text-base font-serif font-black text-gray-900 uppercase tracking-wider">
+                  {{ t('pizzeria.provenanceTitle') }}
+                </h4>
+                <p class="text-xs text-gray-600 leading-snug">
+                  {{ t('pizzeria.provenanceDesc') }}
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 class="text-sm md:text-base font-serif font-black text-white uppercase tracking-wider">
-                {{ t('pizzeria.provenanceTitle') }}
-              </h4>
-              <p class="text-xs text-red-100 font-light">
-                {{ t('pizzeria.provenanceDesc') }}
-              </p>
+            <div class="flex flex-wrap gap-2">
+              <ProvenanceBadge badge-key="san-marzano" />
+              <ProvenanceBadge badge-key="bufala" />
+              <ProvenanceBadge badge-key="mortadella" />
+              <ProvenanceBadge badge-key="olio-bio" />
+              <ProvenanceBadge badge-key="ferment-48h" />
             </div>
           </div>
-          <div class="flex flex-wrap gap-2 text-[10px] font-mono">
-            <ProvenanceBadge badge-key="san-marzano" />
-            <ProvenanceBadge badge-key="bufala" />
-            <ProvenanceBadge badge-key="mortadella" />
-            <ProvenanceBadge badge-key="olio-bio" />
-            <ProvenanceBadge badge-key="ferment-48h" />
-          </div>
+          <div class="menu-stripe-border" aria-hidden="true"></div>
         </div>
       </div>
 

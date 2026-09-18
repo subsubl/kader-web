@@ -4,7 +4,7 @@
       type="button"
       @click.stop="toggleTooltip"
       :class="[
-        'inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-mono font-medium transition-all duration-300 border focus:outline-none focus:ring-1 focus:ring-masanielli-gold/50 cursor-pointer shadow-sm',
+        'inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-mono font-medium transition-all duration-300 border focus:outline-none focus:ring-1 focus:ring-red-300/60 cursor-pointer shadow-sm',
         badgeColorClass
       ]"
       :title="badgeInfo.title"
@@ -14,7 +14,7 @@
       <span class="font-semibold">{{ badgeInfo.shortName }}</span>
       <span 
         v-if="badgeInfo.cert" 
-        class="text-[9px] uppercase tracking-wider font-extrabold px-1 py-0.5 rounded bg-black/40 border border-white/10 select-none"
+        class="text-[9px] uppercase tracking-wider font-extrabold px-1 py-0.5 rounded bg-red-50 border border-red-200 select-none"
       >
         {{ badgeInfo.cert }}
       </span>
@@ -31,12 +31,12 @@
     >
       <div
         v-if="isOpen"
-        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 max-w-[calc(100vw-2rem)] p-3.5 bg-zinc-950/95 border border-masanielli-gold/40 rounded-2xl shadow-2xl z-50 text-left backdrop-blur-xl pointer-events-auto"
+        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 max-w-[calc(100vw-2rem)] p-3.5 bg-white border-2 border-red-500 rounded-2xl shadow-2xl z-50 text-left pointer-events-auto"
       >
-        <div class="flex items-center justify-between border-b border-zinc-800 pb-2 mb-2">
+        <div class="flex items-center justify-between border-b-2 border-red-100 pb-2 mb-2">
           <div class="flex items-center space-x-1.5">
             <span class="text-base">{{ badgeInfo.icon }}</span>
-            <span class="text-[11px] font-mono uppercase tracking-wider text-masanielli-gold font-bold">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-red-600 font-bold">
               {{ badgeInfo.origin }}
             </span>
           </div>
@@ -51,20 +51,20 @@
           </span>
         </div>
 
-        <h5 class="text-xs font-serif font-bold text-white mb-1.5 leading-snug">
+        <h5 class="text-xs font-serif font-bold text-gray-900 mb-1.5 leading-snug">
           {{ badgeInfo.title }}
         </h5>
 
-        <p class="text-[11px] text-gray-300 leading-relaxed font-light mb-2">
+        <p class="text-[11px] text-gray-600 leading-relaxed mb-2">
           {{ badgeInfo.description }}
         </p>
 
-        <div v-if="badgeInfo.fact" class="pt-2 border-t border-zinc-900 flex items-center text-[10px] text-gray-400 font-mono italic">
-          <span class="text-masanielli-gold mr-1">✦</span> {{ badgeInfo.fact }}
+        <div v-if="badgeInfo.fact" class="pt-2 border-t border-red-100 flex items-center text-[10px] text-gray-500 font-mono italic">
+          <span class="text-red-600 mr-1">✦</span> {{ badgeInfo.fact }}
         </div>
 
         <!-- Tooltip arrow caret -->
-        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-zinc-950 border-r border-b border-masanielli-gold/40 rotate-45"></div>
+        <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-red-500 rotate-45"></div>
       </div>
     </Transition>
   </div>
@@ -296,32 +296,32 @@ const badgeInfo = computed<BadgeDef>(() => {
 const badgeColorClass = computed(() => {
   switch (badgeInfo.value.category) {
     case 'dop':
-      return 'border-masanielli-gold/60 text-masanielli-gold bg-masanielli-gold/10 hover:bg-masanielli-gold/20 hover:border-masanielli-gold shadow-masanielli-gold/10'
+      return 'border-masanielli-goldDark/60 text-masanielli-goldDark bg-masanielli-goldLight/30 hover:bg-masanielli-goldLight/50 hover:border-masanielli-goldDark'
     case 'igp':
-      return 'border-emerald-500/50 text-emerald-300 bg-emerald-950/40 hover:bg-emerald-900/40 hover:border-emerald-400 shadow-emerald-500/10'
+      return 'border-emerald-700/50 text-emerald-800 bg-emerald-50 hover:bg-emerald-100 hover:border-emerald-700'
     case 'bio':
-      return 'border-teal-500/50 text-teal-300 bg-teal-950/40 hover:bg-teal-900/40 hover:border-teal-400 shadow-teal-500/10'
+      return 'border-teal-700/50 text-teal-800 bg-teal-50 hover:bg-teal-100 hover:border-teal-700'
     case 'craft':
-      return 'border-amber-500/50 text-amber-300 bg-amber-950/40 hover:bg-amber-900/40 hover:border-amber-400 shadow-amber-500/10'
+      return 'border-amber-700/50 text-amber-800 bg-amber-50 hover:bg-amber-100 hover:border-amber-700'
     case 'dietary':
-      return 'border-zinc-700 text-gray-300 bg-zinc-900/80 hover:bg-zinc-800'
+      return 'border-gray-400 text-gray-600 bg-red-50/40 hover:bg-red-100/40 hover:border-gray-500'
     default:
-      return 'border-zinc-800 text-gray-300 bg-zinc-950'
+      return 'border-gray-300 text-gray-700 bg-white hover:bg-red-50 hover:border-red-300'
   }
 })
 
 const badgeCertPillClass = computed(() => {
   switch (badgeInfo.value.category) {
     case 'dop':
-      return 'border-masanielli-gold/40 bg-masanielli-gold/20 text-masanielli-gold'
+      return 'border-masanielli-goldDark/50 bg-masanielli-goldLight/40 text-masanielli-goldDark'
     case 'igp':
-      return 'border-emerald-500/40 bg-emerald-500/20 text-emerald-300'
+      return 'border-emerald-700/50 bg-emerald-100/70 text-emerald-800'
     case 'bio':
-      return 'border-teal-500/40 bg-teal-500/20 text-teal-300'
+      return 'border-teal-700/50 bg-teal-100/70 text-teal-800'
     case 'craft':
-      return 'border-amber-500/40 bg-amber-500/20 text-amber-300'
+      return 'border-amber-700/50 bg-amber-100/70 text-amber-800'
     default:
-      return 'border-zinc-700 bg-zinc-800 text-gray-300'
+      return 'border-red-300 bg-red-100/60 text-gray-700'
   }
 })
 </script>

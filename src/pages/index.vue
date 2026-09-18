@@ -747,24 +747,6 @@ const googleReviews = computed(() => [
     date: t('pizzeria.rev3_date'),
     text: t('pizzeria.rev3_text'),
     likes: 11
-  },
-  {
-    author: t('pizzeria.rev4_author'),
-    date: t('pizzeria.rev4_date'),
-    text: t('pizzeria.rev4_text'),
-    likes: 16
-  },
-  {
-    author: t('pizzeria.rev5_author'),
-    date: t('pizzeria.rev5_date'),
-    text: t('pizzeria.rev5_text'),
-    likes: 8
-  },
-  {
-    author: t('pizzeria.rev6_author'),
-    date: t('pizzeria.rev6_date'),
-    text: t('pizzeria.rev6_text'),
-    likes: 12
   }
 ])
 

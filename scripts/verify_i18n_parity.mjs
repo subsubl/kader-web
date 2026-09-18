@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { createJiti } from 'jiti'
 
 const REQUIRED_LOCALES = ['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es']
-const EXPECTED_LEAF_COUNT = 936
+const EXPECTED_LEAF_COUNT = 927
 const EXPECTED_PARAM_KEYS = [
   'buyouts.inquiryMessagePrefill',
   'buyouts.thankYou',

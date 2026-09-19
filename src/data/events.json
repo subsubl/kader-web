@@ -1,12 +1,12 @@
 {
-  "lastSyncedAt": "2026-09-17T22:52:43.812Z",
+  "lastSyncedAt": "2026-09-19T08:08:02.048Z",
   "events": [
     {
       "ra_id": 485105,
       "title": "Bikofest",
-      "date": "2013-06-24T21:59:00.000Z",
-      "start_time": "2013-06-24T21:59:00.000Z",
-      "end_time": "2013-06-25T06:00:00.000Z",
+      "date": "2013-06-24T23:59:00.000Z",
+      "start_time": "2013-06-24T23:59:00.000Z",
+      "end_time": "2013-06-25T08:00:00.000Z",
       "cost": null,
       "flyer_url": "https://static.ra.co/images/events/flyer/2013/6/si-0624-485105-front.jpg?dateUpdated=1706198334617",
       "ra_url": "https://ra.co/events/485105",
@@ -20,15 +20,14 @@
         "Lavka",
         "Schrauff"
       ],
-      "genres": [],
-      "updated_at": "2026-09-17T22:52:43.808Z"
+      "genres": []
     },
     {
       "ra_id": 539712,
       "title": "Silvester: No let me Down",
-      "date": "2013-12-31T22:59:00.000Z",
-      "start_time": "2013-12-31T22:59:00.000Z",
-      "end_time": "2014-01-01T09:00:00.000Z",
+      "date": "2013-12-31T23:59:00.000Z",
+      "start_time": "2013-12-31T23:59:00.000Z",
+      "end_time": "2014-01-01T10:00:00.000Z",
       "cost": null,
       "flyer_url": null,
       "ra_url": "https://ra.co/events/539712",
@@ -43,15 +42,14 @@
         "Maja Milich",
         "Some1Else"
       ],
-      "genres": [],
-      "updated_at": "2026-09-17T22:52:43.808Z"
+      "genres": []
     },
     {
       "ra_id": 1849697,
       "title": "od:vod",
-      "date": "2024-02-23T21:00:00.000Z",
-      "start_time": "2024-02-23T21:00:00.000Z",
-      "end_time": "2024-02-24T06:00:00.000Z",
+      "date": "2024-02-23T22:00:00.000Z",
+      "start_time": "2024-02-23T22:00:00.000Z",
+      "end_time": "2024-02-24T07:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/09ef0d99cd24d70ec8177446425443f35b50ddfa.jpg",
       "ra_url": "https://ra.co/events/1849697",
@@ -62,15 +60,14 @@
       ],
       "genres": [
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 1885731,
       "title": "od:vod",
-      "date": "2024-03-29T17:00:00.000Z",
-      "start_time": "2024-03-29T17:00:00.000Z",
-      "end_time": "2024-03-30T05:00:00.000Z",
+      "date": "2024-03-29T18:00:00.000Z",
+      "start_time": "2024-03-29T18:00:00.000Z",
+      "end_time": "2024-03-30T06:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/1a2e3b4c19f261fc6960bcae1264a1d856740baa.jpg",
       "ra_url": "https://ra.co/events/1885731",
@@ -83,15 +80,14 @@
       "genres": [
         "Techno",
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 1909999,
       "title": "od:vod",
-      "date": "2024-04-27T20:00:00.000Z",
-      "start_time": "2024-04-27T20:00:00.000Z",
-      "end_time": "2024-04-28T06:00:00.000Z",
+      "date": "2024-04-27T22:00:00.000Z",
+      "start_time": "2024-04-27T22:00:00.000Z",
+      "end_time": "2024-04-28T08:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/6d00ed07e181d47482b94cc982c290557d40f6cf.jpg",
       "ra_url": "https://ra.co/events/1909999",
@@ -101,15 +97,14 @@
       ],
       "genres": [
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2030471,
       "title": "Cvetke v jeseni ∙ endemit",
-      "date": "2024-11-29T21:00:00.000Z",
-      "start_time": "2024-11-29T21:00:00.000Z",
-      "end_time": "2024-11-30T05:30:00.000Z",
+      "date": "2024-11-29T22:00:00.000Z",
+      "start_time": "2024-11-29T22:00:00.000Z",
+      "end_time": "2024-11-30T06:30:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/fe303707abc27147d463fbb1292e6f4da2d5594d.jpg",
       "ra_url": "https://ra.co/events/2030471",
@@ -121,15 +116,14 @@
       "genres": [
         "Techno",
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2061817,
       "title": "od:vod",
-      "date": "2024-12-25T21:00:00.000Z",
-      "start_time": "2024-12-25T21:00:00.000Z",
-      "end_time": "2024-12-26T10:00:00.000Z",
+      "date": "2024-12-25T22:00:00.000Z",
+      "start_time": "2024-12-25T22:00:00.000Z",
+      "end_time": "2024-12-26T11:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/90c82f6eceb3414fc497df60aeefdf97a05f361b.jpg",
       "ra_url": "https://ra.co/events/2061817",
@@ -143,15 +137,14 @@
       "genres": [
         "Techno",
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2090095,
       "title": "Pohujšanje v dolini šentlublanski ⊳ endemit",
-      "date": "2025-02-21T21:00:00.000Z",
-      "start_time": "2025-02-21T21:00:00.000Z",
-      "end_time": "2025-02-22T06:00:00.000Z",
+      "date": "2025-02-21T22:00:00.000Z",
+      "start_time": "2025-02-21T22:00:00.000Z",
+      "end_time": "2025-02-22T07:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/8a09e5e2cb9ae41a195acf2711cb814ae49821ff.jpg",
       "ra_url": "https://ra.co/events/2090095",
@@ -163,15 +156,14 @@
       "genres": [
         "Trance",
         "Techno"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2204667,
       "title": "Simply Life @Kader",
-      "date": "2025-07-04T17:00:00.000Z",
-      "start_time": "2025-07-04T17:00:00.000Z",
-      "end_time": "2025-07-05T03:00:00.000Z",
+      "date": "2025-07-04T19:00:00.000Z",
+      "start_time": "2025-07-04T19:00:00.000Z",
+      "end_time": "2025-07-05T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/a207e85bb788ebdc51567ed1a086e2ac9e38cb7e.jpg",
       "ra_url": "https://ra.co/events/2204667",
@@ -186,15 +178,14 @@
       "genres": [
         "House",
         "Electronica"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2328830,
       "title": "HO, HO, HOUSE at KADER",
-      "date": "2025-12-26T21:00:00.000Z",
-      "start_time": "2025-12-26T21:00:00.000Z",
-      "end_time": "2025-12-27T04:00:00.000Z",
+      "date": "2025-12-26T22:00:00.000Z",
+      "start_time": "2025-12-26T22:00:00.000Z",
+      "end_time": "2025-12-27T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/989759599dd801230ba69d7173d888b1b693c140.jpg",
       "ra_url": "https://ra.co/events/2328830",
@@ -205,15 +196,14 @@
       ],
       "genres": [
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2337425,
       "title": "Nimaš Izbire VS Hipersekira - B2B's all night long",
-      "date": "2026-01-16T22:00:00.000Z",
-      "start_time": "2026-01-16T22:00:00.000Z",
-      "end_time": "2026-01-17T04:00:00.000Z",
+      "date": "2026-01-16T23:00:00.000Z",
+      "start_time": "2026-01-16T23:00:00.000Z",
+      "end_time": "2026-01-17T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/b05b108f4defb4932fd0376611199a613ed9a358.png",
       "ra_url": "https://ra.co/events/2337425",
@@ -222,15 +212,14 @@
       "genres": [
         "Techno",
         "Bass"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2358620,
       "title": "BANSHEE BAZAAR by Velvet Renaissance",
-      "date": "2026-02-20T22:00:00.000Z",
-      "start_time": "2026-02-20T22:00:00.000Z",
-      "end_time": "2026-02-21T04:00:00.000Z",
+      "date": "2026-02-20T23:00:00.000Z",
+      "start_time": "2026-02-20T23:00:00.000Z",
+      "end_time": "2026-02-21T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/00326c7f4fd2fb8592934f9974c5115d6eb75e48.jpg",
       "ra_url": "https://ra.co/events/2358620",
@@ -242,15 +231,14 @@
       "genres": [
         "Trance",
         "Bass"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2376045,
       "title": "Slovenia going Underground",
-      "date": "2026-02-21T22:00:00.000Z",
-      "start_time": "2026-02-21T22:00:00.000Z",
-      "end_time": "2026-02-22T04:00:00.000Z",
+      "date": "2026-02-21T23:00:00.000Z",
+      "start_time": "2026-02-21T23:00:00.000Z",
+      "end_time": "2026-02-22T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/f22f228645cd20957905156bcd756d124157fb3b.png",
       "ra_url": "https://ra.co/events/2376045",
@@ -263,15 +251,14 @@
       "genres": [
         "Techno",
         "Psytrance"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2380705,
       "title": "od:vod",
-      "date": "2026-02-27T21:00:00.000Z",
-      "start_time": "2026-02-27T21:00:00.000Z",
-      "end_time": "2026-02-28T07:00:00.000Z",
+      "date": "2026-02-27T22:00:00.000Z",
+      "start_time": "2026-02-27T22:00:00.000Z",
+      "end_time": "2026-02-28T08:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/86fbd8c41ed58ea9758205faa5926fa3b5bf2601.jpg",
       "ra_url": "https://ra.co/events/2380705",
@@ -285,15 +272,14 @@
       ],
       "genres": [
         "Electronica"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2423257,
       "title": "Vinyl Convention with Akaj (all night long)",
-      "date": "2026-04-24T21:00:00.000Z",
-      "start_time": "2026-04-24T21:00:00.000Z",
-      "end_time": "2026-04-25T03:00:00.000Z",
+      "date": "2026-04-24T23:00:00.000Z",
+      "start_time": "2026-04-24T23:00:00.000Z",
+      "end_time": "2026-04-25T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/3c97409b89a9c0c4da639da4686e72202ea4fd37.jpg",
       "ra_url": "https://ra.co/events/2423257",
@@ -303,15 +289,14 @@
       ],
       "genres": [
         "Electronica"
-      ],
-      "updated_at": "2026-09-17T22:52:43.809Z"
+      ]
     },
     {
       "ra_id": 2459500,
       "title": "Entalpija X ROTOR MOTOR",
-      "date": "2026-06-11T17:00:00.000Z",
-      "start_time": "2026-06-11T17:00:00.000Z",
-      "end_time": "2026-06-12T03:00:00.000Z",
+      "date": "2026-06-11T19:00:00.000Z",
+      "start_time": "2026-06-11T19:00:00.000Z",
+      "end_time": "2026-06-12T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/afcc2edd70f26e03394834cf577b41a2525bfb8f.jpg",
       "ra_url": "https://ra.co/events/2459500",
@@ -323,15 +308,14 @@
       "genres": [
         "Trance",
         "House"
-      ],
-      "updated_at": "2026-09-17T22:52:43.810Z"
+      ]
     },
     {
       "ra_id": 2470385,
       "title": "Simply Life",
-      "date": "2026-06-18T14:00:00.000Z",
-      "start_time": "2026-06-18T14:00:00.000Z",
-      "end_time": "2026-06-18T21:00:00.000Z",
+      "date": "2026-06-18T16:00:00.000Z",
+      "start_time": "2026-06-18T16:00:00.000Z",
+      "end_time": "2026-06-18T23:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/922d9172070b4a460486ca02c56a6de1b5a7b672.jpg",
       "ra_url": "https://ra.co/events/2470385",
@@ -343,15 +327,14 @@
       "genres": [
         "House",
         "Electronica"
-      ],
-      "updated_at": "2026-09-17T22:52:43.810Z"
+      ]
     },
     {
       "ra_id": 2513234,
       "title": "Mary's Back",
-      "date": "2026-08-15T15:00:00.000Z",
-      "start_time": "2026-08-15T15:00:00.000Z",
-      "end_time": "2026-08-16T03:00:00.000Z",
+      "date": "2026-08-15T17:00:00.000Z",
+      "start_time": "2026-08-15T17:00:00.000Z",
+      "end_time": "2026-08-16T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/8efc8b2dce04849c0ad96d22cd0956a42da33fab.jpg",
       "ra_url": "https://ra.co/events/2513234",
@@ -360,63 +343,14 @@
       "genres": [
         "Techno",
         "Disco"
-      ],
-      "updated_at": "2026-09-17T22:52:43.810Z"
-    },
-    {
-      "ra_id": 1786574972899,
-      "title": "Kader Summer Opening Night",
-      "date": "2026-08-20T21:00:00.000Z",
-      "start_time": "2026-08-20T21:00:00.000Z",
-      "end_time": null,
-      "cost": 12,
-      "flyer_url": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80",
-      "ra_url": null,
-      "lineup": "DJ Alex (21:00 - 23:00)\nMarko (23:00 - 01:00)\nSpecial Guest (01:00 - 04:00)",
-      "artists": [
-        "DJ Alex",
-        "Marko",
-        "Special Guest"
-      ],
-      "genres": [
-        "House",
-        "Disco",
-        "Tech"
-      ],
-      "pretix_event_url": null,
-      "is_custom": true,
-      "updated_at": "2026-08-12T22:49:32.899Z"
-    },
-    {
-      "ra_id": 1786575219474,
-      "title": "Grad Kodeljevo Jazz & Pizza Evening",
-      "date": "2026-08-22T19:00:00.000Z",
-      "start_time": "2026-08-22T19:00:00.000Z",
-      "end_time": null,
-      "cost": 0,
-      "flyer_url": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1000&q=80",
-      "ra_url": null,
-      "lineup": "Kader Live Ensemble (19:00 - 22:00)",
-      "artists": [
-        "Kader Live Ensemble"
-      ],
-      "genres": [
-        "Jazz",
-        "Acoustic",
-        "Dining"
-      ],
-      "pretix_event_url": null,
-      "ticket_provider": "free",
-      "ticket_url": null,
-      "is_custom": true,
-      "updated_at": "2026-08-12T22:53:39.474Z"
+      ]
     },
     {
       "ra_id": 2518874,
       "title": "Kader 2nd Anniversary",
-      "date": "2026-09-04T15:00:00.000Z",
-      "start_time": "2026-09-04T15:00:00.000Z",
-      "end_time": "2026-09-05T12:00:00.000Z",
+      "date": "2026-09-04T17:00:00.000Z",
+      "start_time": "2026-09-04T17:00:00.000Z",
+      "end_time": "2026-09-05T14:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/62b3c435f4e9580b754d72adf2f215112372f190.jpg",
       "ra_url": "https://ra.co/events/2518874",
@@ -431,29 +365,14 @@
       "genres": [
         "House",
         "Electro"
-      ],
-      "updated_at": "2026-09-17T22:52:43.810Z"
-    },
-    {
-      "ra_id": null,
-      "title": "Untitled Event",
-      "date": "2026-09-17T22:52:43.811Z",
-      "start_time": null,
-      "end_time": null,
-      "cost": null,
-      "flyer_url": null,
-      "ra_url": "https://ra.co/events/undefined",
-      "lineup": null,
-      "artists": [],
-      "genres": [],
-      "updated_at": "2026-09-17T22:52:43.811Z"
+      ]
     },
     {
       "ra_id": 2535267,
       "title": "Simply Life",
-      "date": "2026-09-18T16:00:00.000Z",
-      "start_time": "2026-09-18T16:00:00.000Z",
-      "end_time": "2026-09-19T03:00:00.000Z",
+      "date": "2026-09-18T18:00:00.000Z",
+      "start_time": "2026-09-18T18:00:00.000Z",
+      "end_time": "2026-09-19T05:00:00.000Z",
       "cost": null,
       "flyer_url": "https://images.ra.co/cf1be0e0856e619647db239126bb4ab09fc13896.jpg",
       "ra_url": "https://ra.co/events/2535267",
@@ -465,8 +384,7 @@
       "genres": [
         "House",
         "Electronica"
-      ],
-      "updated_at": "2026-09-17T22:52:43.810Z"
+      ]
     }
   ]
 }

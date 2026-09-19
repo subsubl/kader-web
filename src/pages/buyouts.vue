@@ -28,7 +28,9 @@
             <h2 class="text-3xl md:text-5xl font-black leading-tight">{{ t('buyouts.venueTitle') }}</h2>
           </div>
           <div class="lg:col-span-8">
-            <p class="text-xl md:text-2xl leading-relaxed text-kader-cream/80 mb-8">{{ t('buyouts.venueP') }}</p>
+            <p class="text-xl md:text-2xl leading-relaxed text-kader-cream/80 mb-6">{{ t('buyouts.venueP') }}</p>
+            <p class="text-lg md:text-xl leading-relaxed text-kader-cream/80 mb-6">{{ t('buyouts.venueP2') }}</p>
+            <p class="text-lg md:text-xl leading-relaxed text-kader-cream/80 mb-8">{{ t('buyouts.venueP3') }}</p>
             <div class="flex flex-wrap gap-2">
               <span v-for="i in 5" :key="i"
                 class="px-3 py-1.5 bg-kader-red/10 border border-kader-red/30 text-kader-cream/80 text-xs font-bold uppercase tracking-wider rounded-full"
@@ -70,59 +72,48 @@
         </div>
       </section>
 
-      <!-- ===== Pricing tiers ===== -->
+      <!-- ===== Venue FAQ Accordion ===== -->
       <section class="pb-20 md:pb-24">
-        <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('buyouts.tieredPricing') }}</p>
-        <h2 class="text-3xl md:text-5xl font-black text-center mb-12 uppercase">{{ t('buyouts.choosePlan') }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <!-- Basic -->
-          <div class="bg-[#120607] border border-kader-red/20 rounded-3xl p-8 flex flex-col">
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.basic') }}</p>
-            <div class="text-4xl font-black text-white mb-1">€1,500</div>
-            <p class="text-kader-cream/40 text-sm mb-6">{{ t('buyouts.upTo', { n: 100 }) }}</p>
-            <ul class="space-y-2 text-sm text-kader-cream/70 flex-1 mb-8">
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.basicCatering') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.standardSound') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.basicDecor') }}</li>
-            </ul>
-            <button @click="selectPlan(t('buyouts.basic'), 100)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
-              {{ t('buyouts.contactUs') }}
-            </button>
-          </div>
-
-          <!-- Premium (highlighted) -->
-          <div class="bg-kader-red/10 border border-kader-red rounded-3xl p-8 flex flex-col relative">
-            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-kader-red text-white px-5 py-1 rounded-full text-xs font-black uppercase tracking-wider">{{ t('buyouts.popular') }}</div>
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.premium') }}</p>
-            <div class="text-4xl font-black text-white mb-1">€3,000</div>
-            <p class="text-kader-cream/40 text-sm mb-6">{{ t('buyouts.upTo', { n: 200 }) }}</p>
-            <ul class="space-y-2 text-sm text-kader-cream/80 flex-1 mb-8">
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.fullCatering') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.proSound') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.elegantDecor') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.specialistLighting') }}</li>
-            </ul>
-            <button @click="selectPlan(t('buyouts.premium'), 200)" class="w-full py-3 bg-kader-red hover:bg-kader-cream hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
-              {{ t('buyouts.contactUs') }}
-            </button>
-          </div>
-
-          <!-- Luxury -->
-          <div class="bg-[#120607] border border-kader-red/20 rounded-3xl p-8 flex flex-col">
-            <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-3">{{ t('buyouts.luxury') }}</p>
-            <div class="text-4xl font-black text-white mb-1">€5,000</div>
-            <p class="text-kader-cream/40 text-sm mb-6">{{ t('buyouts.upTo', { n: 300 }) }}</p>
-            <ul class="space-y-2 text-sm text-kader-cream/70 flex-1 mb-8">
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.luxuryCatering') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.fullSound') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.customDecor') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.personalizedService') }}</li>
-              <li class="flex items-start gap-2"><span class="text-kader-red mt-0.5">—</span>{{ t('buyouts.exclusiveAccess') }}</li>
-            </ul>
-            <button @click="selectPlan(t('buyouts.luxury'), 300)" class="w-full py-3 border border-kader-red text-kader-cream hover:bg-kader-red hover:text-kader-black rounded-xl font-bold transition-colors duration-300 text-sm uppercase tracking-wider">
-              {{ t('buyouts.contactUs') }}
-            </button>
+        <div class="max-w-4xl mx-auto">
+          <p class="text-xs uppercase tracking-[0.3em] text-kader-red font-semibold mb-2 text-center">{{ t('buyouts.venueOverview') }}</p>
+          <h2 class="text-3xl md:text-5xl font-black text-center mb-12 uppercase">{{ t('buyouts.faqTitle') }}</h2>
+          <div class="space-y-4">
+            <div
+              v-for="(item, idx) in buyoutsFaq"
+              :key="idx"
+              class="rounded-2xl border transition-all duration-300 overflow-hidden"
+              :class="openFaqIndex === idx ? 'bg-[#18090a] border-kader-red/60 shadow-[0_0_25px_rgba(237,34,36,0.15)]' : 'bg-[#0f0405] border-kader-cream/10 hover:border-kader-red/30'"
+            >
+              <button
+                type="button"
+                @click="toggleFaq(idx)"
+                class="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between text-left gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-kader-red cursor-pointer"
+                :aria-expanded="openFaqIndex === idx"
+                :aria-controls="'buyouts-faq-content-' + idx"
+              >
+                <div class="flex items-center gap-4 md:gap-6 min-w-0">
+                  <span class="font-mono text-sm md:text-base font-bold text-kader-red shrink-0">0{{ idx + 1 }}</span>
+                  <h3 class="text-lg md:text-xl font-bold text-white tracking-tight text-left">{{ item.question }}</h3>
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full border border-kader-cream/20 flex items-center justify-center shrink-0 transition-transform duration-300"
+                  :class="openFaqIndex === idx ? 'rotate-180 bg-kader-red border-kader-red text-white' : 'text-kader-cream/60 group-hover:text-white'"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+              </button>
+              <div
+                :id="'buyouts-faq-content-' + idx"
+                class="grid transition-all duration-300 ease-out"
+                :style="{ gridTemplateRows: openFaqIndex === idx ? '1fr' : '0fr' }"
+              >
+                <div class="overflow-hidden">
+                  <div class="px-6 pb-6 md:px-8 md:pb-8 pt-2 border-t border-kader-cream/10 text-kader-cream/80 text-sm md:text-base leading-relaxed">
+                    {{ item.answer }}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -368,8 +359,8 @@ const venueSchema = computed(() => ({
     {
       '@type': ['LocalBusiness', 'EventVenue'],
       '@id': 'https://www.kader.si/buyouts#venue',
-      'name': 'Kader Grad Kodeljevo — Najem Prostora',
-      'alternateName': 'Dvorec Grad Kodeljevo — Prizorišče & Najem',
+      'name': 'Kader Grad Kodeljevo — Prizorišče',
+      'alternateName': 'Dvorec Grad Kodeljevo — Prizorišče',
       'description': t('buyouts.pageDesc') || 'Zgodovinski baročni dvorec iz 17. stoletja z letnim vrtom, klubskim obokom in celovito gostinsko ter avdio ponudbo za poroke, poslovna srečanja in zasebne zabave v Ljubljani.',
       'url': 'https://www.kader.si/buyouts',
       'telephone': CANONICAL_CONTACTS.reservationsPhone,
@@ -454,6 +445,19 @@ const eventTypesList = [
   { key: 'privateParties', index: '03', titleKey: 'buyouts.privateParties', descKey: 'buyouts.privatePartiesDesc' },
   { key: 'cultural', index: '04', titleKey: 'buyouts.cultural', descKey: 'buyouts.culturalDesc' }
 ]
+
+// Venue FAQ accordion state
+const openFaqIndex = ref<number | null>(0)
+const toggleFaq = (idx: number) => {
+  openFaqIndex.value = openFaqIndex.value === idx ? null : idx
+}
+const buyoutsFaq = computed(() => [
+  { question: t('buyouts.faqQ1'), answer: t('buyouts.faqA1') },
+  { question: t('buyouts.faqQ2'), answer: t('buyouts.faqA2') },
+  { question: t('buyouts.faqQ3'), answer: t('buyouts.faqA3') },
+  { question: t('buyouts.faqQ4'), answer: t('buyouts.faqA4') },
+  { question: t('buyouts.faqQ5'), answer: t('buyouts.faqA5') }
+])
 
 const scrollToForm = () => {
   document.getElementById('inquiry-form')?.scrollIntoView({ behavior: 'smooth' })

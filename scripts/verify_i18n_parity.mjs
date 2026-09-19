@@ -4,11 +4,10 @@ import assert from 'node:assert/strict'
 import { createJiti } from 'jiti'
 
 const REQUIRED_LOCALES = ['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es']
-const EXPECTED_LEAF_COUNT = 927
+const EXPECTED_LEAF_COUNT = 931
 const EXPECTED_PARAM_KEYS = [
   'buyouts.inquiryMessagePrefill',
   'buyouts.thankYou',
-  'buyouts.upTo',
   'craft.phaseBadge',
   'home.viewFullSizeAria',
   'home.visitP',
@@ -18,7 +17,7 @@ const EXPECTED_PARAM_KEYS = [
 
 async function verifyI18nParity() {
   console.log('=============================================================')
-  console.log('  KADER i18n VERIFICATION SUITE: 10 LOCALES & 938 LEAF KEYS')
+  console.log('  KADER i18n VERIFICATION SUITE: 10 LOCALES & 931 LEAF KEYS')
   console.log('=============================================================\n')
 
   const jiti = createJiti(import.meta.url)
@@ -66,13 +65,13 @@ async function verifyI18nParity() {
       paramMap.set(k, matches.sort())
     }
   }
-  assert.equal(paramMap.size, 8, `Expected exactly 8 parameterized keys, found ${paramMap.size}`)
+  assert.equal(paramMap.size, 7, `Expected exactly 7 parameterized keys, found ${paramMap.size}`)
   assert.deepEqual(
     Array.from(paramMap.keys()).sort(),
     EXPECTED_PARAM_KEYS.sort(),
-    'Parameterized keys set must match expected 8 keys'
+    'Parameterized keys set must match expected 7 keys'
   )
-  console.log(`  ✔ [PASS] 8 parameterized keys detected and validated in baseline`)
+  console.log(`  ✔ [PASS] 7 parameterized keys detected and validated in baseline`)
 
   // 5. Parity, empty-string, and parameter audit across all 10 locales
   console.log('\n>>> [CHECK 4] Parity, emptiness, and parameter symmetry across all 10 locales')

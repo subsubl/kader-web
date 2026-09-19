@@ -519,14 +519,26 @@
       <section class="mt-16 bg-white rounded-3xl p-8 md:p-10 border-2 border-gray-100 shadow-md">
         <div class="text-center mb-10">
           <span class="text-xs uppercase tracking-[0.3em] text-red-600 font-semibold block mb-2">{{ t('pizzeria.reviewsGuestSubtitle') }}</span>
-          <h2 class="text-3xl font-serif font-bold text-gray-900 uppercase">{{ t('pizzeria.reviewsTitle') }}</h2>
+          <a
+            :href="verifyGoogleUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-block"
+            :aria-label="t('pizzeria.reviewsTitle')"
+          >
+            <h2 class="text-3xl font-serif font-bold text-gray-900 uppercase group-hover:text-red-600 transition-colors duration-300">
+              {{ t('pizzeria.reviewsTitle') }}
+              <span class="inline-block align-middle ml-2 text-red-600 font-sans text-2xl group-hover:translate-x-1 transition-transform duration-300">↗</span>
+            </h2>
+          </a>
+          <p class="mt-2 text-xs text-gray-400">{{ t('pizzeria.reviewsLinkHint') }}</p>
           <div class="w-16 h-1 bg-red-600 mx-auto mt-4"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div 
-            v-for="rev in googleReviews" 
-            :key="rev.author" 
+            v-for="(rev, revIdx) in googleReviews"
+            :key="revIdx" 
             class="bg-gray-50 p-6 rounded-2xl border-2 border-gray-100 hover:border-red-200 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
           >
             <div>
@@ -592,6 +604,9 @@ import { usePageSeo, EXACT_GEO, CANONICAL_ADDRESS, CANONICAL_CONTACTS } from '~/
 
 const { t, locale } = useLocale()
 const { siteImages, getOptImg } = useSiteImages()
+
+// Link to the live Google Business review listing
+const verifyGoogleUrl = CANONICAL_CONTACTS.googleMapsUrl
 
 const pizzeriaSchema = computed(() => ({
   '@context': 'https://schema.org',
@@ -747,6 +762,24 @@ const googleReviews = computed(() => [
     date: t('pizzeria.rev3_date'),
     text: t('pizzeria.rev3_text'),
     likes: 11
+  },
+  {
+    author: t('pizzeria.rev4_author'),
+    date: t('pizzeria.rev4_date'),
+    text: t('pizzeria.rev4_text'),
+    likes: 16
+  },
+  {
+    author: t('pizzeria.rev5_author'),
+    date: t('pizzeria.rev5_date'),
+    text: t('pizzeria.rev5_text'),
+    likes: 8
+  },
+  {
+    author: t('pizzeria.rev6_author'),
+    date: t('pizzeria.rev6_date'),
+    text: t('pizzeria.rev6_text'),
+    likes: 12
   }
 ])
 

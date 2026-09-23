@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-09-19T08:08:02.048Z",
+  "lastSyncedAt": "2026-09-23T08:40:52.648Z",
   "events": [
     {
       "ra_id": 485105,
@@ -385,6 +385,21 @@
         "House",
         "Electronica"
       ]
+    },
+    {
+      "ra_id": 2542979,
+      "title": "ADIJO POLETJE",
+      "date": "2026-09-26T19:00:00.000Z",
+      "start_time": "2026-09-26T19:00:00.000Z",
+      "end_time": "2026-09-27T00:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/b213af9e87c3104700490015de49a2dd3ae9ac3e.jpg",
+      "ra_url": "https://ra.co/events/2542979",
+      "lineup": "DJ Tease\n<artist id=\"122032\">SunnySun</artist> \nAnina",
+      "artists": [
+        "SunnySun"
+      ],
+      "genres": []
     }
   ]
 }

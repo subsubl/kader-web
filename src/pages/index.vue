@@ -6,8 +6,8 @@
          (they use ~383px at x=135), the big links are RIGHT-ALIGNED at 40px,
          and nothing is centred. Their body copy is justified at 22px. -->
     <section class="relative overflow-hidden">
-      <Clipart shape="moon" :size="240" :opacity="0.16" position="absolute left-[6%] top-10" />
-      <Clipart shape="circle" :size="300" :opacity="0.18" variant="stroke" position="absolute right-[6%] bottom-6" />
+      <Clipart shape="vinyl" :size="260" :opacity="0.14" position="absolute left-[5%] top-12" />
+      <Clipart shape="bike" :size="230" :opacity="0.13" position="absolute right-[5%] bottom-8" />
 
       <div class="max-w-[1400px] mx-auto px-5 pt-14 pb-10 md:pt-20 md:pb-16 grid grid-cols-1 md:grid-cols-12 gap-10">
 
@@ -71,11 +71,12 @@
     <section id="programme" class="border-t border-white/25">
       <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
         <div class="md:col-span-6 md:pl-[100px] relative">
-          <Clipart shape="speaker" :size="180" :opacity="0.2" variant="stroke" position="absolute -left-6 top-4" />
+          <Clipart shape="speaker" :size="180" :opacity="0.2" position="absolute -left-6 top-4" />
           <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.eventsTitle') }}</h2>
           <p class="text-[22px] leading-[33px] text-left max-w-[430px]">{{ t('site.eventsSub') }}</p>
         </div>
-        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end">
+        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end relative">
+          <Clipart shape="vinyl" :size="170" :opacity="0.12" position="absolute -top-6 right-0" />
           <ul v-if="upcomingEvents.length" class="w-full max-w-[430px] divide-y divide-white/25">
             <li v-for="ev in upcomingEvents" :key="ev.ra_id" class="py-3">
               <div class="flex items-baseline justify-between gap-4">
@@ -100,7 +101,7 @@
     <section id="hours" class="border-t border-white/25">
       <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
         <div class="md:col-span-6 md:pl-[100px] relative">
-          <Clipart shape="circle" :size="190" :opacity="0.16" variant="stroke" position="absolute -left-8 top-2" />
+          <Clipart shape="vinyl" :size="200" :opacity="0.13" position="absolute -left-8 top-2" />
           <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.hoursTitle') }}</h2>
           <ul class="max-w-[430px]">
             <li v-for="row in hoursRows" :key="row.day" class="flex justify-between items-baseline text-[22px] leading-[33px] py-1">
@@ -120,12 +121,13 @@
     <section id="venue" class="border-t border-white/25">
       <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
         <div class="md:col-span-6 md:pl-[100px] relative">
-          <Clipart shape="moon" :size="120" :opacity="0.14" position="absolute -left-8 bottom-0" />
+          <Clipart shape="pizza" :size="200" :opacity="0.14" position="absolute -left-8 bottom-0" />
           <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.venueTitle') }}</h2>
           <p class="text-[22px] leading-[33px] text-left text-justify max-w-[430px] mb-5">{{ t('site.venue1') }}</p>
           <p class="text-[22px] leading-[33px] text-left text-justify max-w-[430px] mb-5">{{ t('site.venue2') }}</p>
         </div>
-        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end">
+        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end relative">
+          <Clipart shape="bike" :size="160" :opacity="0.12" position="absolute -bottom-8 right-0" />
           <p class="text-[22px] leading-[33px] text-right mb-4">{{ t('site.venue3') }}</p>
           <a href="mailto:info@kader.si" class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">info@kader.si</a>
         </div>

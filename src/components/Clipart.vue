@@ -1,83 +1,85 @@
 <template>
   <!--
-    Decorative clipart, in the spirit of the reference template (which sets a
-    crescent moon, a circle and arrow dividers into the page).
+    Decorative clipart for the page, in the spirit of the reference template
+    (which sets a moon, a circle and arrow dividers into the page).
 
-    Sources are permissively licensed and inlined as SVG so there is no runtime
-    dependency:
-      moon   : OpenMoji "waxing crescent moon" (1F312)  — CC-BY-SA 4.0 / CC0
-      arrow  : Tabler Icons (outline)                    — MIT
-      circle : Tabler Icons (outline)                    — MIT
-    Recoloured to currentColor so the clipart inherits the white type colour.
+    Sources are permissively licensed and inlined, so there is no runtime asset
+    dependency and the shapes recolour to the surrounding type:
+
+      vinyl  : Tabler Icons "vinyl"  (MIT)
+      pizza  : Tabler Icons "pizza"  (MIT)
+      bike   : Tabler Icons "bike"   (MIT)
+      speaker: Tabler Icons "volume-2" (MIT)
+      arrows : Tabler Icons "chevron-down" / "chevron-up" (MIT)
+
+    Everything is drawn in white (currentColor, which the page sets to white on
+    the signal-red background) and used at low opacity so it reads as texture
+    rather than as an icon.
   -->
   <div
-    class="pointer-events-none select-none"
-    :class="positionClass"
-    :style="boxStyle"
+    :class="['clipart', position, { '-z-10': behind }]"
+    :style="wrapperStyle"
     aria-hidden="true"
   >
+    <!-- Vinyl record with a stylus -->
     <svg
-      v-if="shape === 'moon'"
-      viewBox="0 0 72 72"
-      :style="svgStyle"
-      fill="none"
-    >
-      <path
-        d="M55 35A28 28 0 0 1 28.45 62.96 28 28 0 1 0 36 8q-.73 0-1.45.04A28 28 0 0 1 55 35Z"
-        :fill="color"
-      />
-    </svg>
-
-    <svg
-      v-else-if="shape === 'circle'"
+      v-if="shape === 'vinyl'"
       viewBox="0 0 24 24"
       :style="svgStyle"
       fill="none"
       stroke="currentColor"
       stroke-width="1.4"
       stroke-linecap="round"
+      stroke-linejoin="round"
     >
-      <path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" />
+      <path d="M16 3.937a9 9 0 1 0 5 8.063" />
+      <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0-2 0" />
+      <path d="M19 4a1 1 0 1 0 2 0a1 1 0 1 0-2 0" />
+      <path d="M20 4l-3.5 10l-2.5 2" />
     </svg>
 
+    <!-- Pizza slice -->
     <svg
-      v-else-if="shape === 'arrow-down'"
+      v-else-if="shape === 'pizza'"
       viewBox="0 0 24 24"
       :style="svgStyle"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.6"
+      stroke-width="1.4"
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <path d="M12 5v14" />
-      <path d="M18 13l-6 6" />
-      <path d="M6 13l6 6" />
+      <path d="M12 21.5c-3.04 0-5.952-.714-8.5-1.983l8.5-16.517 8.5 16.517a19.09 19.09 0 0 1-8.5 1.983" />
+      <path d="M5.38 15.866a14.94 14.94 0 0 0 6.815 1.634 14.944 14.944 0 0 0 6.502-1.479" />
+      <path d="M13 11.01h-.01" />
+      <path d="M11 14h-.01" />
     </svg>
 
+    <!-- Bicycle -->
     <svg
-      v-else-if="shape === 'arrow-up'"
+      v-else-if="shape === 'bike'"
       viewBox="0 0 24 24"
       :style="svgStyle"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.6"
+      stroke-width="1.4"
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <path d="M12 19V5" />
-      <path d="M18 11l-6-6" />
-      <path d="M6 11l6-6" />
+      <path d="M2 18a3 3 0 1 0 6 0a3 3 0 0 0-6 0" />
+      <path d="M16 18a3 3 0 1 0 6 0a3 3 0 0 0-6 0" />
+      <path d="M12 19v-4l-3-3l5-4l2 3h3" />
+      <path d="M13.007 5a2 2 0 1 0 4 0a2 2 0 1 0-4 0" />
     </svg>
 
-    <!-- Speaker with sound waves (Tabler "volume-2", MIT) -->
+    <!-- Speaker with sound waves -->
     <svg
       v-else-if="shape === 'speaker'"
       viewBox="0 0 24 24"
       :style="svgStyle"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.5"
+      stroke-width="1.4"
       stroke-linecap="round"
       stroke-linejoin="round"
     >
@@ -85,42 +87,68 @@
       <path d="M15.5 8.5a5 5 0 0 1 0 7" />
       <path d="M18.5 6a9 9 0 0 1 0 12" />
     </svg>
+
+    <!-- Arrows: used by the divider bands, white on the red background -->
+    <svg
+      v-else-if="shape === 'arrow-down' || shape === 'arrow-up'"
+      viewBox="0 0 24 24"
+      :style="svgStyle"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <template v-if="shape === 'arrow-down'">
+        <path d="M12 5v14" />
+        <path d="M18 13l-6 6" />
+        <path d="M6 13l6 6" />
+      </template>
+      <template v-else>
+        <path d="M12 19V5" />
+        <path d="M18 11l-6-6" />
+        <path d="M6 11l6-6" />
+      </template>
+    </svg>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type CSSProperties } from 'vue'
 
-type Shape = 'moon' | 'circle' | 'arrow-down' | 'arrow-up' | 'speaker'
+type Shape = 'vinyl' | 'pizza' | 'bike' | 'speaker' | 'arrow-down' | 'arrow-up'
 
 const props = withDefaults(defineProps<{
   shape: Shape
-  /** Rendered size in px. */
+  /** Rendered size in pixels. */
   size?: number
-  /** 'fill' = ink colour, 'stroke' = hairline outline. */
-  variant?: 'fill' | 'stroke'
-  /** CSS positioning shorthand, e.g. 'top-8 right-10'. */
-  position?: string
-  /** Opacity 0-1. */
+  /** 0-1; the page uses low values so the shapes read as texture. */
   opacity?: number
-  /** Override the colour (defaults to currentColor for stroke variants). */
-  color?: string
+  /** Tailwind position classes, e.g. "absolute -left-6 top-4". */
+  position?: string
+  /** Kept for call sites that pass it; stroke is the house style. */
+  variant?: 'stroke' | 'fill'
+  /** Send behind the surrounding content. */
+  behind?: boolean
 }>(), {
-  size: 120,
-  variant: 'fill',
-  position: '',
-  opacity: 0.14,
-  color: '#ffffff'
+  size: 180,
+  opacity: 0.18,
+  position: 'absolute',
+  variant: 'stroke',
+  behind: false
 })
 
-const positionClass = computed(() => props.position)
-const boxStyle = computed(() => ({
-  opacity: props.opacity
-}))
-const svgStyle = computed(() => ({
+const wrapperStyle = computed<CSSProperties>(() => ({
   width: `${props.size}px`,
-  height: props.size === 0 ? undefined : `${props.size}px`,
-  display: 'block',
-  color: props.variant === 'stroke' ? props.color : undefined
+  height: `${props.size}px`,
+  opacity: props.opacity,
+  color: '#ffffff',
+  pointerEvents: 'none'
+}))
+
+const svgStyle = computed<CSSProperties>(() => ({
+  width: '100%',
+  height: '100%',
+  display: 'block'
 }))
 </script>

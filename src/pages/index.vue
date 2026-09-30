@@ -123,7 +123,7 @@
       </div>
     </section>
 
-    <ParallaxBand :src="assetUrl('/buyout-bg.jpg')" :alt="t('site.band3Alt')" height="58vh" />
+    <ParallaxBand :src="assetUrl('/images/band-3.jpg')" :alt="t('site.band3Alt')" height="58vh" />
 
     <!-- ===== CONTACT =================================================== -->
     <section id="contact" class="border-t border-white/25">

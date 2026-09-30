@@ -46,28 +46,29 @@
     <!-- ===== DIVIDER (as in the reference: full-bleed arrow between blocks) ===== -->
     <ArrowDivider direction="down" :height-px="150" :chevron-px="100" />
 
-    <!-- ===== MENU (the real menu sheet) ===== -->
+    <!-- ===== MENU: opens the menu JPG, not shown inline ===== -->
     <section id="menu" class="border-t border-white/25">
-      <div class="max-w-6xl mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
+      <div class="max-w-6xl mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
 
         <!-- LEFT: kept deliberately empty of header text, per request -->
-        <div class="md:col-span-4 relative">
+        <div class="md:col-span-5 relative">
           <Clipart shape="moon" :size="150" :opacity="0.14" position="absolute -left-6 top-2" />
         </div>
 
-        <!-- RIGHT: menu sheet -->
-        <div class="md:col-span-8">
-          <img
-            :src="menuImageUrl"
-            :alt="t('site.menuImageAlt')"
-            decoding="async"
-            class="w-full h-auto shadow-2xl"
-            width="3000" height="2121"
-          >
-          <div class="text-xs text-white/70 space-y-2 mt-8">
-            <p>{{ t('pizzeria.allergenLegendTitle') }} {{ t('pizzeria.allergenLegendText') }}</p>
-            <p>{{ t('pizzeria.priceListValidFrom') }} · {{ t('pizzeria.pricesVat') }}</p>
-          </div>
+        <!-- RIGHT: the menu link -->
+        <div class="md:col-span-7 flex flex-col items-start md:items-end relative">
+          <Clipart shape="pizza" :size="190" :opacity="0.22" variant="stroke" position="absolute -top-10 -left-6" />
+          <a
+            :href="menuImageUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300"
+          >{{ t('site.navMenu') }}</a>
+          <a
+            :href="menuImageUrl"
+            download
+            class="mt-6 text-sm underline underline-offset-4 hover:text-kader-black transition-colors"
+          >{{ t('site.menuDownload') }}</a>
         </div>
       </div>
     </section>
@@ -83,7 +84,9 @@
 
     <!-- ===== UPCOMING EVENTS (RA snapshot) ===== -->
     <section id="programme" class="border-t border-white/25">
-      <div class="max-w-5xl mx-auto px-5 py-14">
+      <div class="max-w-5xl mx-auto px-5 py-14 relative">
+        <Clipart shape="speaker" :size="200" :opacity="0.20" variant="stroke" position="absolute -left-8 top-8" />
+        <Clipart shape="speaker" :size="120" :opacity="0.14" variant="stroke" position="absolute right-4 bottom-6" />
         <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-3">
           {{ t('site.eventsTitle') }}
         </h2>

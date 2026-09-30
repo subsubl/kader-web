@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { createJiti } from 'jiti'
 
 const REQUIRED_LOCALES = ['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es']
-const EXPECTED_LEAF_COUNT = 81
+const EXPECTED_LEAF_COUNT = 82
 const EXPECTED_PARAM_KEYS = []
 
 async function verifyI18nParity() {

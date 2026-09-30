@@ -26,7 +26,8 @@ assert.ok(!/["'](\/api\/|\/admin)/.test(index), 'index: leaked backend reference
 // Single page must carry the real content: intro tagline, menu sheet, hours, venue, contact.
 for (const [label, needle] of [
   ['intro tagline', 'Pizza bistro in plesni bar na gradu Kodeljevo'],
-  ['menu image', 'menu-a3.jpg'],
+  ['menu jpg link', 'menu-a3.jpg'],
+  ['menu download label', 'Prenesi meni'],
   ['contact email', 'info@kader.si'],
   ['order phone', '+386 83 836 740'],
   ['reservations phone', '+386 40 175 628'],
@@ -35,6 +36,30 @@ for (const [label, needle] of [
 ]) {
   assert.ok(index.includes(needle), `index: missing expected content (${label}: "${needle}")`)
 }
+
+// The menu must be a LINK that opens the JPG, not an inline <img> in the page.
+assert.ok(
+  /<a[^>]+href="[^"]*menu-a3\.jpg"/.test(index),
+  'index: menu-a3.jpg must be linked, not displayed inline'
+)
+const inlineMenuImg = [...index.matchAll(/<img[^>]+src="[^"]*menu-a3\.jpg"/g)]
+assert.equal(
+  inlineMenuImg.length,
+  0,
+  `index: menu JPG must not be rendered as an inline <img> (found ${inlineMenuImg.length})`
+)
+
+// The header carries the logo plus the language picker only: no guide/nav links.
+const header = index.slice(0, index.indexOf('</header>') + 9)
+assert.ok(!/<a[^>]+href="#(menu|hours|venue|contact)"/.test(header), 'header: nav links should be removed')
+assert.ok(header.includes('logo-banner.png'), 'header: logo missing')
+assert.ok(header.includes('<select'), 'header: language selector missing')
+
+// The footer is just the copyright: contact details must not be duplicated there.
+const footer = index.slice(index.indexOf('<footer'))
+assert.ok(!footer.includes('info@kader.si'), 'footer: contact email should be removed')
+assert.ok(!footer.includes('+386'), 'footer: phone numbers should be removed')
+assert.ok(!footer.includes('Carla Benza'), 'footer: address should be removed')
 
 // The site must render signal-red with white type (no dark theme leaking through).
 assert.ok(index.includes('bg-kader-red'), 'index: signal red background class missing')

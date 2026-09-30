@@ -69,11 +69,22 @@ assert.equal(
 assert.ok(!/id="menu"/.test(index), 'index: the menu section should be removed; Meni links straight to the JPG')
 assert.ok(!/Prenesi meni/.test(index), 'index: the menu download blurb should be removed')
 
-// Header: language picker only. No logo, no nav links.
-const header = index.slice(0, index.indexOf('</header>') + 9)
-assert.ok(header.includes('<select'), 'header: language selector missing')
-assert.ok(!/<a[^>]+href="#(menu|hours|venue|contact|programme)"/.test(header), 'header: nav links should be removed')
-assert.ok(!/<img/.test(header), 'header: logo should be removed')
+// The street is spelled "Karla" everywhere. Google reads the JSON-LD for the
+// map pin, so the structured data and the visible copy must not disagree.
+assert.ok(!/Carla Benza/.test(index), 'index: the address should be spelled "Karla Benza" everywhere')
+
+// No header bar at all: the language picker is a small fixed control in the
+// corner, so there must be no <header> element, no bar and no nav links in it.
+assert.ok(!/<header[\s>]/.test(index), 'index: the header bar should be removed; the language picker floats in the corner')
+assert.ok(!/<\/header>/.test(index), 'index: no <header> element expected')
+assert.ok(!/class="[^"]*\bsticky\b[^"]*"/.test(index), 'index: no sticky bar expected')
+assert.ok(index.includes('<select'), 'language picker: selector missing')
+assert.ok(
+  /<div class="fixed top-0 right-0[^"]*">\s*<div class="relative">\s*<select/.test(index.replace(/\s+/g, ' ')),
+  'language picker: should be a fixed control in the top-right corner'
+)
+assert.ok(!/<a[^>]+href="#(menu|hours|venue|contact|programme)"/.test(index.slice(0, index.indexOf('<main'))), 'nav links should not appear before <main>')
+assert.ok(!/<img/.test(index.slice(0, index.indexOf('<main'))), 'no logo before <main>')
 
 // Footer: copyright only.
 const footer = index.slice(index.indexOf('<footer'))

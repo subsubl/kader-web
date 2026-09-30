@@ -2,119 +2,66 @@
   <div class="min-h-screen bg-white text-gray-800">
 
     <!-- ===== INTRO ===== -->
-    <section class="max-w-3xl mx-auto px-5 pt-16 pb-10 text-center">
+    <section class="max-w-3xl mx-auto px-5 pt-14 pb-12 text-center">
       <img
         :src="logoUrl"
         :alt="t('header.logoAlt')"
         decoding="async"
-        class="h-16 md:h-20 w-auto mx-auto mb-8 object-contain"
-        width="200" height="80"
+        class="h-24 md:h-32 w-auto mx-auto mb-8 object-contain"
+        width="288" height="128"
       >
-      <p class="text-lg md:text-xl leading-relaxed mb-4">{{ t('site.intro') }}</p>
+      <p class="text-2xl md:text-3xl leading-snug mb-6 font-light">{{ t('site.intro') }}</p>
       <p class="text-base text-gray-600 mb-2">
         <a
           href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7"
           target="_blank"
           rel="noopener noreferrer"
           class="text-kader-red hover:underline"
-        >Koblarjeva ulica 34, 1000 Ljubljana</a>
+        >Ulica Carla Benza 20, 1000 Ljubljana</a>
       </p>
       <p class="text-base text-gray-600 mb-6">
         <a href="https://www.instagram.com/kader.lunapark/" target="_blank" rel="noopener noreferrer" class="text-kader-red hover:underline">{{ t('site.follow') }}</a>
       </p>
-      <p class="text-base text-gray-500 italic">{{ t('site.closing') }}</p>
+      <a
+        href="#menu"
+        class="inline-block px-8 py-3.5 bg-kader-red text-white text-sm md:text-base font-bold uppercase tracking-widest hover:bg-gray-900 transition-colors duration-300"
+      >{{ t('site.menuCta') }}</a>
     </section>
 
-    <!-- ===== MENU (inline) ===== -->
+    <!-- ===== MENU (the real menu sheet) ===== -->
     <section id="menu" class="border-t border-gray-200">
-      <div class="max-w-5xl mx-auto px-5 py-14">
+      <div class="max-w-4xl mx-auto px-5 py-14">
         <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-gray-900 text-center mb-3">
           {{ t('site.menuTitle') }}
         </h2>
-        <p class="text-sm text-gray-500 text-center mb-12 max-w-2xl mx-auto">{{ t('site.menuNote') }}</p>
+        <p class="text-sm text-gray-500 text-center mb-10 max-w-2xl mx-auto">{{ t('site.menuNote') }}</p>
 
-        <!-- Pizze -->
-        <div class="mb-12">
-          <div class="flex items-baseline justify-between border-b border-gray-300 pb-2 mb-6">
-            <h3 class="text-lg font-bold uppercase text-gray-900">{{ t('pizzeria.colPizzaTitle') }}</h3>
-            <span class="text-xs text-gray-500">{{ t('pizzeria.regularFamily') }}</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
-            <div v-for="item in pizze" :key="item.name" class="flex items-baseline gap-2">
-              <span class="font-medium text-gray-900">{{ item.name }}</span>
-              <span class="flex-1 border-b border-dotted border-gray-300"></span>
-              <span class="text-gray-700 whitespace-nowrap font-mono text-sm">{{ item.price }}</span>
-            </div>
-          </div>
-          <p v-for="item in pizzeWithDesc" :key="'d' + item.name" class="text-sm text-gray-600 mt-1 mb-4">
-            <span class="font-medium text-gray-800">{{ item.name }}:</span> {{ item.description }}
-          </p>
-        </div>
+        <img
+          :src="menuImageUrl"
+          :alt="t('site.menuImageAlt')"
+          decoding="async"
+          class="w-full h-auto shadow-2xl ring-1 ring-gray-200"
+          width="3000" height="2121"
+        >
 
-        <!-- Panuozzo -->
-        <div class="mb-12">
-          <div class="flex items-baseline justify-between border-b border-gray-300 pb-2 mb-6">
-            <h3 class="text-lg font-bold uppercase text-gray-900">{{ t('pizzeria.colPanuozzoTitle') }}</h3>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
-            <div v-for="item in panuozzoItems" :key="item.name" class="flex items-baseline gap-2">
-              <span class="font-medium text-gray-900">{{ item.name }}</span>
-              <span class="flex-1 border-b border-dotted border-gray-300"></span>
-              <span class="text-gray-700 whitespace-nowrap font-mono text-sm">{{ item.price }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Solate -->
-        <div class="mb-12">
-          <div class="flex items-baseline justify-between border-b border-gray-300 pb-2 mb-6">
-            <h3 class="text-lg font-bold uppercase text-gray-900">{{ t('pizzeria.colSaladsTitle') }}</h3>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
-            <div v-for="item in solateItems" :key="item.name" class="flex items-baseline gap-2">
-              <span class="font-medium text-gray-900">{{ item.name }}</span>
-              <span class="flex-1 border-b border-dotted border-gray-300"></span>
-              <span class="text-gray-700 whitespace-nowrap font-mono text-sm">{{ item.price }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dodatki -->
-        <div class="mb-12">
-          <div class="flex items-baseline justify-between border-b border-gray-300 pb-2 mb-6">
-            <h3 class="text-lg font-bold uppercase text-gray-900">{{ t('site.dodatkiTitle') }}</h3>
-          </div>
-          <div class="space-y-3">
-            <div v-for="d in dodatkiList" :key="d.title" class="flex items-baseline gap-2">
-              <span class="font-medium text-gray-900">{{ d.title }}</span>
-              <span class="flex-1 border-b border-dotted border-gray-300"></span>
-              <span class="text-gray-700 whitespace-nowrap font-mono text-sm">{{ d.price }}</span>
-            </div>
-            <p class="text-sm text-gray-600">{{ t('pizzeria.m_dodatek1_items') }}</p>
-          </div>
-        </div>
-
-        <!-- Narezek -->
-        <div class="mb-10">
-          <div class="flex items-baseline justify-between border-b border-gray-300 pb-2 mb-6">
-            <h3 class="text-lg font-bold uppercase text-gray-900">{{ t('pizzeria.colNarezekTitle') }}</h3>
-          </div>
-          <div v-for="item in narezekItems" :key="item.name" class="flex items-baseline gap-2">
-            <span class="font-medium text-gray-900">{{ item.name }}</span>
-            <span class="flex-1 border-b border-dotted border-gray-300"></span>
-            <span class="text-gray-700 whitespace-nowrap font-mono text-sm">{{ item.price }}</span>
-          </div>
-          <p class="text-sm text-gray-600 mt-1">{{ t('pizzeria.m_narezek_desc') }}</p>
-        </div>
-
-        <!-- Legal / provenance footer notes -->
-        <div class="text-xs text-gray-500 space-y-2 border-t border-gray-200 pt-6">
+        <div class="text-xs text-gray-500 space-y-2 mt-10 text-center">
           <p>{{ t('pizzeria.allergenLegendTitle') }} {{ t('pizzeria.allergenLegendText') }}</p>
-          <p>{{ t('pizzeria.provenanceTitle') }} — {{ t('pizzeria.provenanceDesc') }}</p>
           <p>{{ t('pizzeria.priceListValidFrom') }} · {{ t('pizzeria.pricesVat') }}</p>
         </div>
       </div>
     </section>
+
+    <!-- ===== INTERSTITIAL IMAGE BAND ===== -->
+    <figure class="w-full">
+      <img
+        :src="assetUrl('/images/club-red-hero.jpg')"
+        :alt="t('site.band1Alt')"
+        loading="lazy"
+        decoding="async"
+        class="w-full h-[38vh] min-h-[240px] object-cover"
+        width="1200" height="800"
+      >
+    </figure>
 
     <!-- ===== UPCOMING EVENTS (RA snapshot) ===== -->
     <section class="border-t border-gray-200">
@@ -157,6 +104,18 @@
       </div>
     </section>
 
+    <!-- ===== INTERSTITIAL IMAGE BAND ===== -->
+    <figure class="w-full">
+      <img
+        :src="assetUrl('/pizzeria-bg.jpg')"
+        :alt="t('site.band2Alt')"
+        loading="lazy"
+        decoding="async"
+        class="w-full h-[38vh] min-h-[240px] object-cover"
+        width="1920" height="1280"
+      >
+    </figure>
+
     <!-- ===== OPENING HOURS ===== -->
     <section class="border-t border-gray-200">
       <div class="max-w-3xl mx-auto px-5 py-14">
@@ -187,6 +146,18 @@
       </div>
     </section>
 
+    <!-- ===== INTERSTITIAL IMAGE BAND ===== -->
+    <figure class="w-full">
+      <img
+        :src="assetUrl('/buyout-bg.jpg')"
+        :alt="t('site.band3Alt')"
+        loading="lazy"
+        decoding="async"
+        class="w-full h-[38vh] min-h-[240px] object-cover"
+        width="1920" height="1240"
+      >
+    </figure>
+
     <!-- ===== CONTACT ===== -->
     <section class="border-t border-gray-200">
       <div class="max-w-3xl mx-auto px-5 py-14 text-center">
@@ -196,13 +167,16 @@
         <div class="space-y-2 text-lg text-gray-700">
           <p class="font-bold text-gray-900">Kader Grad Kodeljevo</p>
           <p>
-            <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer" class="text-kader-red hover:underline">Koblarjeva ulica 34</a><br>
+            <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer" class="text-kader-red hover:underline">Ulica Carla Benza 20</a><br>
             1000 Ljubljana
           </p>
           <p>
             <a href="mailto:info@kader.si" class="text-kader-red hover:underline">info@kader.si</a>
           </p>
           <p class="pt-3">
+            <a :href="'tel:' + orderPhoneE164" class="text-kader-red hover:underline font-mono">{{ orderPhoneDisplay }}</a>
+          </p>
+          <p class="pt-1">
             <a :href="'tel:' + reservationsPhoneE164" class="text-kader-red hover:underline font-mono">{{ reservationsPhoneDisplay }}</a>
           </p>
           <p class="text-sm text-gray-500 pt-2">{{ t('site.reserveNote') }}</p>
@@ -250,8 +224,11 @@ const upcomingEvents = computed<RaEvent[]>(() => {
     .sort((a, b) => new Date(a.start_time || a.date).getTime() - new Date(b.start_time || b.date).getTime())
 })
 
-const logoUrl = assetUrl('/logo-k.jpg')
+const logoUrl = assetUrl('/logo-badge.png')
+const menuImageUrl = assetUrl('/menu-a3.jpg')
 
+const orderPhoneDisplay = '+386 83 836 740'
+const orderPhoneE164 = '+38683836740'
 const reservationsPhoneDisplay = '+386 40 175 628'
 const reservationsPhoneE164 = '+38640175628'
 
@@ -278,74 +255,6 @@ usePageSeo({
   ogDescKey: 'site.seoDesc',
   schema: siteSchema
 })
-
-interface MenuItem {
-  name: string
-  description?: string
-  price: string
-  allergens?: string
-}
-
-const pizze = computed<MenuItem[]>(() => [
-  { name: 'Marinara', price: '10 €' },
-  { name: 'Margerita', price: '11/24 €' },
-  { name: t('pizzeria.m_klasika_name'), price: '13/31 €' },
-  { name: 'Bufalina', price: '14/31 €' },
-  { name: 'Regina', price: '14/31 €' },
-  { name: 'Bresaola', price: '16/37 €' },
-  { name: t('pizzeria.m_krasotica_name'), price: '15/34 €' },
-  { name: 'Peperoni', price: '14/32 €' },
-  { name: 'Kalabria', price: '15/32 €' },
-  { name: 'Arrotolata', price: '15/32 €' },
-  { name: 'Tuna', price: '14/31 €' },
-  { name: 'Ortolana', price: '14/29 €' },
-  { name: t('pizzeria.m_satarasa_name'), price: '14/29 €' },
-  { name: 'Tartufina', price: '14/31 €' },
-  { name: t('pizzeria.m_vegana_name'), price: '14/29 €' }
-])
-
-const pizzeWithDesc = computed<MenuItem[]>(() => [
-  { name: 'Marinara', description: t('pizzeria.m_marinara_desc'), price: '' },
-  { name: 'Margerita', description: t('pizzeria.m_margerita_desc'), price: '' },
-  { name: t('pizzeria.m_klasika_name'), description: t('pizzeria.m_klasika_desc'), price: '' },
-  { name: 'Bufalina', description: t('pizzeria.m_bufalina_desc'), price: '' },
-  { name: 'Regina', description: t('pizzeria.m_regina_desc'), price: '' },
-  { name: 'Bresaola', description: t('pizzeria.m_bresaola_desc'), price: '' },
-  { name: t('pizzeria.m_krasotica_name'), description: t('pizzeria.m_krasotica_desc'), price: '' },
-  { name: 'Peperoni', description: t('pizzeria.m_peperoni_desc'), price: '' },
-  { name: 'Kalabria', description: t('pizzeria.m_kalabria_desc'), price: '' },
-  { name: 'Arrotolata', description: t('pizzeria.m_arrotolata_desc'), price: '' },
-  { name: 'Tuna', description: t('pizzeria.m_tuna_desc'), price: '' },
-  { name: 'Ortolana', description: t('pizzeria.m_ortolana_desc'), price: '' },
-  { name: t('pizzeria.m_satarasa_name'), description: t('pizzeria.m_satarasa_desc'), price: '' },
-  { name: 'Tartufina', description: t('pizzeria.m_tartufina_desc'), price: '' },
-  { name: t('pizzeria.m_vegana_name'), description: t('pizzeria.m_vegana_desc'), price: '' }
-])
-
-const panuozzoItems = computed<MenuItem[]>(() => [
-  { name: 'Praga', price: '11 €' },
-  { name: 'Roastbeef', price: '13 €' },
-  { name: 'Mortadela', price: '12 €' },
-  { name: 'Lušt\'n', price: '12 €' },
-  { name: t('pizzeria.m_panGarlicBread_name'), price: '7 €' }
-])
-
-const solateItems = computed<MenuItem[]>(() => [
-  { name: t('pizzeria.m_salMesana_name'), price: '7.50 €' },
-  { name: t('pizzeria.m_salTuna_name'), price: '12 €' },
-  { name: t('pizzeria.m_salBuffalo_name'), price: '13 €' },
-  { name: t('pizzeria.m_salRoastbeef_name'), price: '15 €' }
-])
-
-const dodatkiList = computed(() => [
-  { title: t('pizzeria.m_dodatek1_title'), price: '2.20 €' },
-  { title: t('pizzeria.m_dodatek2_title'), price: '3 €' },
-  { title: t('pizzeria.m_dodatek3_title'), price: '4 €' }
-])
-
-const narezekItems = computed<MenuItem[]>(() => [
-  { name: t('pizzeria.m_narezek_name'), price: '25.90 €' }
-])
 
 const hoursRows = computed(() => [
   { day: t('home.monWed'), time: '09:00 – 22:00' },

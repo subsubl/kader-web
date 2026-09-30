@@ -23,16 +23,22 @@ for (const b of banned) {
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 assert.ok(!/["'](\/api\/|\/admin)/.test(index), 'index: leaked backend reference')
 
-// Single page must carry the real content: menu, hours, venue, contact.
+// Single page must carry the real content: intro tagline, menu sheet, hours, venue, contact.
 for (const [label, needle] of [
-  ['menu', 'KADER'],
+  ['intro tagline', 'Pizza bistro in plesni bar na gradu Kodeljevo'],
+  ['menu image', 'menu-a3.jpg'],
+  ['logo', 'logo-badge.png'],
   ['contact email', 'info@kader.si'],
+  ['order phone', '+386 83 836 740'],
   ['reservations phone', '+386 40 175 628'],
-  ['address', 'Koblarjeva'],
+  ['address', 'Ulica Carla Benza 20'],
   ['instagram', 'instagram.com/kader.lunapark']
 ]) {
   assert.ok(index.includes(needle), `index: missing expected content (${label}: "${needle}")`)
 }
+
+// The site must render on a light background (no dark theme leaking through).
+assert.ok(!/<body[^>]*class="[^"]*bg-black/.test(index), 'index: body must not be dark')
 
 // Every src/href pointing at the site root must carry the baseURL prefix when deploying to a subdirectory
 if (base) {

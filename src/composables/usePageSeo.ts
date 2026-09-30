@@ -11,7 +11,7 @@ export const EXACT_GEO = {
 
 export const CANONICAL_ADDRESS = {
   '@type': 'PostalAddress',
-  streetAddress: 'Koblarjeva ulica 34',
+  streetAddress: 'Ulica Carla Benza 20',
   addressLocality: 'Ljubljana',
   postalCode: '1000',
   addressCountry: 'SI'

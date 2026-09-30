@@ -10,11 +10,19 @@
           target="_blank"
           rel="noopener noreferrer"
           class="text-kader-red hover:underline"
-        >Koblarjeva ulica 34, 1000 Ljubljana</a>
+        >Ulica Carla Benza 20, 1000 Ljubljana</a>
       </p>
 
       <p>
         <a href="mailto:info@kader.si" class="text-kader-red hover:underline">info@kader.si</a>
+      </p>
+
+      <p>
+        <a href="tel:+38683836740" class="text-kader-red hover:underline font-mono">+386 83 836 740</a>
+      </p>
+
+      <p>
+        <a href="tel:+38640175628" class="text-kader-red hover:underline font-mono">+386 40 175 628</a>
       </p>
 
       <p>

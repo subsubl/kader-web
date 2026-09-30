@@ -12,8 +12,7 @@ const { locale } = useLocale()
 
 useHead({
   htmlAttrs: {
-    lang: computed(() => locale.value),
-    class: 'dark'
+    lang: computed(() => locale.value)
   }
 })
 </script>

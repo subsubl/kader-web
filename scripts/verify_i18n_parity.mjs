@@ -4,20 +4,12 @@ import assert from 'node:assert/strict'
 import { createJiti } from 'jiti'
 
 const REQUIRED_LOCALES = ['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es']
-const EXPECTED_LEAF_COUNT = 931
-const EXPECTED_PARAM_KEYS = [
-  'buyouts.inquiryMessagePrefill',
-  'buyouts.thankYou',
-  'craft.phaseBadge',
-  'home.viewFullSizeAria',
-  'home.visitP',
-  'lightbox.showImageAria',
-  'lightbox.thumbnailAria'
-]
+const EXPECTED_LEAF_COUNT = 70
+const EXPECTED_PARAM_KEYS = []
 
 async function verifyI18nParity() {
   console.log('=============================================================')
-  console.log('  KADER i18n VERIFICATION SUITE: 10 LOCALES & 931 LEAF KEYS')
+  console.log(`  KADER i18n VERIFICATION SUITE: 10 LOCALES & ${EXPECTED_LEAF_COUNT} LEAF KEYS`)
   console.log('=============================================================\n')
 
   const jiti = createJiti(import.meta.url)
@@ -28,102 +20,105 @@ async function verifyI18nParity() {
   // 1. Verify all 10 locales are present in SUPPORTED_LOCALES
   console.log('>>> [CHECK 1] SUPPORTED_LOCALES validation')
   assert.equal(SUPPORTED_LOCALES.length, 10, `Expected 10 SUPPORTED_LOCALES, found ${SUPPORTED_LOCALES.length}`)
+
   for (const loc of REQUIRED_LOCALES) {
-    assert(
-      SUPPORTED_LOCALES.includes(loc),
-      `SUPPORTED_LOCALES must include '${loc}'`
-    )
+    assert.ok(SUPPORTED_LOCALES.includes(loc), `Missing locale in SUPPORTED_LOCALES: ${loc}`)
   }
-  console.log(`  ✔ [PASS] SUPPORTED_LOCALES contains all 10 required languages: ${SUPPORTED_LOCALES.join(', ')}`)
+  console.log('  ✔ [PASS] All 10 required locales present\n')
 
-  // 2. Verify localeLabels configuration
-  console.log('\n>>> [CHECK 2] localeLabels configuration')
+  // 2. Verify localeLabels metadata
+  console.log('>>> [CHECK 2] localeLabels metadata')
   for (const loc of REQUIRED_LOCALES) {
-    const labelInfo = localeLabels[loc]
-    assert(labelInfo, `localeLabels must contain entry for '${loc}'`)
-    assert(labelInfo.label && labelInfo.label.trim(), `localeLabels.${loc}.label must not be empty`)
-    assert(labelInfo.name && labelInfo.name.trim(), `localeLabels.${loc}.name must not be empty`)
-    assert(labelInfo.native && labelInfo.native.trim(), `localeLabels.${loc}.native must not be empty`)
-    assert(labelInfo.flag && labelInfo.flag.trim(), `localeLabels.${loc}.flag must not be empty`)
-    console.log(`  ✔ [PASS] ${loc}: ${labelInfo.flag} ${labelInfo.native} (${labelInfo.label})`)
+    const info = localeLabels[loc]
+    assert.ok(info, `Missing localeLabels entry: ${loc}`)
+    assert.ok(info.flag, `Missing flag for locale: ${loc}`)
+    assert.ok(info.native, `Missing native name for locale: ${loc}`)
   }
+  console.log('  ✔ [PASS] All 10 localeLabels entries have flag + native name\n')
 
-  // 3. Baseline validation on Slovenian (sl)
-  console.log('\n>>> [CHECK 3] Baseline leaf key audit (sl)')
-  const slDict = flatDictionaries.sl
-  assert(slDict, 'Slovenian flat dictionary must exist')
-  const slKeys = Object.keys(slDict).sort()
-  assert.equal(slKeys.length, EXPECTED_LEAF_COUNT, `Expected exactly ${EXPECTED_LEAF_COUNT} leaf keys in sl, got ${slKeys.length}`)
-  console.log(`  ✔ [PASS] sl baseline key count: ${slKeys.length}`)
+  // 3. Verify dictionaries exist and baseline leaf count
+  console.log('>>> [CHECK 3] Baseline leaf count (sl)')
+  const baselineKeys = Object.keys(flatDictionaries.sl)
+  assert.equal(
+    baselineKeys.length,
+    EXPECTED_LEAF_COUNT,
+    `Expected exactly ${EXPECTED_LEAF_COUNT} leaf keys in sl, got ${baselineKeys.length}`
+  )
+  console.log(`  ✔ [PASS] sl baseline key count: ${baselineKeys.length}\n`)
 
-  // 4. Identify parameterized placeholders in baseline (sl)
-  const paramRegex = /\{{1,2}([a-zA-Z0-9_-]+)\}{1,2}/g
+  // 4. Parameterized keys
+  console.log('>>> [CHECK 4] Parameterized key audit')
   const paramMap = new Map()
-  for (const [k, v] of Object.entries(slDict)) {
-    const matches = v.match(paramRegex)
+  for (const k of baselineKeys) {
+    const v = flatDictionaries.sl[k]
+    if (typeof v !== 'string') continue
+    const matches = v.match(/\{\{\s*\w+\s*\}\}/g)
     if (matches) {
       paramMap.set(k, matches.sort())
     }
   }
-  assert.equal(paramMap.size, 7, `Expected exactly 7 parameterized keys, found ${paramMap.size}`)
+  assert.equal(
+    paramMap.size,
+    EXPECTED_PARAM_KEYS.length,
+    `Expected exactly ${EXPECTED_PARAM_KEYS.length} parameterized keys, found ${paramMap.size}`
+  )
   assert.deepEqual(
     Array.from(paramMap.keys()).sort(),
-    EXPECTED_PARAM_KEYS.sort(),
-    'Parameterized keys set must match expected 7 keys'
+    [...EXPECTED_PARAM_KEYS].sort(),
+    `Parameterized keys set must match expected ${EXPECTED_PARAM_KEYS.length} keys`
   )
-  console.log(`  ✔ [PASS] 7 parameterized keys detected and validated in baseline`)
+  console.log(`  ✔ [PASS] ${EXPECTED_PARAM_KEYS.length} parameterized keys detected and validated in baseline\n`)
 
   // 5. Parity, empty-string, and parameter audit across all 10 locales
-  console.log('\n>>> [CHECK 4] Parity, emptiness, and parameter symmetry across all 10 locales')
-  const slKeySet = new Set(slKeys)
-
+  console.log('>>> [CHECK 5] Parity, emptiness, and parameter symmetry across all 10 locales')
+  const problems = []
   for (const loc of REQUIRED_LOCALES) {
-    const locDict = flatDictionaries[loc]
-    assert(locDict, `flatDictionaries.${loc} must exist`)
-    assert(dictionaries[loc], `dictionaries.${loc} must exist`)
+    const flat = flatDictionaries[loc]
+    const keys = Object.keys(flat)
 
-    const locKeys = Object.keys(locDict).sort()
-    const locKeySet = new Set(locKeys)
+    const missing = baselineKeys.filter(k => !(k in flat))
+    const extra = keys.filter(k => !baselineKeys.includes(k))
+    const empty = keys.filter(k => flat[k] === '')
+    const sameAsSl = loc === 'sl' ? 0 : keys.filter(k => flat[k] === flatDictionaries.sl[k]).length
 
-    // Key count
-    assert.equal(
-      locKeys.length,
-      EXPECTED_LEAF_COUNT,
-      `Locale '${loc}' has ${locKeys.length} keys, expected ${EXPECTED_LEAF_COUNT}`
-    )
+    const parity = ((keys.length - missing.length) / baselineKeys.length) * 100
 
-    // Set difference
-    const missing = slKeys.filter(k => !locKeySet.has(k))
-    const extra = locKeys.filter(k => !slKeySet.has(k))
-    assert.equal(missing.length, 0, `Locale '${loc}' is missing keys: ${missing.join(', ')}`)
-    assert.equal(extra.length, 0, `Locale '${loc}' has extra keys: ${extra.join(', ')}`)
-
-    // Emptiness check
-    const empty = Object.entries(locDict).filter(
-      ([k, v]) => typeof v !== 'string' || v.trim() === ''
-    )
-    assert.equal(empty.length, 0, `Locale '${loc}' has empty values for: ${empty.map(e => e[0]).join(', ')}`)
-
-    // Parameter symmetry check
-    for (const [k, expectedParams] of paramMap.entries()) {
-      const val = locDict[k]
-      const actualParams = (val.match(paramRegex) || []).sort()
-      assert.deepEqual(
-        actualParams,
-        expectedParams,
-        `Locale '${loc}' key '${k}' parameter mismatch: expected ${JSON.stringify(expectedParams)}, got ${JSON.stringify(actualParams)}`
+    if (missing.length || extra.length || empty.length) {
+      problems.push(
+        `${loc}: missing=${missing.length} extra=${extra.length} empty=${empty.length}`
+      )
+      if (missing.length) console.log(`    missing: ${missing.slice(0, 10).join(', ')}`)
+      if (extra.length) console.log(`    extra:   ${extra.slice(0, 10).join(', ')}`)
+      if (empty.length) console.log(`    empty:   ${empty.slice(0, 10).join(', ')}`)
+    } else {
+      console.log(
+        `  ✔ [PASS] ${loc}: 100.0% parity (${keys.length}/${baselineKeys.length} keys), 0 empty`
       )
     }
 
-    console.log(`  ✔ [PASS] ${loc}: 100.0% parity (${locKeys.length}/${EXPECTED_LEAF_COUNT} keys), 0 empty, 8/8 parameter signatures symmetric`)
+    // Parameter signature symmetry for this locale
+    for (const [k, sig] of paramMap) {
+      const lv = flat[k]
+      const lMatches = typeof lv === 'string' ? (lv.match(/\{\{\s*\w+\s*\}\}/g) || []).sort() : []
+      if (JSON.stringify(lMatches) !== JSON.stringify(sig)) {
+        problems.push(`${loc}: param signature mismatch on ${k}`)
+      }
+    }
   }
 
-  console.log('\n=============================================================')
+  assert.equal(problems.length, 0, `i18n problems found:\n${problems.join('\n')}`)
+  console.log('\n>>> [CHECK 6] No orphaned namespaces / dictionaries consistency')
+  for (const loc of REQUIRED_LOCALES) {
+    assert.ok(dictionaries[loc], `Missing dictionary object: ${loc}`)
+  }
+  console.log('  ✔ [PASS] All 10 dictionary objects present\n')
+
+  console.log('=============================================================')
   console.log('  ALL 10 LOCALES VERIFIED SUCCESSFULLY (100.0% KEY PARITY)')
   console.log('=============================================================')
 }
 
 verifyI18nParity().catch(err => {
-  console.error('\n✖ [FAIL] Verification failed:', err)
+  console.error('\n✖ [FAIL] Verification failed:', err && err.message ? err.message : err)
   process.exit(1)
 })

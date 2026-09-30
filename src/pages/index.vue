@@ -46,7 +46,6 @@
         <!-- RIGHT: the big links, right-aligned, 40px -->
         <nav class="md:col-span-5 md:pr-[40px] flex flex-col items-end gap-4 md:gap-3">
           <a href="#menu" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
-          <a href="#menu" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.navTakeaway') }}</a>
           <a href="#programme" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.eventsTitle') }}</a>
           <a href="#hours" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.hoursTitle') }}</a>
           <a href="#venue" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.venueTitle') }}</a>
@@ -64,7 +63,6 @@
           <Clipart shape="pizza" :size="170" :opacity="0.2" variant="stroke" position="absolute -left-4 -top-6" />
         </div>
         <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end gap-3">
-          <p class="text-[22px] leading-[33px] text-right max-w-[380px]">{{ t('site.menuLine') }}</p>
           <a :href="menuImageUrl" target="_blank" rel="noopener noreferrer"
              class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
           <a :href="menuImageUrl" download class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">{{ t('site.menuDownload') }}</a>

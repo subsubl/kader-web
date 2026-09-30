@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { createJiti } from 'jiti'
 
 const REQUIRED_LOCALES = ['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es']
-const EXPECTED_LEAF_COUNT = 75
+const EXPECTED_LEAF_COUNT = 73
 const EXPECTED_PARAM_KEYS = []
 
 async function verifyI18nParity() {
@@ -87,7 +87,7 @@ async function verifyI18nParity() {
     `keys whose value equals the key (written into the wrong namespace): ${[...usedInSource].join(', ')}`
   )
   // spot-check the keys the hero nav depends on
-  for (const k of ['site.menuTitle', 'site.navTakeaway', 'site.eventsTitle', 'site.hoursTitle', 'site.venueTitle', 'site.contactTitle']) {
+  for (const k of ['site.menuTitle', 'site.menuDownload', 'site.eventsTitle', 'site.hoursTitle', 'site.venueTitle', 'site.contactTitle']) {
     assert.ok(k in flatDictionaries.sl, `missing hero nav key: ${k}`)
     assert.ok(flatDictionaries.sl[k] !== k, `hero nav key ${k} resolves to itself (wrong namespace)`)
   }

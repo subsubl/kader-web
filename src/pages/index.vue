@@ -4,11 +4,11 @@
     <!-- ===== INTRO ===== -->
     <section class="max-w-3xl mx-auto px-5 pt-14 pb-12 text-center">
       <img
-        :src="logoUrl"
+        :src="heroLogoUrl"
         :alt="t('header.logoAlt')"
         decoding="async"
-        class="h-24 md:h-32 w-auto mx-auto mb-8 object-contain"
-        width="288" height="128"
+        class="w-[78%] max-w-[560px] h-auto mx-auto mb-10 object-contain"
+        width="1115" height="375"
       >
       <p class="text-2xl md:text-3xl leading-snug mb-6">{{ t('site.intro') }}</p>
       <p class="text-base mb-2">
@@ -209,7 +209,12 @@ const upcomingEvents = computed<RaEvent[]>(() => {
     .sort((a, b) => new Date(a.start_time || a.date).getTime() - new Date(b.start_time || b.date).getTime())
 })
 
-const logoUrl = assetUrl('/logo-badge.png')
+// Hero wordmark: the WHITE KADER logotype (logo-banner.png). The hero sits on
+// the signal-red background, so only the white variant has usable contrast —
+// the black wordmark (logo-asset2.png) rendered at rgb(11,7,7) on red, which
+// is effectively invisible. The 1:1 badge used previously is only ~7% visible
+// pixels, so it looked like a speck rather than a logo.
+const heroLogoUrl = assetUrl('/logo-banner.png')
 const menuImageUrl = assetUrl('/menu-a3.jpg')
 
 const orderPhoneDisplay = '+386 83 836 740'

@@ -27,7 +27,6 @@ assert.ok(!/["'](\/api\/|\/admin)/.test(index), 'index: leaked backend reference
 for (const [label, needle] of [
   ['intro tagline', 'Pizza bistro in plesni bar na gradu Kodeljevo'],
   ['menu image', 'menu-a3.jpg'],
-  ['logo', 'logo-badge.png'],
   ['contact email', 'info@kader.si'],
   ['order phone', '+386 83 836 740'],
   ['reservations phone', '+386 40 175 628'],
@@ -64,6 +63,16 @@ assert.ok(!/fonts\.googleapis\.com/.test(index), 'index: must not load Google Fo
 assert.ok(!/fonts\.googleapis\.com/.test(css), 'stylesheet: must not load Google Fonts')
 // Parallax bands must be present.
 assert.ok(index.includes('parallax-band'), 'index: parallax band component missing')
+
+// The white KADER wordmark (logo-banner.png) is used for BOTH the header and the
+// hero. It is the only logo variant with usable contrast on the red background:
+// the black wordmark (logo-asset2.png / asset-7.png) is rgb(11,7,7) on
+// rgb(237,34,36) and the 1:1 badge is only ~7% visible pixels.
+const heroLogoUses = (index.match(/logo-banner\.jpg|logo-banner\.png/g) || []).length
+assert.ok(heroLogoUses >= 1, 'index: white wordmark logo-banner.png not referenced')
+for (const p of ['logo-banner.png', 'logo-asset2.png', 'logo-badge.png']) {
+  assert.ok(fs.existsSync(path.join(root, p)), `missing logo asset: ${p}`)
+}
 
 // Every src/href pointing at the site root must carry the baseURL prefix when deploying to a subdirectory
 if (base) {

@@ -1,19 +1,9 @@
 <template>
+  <!-- Slim bar: language choice only. No logo and no guide/nav links — the hero
+       carries the wordmark and the big menu links. -->
   <header class="bg-kader-red border-b border-white/25 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-5">
-      <div class="flex justify-between items-center h-16">
-        <NuxtLink to="/" class="flex items-center focus:outline-none focus:ring-2 focus:ring-white rounded">
-          <img
-            :src="logoUrl"
-            :alt="t('header.logoAlt')"
-            decoding="async"
-            class="h-8 md:h-10 w-auto object-contain"
-            width="552" height="100"
-          >
-        </NuxtLink>
-
-        <!-- Language choice only: the guide/nav links were removed, the hero
-             carries the big menu links instead. -->
+      <div class="flex justify-end items-center h-14">
         <div class="relative">
           <select
             :value="locale"
@@ -38,8 +28,4 @@
 import { useLocale, localeLabels, type Locale } from '~/composables/useLocale'
 
 const { locale, setLocale, t } = useLocale()
-
-// The white KADER wordmark (logo-banner.png = asset-6100 = asset-1100).
-// Chosen because it is pure white, so it sits cleanly on the signal-red header.
-const logoUrl = assetUrl('/logo-banner.png')
 </script>

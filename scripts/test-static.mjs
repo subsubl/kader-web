@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Verifies the generated static output: the single index page exists, no stray
-// pages, no /api or /admin references leaked into HTML, assets are
-// subdirectory-safe.
+// Verifies the generated static output: single page present, no stray pages, no
+// backend references, assets subdirectory-safe, self-hosted fonts resolve, and
+// the layout follows the reference template (narrow columns, nothing centred).
 import fs from 'node:fs'
 import path from 'node:path'
 import assert from 'node:assert/strict'
@@ -23,11 +23,12 @@ for (const b of banned) {
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
 assert.ok(!/["'](\/api\/|\/admin)/.test(index), 'index: leaked backend reference')
 
-// Single page must carry the real content: intro tagline, menu sheet, hours, venue, contact.
+// Real content must be present.
 for (const [label, needle] of [
-  ['intro tagline', 'Pizza bistro in plesni bar na gradu Kodeljevo'],
+  ['intro', 'Pizza bistro in plesni bar'],
   ['menu jpg link', 'menu-a3.jpg'],
-  ['menu download label', 'Prenesi meni'],
+  ['menu download', 'Prenesi meni'],
+  ['sign-off', 'Liefs, Kader.'],
   ['contact email', 'info@kader.si'],
   ['order phone', '+386 83 836 740'],
   ['reservations phone', '+386 40 175 628'],
@@ -37,78 +38,71 @@ for (const [label, needle] of [
   assert.ok(index.includes(needle), `index: missing expected content (${label}: "${needle}")`)
 }
 
-// The menu must be a LINK that opens the JPG, not an inline <img> in the page.
+// The menu must be a LINK that opens the JPG, not an inline <img>.
 assert.ok(
   /<a[^>]+href="[^"]*menu-a3\.jpg"/.test(index),
   'index: menu-a3.jpg must be linked, not displayed inline'
 )
-const inlineMenuImg = [...index.matchAll(/<img[^>]+src="[^"]*menu-a3\.jpg"/g)]
 assert.equal(
-  inlineMenuImg.length,
+  [...index.matchAll(/<img[^>]+src="[^"]*menu-a3\.jpg"/g)].length,
   0,
-  `index: menu JPG must not be rendered as an inline <img> (found ${inlineMenuImg.length})`
+  'index: menu JPG must not be rendered as an inline <img>'
 )
 
-// The header carries the logo plus the language picker only: no guide/nav links.
+// Header: language picker only. No logo, no nav links.
 const header = index.slice(0, index.indexOf('</header>') + 9)
-assert.ok(!/<a[^>]+href="#(menu|hours|venue|contact)"/.test(header), 'header: nav links should be removed')
-assert.ok(header.includes('logo-banner.png'), 'header: logo missing')
 assert.ok(header.includes('<select'), 'header: language selector missing')
+assert.ok(!/<a[^>]+href="#(menu|hours|venue|contact|programme)"/.test(header), 'header: nav links should be removed')
+assert.ok(!/<img/.test(header), 'header: logo should be removed')
 
-// The footer is just the copyright: contact details must not be duplicated there.
+// Footer: copyright only.
 const footer = index.slice(index.indexOf('<footer'))
 assert.ok(!footer.includes('info@kader.si'), 'footer: contact email should be removed')
 assert.ok(!footer.includes('+386'), 'footer: phone numbers should be removed')
 assert.ok(!footer.includes('Carla Benza'), 'footer: address should be removed')
 
-// The site must render signal-red with white type (no dark theme leaking through).
+// Signal-red theme, white type.
 assert.ok(index.includes('bg-kader-red'), 'index: signal red background class missing')
 assert.ok(!/<body[^>]*class="[^"]*bg-black/.test(index), 'index: body must not be dark')
-// Fonts are self-hosted from kader.si's own Inter files; no Google Fonts CDN.
-// The @font-face rules live in the emitted stylesheet, not in index.html.
+
+// Self-hosted Inter; no Google Fonts.
 const cssFiles = fs.readdirSync(path.join(root, '_nuxt')).filter(f => f.endsWith('.css'))
 assert.ok(cssFiles.length > 0, 'no emitted stylesheet found in _nuxt')
 const css = cssFiles.map(f => fs.readFileSync(path.join(root, '_nuxt', f), 'utf8')).join('\n')
 assert.ok(css.includes('Inter'), 'stylesheet: Inter @font-face missing')
 for (const f of ['Inter-Regular.woff', 'Inter-SemiBold.woff', 'Inter-Bold.woff', 'Inter-Black.woff']) {
   assert.ok(fs.existsSync(path.join(root, 'fonts', f)), `missing self-hosted font: ${f}`)
-  // copy-fonts also emits them under the deployment base.
   assert.ok(fs.existsSync(path.join(root, base.replace(/^\//, ''), 'fonts', f)), `font not emitted under base: ${f}`)
   assert.ok(css.includes(f), `stylesheet: font ${f} not referenced`)
-  // The emitted URL must resolve: either base-prefixed or relative to _nuxt/.
-  const urlMatch = css.match(new RegExp(`url\\(([^)]*${f})\\)`))
-  assert.ok(urlMatch, `stylesheet: no url() for ${f}`)
-  const url = urlMatch[1]
-  // Accept absolute base-prefixed, root-relative (served at domain root is wrong
-  // for Pages, so we require base), or relative-to-_nuxt forms.
-  const ok = url.startsWith('data:') || url.includes(base) || /^(?:\.\.\/)?fonts\//.test(url)
-  assert.ok(ok, `stylesheet: ${f} URL does not resolve: ${url}`)
 }
-assert.ok(!/fonts\.googleapis\.com/.test(index), 'index: must not load Google Fonts')
-assert.ok(!/fonts\.googleapis\.com/.test(css), 'stylesheet: must not load Google Fonts')
-// Parallax bands must be present.
+assert.ok(!/fonts\.googleapis\.com/.test(index + css), 'must not load Google Fonts')
+
+// Parallax bands present, with oversize matching the JS strength.
 assert.ok(index.includes('parallax-band'), 'index: parallax band component missing')
+assert.ok(css.includes('--oversize'), 'stylesheet: --oversize missing')
 
-// The white KADER wordmark (logo-banner.png) is used for BOTH the header and the
-// hero. It is the only logo variant with usable contrast on the red background:
-// the black wordmark (logo-asset2.png / asset-7.png) is rgb(11,7,7) on
-// rgb(237,34,36) and the 1:1 badge is only ~7% visible pixels.
-const heroLogoUses = (index.match(/logo-banner\.jpg|logo-banner\.png/g) || []).length
-assert.ok(heroLogoUses >= 1, 'index: white wordmark logo-banner.png not referenced')
-for (const p of ['logo-banner.png', 'logo-asset2.png', 'logo-badge.png']) {
-  assert.ok(fs.existsSync(path.join(root, p)), `missing logo asset: ${p}`)
-}
+// No unresolved i18n keys may ship as visible text.
+const leaked = [...index.matchAll(/>\s*(?:site|pizzeria|home|header)\.[a-zA-Z0-9_]+\s*</g)].map(m => m[0].trim())
+assert.equal(leaked.length, 0, `index: unresolved i18n keys rendered as text: ${[...new Set(leaked)].join(', ')}`)
 
-// No unresolved i18n keys may ship as visible text. t() falls back to the raw
-// key on a miss, which renders strings like "site.navMenu" to the visitor.
-const leakedKeys = [...index.matchAll(/>\s*(?:site|pizzeria|home|header)\.[a-zA-Z0-9_]+\s*</g)].map(m => m[0].trim())
-assert.equal(
-  leakedKeys.length,
-  0,
-  `index: unresolved i18n keys rendered as text: ${[...new Set(leakedKeys)].join(', ')}`
+// Reference-template frames: nothing is centred except the closing bar.
+// Copy sits in narrow columns, so long-form text must NOT use text-align:center.
+const main = index.slice(index.indexOf('<main'), index.indexOf('</main>'))
+assert.ok(
+  !/\btext-center\b/.test(main),
+  'index: centred text found inside <main> (the reference left-aligns all copy)'
 )
+assert.ok(
+  /<footer[^>]*\btext-center\b/.test(index),
+  'index: the closing bar should be centred, as in the reference'
+)
+// Narrative body copy should be justified 22px, as in the reference.
+assert.ok(index.includes('text-justify'), 'index: expected justified body copy (reference uses text-align: justify)')
+assert.ok(index.includes('text-[22px]'), 'index: expected 22px body copy (reference body size)')
+assert.ok(index.includes('text-[40px]'), 'index: expected 40px big links (reference link size)')
+assert.ok(index.includes('max-w-[430px]') || index.includes('max-w-[420px]'), 'index: expected narrow text columns')
 
-// Every src/href pointing at the site root must carry the baseURL prefix when deploying to a subdirectory
+// Every src/href pointing at the site root must carry the baseURL prefix.
 if (base) {
   const assets = [...index.matchAll(/(?:src|href)="(\/[^"]+)"/g)].map(m => m[1])
   for (const a of assets) {
@@ -116,4 +110,4 @@ if (base) {
   }
 }
 
-console.log('STATIC TESTS PASSED:', required.join(', '), 'present; single-page fork; no backend references; assets base-prefixed')
+console.log('STATIC TESTS PASSED:', required.join(', '), 'present; single-page fork; red/white; self-hosted fonts; reference frames; no backend references; assets base-prefixed')

@@ -1,199 +1,164 @@
 <template>
   <div class="min-h-screen">
 
-    <!-- ===== HERO: logo LEFT, menu links RIGHT (reference layout) ===== -->
+    <!-- ===== HERO =========================================================
+         Frame taken from the reference: copy sits in a NARROW left column
+         (they use ~383px at x=135), the big links are RIGHT-ALIGNED at 40px,
+         and nothing is centred. Their body copy is justified at 22px. -->
     <section class="relative overflow-hidden">
-      <!-- decorative clipart, in the spirit of the reference template -->
-      <Clipart shape="moon" :size="240" :opacity="0.16" position="absolute -left-10 top-6" />
-      <Clipart shape="circle" :size="300" :opacity="0.18" variant="stroke" position="absolute right-[8%] top-16" />
+      <Clipart shape="moon" :size="240" :opacity="0.16" position="absolute left-[6%] top-10" />
+      <Clipart shape="circle" :size="300" :opacity="0.18" variant="stroke" position="absolute right-[6%] bottom-6" />
 
-      <div class="max-w-6xl mx-auto px-5 pt-14 pb-16 md:pt-20 md:pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+      <div class="max-w-[1400px] mx-auto px-5 pt-14 pb-10 md:pt-20 md:pb-16 grid grid-cols-1 md:grid-cols-12 gap-10">
 
-        <!-- LEFT: logo + intro -->
-        <div class="md:col-span-7">
+        <!-- LEFT: logo + one narrative paragraph with links inline -->
+        <div class="md:col-span-7 md:pl-[100px]">
           <img
             :src="heroLogoUrl"
             :alt="t('header.logoAlt')"
             decoding="async"
-            class="w-[70%] max-w-[460px] h-auto mb-10 object-contain"
+            class="w-[62%] max-w-[420px] h-auto mb-10 object-contain"
             width="1920" height="349"
           >
-          <p class="text-xl md:text-2xl leading-relaxed max-w-xl mb-6">{{ t('site.intro') }}</p>
-          <p class="text-base mb-1">
+
+          <!-- the reference sets its links INSIDE the sentence -->
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-6">
+            {{ t('site.intro1') }}
+          </p>
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-6">
+            {{ t('site.intro2') }}
+          </p>
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-4">
+            {{ t('site.intro3') }}
+            <a href="mailto:info@kader.si" class="hover:text-kader-black transition-colors">info@kader.si</a>
+          </p>
+          <p class="text-[22px] leading-[33px] text-left max-w-[420px] mb-6">
             <a
-              href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7"
+              href="https://www.instagram.com/kader.lunapark/"
               target="_blank"
               rel="noopener noreferrer"
-              class="underline underline-offset-4 hover:text-kader-black transition-colors"
-            >Ulica Carla Benza 20, 1000 Ljubljana</a>
+              class="hover:text-kader-black transition-colors"
+            >{{ t('site.intro4') }}</a>
           </p>
-          <p class="text-base">
-            <a href="https://www.instagram.com/kader.lunapark/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-kader-black transition-colors">{{ t('site.follow') }}</a>
-          </p>
+          <p class="text-[22px] leading-[33px] max-w-[420px] italic">{{ t('site.signoff') }}</p>
         </div>
 
-        <!-- RIGHT: the big menu links (40px in the reference) -->
-        <nav class="md:col-span-5 md:justify-self-end flex flex-col items-start md:items-end gap-4 md:gap-5">
-          <a href="#menu" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navMenu') }}</a>
-          <a href="#menu" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navTakeaway') }}</a>
-          <a href="#programme" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navEvents') }}</a>
-          <a href="#hours" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navVenue') }}</a>
-          <a href="#contact" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navContact') }}</a>
+        <!-- RIGHT: the big links, right-aligned, 40px -->
+        <nav class="md:col-span-5 md:pr-[40px] flex flex-col items-end gap-4 md:gap-3">
+          <a href="#menu" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
+          <a href="#menu" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.navTakeaway') }}</a>
+          <a href="#programme" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.eventsTitle') }}</a>
+          <a href="#hours" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.hoursTitle') }}</a>
+          <a href="#venue" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.venueTitle') }}</a>
+          <a href="#contact" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.contactTitle') }}</a>
         </nav>
       </div>
     </section>
 
-    <!-- ===== DIVIDER (as in the reference: full-bleed arrow between blocks) ===== -->
     <ArrowDivider direction="down" :height-px="150" :chevron-px="100" />
 
-    <!-- ===== MENU: opens the menu JPG, not shown inline ===== -->
+    <!-- ===== MENU: opens the JPG ====================================== -->
     <section id="menu" class="border-t border-white/25">
-      <div class="max-w-6xl mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-
-        <!-- LEFT: kept deliberately empty of header text, per request -->
-        <div class="md:col-span-5 relative">
-          <Clipart shape="moon" :size="150" :opacity="0.14" position="absolute -left-6 top-2" />
+      <div class="max-w-[1400px] mx-auto px-5 py-12 grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+        <div class="md:col-span-6 md:pl-[100px] relative">
+          <Clipart shape="pizza" :size="170" :opacity="0.2" variant="stroke" position="absolute -left-4 -top-6" />
         </div>
+        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end gap-3">
+          <p class="text-[22px] leading-[33px] text-right max-w-[380px]">{{ t('site.menuLine') }}</p>
+          <a :href="menuImageUrl" target="_blank" rel="noopener noreferrer"
+             class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
+          <a :href="menuImageUrl" download class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">{{ t('site.menuDownload') }}</a>
+        </div>
+      </div>
+    </section>
 
-        <!-- RIGHT: the menu link -->
-        <div class="md:col-span-7 flex flex-col items-start md:items-end relative">
-          <Clipart shape="pizza" :size="190" :opacity="0.22" variant="stroke" position="absolute -top-10 -left-6" />
-          <a
-            :href="menuImageUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300"
-          >{{ t('site.navMenu') }}</a>
-          <a
-            :href="menuImageUrl"
-            download
-            class="mt-6 text-sm underline underline-offset-4 hover:text-kader-black transition-colors"
-          >{{ t('site.menuDownload') }}</a>
+    <ParallaxBand :src="assetUrl('/images/club-red-hero.jpg')" :alt="t('site.band1Alt')" height="58vh" />
+
+    <!-- ===== PROGRAMME ================================================= -->
+    <section id="programme" class="border-t border-white/25">
+      <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div class="md:col-span-6 md:pl-[100px] relative">
+          <Clipart shape="speaker" :size="180" :opacity="0.2" variant="stroke" position="absolute -left-6 top-4" />
+          <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.eventsTitle') }}</h2>
+          <p class="text-[22px] leading-[33px] text-left max-w-[430px]">{{ t('site.eventsSub') }}</p>
+        </div>
+        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end">
+          <ul v-if="upcomingEvents.length" class="w-full max-w-[430px] divide-y divide-white/25">
+            <li v-for="ev in upcomingEvents" :key="ev.ra_id" class="py-3">
+              <div class="flex items-baseline justify-between gap-4">
+                <a :href="ev.ra_url" target="_blank" rel="noopener noreferrer"
+                   class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">{{ ev.title }}</a>
+                <span class="text-[16px] font-mono text-white/75 whitespace-nowrap">{{ formatEventDate(ev.start_time || ev.date) }}</span>
+              </div>
+            </li>
+          </ul>
+          <p v-else class="text-[22px] leading-[33px] text-right max-w-[430px]">{{ t('site.eventsEmpty') }}</p>
+          <a href="https://ra.co/clubs/78778" target="_blank" rel="noopener noreferrer"
+             class="text-[22px] leading-[33px] mt-6 hover:text-kader-black transition-colors">{{ t('site.eventsMore') }}</a>
         </div>
       </div>
     </section>
 
     <ArrowDivider direction="down" :height-px="130" :chevron-px="88" />
 
-    <!-- ===== PARALLAX BAND ===== -->
-    <ParallaxBand
-      :src="assetUrl('/images/club-red-hero.jpg')"
-      :alt="t('site.band1Alt')"
-      :height="'52vh'"
-    />
-
-    <!-- ===== UPCOMING EVENTS (RA snapshot) ===== -->
-    <section id="programme" class="border-t border-white/25">
-      <div class="max-w-5xl mx-auto px-5 py-14 relative">
-        <Clipart shape="speaker" :size="200" :opacity="0.20" variant="stroke" position="absolute -left-8 top-8" />
-        <Clipart shape="speaker" :size="120" :opacity="0.14" variant="stroke" position="absolute right-4 bottom-6" />
-        <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-3">
-          {{ t('site.eventsTitle') }}
-        </h2>
-        <p class="text-sm text-white/80 text-center mb-10 max-w-xl mx-auto">{{ t('site.eventsSub') }}</p>
-
-        <ul v-if="upcomingEvents.length" class="max-w-3xl mx-auto divide-y divide-white/25">
-          <li v-for="ev in upcomingEvents" :key="ev.ra_id" class="py-4">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <a
-                :href="ev.ra_url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="font-semibold text-white hover:text-kader-black transition-colors"
-              >{{ ev.title }}</a>
-              <span class="text-sm font-mono text-white/80 whitespace-nowrap">{{ formatEventDate(ev.start_time || ev.date) }}</span>
-            </div>
-            <p v-if="(ev.artists && ev.artists.length) || (ev.genres && ev.genres.length)" class="text-sm text-white/70 mt-1">
-              <span v-if="ev.artists && ev.artists.length">{{ ev.artists.join(', ') }}</span>
-              <span v-if="ev.genres && ev.genres.length" class="text-white/50">
-                {{ ev.artists && ev.artists.length ? ' · ' : '' }}{{ ev.genres.join(' · ') }}
-              </span>
-            </p>
-          </li>
-        </ul>
-
-        <p v-else class="text-center text-white/80">{{ t('site.eventsEmpty') }}</p>
-
-        <p class="text-center mt-8">
-          <a
-            href="https://ra.co/clubs/78778"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-sm underline underline-offset-4 hover:text-kader-black transition-colors"
-          >{{ t('site.eventsMore') }}</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- ===== PARALLAX BAND ===== -->
-    <ParallaxBand
-      :src="assetUrl('/pizzeria-bg.jpg')"
-      :alt="t('site.band2Alt')"
-      :height="'52vh'"
-    />
-
-    <!-- ===== OPENING HOURS ===== -->
+    <!-- ===== OPENING HOURS ==============================================
+         The reference lists days one per line at 22px with "gesloten"
+         markers, in a single narrow left column. -->
     <section id="hours" class="border-t border-white/25">
-      <div class="max-w-3xl mx-auto px-5 py-14 relative">
-        <Clipart shape="circle" :size="190" :opacity="0.16" variant="stroke" position="absolute -right-6 top-4" />
-        <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-8">
-          {{ t('site.hoursTitle') }}
-        </h2>
-        <ul class="max-w-md mx-auto divide-y divide-white/25">
-          <li v-for="row in hoursRows" :key="row.day" class="flex justify-between items-baseline py-3">
-            <span>{{ row.day }}</span>
-            <span class="font-mono text-sm">{{ row.time }}</span>
-          </li>
-        </ul>
-        <p class="text-sm text-white/70 text-center mt-5">{{ t('site.kitchen') }}</p>
+      <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div class="md:col-span-6 md:pl-[100px] relative">
+          <Clipart shape="circle" :size="190" :opacity="0.16" variant="stroke" position="absolute -left-8 top-2" />
+          <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.hoursTitle') }}</h2>
+          <ul class="max-w-[430px]">
+            <li v-for="row in hoursRows" :key="row.day" class="flex justify-between items-baseline text-[22px] leading-[33px] py-1">
+              <span>{{ row.day }}</span>
+              <span class="font-mono text-[18px]">{{ row.time }}</span>
+            </li>
+          </ul>
+          <p class="text-[16px] leading-[24px] text-white/75 mt-4 max-w-[430px]">{{ t('site.kitchen') }}</p>
+        </div>
+        <div class="md:col-span-6 md:pr-[40px]"></div>
       </div>
     </section>
 
-    <!-- ===== VENUE / ZAALVERHUUR ===== -->
+    <ParallaxBand :src="assetUrl('/pizzeria-bg.jpg')" :alt="t('site.band2Alt')" height="58vh" />
+
+    <!-- ===== VENUE ==================================================== -->
     <section id="venue" class="border-t border-white/25">
-      <div class="max-w-3xl mx-auto px-5 py-14 relative">
-        <Clipart shape="moon" :size="120" :opacity="0.14" position="absolute -left-8 bottom-4" />
-        <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-8">
-          {{ t('site.venueTitle') }}
-        </h2>
-        <div class="space-y-5 text-lg leading-relaxed text-white/90">
-          <p>{{ t('site.venueP1') }}</p>
-          <p>{{ t('site.venueP2') }}</p>
-          <p>{{ t('site.venueP3') }}</p>
+      <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div class="md:col-span-6 md:pl-[100px] relative">
+          <Clipart shape="moon" :size="120" :opacity="0.14" position="absolute -left-8 bottom-0" />
+          <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.venueTitle') }}</h2>
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[430px] mb-5">{{ t('site.venue1') }}</p>
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[430px] mb-5">{{ t('site.venue2') }}</p>
+        </div>
+        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end">
+          <p class="text-[22px] leading-[33px] text-right mb-4">{{ t('site.venue3') }}</p>
+          <a href="mailto:info@kader.si" class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">info@kader.si</a>
         </div>
       </div>
     </section>
 
-    <!-- ===== PARALLAX BAND ===== -->
-    <ParallaxBand
-      :src="assetUrl('/buyout-bg.jpg')"
-      :alt="t('site.band3Alt')"
-      :height="'52vh'"
-    />
+    <ParallaxBand :src="assetUrl('/buyout-bg.jpg')" :alt="t('site.band3Alt')" height="58vh" />
 
-    <!-- ===== CONTACT ===== -->
+    <!-- ===== CONTACT =================================================== -->
     <section id="contact" class="border-t border-white/25">
-      <div class="max-w-3xl mx-auto px-5 py-14 text-center relative">
-        <Clipart shape="moon" :size="170" :opacity="0.13" position="absolute -right-8 -top-4" />
-        <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-8">
-          {{ t('site.contactTitle') }}
-        </h2>
-        <div class="space-y-2 text-lg">
-          <p class="font-bold">Kader Grad Kodeljevo</p>
-          <p>
-            <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-kader-black transition-colors">Ulica Carla Benza 20</a><br>
+      <div class="max-w-[1400px] mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div class="md:col-span-6 md:pl-[100px]">
+          <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.contactTitle') }}</h2>
+          <p class="text-[22px] leading-[33px] max-w-[430px]">
+            <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer"
+               class="hover:text-kader-black transition-colors">Ulica Carla Benza 20</a><br>
             1000 Ljubljana
           </p>
-          <p>
-            <a href="mailto:info@kader.si" class="underline underline-offset-4 hover:text-kader-black transition-colors">info@kader.si</a>
-          </p>
-          <p class="pt-3">
-            <a :href="'tel:' + orderPhoneE164" class="underline underline-offset-4 hover:text-kader-black transition-colors font-mono">{{ orderPhoneDisplay }}</a>
-          </p>
-          <p class="pt-1">
-            <a :href="'tel:' + reservationsPhoneE164" class="underline underline-offset-4 hover:text-kader-black transition-colors font-mono">{{ reservationsPhoneDisplay }}</a>
-          </p>
-          <p class="text-sm text-white/70 pt-2">{{ t('site.reserveNote') }}</p>
+          <p class="text-[16px] leading-[24px] text-white/75 mt-4 max-w-[430px]">{{ t('site.reserveNote') }}</p>
+        </div>
+        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end gap-2">
+          <a href="mailto:info@kader.si" class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">info@kader.si</a>
+          <a :href="'tel:' + orderPhoneE164" class="text-[22px] leading-[33px] font-mono hover:text-kader-black transition-colors">{{ orderPhoneDisplay }}</a>
+          <a :href="'tel:' + reservationsPhoneE164" class="text-[22px] leading-[33px] font-mono hover:text-kader-black transition-colors">{{ reservationsPhoneDisplay }}</a>
+          <a href="https://www.instagram.com/kader.lunapark/" target="_blank" rel="noopener noreferrer"
+             class="text-[22px] leading-[33px] mt-4 hover:text-kader-black transition-colors">Instagram</a>
         </div>
       </div>
     </section>
@@ -238,11 +203,9 @@ const upcomingEvents = computed<RaEvent[]>(() => {
     .sort((a, b) => new Date(a.start_time || a.date).getTime() - new Date(b.start_time || b.date).getTime())
 })
 
-// Hero wordmark: the WHITE KADER logotype (logo-banner.png). The hero sits on
-// the signal-red background, so only the white variant has usable contrast —
-// the black wordmark (logo-asset2.png) rendered at rgb(11,7,7) on red, which
-// is effectively invisible. The 1:1 badge used previously is only ~7% visible
-// pixels, so it looked like a speck rather than a logo.
+// Hero wordmark: the WHITE KADER logotype (logo-banner.png). Only the white
+// variant has usable contrast on the signal-red background; the black wordmark
+// is rgb(11,7,7) on rgb(237,34,36) and effectively invisible.
 const heroLogoUrl = assetUrl('/logo-banner.png')
 const menuImageUrl = assetUrl('/menu-a3.jpg')
 

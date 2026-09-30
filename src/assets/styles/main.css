@@ -60,10 +60,17 @@ body {
 }
 
 /* --- Parallax image bands ---------------------------------
-   The figure is a viewport-height window; the inner image is
-   taller than the window and is translated with a scroll
-   offset written by useParallax, producing depth.
-   The oversize + translate is what creates the movement.      */
+   The figure is a fixed-height window; the inner element is
+   taller than the window and is translated by a scroll offset
+   written by useParallax, producing depth.
+
+   --oversize is supplied inline by ParallaxBand.vue from the
+   composable's OVERSIZE constant, so the extra image height
+   and the travel amplitude can never drift apart:
+
+     inner height = band height + 2 * --oversize
+     |travel|     <= --oversize        (no edge is ever revealed)
+                                                       */
 .parallax-band {
   position: relative;
   width: 100%;
@@ -73,10 +80,15 @@ body {
 
 .parallax-band__inner {
   position: absolute;
-  inset: -12% 0;
+  /* Centred in the band so there is OVERSIZE of spare image above AND below;
+     the parallax travel then slides it within that slack and never exposes an
+     edge. */
+  top: 50%;
+  left: 0;
   width: 100%;
+  height: calc(100% + 2 * var(--oversize));
+  transform: translate3d(0, calc(-50% + var(--parallax-y, 0px)), 0);
   will-change: transform;
-  transform: translate3d(0, var(--parallax-y, 0px), 0);
 }
 
 .parallax-band__inner img {

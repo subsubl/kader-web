@@ -25,17 +25,35 @@ assert.ok(!/["'](\/api\/|\/admin)/.test(index), 'index: leaked backend reference
 
 // Real content must be present.
 for (const [label, needle] of [
-  ['intro', 'Pizza bistro in plesni bar'],
+  ['hero opening line', 'Pizza bistro in plesni bar na Gradu Kodeljevo v Ljubljani.'],
+  ['hero address lead-in', 'Odprti smo na naslovu'],
+  ['address', 'Ulica Karla Benza 20'],
+  ['groups and events', 'Sprejemamo večje skupine in gostimo različne dogodke.'],
+  ['email lead-in', 'Pišite nam na'],
+  ['instagram line', 'Spremljajte naš Instagram za novice.'],
+  ['sign-off', 'Se vidimo.'],
   ['menu jpg link', 'menu-a3.jpg'],
-  ['sign-off', 'Liefs, Kader.'],
   ['contact email', 'info@kader.si'],
   ['order phone', '+386 83 836 740'],
   ['reservations phone', '+386 40 175 628'],
-  ['address', 'Ulica Carla Benza 20'],
   ['instagram', 'instagram.com/kader.lunapark']
 ]) {
   assert.ok(index.includes(needle), `index: missing expected content (${label}: "${needle}")`)
 }
+
+// The hero must link the address, the email and the Instagram handle inline.
+assert.ok(
+  /<a[^>]+href="https:\/\/maps\.app\.goo\.gl\/[^"]+"[^>]*>\s*Ulica Karla Benza 20\s*<\/a>/.test(index),
+  'index: hero address should be a link to Google Maps'
+)
+assert.ok(
+  /<a[^>]+href="mailto:info@kader\.si"[^>]*>info@kader\.si<\/a>/.test(index),
+  'index: hero email should be a mailto link'
+)
+assert.ok(
+  /<a[^>]+href="https:\/\/www\.instagram\.com\/kader\.lunapark\/"[^>]*>\s*Spremljajte naš Instagram za novice\./.test(index),
+  'index: hero Instagram line should link to @kader.lunapark'
+)
 
 // The menu must be a LINK that opens the JPG, not an inline <img>, and the hero
 // "Meni" link goes straight to the JPG (there is no menu section).

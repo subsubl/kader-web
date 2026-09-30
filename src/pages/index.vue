@@ -22,25 +22,34 @@
           >
 
           <!-- the reference sets its links INSIDE the sentence -->
-          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-6">
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-5">
             {{ t('site.intro1') }}
           </p>
-          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-6">
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-5">
             {{ t('site.intro2') }}
+            <a
+              href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-kader-black transition-colors"
+            >{{ t('site.address') }}</a>
           </p>
-          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-4">
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-5">
             {{ t('site.intro3') }}
+          </p>
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-5">
+            {{ t('site.intro4') }}
             <a href="mailto:info@kader.si" class="hover:text-kader-black transition-colors">info@kader.si</a>
           </p>
-          <p class="text-[22px] leading-[33px] text-left max-w-[420px] mb-6">
+          <p class="text-[22px] leading-[33px] text-left text-justify max-w-[420px] mb-6">
             <a
               href="https://www.instagram.com/kader.lunapark/"
               target="_blank"
               rel="noopener noreferrer"
               class="hover:text-kader-black transition-colors"
-            >{{ t('site.intro4') }}</a>
+            >{{ t('site.intro5') }}</a>
           </p>
-          <p class="text-[22px] leading-[33px] max-w-[420px] italic">{{ t('site.signoff') }}</p>
+          <p class="text-[22px] leading-[33px] max-w-[420px]">{{ t('site.signoff') }}</p>
         </div>
 
         <!-- RIGHT: the big links, right-aligned, 40px -->
@@ -132,7 +141,7 @@
           <h2 class="text-[33px] leading-[40px] font-normal mb-6">{{ t('site.contactTitle') }}</h2>
           <p class="text-[22px] leading-[33px] max-w-[430px]">
             <a href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7" target="_blank" rel="noopener noreferrer"
-               class="hover:text-kader-black transition-colors">Ulica Carla Benza 20</a><br>
+               class="hover:text-kader-black transition-colors">{{ t('site.address') }}</a><br>
             1000 Ljubljana
           </p>
           <p class="text-[16px] leading-[24px] text-white/75 mt-4 max-w-[430px]">{{ t('site.reserveNote') }}</p>

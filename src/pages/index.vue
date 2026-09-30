@@ -1,55 +1,78 @@
 <template>
   <div class="min-h-screen">
 
-    <!-- ===== INTRO ===== -->
-    <section class="max-w-3xl mx-auto px-5 pt-14 pb-12 text-center">
-      <img
-        :src="heroLogoUrl"
-        :alt="t('header.logoAlt')"
-        decoding="async"
-        class="w-[78%] max-w-[560px] h-auto mx-auto mb-10 object-contain"
-        width="1115" height="375"
-      >
-      <p class="text-2xl md:text-3xl leading-snug mb-6">{{ t('site.intro') }}</p>
-      <p class="text-base mb-2">
-        <a
-          href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="underline underline-offset-4 hover:text-kader-black transition-colors"
-        >Ulica Carla Benza 20, 1000 Ljubljana</a>
-      </p>
-      <p class="text-base mb-6">
-        <a href="https://www.instagram.com/kader.lunapark/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-kader-black transition-colors">{{ t('site.follow') }}</a>
-      </p>
-      <a
-        href="#menu"
-        class="inline-block px-8 py-3.5 bg-white text-kader-red text-sm md:text-base font-semibold uppercase tracking-widest border-2 border-kader-black hover:bg-kader-black hover:text-white transition-colors duration-300"
-      >{{ t('site.menuCta') }}</a>
+    <!-- ===== HERO: logo LEFT, menu links RIGHT (reference layout) ===== -->
+    <section class="relative overflow-hidden">
+      <!-- decorative clipart, in the spirit of the reference template -->
+      <Clipart shape="moon" :size="240" :opacity="0.16" position="absolute -left-10 top-6" />
+      <Clipart shape="circle" :size="300" :opacity="0.18" variant="stroke" position="absolute right-[8%] top-16" />
+
+      <div class="max-w-6xl mx-auto px-5 pt-14 pb-16 md:pt-20 md:pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+
+        <!-- LEFT: logo + intro -->
+        <div class="md:col-span-7">
+          <img
+            :src="heroLogoUrl"
+            :alt="t('header.logoAlt')"
+            decoding="async"
+            class="w-[70%] max-w-[460px] h-auto mb-10 object-contain"
+            width="1920" height="349"
+          >
+          <p class="text-xl md:text-2xl leading-relaxed max-w-xl mb-6">{{ t('site.intro') }}</p>
+          <p class="text-base mb-1">
+            <a
+              href="https://maps.app.goo.gl/8FAZpJkTksq2zZGq7"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline underline-offset-4 hover:text-kader-black transition-colors"
+            >Ulica Carla Benza 20, 1000 Ljubljana</a>
+          </p>
+          <p class="text-base">
+            <a href="https://www.instagram.com/kader.lunapark/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-kader-black transition-colors">{{ t('site.follow') }}</a>
+          </p>
+        </div>
+
+        <!-- RIGHT: the big menu links (40px in the reference) -->
+        <nav class="md:col-span-5 md:justify-self-end flex flex-col items-start md:items-end gap-4 md:gap-5">
+          <a href="#menu" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navMenu') }}</a>
+          <a href="#menu" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navTakeaway') }}</a>
+          <a href="#programme" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navEvents') }}</a>
+          <a href="#hours" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navVenue') }}</a>
+          <a href="#contact" class="text-3xl md:text-[40px] leading-none hover:text-kader-black transition-colors duration-300">{{ t('site.navContact') }}</a>
+        </nav>
+      </div>
     </section>
+
+    <!-- ===== DIVIDER (as in the reference: full-bleed arrow between blocks) ===== -->
+    <ArrowDivider direction="down" :height-px="150" :chevron-px="100" />
 
     <!-- ===== MENU (the real menu sheet) ===== -->
     <section id="menu" class="border-t border-white/25">
-      <div class="max-w-4xl mx-auto px-5 py-14">
-        <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-3">
-          {{ t('site.menuTitle') }}
-        </h2>
-        <p class="text-sm text-white/80 text-center mb-10 max-w-2xl mx-auto">{{ t('site.menuNote') }}</p>
+      <div class="max-w-6xl mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
 
-        <img
-          :src="menuImageUrl"
-          :alt="t('site.menuImageAlt')"
-          decoding="async"
-          class="w-full h-auto shadow-2xl"
-          width="3000" height="2121"
-        >
+        <!-- LEFT: kept deliberately empty of header text, per request -->
+        <div class="md:col-span-4 relative">
+          <Clipart shape="moon" :size="150" :opacity="0.14" position="absolute -left-6 top-2" />
+        </div>
 
-        <div class="text-xs text-white/70 space-y-2 mt-10 text-center">
-          <p>{{ t('pizzeria.allergenLegendTitle') }} {{ t('pizzeria.allergenLegendText') }}</p>
-          <p>{{ t('pizzeria.priceListValidFrom') }} · {{ t('pizzeria.pricesVat') }}</p>
+        <!-- RIGHT: menu sheet -->
+        <div class="md:col-span-8">
+          <img
+            :src="menuImageUrl"
+            :alt="t('site.menuImageAlt')"
+            decoding="async"
+            class="w-full h-auto shadow-2xl"
+            width="3000" height="2121"
+          >
+          <div class="text-xs text-white/70 space-y-2 mt-8">
+            <p>{{ t('pizzeria.allergenLegendTitle') }} {{ t('pizzeria.allergenLegendText') }}</p>
+            <p>{{ t('pizzeria.priceListValidFrom') }} · {{ t('pizzeria.pricesVat') }}</p>
+          </div>
         </div>
       </div>
     </section>
+
+    <ArrowDivider direction="down" :height-px="130" :chevron-px="88" />
 
     <!-- ===== PARALLAX BAND ===== -->
     <ParallaxBand
@@ -59,7 +82,7 @@
     />
 
     <!-- ===== UPCOMING EVENTS (RA snapshot) ===== -->
-    <section class="border-t border-white/25">
+    <section id="programme" class="border-t border-white/25">
       <div class="max-w-5xl mx-auto px-5 py-14">
         <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-3">
           {{ t('site.eventsTitle') }}
@@ -107,8 +130,9 @@
     />
 
     <!-- ===== OPENING HOURS ===== -->
-    <section class="border-t border-white/25">
-      <div class="max-w-3xl mx-auto px-5 py-14">
+    <section id="hours" class="border-t border-white/25">
+      <div class="max-w-3xl mx-auto px-5 py-14 relative">
+        <Clipart shape="circle" :size="190" :opacity="0.16" variant="stroke" position="absolute -right-6 top-4" />
         <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-8">
           {{ t('site.hoursTitle') }}
         </h2>
@@ -123,8 +147,9 @@
     </section>
 
     <!-- ===== VENUE / ZAALVERHUUR ===== -->
-    <section class="border-t border-white/25">
-      <div class="max-w-3xl mx-auto px-5 py-14">
+    <section id="venue" class="border-t border-white/25">
+      <div class="max-w-3xl mx-auto px-5 py-14 relative">
+        <Clipart shape="moon" :size="120" :opacity="0.14" position="absolute -left-8 bottom-4" />
         <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-center mb-8">
           {{ t('site.venueTitle') }}
         </h2>
@@ -144,8 +169,9 @@
     />
 
     <!-- ===== CONTACT ===== -->
-    <section class="border-t border-white/25">
-      <div class="max-w-3xl mx-auto px-5 py-14 text-center">
+    <section id="contact" class="border-t border-white/25">
+      <div class="max-w-3xl mx-auto px-5 py-14 text-center relative">
+        <Clipart shape="moon" :size="170" :opacity="0.13" position="absolute -right-8 -top-4" />
         <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-8">
           {{ t('site.contactTitle') }}
         </h2>

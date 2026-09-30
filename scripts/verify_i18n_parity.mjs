@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { createJiti } from 'jiti'
 
 const REQUIRED_LOCALES = ['sl', 'en', 'de', 'fr', 'it', 'sr', 'nl', 'pl', 'cs', 'es']
-const EXPECTED_LEAF_COUNT = 75
+const EXPECTED_LEAF_COUNT = 81
 const EXPECTED_PARAM_KEYS = []
 
 async function verifyI18nParity() {
@@ -71,6 +71,28 @@ async function verifyI18nParity() {
 
   // 5. Parity, empty-string, and parameter audit across all 10 locales
   console.log('>>> [CHECK 5] Parity, emptiness, and parameter symmetry across all 10 locales')
+
+  // 4b. No unresolved keys may reach the rendered page. t() falls back to the raw
+  // key when a lookup misses, which silently ships "site.navMenu" as visible text.
+  // This catches keys written into the wrong namespace object.
+  const usedInSource = new Set()
+  for (const key of baselineKeys) {
+    if (typeof flatDictionaries.sl[key] !== 'string') continue
+    // a value identical to its own fully-qualified key means a bad write
+    if (flatDictionaries.sl[key] === key) usedInSource.add(key)
+  }
+  assert.equal(
+    usedInSource.size,
+    0,
+    `keys whose value equals the key (written into the wrong namespace): ${[...usedInSource].join(', ')}`
+  )
+  // spot-check the keys the hero nav depends on
+  for (const k of ['site.navMenu', 'site.navTakeaway', 'site.navEvents', 'site.navVenue', 'site.navContact']) {
+    assert.ok(k in flatDictionaries.sl, `missing hero nav key: ${k}`)
+    assert.ok(flatDictionaries.sl[k] !== k, `hero nav key ${k} resolves to itself (wrong namespace)`)
+  }
+  console.log('  ✔ [PASS] no self-referential (mis-namespaced) keys; hero nav keys resolve')
+
   const problems = []
   for (const loc of REQUIRED_LOCALES) {
     const flat = flatDictionaries[loc]

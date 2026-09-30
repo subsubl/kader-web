@@ -74,6 +74,15 @@ for (const p of ['logo-banner.png', 'logo-asset2.png', 'logo-badge.png']) {
   assert.ok(fs.existsSync(path.join(root, p)), `missing logo asset: ${p}`)
 }
 
+// No unresolved i18n keys may ship as visible text. t() falls back to the raw
+// key on a miss, which renders strings like "site.navMenu" to the visitor.
+const leakedKeys = [...index.matchAll(/>\s*(?:site|pizzeria|home|header)\.[a-zA-Z0-9_]+\s*</g)].map(m => m[0].trim())
+assert.equal(
+  leakedKeys.length,
+  0,
+  `index: unresolved i18n keys rendered as text: ${[...new Set(leakedKeys)].join(', ')}`
+)
+
 // Every src/href pointing at the site root must carry the baseURL prefix when deploying to a subdirectory
 if (base) {
   const assets = [...index.matchAll(/(?:src|href)="(\/[^"]+)"/g)].map(m => m[1])

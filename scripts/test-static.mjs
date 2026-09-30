@@ -27,7 +27,6 @@ assert.ok(!/["'](\/api\/|\/admin)/.test(index), 'index: leaked backend reference
 for (const [label, needle] of [
   ['intro', 'Pizza bistro in plesni bar'],
   ['menu jpg link', 'menu-a3.jpg'],
-  ['menu download', 'Prenesi meni'],
   ['sign-off', 'Liefs, Kader.'],
   ['contact email', 'info@kader.si'],
   ['order phone', '+386 83 836 740'],
@@ -38,7 +37,8 @@ for (const [label, needle] of [
   assert.ok(index.includes(needle), `index: missing expected content (${label}: "${needle}")`)
 }
 
-// The menu must be a LINK that opens the JPG, not an inline <img>.
+// The menu must be a LINK that opens the JPG, not an inline <img>, and the hero
+// "Meni" link goes straight to the JPG (there is no menu section).
 assert.ok(
   /<a[^>]+href="[^"]*menu-a3\.jpg"/.test(index),
   'index: menu-a3.jpg must be linked, not displayed inline'
@@ -48,6 +48,8 @@ assert.equal(
   0,
   'index: menu JPG must not be rendered as an inline <img>'
 )
+assert.ok(!/id="menu"/.test(index), 'index: the menu section should be removed; Meni links straight to the JPG')
+assert.ok(!/Prenesi meni/.test(index), 'index: the menu download blurb should be removed')
 
 // Header: language picker only. No logo, no nav links.
 const header = index.slice(0, index.indexOf('</header>') + 9)

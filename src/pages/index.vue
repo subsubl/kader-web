@@ -45,7 +45,7 @@
 
         <!-- RIGHT: the big links, right-aligned, 40px -->
         <nav class="md:col-span-5 md:pr-[40px] flex flex-col items-end gap-4 md:gap-3">
-          <a href="#menu" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
+          <a :href="menuImageUrl" target="_blank" rel="noopener noreferrer" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
           <a href="#programme" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.eventsTitle') }}</a>
           <a href="#hours" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.hoursTitle') }}</a>
           <a href="#venue" class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.venueTitle') }}</a>
@@ -55,20 +55,6 @@
     </section>
 
     <ArrowDivider direction="down" :height-px="150" :chevron-px="100" />
-
-    <!-- ===== MENU: opens the JPG ====================================== -->
-    <section id="menu" class="border-t border-white/25">
-      <div class="max-w-[1400px] mx-auto px-5 py-12 grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
-        <div class="md:col-span-6 md:pl-[100px] relative">
-          <Clipart shape="pizza" :size="170" :opacity="0.2" variant="stroke" position="absolute -left-4 -top-6" />
-        </div>
-        <div class="md:col-span-6 md:pr-[40px] flex flex-col items-end gap-3">
-          <a :href="menuImageUrl" target="_blank" rel="noopener noreferrer"
-             class="text-[40px] leading-[60px] hover:text-kader-black transition-colors duration-300">{{ t('site.menuTitle') }}</a>
-          <a :href="menuImageUrl" download class="text-[22px] leading-[33px] hover:text-kader-black transition-colors">{{ t('site.menuDownload') }}</a>
-        </div>
-      </div>
-    </section>
 
     <ParallaxBand :src="assetUrl('/images/club-red-hero.jpg')" :alt="t('site.band1Alt')" height="58vh" />
 
@@ -119,7 +105,7 @@
       </div>
     </section>
 
-    <ParallaxBand :src="assetUrl('/pizzeria-bg.jpg')" :alt="t('site.band2Alt')" height="58vh" />
+    <ParallaxBand :src="assetUrl('/images/band-2.jpg')" :alt="t('site.band2Alt')" height="58vh" />
 
     <!-- ===== VENUE ==================================================== -->
     <section id="venue" class="border-t border-white/25">

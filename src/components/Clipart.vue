@@ -85,30 +85,13 @@
       <path d="M15.5 8.5a5 5 0 0 1 0 7" />
       <path d="M18.5 6a9 9 0 0 1 0 12" />
     </svg>
-
-    <!-- Pizza slice (Tabler "pizza", MIT) -->
-    <svg
-      v-else-if="shape === 'pizza'"
-      viewBox="0 0 24 24"
-      :style="svgStyle"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M12 21.5c-3.04 0-5.952-.714-8.5-1.983l8.5-16.517 8.5 16.517a19.09 19.09 0 0 1-8.5 1.983" />
-      <path d="M5.38 15.866a14.94 14.94 0 0 0 6.815 1.634 14.944 14.944 0 0 0 6.502-1.479" />
-      <path d="M13 11.01h-.01" />
-      <path d="M11 14h-.01" />
-    </svg>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
-type Shape = 'moon' | 'circle' | 'arrow-down' | 'arrow-up' | 'speaker' | 'pizza'
+type Shape = 'moon' | 'circle' | 'arrow-down' | 'arrow-up' | 'speaker'
 
 const props = withDefaults(defineProps<{
   shape: Shape

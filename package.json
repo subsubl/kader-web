@@ -6,11 +6,12 @@
   "engines": { "node": ">=22.19.0" },
   "scripts": {
     "dev": "nuxt dev",
-    "build": "nuxt generate",
-    "generate": "nuxt generate",
+    "build": "nuxt generate && node scripts/copy-fonts.mjs",
+    "generate": "nuxt generate && node scripts/copy-fonts.mjs",
     "typecheck": "nuxt typecheck",
     "postinstall": "nuxt prepare",
-    "test": "node scripts/test-static.mjs"
+    "test": "node scripts/test-static.mjs",
+    "verify:theme": "node scripts/verify_theme.mjs"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",

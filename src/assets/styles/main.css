@@ -2,19 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-html.dark { background-color: #0D0F12; }
+/* ============================================================
+   KADREOS-INSPIRED THEME
+   Brand red #ed2224 (kader.si production colour) + white type.
+   Typeface: Inter, self-hosted from kader.si's own font files.
+   ============================================================ */
+
+/* --- Self-hosted Inter (the exact files kader.si serves) ---
+   NOTE: var() is NOT valid inside @font-face src, so these are plain paths.
+   The generate step copies public/fonts into <baseURL>/fonts (see
+   scripts/copy-fonts.mjs) so the site works on GitHub project Pages, where
+   it is served from a /kader-web/ subdirectory. */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  background-color: #ed2224;
 }
 
 body {
-  @apply antialiased text-gray-800 bg-white;
+  @apply antialiased;
+  background-color: #ed2224;
+  color: #ffffff;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
 }
 
-/* Touch & Mobile UX Utilities */
+/* --- Parallax image bands ---------------------------------
+   The figure is a viewport-height window; the inner image is
+   taller than the window and is translated with a scroll
+   offset written by useParallax, producing depth.
+   The oversize + translate is what creates the movement.      */
+.parallax-band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #101010;
+}
+
+.parallax-band__inner {
+  position: absolute;
+  inset: -12% 0;
+  width: 100%;
+  will-change: transform;
+  transform: translate3d(0, var(--parallax-y, 0px), 0);
+}
+
+.parallax-band__inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Motion is opt-out for anyone who asks for less of it. */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-band__inner {
+    transform: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* --- Touch & Mobile UX Utilities --- */
 .touch-target-min {
   min-width: 44px;
   min-height: 44px;
@@ -48,34 +130,3 @@ body {
   content-visibility: auto;
   contain-intrinsic-size: 1px 500px;
 }
-
-/* Pizzeria section: print-menu red stripe border (matching A3 menu aesthetic) */
-.menu-stripe-border {
-  width: 100%;
-  height: 40px;
-  background-image: repeating-linear-gradient(
-    to right,
-    #cc1a1a 0px,
-    #cc1a1a 14px,
-    #ffffff 14px,
-    #ffffff 17px,
-    #cc1a1a 17px,
-    #cc1a1a 26px,
-    #ffffff 26px,
-    #ffffff 28px,
-    #cc1a1a 28px,
-    #cc1a1a 34px,
-    #ffffff 34px,
-    #ffffff 36px,
-    #cc1a1a 36px,
-    #cc1a1a 44px,
-    #ffffff 44px,
-    #ffffff 46px,
-    #cc1a1a 46px,
-    #cc1a1a 54px,
-    #ffffff 54px,
-    #ffffff 57px
-  );
-  background-size: 57px 100%;
-}
-

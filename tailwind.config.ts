@@ -21,10 +21,11 @@ export default <Partial<Config>>{
         },
         brand: { red: '#E63946', dark: '#0D0F12', card: '#161920', accent: '#FF4D4D' }
       },
-      fontFamily: { 
-        sans: ['Inter', 'sans-serif'],
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
-        montserrat: ['Montserrat', 'sans-serif']
+      fontFamily: {
+        // Inter is self-hosted from kader.si's own font files (see main.css)
+        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        serif: ['Inter', 'system-ui', 'sans-serif'],
+        montserrat: ['Inter', 'system-ui', 'sans-serif']
       }
     }
   }

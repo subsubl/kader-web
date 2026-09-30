@@ -37,8 +37,33 @@ for (const [label, needle] of [
   assert.ok(index.includes(needle), `index: missing expected content (${label}: "${needle}")`)
 }
 
-// The site must render on a light background (no dark theme leaking through).
+// The site must render signal-red with white type (no dark theme leaking through).
+assert.ok(index.includes('bg-kader-red'), 'index: signal red background class missing')
 assert.ok(!/<body[^>]*class="[^"]*bg-black/.test(index), 'index: body must not be dark')
+// Fonts are self-hosted from kader.si's own Inter files; no Google Fonts CDN.
+// The @font-face rules live in the emitted stylesheet, not in index.html.
+const cssFiles = fs.readdirSync(path.join(root, '_nuxt')).filter(f => f.endsWith('.css'))
+assert.ok(cssFiles.length > 0, 'no emitted stylesheet found in _nuxt')
+const css = cssFiles.map(f => fs.readFileSync(path.join(root, '_nuxt', f), 'utf8')).join('\n')
+assert.ok(css.includes('Inter'), 'stylesheet: Inter @font-face missing')
+for (const f of ['Inter-Regular.woff', 'Inter-SemiBold.woff', 'Inter-Bold.woff', 'Inter-Black.woff']) {
+  assert.ok(fs.existsSync(path.join(root, 'fonts', f)), `missing self-hosted font: ${f}`)
+  // copy-fonts also emits them under the deployment base.
+  assert.ok(fs.existsSync(path.join(root, base.replace(/^\//, ''), 'fonts', f)), `font not emitted under base: ${f}`)
+  assert.ok(css.includes(f), `stylesheet: font ${f} not referenced`)
+  // The emitted URL must resolve: either base-prefixed or relative to _nuxt/.
+  const urlMatch = css.match(new RegExp(`url\\(([^)]*${f})\\)`))
+  assert.ok(urlMatch, `stylesheet: no url() for ${f}`)
+  const url = urlMatch[1]
+  // Accept absolute base-prefixed, root-relative (served at domain root is wrong
+  // for Pages, so we require base), or relative-to-_nuxt forms.
+  const ok = url.startsWith('data:') || url.includes(base) || /^(?:\.\.\/)?fonts\//.test(url)
+  assert.ok(ok, `stylesheet: ${f} URL does not resolve: ${url}`)
+}
+assert.ok(!/fonts\.googleapis\.com/.test(index), 'index: must not load Google Fonts')
+assert.ok(!/fonts\.googleapis\.com/.test(css), 'stylesheet: must not load Google Fonts')
+// Parallax bands must be present.
+assert.ok(index.includes('parallax-band'), 'index: parallax band component missing')
 
 // Every src/href pointing at the site root must carry the baseURL prefix when deploying to a subdirectory
 if (base) {

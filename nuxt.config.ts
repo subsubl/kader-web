@@ -10,8 +10,7 @@ export default defineNuxtConfig({
     head: {
       title: 'Kader — Pizza bistro in plesni bar',
       meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-      htmlAttrs: { lang: 'sl' },
-      link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600;700;900&display=swap' }]
+      htmlAttrs: { lang: 'sl' }
     }
   },
   css: ['~/assets/styles/main.css'],

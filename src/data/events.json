@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-09-23T08:40:52.648Z",
+  "lastSyncedAt": "2026-10-20T08:39:44.280Z",
   "events": [
     {
       "ra_id": 485105,
@@ -398,6 +398,23 @@
       "lineup": "DJ Tease\n<artist id=\"122032\">SunnySun</artist> \nAnina",
       "artists": [
         "SunnySun"
+      ],
+      "genres": []
+    },
+    {
+      "ra_id": 2563984,
+      "title": "Nura",
+      "date": "2026-11-06T19:00:00.000Z",
+      "start_time": "2026-11-06T19:00:00.000Z",
+      "end_time": "2026-11-07T05:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/bdc3d82f35b68c07c0f19c02e3aa50bd51703c3e.jpg",
+      "ra_url": "https://ra.co/events/2563984",
+      "lineup": "<artist id=\"83613\">Daura</artist> \n@Ita Kora (live)\n<artist id=\"152119\">Moska.</artist>  \n<artist id=\"127154\">Lottie (SI)</artist>",
+      "artists": [
+        "Daura",
+        "Moska.",
+        "Lottie (SI)"
       ],
       "genres": []
     }

@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-10-20T08:39:44.280Z",
+  "lastSyncedAt": "2026-10-27T09:07:04.891Z",
   "events": [
     {
       "ra_id": 485105,
@@ -338,8 +338,10 @@
       "cost": null,
       "flyer_url": "https://images.ra.co/8efc8b2dce04849c0ad96d22cd0956a42da33fab.jpg",
       "ra_url": "https://ra.co/events/2513234",
-      "lineup": "Dash\nLeanne\nOlivia Swim\nMNTR\nAndrea Fox\n4materasu\n4na\nBlagch\nHoney Dews\nIskrazy\nKalina\nLady Julz\nMaja Panini\nMashi",
-      "artists": [],
+      "lineup": "Dash\nLeanne\nOlivia Swim\nMNTR\nAndrea Fox\n4materasu\n4na\nBlagch\nHoney Dews\nIskrazy\nKalina\nLady Julz\n<artist id=\"187569\">Maja Panini</artist>\nMashi",
+      "artists": [
+        "Maja Panini"
+      ],
       "genres": [
         "Techno",
         "Disco"

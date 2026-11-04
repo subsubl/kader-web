@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-10-27T09:07:04.891Z",
+  "lastSyncedAt": "2026-11-04T11:05:28.036Z",
   "events": [
     {
       "ra_id": 485105,
@@ -417,6 +417,21 @@
         "Daura",
         "Moska.",
         "Lottie (SI)"
+      ],
+      "genres": []
+    },
+    {
+      "ra_id": 2575770,
+      "title": "GLISER 9 LET",
+      "date": "2026-11-13T22:00:00.000Z",
+      "start_time": "2026-11-13T22:00:00.000Z",
+      "end_time": "2026-11-14T05:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/e010ff386d3364ab40a320356e5b811129d54102.jpg",
+      "ra_url": "https://ra.co/events/2575770",
+      "lineup": "<artist id=\"2798\">Ian F</artist> \nSenč",
+      "artists": [
+        "Ian F"
       ],
       "genres": []
     }

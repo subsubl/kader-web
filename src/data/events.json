@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-11-04T11:05:28.036Z",
+  "lastSyncedAt": "2026-11-14T10:37:04.705Z",
   "events": [
     {
       "ra_id": 485105,
@@ -434,6 +434,22 @@
         "Ian F"
       ],
       "genres": []
+    },
+    {
+      "ra_id": 2584842,
+      "title": "Frekvenca x Diskölöka - Hangout",
+      "date": "2026-11-21T19:00:00.000Z",
+      "start_time": "2026-11-21T19:00:00.000Z",
+      "end_time": "2026-11-22T04:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/fdb62ddc82c4ef9487aaf2dffdeaad2e84666be6.jpg",
+      "ra_url": "https://ra.co/events/2584842",
+      "lineup": "Zidane\nŽiga Žaga\nJush Kush\nMaja Panini\nTutto Frutto",
+      "artists": [],
+      "genres": [
+        "House",
+        "Garage"
+      ]
     }
   ]
 }

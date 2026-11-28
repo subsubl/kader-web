@@ -1,5 +1,5 @@
 {
-  "lastSyncedAt": "2026-11-14T10:37:04.705Z",
+  "lastSyncedAt": "2026-11-28T11:56:49.894Z",
   "events": [
     {
       "ra_id": 485105,
@@ -450,6 +450,19 @@
         "House",
         "Garage"
       ]
+    },
+    {
+      "ra_id": 2595388,
+      "title": "Vouk je Nazaj",
+      "date": "2026-12-31T21:00:00.000Z",
+      "start_time": "2026-12-31T21:00:00.000Z",
+      "end_time": "2027-01-01T07:00:00.000Z",
+      "cost": null,
+      "flyer_url": "https://images.ra.co/f597e92ee8cadd640d212d12f50c5d90d2ab8f0f.jpg",
+      "ra_url": "https://ra.co/events/2595388",
+      "lineup": "Akaj b2b Nitz\nNitram\nMila & Zazi\n93kb\nBlagch\nSenč",
+      "artists": [],
+      "genres": []
     }
   ]
 }
